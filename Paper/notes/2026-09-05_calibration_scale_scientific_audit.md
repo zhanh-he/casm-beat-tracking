@@ -31,7 +31,7 @@ CASM 的 calibration-scale 图本身具有科学意义，但当前 CASM--DBN 对
 
 ## 代码、数据与版本状态
 
-Figure 5、DBN 对照图、数据和复现代码已经进入 GitHub `main`。绘图修正提交为 [`1a28a02`](https://github.com/zhanh-he/casm-icassp2026-plot/commit/1a28a02)，该提交已包含在当前主分支历史中。
+Figure 5、DBN 对照图、数据和复现代码已经进入 GitHub `main`。绘图修正提交为 [`1a28a02`](https://github.com/zhanh-he/casm-beat-tracking/commit/1a28a02)，该提交已包含在当前主分支历史中。
 
 主要文件：
 

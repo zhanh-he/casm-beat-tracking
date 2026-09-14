@@ -1,8 +1,8 @@
-# CASM Decoder Listening Demo
+# CASM Beat Tracking Demo
 
 ## Public site
 
-**https://zhanh-he.github.io/casm-icassp2026-plot/**
+**https://zhanh-he.github.io/casm-beat-tracking/**
 
 This is the public GitHub Pages demo. It can be opened directly without
 cloning the repository or starting a local server.

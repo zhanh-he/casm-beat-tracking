@@ -1,7 +1,8 @@
 # StructBeat Figure 1 Reproduction Bundle
 
-This directory reproduces finalized real-case panels for SMC 117/221 and three
-selected GTZAN tracks. It preserves exact held-out Beat This logits, unaugmented
+This directory reproduces five original real-case panels for SMC 117/221 and three
+GTZAN tracks, plus a Pop 00064 supplement used by the six-case public demo.
+For the original five it preserves exact held-out Beat This logits, unaugmented
 input spectrograms, ground truth, Direct/Fixed Semi-Markov/DBN/PLPDP/CASM
 event outputs, downbeat outputs, IBI tables, CASM local duration priors,
 reliability proxies, metrics, and the original browser figure.
@@ -41,6 +42,13 @@ python reference/build_decoder_contrast_visualization.py \
 The notebook also exports static PNG/PDF figures for all five cases. The D3 replay
 uses five-decimal probabilities embedded in the payload; the raw logits are
 retained in `data/raw_cache/` and differ after sigmoid only by JSON rounding.
+
+The additional Pop 00064 public case has its exact Beat This `final0` raw cache,
+decoder payload, and full-length MP3 in this repository. Rebuild its payload
+with `reference/build_extended_demo_cases.py --only-gtzan gtzan_pop_00064`
+using the isolated `auto_structbeat` checkout. The five-case notebook and
+spectrogram bundle remain unchanged; do not mistake this supplement for a
+sixth spectrogram-backed notebook case.
 
 ## Data map
 

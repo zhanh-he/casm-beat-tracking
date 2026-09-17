@@ -7,7 +7,7 @@
 This is the public GitHub Pages demo. It can be opened directly without
 cloning the repository or starting a local server.
 
-The site presents finalized SMC 117/221 examples and three selected GTZAN cases.
+The site presents finalized SMC 117/221 examples and four selected GTZAN cases.
 
 The page presents a public-view D3 visualization and synchronized Web Audio
 audition for GroundTruth, Direct, DBN, PLPDP, and CASM. The offline reproduction

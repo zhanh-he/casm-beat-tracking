@@ -6,6 +6,7 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+import sys
 from pathlib import Path
 
 
@@ -53,7 +54,7 @@ for case, label, rank, summary in (
         "gtzan_blues_00023",
         "GTZAN · Blues 00023",
         None,
-        "CASM improves both event accuracy and metrical continuity over all four comparison decoders on this clean held-out track.",
+        "CASM improves both event accuracy and metrical continuity over the displayed decoders on this clean held-out track.",
     ),
     (
         "gtzan_metal_00026",
@@ -98,8 +99,11 @@ data_path.write_text(
     encoding="utf-8",
 )
 
-fragment_path = FIGURE_ROOT / "reference" / "real-decoder-contrast.html"
-fragment = fragment_path.read_text(encoding="utf-8")
+generator_path = FIGURE_ROOT / "reference" / "build_decoder_contrast_visualization.py"
+sys.path.insert(0, str(generator_path.parent))
+from build_decoder_contrast_visualization import render_fragment
+
+fragment = render_fragment(json.dumps(cases, separators=(",", ":"), ensure_ascii=True), demo=True)
 base_style = """
 <style>
 :root {
@@ -156,8 +160,8 @@ visualization_path = DOCS_ROOT / "visualization.html"
 visualization_path.write_text(visualization, encoding="utf-8")
 
 manifest = {
-    "source_figure_fragment": str(fragment_path.relative_to(REPO_ROOT)),
-    "source_figure_sha256": sha256(fragment_path),
+    "source_figure_generator": str(generator_path.relative_to(REPO_ROOT)),
+    "source_figure_sha256": sha256(generator_path),
     "case_data_sha256": sha256(data_path),
     "visualization_sha256": sha256(visualization_path),
     "case_count": len(cases),

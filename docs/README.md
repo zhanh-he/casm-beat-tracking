@@ -9,11 +9,12 @@ cloning the repository or starting a local server.
 
 The site presents finalized SMC 117/221 examples and three selected GTZAN cases.
 
-The page preserves the exact D3 visualization and adds synchronized Web Audio
-audition for GroundTruth, Direct, Fixed Semi-Markov, DBN, PLPDP, and CASM.
+The page presents a public-view D3 visualization and synchronized Web Audio
+audition for GroundTruth, Direct, DBN, PLPDP, and CASM. The offline reproduction
+bundle retains the Fixed Semi-Markov mechanism comparison.
 Clicks are synthesized from the frozen event arrays in `data/cases.json`.
 
-One-click audition buttons sit directly below the decoder score table. Music is
+One-click audition buttons sit in the decoder score table. Music is
 streamed through the browser's native MP3 player; the click and music gains are
 fixed, so the public interface only exposes the controls needed for comparison.
 

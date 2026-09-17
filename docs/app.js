@@ -3,7 +3,6 @@
 const SOURCES = [
   { id: "reference", label: "GroundTruth", color: "#242629" },
   { id: "direct", label: "Direct", color: "#409eff" },
-  { id: "fixed_semimarkov", label: "Fixed Semi-Markov", color: "#ff7a3d" },
   { id: "dbn", label: "DBN", color: "#59c879" },
   { id: "plpdp", label: "PLPDP", color: "#d89b31" },
   { id: "casm", label: "CASM", color: "#9270ed" },
@@ -69,7 +68,7 @@ function formatTime(seconds) {
 function renderSourceButtons() {
   const buttons = figureDocument()?.querySelectorAll("[data-audition-source]") || [];
   buttons.forEach((button) => {
-    const selected = button.dataset.auditionSource === selectedSource;
+    const selected = isPlaying && button.dataset.auditionSource === selectedSource;
     button.setAttribute("aria-pressed", String(selected));
     button.dataset.playing = String(selected && isPlaying);
     button.disabled = !musicReady;
@@ -321,11 +320,10 @@ function mountInlineAuditionControls() {
 
   const style = documentInside.createElement("style");
   style.textContent = `
-#audition-toolbar { margin: 12px 0 20px; padding: 13px 0 14px; border-top: 1px solid #dce1e5; border-bottom: 1px solid #dce1e5; }
+#audition-toolbar { margin: 2px 0 20px; padding: 5px 0 14px; border-bottom: 1px solid #dce1e5; }
 .audition-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 9px; }
 .audition-heading strong { font-size: 12px; font-weight: 700; }
 .audition-window { color: #697079; font-size: 11px; font-variant-numeric: tabular-nums; }
-.audition-buttons { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)) 38px; gap: 6px; }
 .audition-method, .audition-stop { min-height: 36px; border: 1px solid #dce1e5; border-radius: 5px; background: #fff; color: #202327; cursor: pointer; font: inherit; font-size: 11px; font-weight: 650; }
 .audition-method { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 6px 7px 6px 10px; overflow: hidden; }
 .audition-method::after { content: ""; position: absolute; inset: auto 0 0; height: 3px; background: var(--method-color); }
@@ -346,8 +344,7 @@ function mountInlineAuditionControls() {
 .audition-status-dot[data-state="playing"] { background: #9270ed; }
 .audition-status-dot[data-state="error"] { background: #d85555; }
 .audition-status { margin: 0; color: #697079; font-size: 11px; line-height: 1.4; }
-@media (max-width: 820px) { .audition-buttons { grid-template-columns: repeat(3, minmax(0, 1fr)); } .audition-stop { grid-column: 1 / -1; width: 38px; } }
-@media (max-width: 520px) { .audition-heading { align-items: flex-start; flex-direction: column; gap: 3px; } .audition-buttons { grid-template-columns: repeat(2, minmax(0, 1fr)); } .audition-stop { grid-column: 1 / -1; } .audition-transport { grid-template-columns: 1fr 108px; } .audition-time { font-size: 10px; } }
+@media (max-width: 520px) { .audition-heading { align-items: flex-start; flex-direction: column; gap: 3px; } .audition-transport { grid-template-columns: 1fr 108px; } .audition-time { font-size: 10px; } }
 `;
   documentInside.head.append(style);
 
@@ -358,35 +355,22 @@ function mountInlineAuditionControls() {
   const heading = documentInside.createElement("div");
   heading.className = "audition-heading";
   const title = documentInside.createElement("strong");
-  title.textContent = "Quick audition";
+  title.textContent = "Playback";
   const windowLabel = documentInside.createElement("span");
   windowLabel.id = "audition-window";
   windowLabel.className = "audition-window";
   heading.append(title, windowLabel);
 
-  const buttons = documentInside.createElement("div");
-  buttons.className = "audition-buttons";
-  SOURCES.forEach((source) => {
-    const button = documentInside.createElement("button");
-    button.type = "button";
-    button.className = "audition-method";
-    button.dataset.auditionSource = source.id;
-    button.style.setProperty("--method-color", source.color);
-    button.setAttribute("aria-label", `Play ${source.label}`);
-    const glyph = documentInside.createElement("span");
-    glyph.className = "play-glyph";
-    glyph.setAttribute("aria-hidden", "true");
-    const label = documentInside.createElement("span");
-    label.textContent = source.label;
-    button.append(glyph, label);
-    button.addEventListener("click", () => {
-      stopPlayback();
-      selectedSource = source.id;
-      renderSourceButtons();
-      void playSelection();
-    });
-    buttons.append(button);
+  table.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-audition-source]");
+    if (!button || button.disabled) return;
+    stopPlayback();
+    selectedSource = button.dataset.auditionSource;
+    renderSourceButtons();
+    void playSelection();
   });
+  const observer = new MutationObserver(() => renderSourceButtons());
+  observer.observe(table.tBodies[0], { childList: true });
 
   const stop = documentInside.createElement("button");
   stop.id = "audition-stop";
@@ -399,7 +383,7 @@ function mountInlineAuditionControls() {
   stopGlyph.setAttribute("aria-hidden", "true");
   stop.append(stopGlyph);
   stop.addEventListener("click", () => stopPlayback(false));
-  buttons.append(stop);
+  heading.append(stop);
 
   const transport = documentInside.createElement("div");
   transport.className = "audition-transport";
@@ -427,7 +411,7 @@ function mountInlineAuditionControls() {
   status.setAttribute("aria-live", "polite");
   statusRow.append(dot, status);
 
-  toolbar.append(heading, buttons, transport, statusRow);
+  toolbar.append(heading, transport, statusRow);
   table.insertAdjacentElement("afterend", toolbar);
   renderSourceButtons();
 }
@@ -441,6 +425,7 @@ function syncFromFigure(caseChanged = false) {
   const nextCase = Number(caseSelect.value);
   if (caseChanged || nextCase !== activeCaseIndex) {
     stopPlayback();
+    selectedSource = "reference";
     activeCaseIndex = nextCase;
     clearAudio();
     void loadBundledAudio();

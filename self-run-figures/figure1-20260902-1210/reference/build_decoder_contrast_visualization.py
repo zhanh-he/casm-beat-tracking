@@ -76,12 +76,16 @@ def main() -> None:
         },
     ]
     payload = json.dumps(cases, separators=(",", ":"), ensure_ascii=True)
-    fragment = TEMPLATE.replace("__CASES__", payload).replace(
-        "__DEFAULT_CASE__", str(args.default_case)
-    )
+    fragment = render_fragment(payload, args.default_case)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(fragment, encoding="utf-8")
     print(args.output)
+
+
+def render_fragment(cases_json: str, default_case: int = 0, *, demo: bool = False) -> str:
+    return (TEMPLATE.replace("__CASES__", cases_json)
+            .replace("__DEFAULT_CASE__", str(default_case))
+            .replace("__DEMO__", "true" if demo else "false"))
 
 
 TEMPLATE = r'''
@@ -131,6 +135,7 @@ TEMPLATE = r'''
     #decoder-contrast-real-v2 .case-field { min-width: 0; max-width: 100%; }
     #decoder-contrast-real-v2 .case-field select { max-width: 100%; }
     #decoder-contrast-real-v2 .case-field .form-label { display: block; }
+    #decoder-contrast-real-v2 .control-hint { margin: 4px 0 0; color: var(--muted-foreground); font-size: 11px; }
     #decoder-contrast-real-v2 .case-summary {
       padding: 9px 7px;
       border-top: 1px solid var(--border);
@@ -164,11 +169,20 @@ TEMPLATE = r'''
     #decoder-contrast-real-v2 .window-control {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
-      gap: 12px;
+      gap: 4px 12px;
       align-items: center;
       padding: 7px 7px 0;
     }
+    #decoder-contrast-real-v2 .window-control label { grid-column: 1 / -1; }
     #decoder-contrast-real-v2 .window-control input { width: 100%; }
+    #decoder-contrast-real-v2 .table-play {
+      width: 32px; height: 30px; border: 1px solid var(--border); border-radius: 4px;
+      color: var(--foreground); background: #fff; cursor: pointer; font: inherit;
+    }
+    #decoder-contrast-real-v2 .table-play:hover:not(:disabled) { background: #f0f7f6; }
+    #decoder-contrast-real-v2 .table-play[aria-pressed="true"] { border-color: var(--casm-color); background: #f4f0fa; }
+    #decoder-contrast-real-v2 .table-play:disabled { opacity: .45; cursor: not-allowed; }
+    #decoder-contrast-real-v2 .reference-row { background: #f7f9f9; }
     #decoder-contrast-real-v2 .window-readout { white-space: nowrap; }
     #decoder-contrast-real-v2 .legend {
       display: flex;
@@ -258,6 +272,7 @@ TEMPLATE = r'''
     #decoder-contrast-real-v2 .axis path,
     #decoder-contrast-real-v2 .axis line { stroke: var(--border); }
     #decoder-contrast-real-v2 .grid line { stroke: var(--border); opacity: .55; }
+    #decoder-contrast-real-v2 .ibi-grid line { stroke: #bfc6cd; opacity: .38; }
     #decoder-contrast-real-v2 .grid path { display: none; }
     #decoder-contrast-real-v2 [data-chart-frame] {
       fill: transparent;
@@ -288,18 +303,19 @@ TEMPLATE = r'''
 
   <div class="figure-head">
     <div>
-      <h2>真实案例：五种解码器在同一 activation 上分叉</h2>
+      <h2>Beat decoder paths on the same activation</h2>
       <p class="subtitle text-small"></p>
     </div>
-    <label class="case-field form-label" for="decoder-contrast-case-v2">案例
+    <label class="case-field form-label" for="decoder-contrast-case-v2">Track
       <select id="decoder-contrast-case-v2" class="form-select"></select>
+      <span class="control-hint">Choose another recording.</span>
     </label>
   </div>
   <p class="case-summary text-small" aria-live="polite"></p>
 
   <div class="table-responsive">
     <table class="table table-sm metric-table">
-      <thead><tr><th>Decoder</th><th class="text-end">F1</th><th class="text-end">CMLt</th><th class="text-end">AMLt</th><th class="text-end">Events</th></tr></thead>
+      <thead><tr><th>Decoder</th><th class="text-end">F1</th><th class="text-end">CMLt</th><th class="text-end">AMLt</th><th class="text-end">Events</th><th class="play-column" hidden>Play audio</th></tr></thead>
       <tbody></tbody>
     </table>
   </div>
@@ -313,19 +329,20 @@ TEMPLATE = r'''
     <span class="legend-item"><i class="legend-symbol">×</i>false-positive prediction</span>
     <span class="legend-item"><i class="legend-dot"></i>GroundTruth IBI</span>
     <span class="legend-item direct-color"><i class="legend-output-line"></i>Direct output IBI</span>
-    <span class="legend-item fixed-color"><i class="legend-prior"></i>Fixed Semi-Markov output IBI (fixed τ + square)</span>
+    <span class="legend-item fixed-color fixed-only"><i class="legend-prior"></i>Fixed Semi-Markov output IBI (fixed τ + square)</span>
     <span class="legend-item dbn-color"><i class="legend-output-line"></i>DBN output IBI</span>
     <span class="legend-item plpdp-color"><i class="legend-output-line"></i>PLPDP output IBI</span>
     <span class="legend-item casm-color"><i class="legend-prior"></i>CASM local τ(t) + circle output IBI</span>
   </div>
 
   <div class="window-control">
-    <input class="form-range" type="range" step="0.02" aria-label="Visible window start">
+    <label class="form-label" for="decoder-window-start">Listening window <span class="control-hint">Drag to choose a time interval.</span></label>
+    <input id="decoder-window-start" class="form-range" type="range" step="0.02" aria-label="Visible window start">
     <span class="window-readout text-small tabular-nums"></span>
   </div>
   <div class="chart-wrap">
     <svg role="img" aria-labelledby="decoder-contrast-title-v2 decoder-contrast-desc-v2">
-      <title id="decoder-contrast-title-v2">Five real beat decoder paths on a shared activation</title>
+      <title id="decoder-contrast-title-v2">Beat decoder paths on a shared activation</title>
       <desc id="decoder-contrast-desc-v2">Held-out Beat This activation, GroundTruth beats and downbeats, Direct, fixed Semi-Markov, DBN, PLPDP, and CASM beat paths, followed by six separated interval panels.</desc>
     </svg>
     <div class="tooltip text-small" role="tooltip"></div>
@@ -336,6 +353,7 @@ TEMPLATE = r'''
   <script>
   (() => {
     const CASES = __CASES__;
+    const DEMO = __DEMO__;
     const root = document.getElementById('decoder-contrast-real-v2');
     const select = root.querySelector('.form-select');
     const subtitle = root.querySelector('.subtitle');
@@ -351,7 +369,7 @@ TEMPLATE = r'''
 
     const methods = [
       {id: 'direct', label: 'Direct', short: 'Direct', color: 'direct'},
-      {id: 'fixed_semimarkov', label: 'Fixed Semi-Markov', short: 'Fixed SMM', color: 'fixed'},
+      ...(!DEMO ? [{id: 'fixed_semimarkov', label: 'Fixed Semi-Markov', short: 'Fixed SMM', color: 'fixed'}] : []),
       {id: 'dbn', label: 'DBN', short: 'DBN', color: 'dbn'},
       {id: 'plpdp', label: 'PLPDP', short: 'PLPDP', color: 'plpdp'},
       {id: 'casm', label: 'CASM', short: 'CASM', color: 'casm'}
@@ -367,6 +385,11 @@ TEMPLATE = r'''
       foreground: css.getPropertyValue('--foreground').trim(),
       border: css.getPropertyValue('--border').trim()
     };
+    if (DEMO) {
+      root.querySelector('.play-column').hidden = false;
+      root.querySelector('.fixed-only').remove();
+      root.querySelector('svg desc').textContent = 'Frozen Beat This activation, reference and four decoder beat paths, followed by five interval panels.';
+    }
 
     CASES.forEach((entry, index) => {
       const option = document.createElement('option');
@@ -388,10 +411,11 @@ TEMPLATE = r'''
       subtitle.textContent = `${entry.label} · ${d.protocol.role} · Beat This ${d.protocol.fold} · ${d.duration_seconds.toFixed(2)} s`;
       const local = d.casm_analysis.period_seconds.slice().sort((a, b) => a - b);
       const q = p => local[Math.min(local.length - 1, Math.floor(p * local.length))];
-      summary.textContent = `${entry.summary} Global fixed τ = ${d.fixed_semimarkov.period_seconds.toFixed(2)} s; CASM local τ 10–90% = ${q(.1).toFixed(2)}–${q(.9).toFixed(2)} s.`;
-      tableBody.innerHTML = methods.map(method => {
+      summary.textContent = DEMO ? entry.summary : `${entry.summary} Global fixed τ = ${d.fixed_semimarkov.period_seconds.toFixed(2)} s; CASM local τ 10–90% = ${q(.1).toFixed(2)}–${q(.9).toFixed(2)} s.`;
+      const referenceRow = DEMO ? '<tr class="reference-row"><td><span class="method-label">GroundTruth</span></td><td class="text-end">—</td><td class="text-end">—</td><td class="text-end">—</td><td class="text-end">—</td><td><button type="button" class="table-play" data-audition-source="reference" aria-label="Play GroundTruth" title="Play GroundTruth">▶</button></td></tr>' : '';
+      tableBody.innerHTML = referenceRow + methods.map(method => {
         const metric = d.decoders[method.id].beat_metrics;
-        return `<tr><td><span class="method-label ${method.color}-color"><i class="method-swatch"></i>${displayLabel(method, d)}</span></td><td class="text-end tabular-nums">${pct(metric.fmeasure)}</td><td class="text-end tabular-nums">${pct(metric.cmlt)}</td><td class="text-end tabular-nums">${pct(metric.amlt)}</td><td class="text-end tabular-nums">${metric.event_count}</td></tr>`;
+        return `<tr><td><span class="method-label ${method.color}-color"><i class="method-swatch"></i>${displayLabel(method, d)}</span></td><td class="text-end tabular-nums">${pct(metric.fmeasure)}</td><td class="text-end tabular-nums">${pct(metric.cmlt)}</td><td class="text-end tabular-nums">${pct(metric.amlt)}</td><td class="text-end tabular-nums">${metric.event_count}</td><td class="play-column" ${DEMO ? '' : 'hidden'}>${DEMO ? `<button type="button" class="table-play" data-audition-source="${method.id}" aria-label="Play ${method.label}" title="Play ${method.label}">▶</button>` : ''}</td></tr>`;
       }).join('');
       const maxStart = Math.max(0, d.duration_seconds - d.window_seconds);
       slider.min = '0';
@@ -403,7 +427,7 @@ TEMPLATE = r'''
       const selectionDetail = entry.screen_rank
         ? `Illustration-only selection: 768 high-divergence candidates screened from 4,556 OOF pieces; this case ranked ${entry.screen_rank}.`
         : `Mechanism illustration selected from 993 clean held-out GTZAN final0 tracks; CASM exceeded Direct, Fixed Semi-Markov, DBN, and PLPDP on full-track beat F1, CMLt, and AMLt.`;
-      sourceLine.textContent = `${selectionDetail} PLPDP uses its released 30–300 BPM default. Fixed Semi-Markov is a global-period mechanism replay, not an aggregate baseline. Decoder intervals below are decoded output IBIs, not hidden-state traces.${dbnDetail}`;
+      sourceLine.textContent = DEMO ? `Selected for illustration, not aggregate evaluation. PLPDP uses its released 30–300 BPM default. IBI curves show decoded output intervals, not beat-alignment guides.${dbnDetail}` : `${selectionDetail} PLPDP uses its released 30–300 BPM default. Fixed Semi-Markov is a global-period mechanism replay, not an aggregate baseline. Decoder intervals below are decoded output IBIs, not hidden-state traces.${dbnDetail}`;
     }
 
     function matchedFlags(events, truth, tolerance = .07) {
@@ -463,11 +487,11 @@ TEMPLATE = r'''
       const panelGap = 7;
       const intervalPanels = [
         {id: 'groundtruth', label: 'GroundTruth IBI', short: 'GT IBI'},
-        {id: 'direct', label: 'Direct', short: 'Direct'},
-        {id: 'fixed', label: 'Fixed Semi-Markov', short: 'Fixed SMM'},
-        {id: 'dbn', label: 'DBN', short: 'DBN'},
-        {id: 'plpdp', label: 'PLPDP', short: 'PLPDP'},
-        {id: 'casm', label: 'CASM', short: 'CASM'}
+        {id: 'direct', label: 'Direct IBI', short: 'Direct IBI'},
+        ...(!DEMO ? [{id: 'fixed', label: 'Fixed Semi-Markov IBI', short: 'Fixed IBI'}] : []),
+        {id: 'dbn', label: 'DBN IBI', short: 'DBN IBI'},
+        {id: 'plpdp', label: 'PLPDP IBI', short: 'PLPDP IBI'},
+        {id: 'casm', label: 'CASM IBI', short: 'CASM IBI'}
       ];
       const panelHeight = (intervalBottom - intervalAreaTop - panelGap * (intervalPanels.length - 1)) / intervalPanels.length;
       intervalPanels.forEach((panel, index) => Object.assign(panel, {
@@ -490,10 +514,10 @@ TEMPLATE = r'''
         interval: d.casm_analysis.period_seconds[index],
         confidence: d.casm_analysis.reliability_proxy[index]
       })).filter(row => row.time >= start && row.time <= end);
-      const intervalValues = [d.fixed_semimarkov.period_seconds];
+      const intervalValues = DEMO ? [] : [d.fixed_semimarkov.period_seconds];
       referenceIntervals.forEach(row => intervalValues.push(row.interval));
       methodIntervals.direct.forEach(row => intervalValues.push(row.interval));
-      methodIntervals.fixed_semimarkov.forEach(row => intervalValues.push(row.interval));
+      if (!DEMO) methodIntervals.fixed_semimarkov.forEach(row => intervalValues.push(row.interval));
       methodIntervals.dbn.forEach(row => intervalValues.push(row.interval));
       methodIntervals.plpdp.forEach(row => intervalValues.push(row.interval));
       methodIntervals.casm.forEach(row => intervalValues.push(row.interval));
@@ -518,6 +542,7 @@ TEMPLATE = r'''
       intervalPanels.forEach(panel => {
         const yPanel = panelScale(panel);
         svg.append('rect').attr('data-chart-frame', '').attr('x', margin.left).attr('y', panel.top).attr('width', plotWidth).attr('height', panelHeight);
+        svg.append('g').attr('class', 'ibi-grid').attr('transform', `translate(${margin.left},0)`).call(d3.axisLeft(yPanel).ticks(3).tickSize(-plotWidth).tickFormat(''));
         svg.append('g').attr('class', 'axis').attr('transform', `translate(${margin.left},0)`).call(d3.axisLeft(yPanel).ticks(2));
         svg.append('text').attr('class', 'lane-label').attr('x', margin.left - 18).attr('y', (panel.top + panel.bottom) / 2 + 4).attr('text-anchor', 'end')
           .style('fill', panel.id === 'direct' ? colors.direct : panel.id === 'fixed' ? colors.fixed : panel.id === 'dbn' ? colors.dbn : panel.id === 'plpdp' ? colors.plpdp : panel.id === 'casm' ? colors.casm : colors.foreground)
@@ -563,13 +588,13 @@ TEMPLATE = r'''
 
       const groundPanel = intervalPanels[0];
       const directPanel = intervalPanels[1];
-      const fixedPanel = intervalPanels[2];
-      const dbnPanel = intervalPanels[3];
-      const plpdpPanel = intervalPanels[4];
-      const casmPanel = intervalPanels[5];
+      const fixedPanel = DEMO ? null : intervalPanels[2];
+      const dbnPanel = intervalPanels[DEMO ? 2 : 3];
+      const plpdpPanel = intervalPanels[DEMO ? 3 : 4];
+      const casmPanel = intervalPanels[DEMO ? 4 : 5];
       const yGround = panelScale(groundPanel);
       const yDirect = panelScale(directPanel);
-      const yFixed = panelScale(fixedPanel);
+      const yFixed = fixedPanel ? panelScale(fixedPanel) : null;
       const yDbn = panelScale(dbnPanel);
       const yPlpdp = panelScale(plpdpPanel);
       const yCasm = panelScale(casmPanel);
@@ -582,8 +607,10 @@ TEMPLATE = r'''
       }
 
       const fixedTau = d.fixed_semimarkov.period_seconds;
-      svg.append('line').attr('clip-path', `url(#${fixedPanel.clip})`).attr('x1', margin.left).attr('x2', width - margin.right).attr('y1', yFixed(fixedTau)).attr('y2', yFixed(fixedTau)).attr('stroke', colors.fixed).attr('stroke-width', 2).attr('stroke-dasharray', '5 4');
-      svg.append('text').attr('class', 'plot-label').attr('x', margin.left + 5).attr('y', yFixed(fixedTau) - 5).style('fill', colors.fixed).text(`global τ = ${fixedTau.toFixed(2)} s`);
+      if (fixedPanel) {
+        svg.append('line').attr('clip-path', `url(#${fixedPanel.clip})`).attr('x1', margin.left).attr('x2', width - margin.right).attr('y1', yFixed(fixedTau)).attr('y2', yFixed(fixedTau)).attr('stroke', colors.fixed).attr('stroke-width', 2).attr('stroke-dasharray', '5 4');
+        svg.append('text').attr('class', 'plot-label').attr('x', margin.left + 5).attr('y', yFixed(fixedTau) - 5).style('fill', colors.fixed).text(`global τ = ${fixedTau.toFixed(2)} s`);
+      }
 
       if (localPrior.length) {
         svg.append('path').datum(localPrior).attr('clip-path', `url(#${casmPanel.clip})`).attr('fill', 'none').attr('stroke', colors.casm).attr('stroke-width', 2).attr('stroke-dasharray', '5 3')
@@ -602,13 +629,13 @@ TEMPLATE = r'''
         }
       }
       plotIntervals(methodIntervals.direct, colors.direct, null, 'direct-output', directPanel, yDirect);
-      plotIntervals(methodIntervals.fixed_semimarkov, colors.fixed, d3.symbolSquare, 'fixed-output', fixedPanel, yFixed);
+      if (fixedPanel) plotIntervals(methodIntervals.fixed_semimarkov, colors.fixed, d3.symbolSquare, 'fixed-output', fixedPanel, yFixed);
       plotIntervals(methodIntervals.dbn, colors.dbn, null, 'dbn-output', dbnPanel, yDbn);
       plotIntervals(methodIntervals.plpdp, colors.plpdp, null, 'plpdp-output', plpdpPanel, yPlpdp);
       plotIntervals(methodIntervals.casm, colors.casm, d3.symbolCircle, 'casm-output', casmPanel, yCasm);
       [
         [directPanel, methodIntervals.direct, colors.direct],
-        [fixedPanel, methodIntervals.fixed_semimarkov, colors.fixed],
+        ...(!DEMO ? [[fixedPanel, methodIntervals.fixed_semimarkov, colors.fixed]] : []),
         [dbnPanel, methodIntervals.dbn, colors.dbn],
         [plpdpPanel, methodIntervals.plpdp, colors.plpdp],
         [casmPanel, methodIntervals.casm, colors.casm]

@@ -8,9 +8,10 @@ Open the public GitHub Pages site directly in any modern browser:
 
 No clone, download, or local web server is required. The public demo includes
 SMC 117/221 plus three selected GTZAN visualizations and synchronized click-
-track audition for GroundTruth, Direct, Fixed Semi-Markov, DBN, PLPDP, and CASM.
+track audition for GroundTruth, Direct, DBN, PLPDP, and CASM. The offline
+Figure 1 reproduction bundle still includes Fixed Semi-Markov.
 
-One-click audition buttons sit directly below the decoder score table. Music is
+One-click audition buttons sit in the decoder score table. Music is
 played by the browser's native MP3 player, while beat and downbeat clicks remain
 synchronized to the frozen event arrays.
 

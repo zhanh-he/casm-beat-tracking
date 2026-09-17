@@ -1,8 +1,8 @@
 {
-  "source_figure_fragment": "self-run-figures/figure1-20260902-1210/reference/real-decoder-contrast.html",
-  "source_figure_sha256": "ee744972ab148ebf1d5ef3e29011556d849a8e4da6b88640830aea16e777f501",
-  "case_data_sha256": "1ed87a19dc03b0121861cd288bd954b18e4d9ca7816c48cf556601295daa67ae",
-  "visualization_sha256": "6bcd5b908a5c7747447fe3ab3b4e8a05a99e4af8ec7d16661d04e227eea5005b",
+  "source_figure_generator": "self-run-figures/figure1-20260902-1210/reference/build_decoder_contrast_visualization.py",
+  "source_figure_sha256": "6f3fe97b448044636af13d31cbbecfb22c17bb025c7ebefd8b0dedbdb169a375",
+  "case_data_sha256": "7193b96047865d2bea3a3d1063dc9b3f876eb535676987511a7333269b8b39a8",
+  "visualization_sha256": "a8507be8dbfc52f86ed68166bd78e401a361805aa75b60e8f14317249a6287b3",
   "case_count": 5,
   "audio_source": "http://smc.inescporto.pt/data/SMC_MIREX.zip",
   "audio_download_mirror": "https://bit.ly/33SlutJ",

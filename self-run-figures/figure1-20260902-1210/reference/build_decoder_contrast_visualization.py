@@ -121,7 +121,9 @@ TEMPLATE = r'''
     }
     #decoder-contrast-real-v2 h2 {
       margin: 0 0 5px;
-      font-weight: 500;
+      font-size: 24px;
+      font-weight: 680;
+      line-height: 1.2;
       letter-spacing: 0;
       overflow-wrap: anywhere;
     }
@@ -134,12 +136,16 @@ TEMPLATE = r'''
     }
     #decoder-contrast-real-v2 .case-field { min-width: 0; max-width: 100%; }
     #decoder-contrast-real-v2 .case-field select { max-width: 100%; }
-    #decoder-contrast-real-v2 .case-field .form-label { display: block; }
-    #decoder-contrast-real-v2 .control-hint { margin: 4px 0 0; color: var(--muted-foreground); font-size: 11px; }
+    #decoder-contrast-real-v2 .case-field__heading { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
+    #decoder-contrast-real-v2 .control-hint { color: var(--muted-foreground); font-size: 13px; font-weight: 550; }
+    #decoder-contrast-real-v2 .subtitle { font-size: 15px; font-weight: 550; color: var(--muted-foreground); }
     #decoder-contrast-real-v2 .case-summary {
       padding: 9px 7px;
       border-top: 1px solid var(--border);
-      color: var(--muted-foreground);
+      color: var(--foreground);
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.5;
     }
     #decoder-contrast-real-v2 .metric-table { margin: 2px 0 8px; table-layout: fixed; font-variant-numeric: tabular-nums; }
     #decoder-contrast-real-v2 .metric-table th:first-child { width: 28%; }
@@ -277,7 +283,7 @@ TEMPLATE = r'''
     #decoder-contrast-real-v2 .lane-label,
     #decoder-contrast-real-v2 .plot-label {
       fill: var(--foreground);
-      font-size: 12px;
+      font-size: 13px;
       letter-spacing: 0;
     }
     #decoder-contrast-real-v2 .axis text,
@@ -295,6 +301,7 @@ TEMPLATE = r'''
     #decoder-contrast-real-v2 .source-line {
       padding: 4px 7px 0;
       color: var(--muted-foreground);
+      font-size: 13px;
     }
     #decoder-contrast-real-v2 .tooltip {
       position: absolute;
@@ -317,12 +324,12 @@ TEMPLATE = r'''
 
   <div class="figure-head">
     <div>
-      <h2>Beat decoder paths on the same activation</h2>
+      <h2>Beat decoding results on the same activations</h2>
       <p class="subtitle text-small"></p>
     </div>
-    <label class="case-field form-label" for="decoder-contrast-case-v2">Track
+    <label class="case-field form-label" for="decoder-contrast-case-v2">
+      <span class="case-field__heading"><strong>Track Selection</strong><span class="control-hint">Try another recording</span></span>
       <select id="decoder-contrast-case-v2" class="form-select"></select>
-      <span class="control-hint">Choose another recording.</span>
     </label>
   </div>
   <p class="case-summary text-small" aria-live="polite"></p>
@@ -422,7 +429,10 @@ TEMPLATE = r'''
     function updateCase(resetWindow = false) {
       const entry = CASES[activeCase];
       const d = entry.data;
-      subtitle.textContent = `${entry.label} · ${d.protocol.role} · Beat This ${d.protocol.fold} · ${d.duration_seconds.toFixed(2)} s`;
+      const checkpoint = d.protocol.fold === 'final0'
+        ? 'via the shared Beat This final0 checkpoint'
+        : `via the Beat This ${d.protocol.fold} checkpoint`;
+      subtitle.textContent = `${entry.label} · ${d.protocol.role} · ${checkpoint} · ${d.duration_seconds.toFixed(2)} s`;
       const local = d.casm_analysis.period_seconds.slice().sort((a, b) => a - b);
       const q = p => local[Math.min(local.length - 1, Math.floor(p * local.length))];
       summary.textContent = DEMO ? entry.summary : `${entry.summary} Global fixed τ = ${d.fixed_semimarkov.period_seconds.toFixed(2)} s; CASM local τ 10–90% = ${q(.1).toFixed(2)}–${q(.9).toFixed(2)} s.`;

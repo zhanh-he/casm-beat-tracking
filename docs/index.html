@@ -6,9 +6,9 @@
   <meta name="theme-color" content="#ffffff">
   <meta name="description" content="Listen to reference and decoded beat paths while inspecting the frozen CASM decoder visualization.">
   <title>CASM Beat Tracking Demo</title>
-  <link rel="stylesheet" href="styles.css?v=20260917-1">
+  <link rel="stylesheet" href="styles.css?v=20260917-3">
   <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
-  <script defer src="app.js?v=20260917-2"></script>
+  <script defer src="app.js?v=20260917-3"></script>
 </head>
 <body>
   <header class="site-header">
@@ -28,15 +28,9 @@
   <main>
     <audio id="musicPlayer" preload="metadata" playsinline hidden></audio>
 
-    <section class="figure-section" aria-labelledby="figure-heading">
+    <section class="figure-section" aria-label="Beat decoding results">
       <div class="content-width">
-        <div class="figure-heading">
-          <div>
-            <p class="section-kicker">Frozen real-case evidence</p>
-            <h2 id="figure-heading">Activation, event paths, and decoded IBI</h2>
-          </div>
-        </div>
-        <iframe id="figureFrame" src="visualization.html?v=20260917-2" title="Interactive decoder contrast visualization"></iframe>
+        <iframe id="figureFrame" src="visualization.html?v=20260917-3" title="Interactive decoder contrast visualization"></iframe>
       </div>
     </section>
 

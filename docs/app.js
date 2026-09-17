@@ -322,8 +322,8 @@ function mountInlineAuditionControls() {
   style.textContent = `
 #audition-toolbar { margin: 2px 0 20px; padding: 5px 0 14px; border-bottom: 1px solid #dce1e5; }
 .audition-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 9px; }
-.audition-heading strong { font-size: 12px; font-weight: 700; }
-.audition-window { color: #697079; font-size: 11px; font-variant-numeric: tabular-nums; }
+.audition-heading strong { font-size: 14px; font-weight: 700; }
+.audition-window { color: #697079; font-size: 13px; font-variant-numeric: tabular-nums; }
 .audition-method, .audition-stop { min-height: 36px; border: 1px solid #dce1e5; border-radius: 5px; background: #fff; color: #202327; cursor: pointer; font: inherit; font-size: 11px; font-weight: 650; }
 .audition-method { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 6px 7px 6px 10px; overflow: hidden; }
 .audition-method::after { content: ""; position: absolute; inset: auto 0 0; height: 3px; background: var(--method-color); }
@@ -334,17 +334,17 @@ function mountInlineAuditionControls() {
 .play-glyph { width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 7px solid currentColor; }
 .audition-stop { display: inline-flex; flex: 0 0 36px; width: 36px; align-items: center; justify-content: center; padding: 0; }
 .stop-glyph { width: 9px; height: 9px; background: currentColor; }
-.audition-transport { display: grid; grid-template-columns: minmax(120px, 1fr) 120px; align-items: center; gap: 10px; margin-top: 10px; }
+.audition-transport { display: grid; grid-template-columns: minmax(120px, 1fr) 158px; align-items: center; gap: 10px; margin-top: 10px; }
 .audition-progress { width: 100%; height: 6px; border: 0; border-radius: 0; overflow: hidden; background: #d9dde1; }
 .audition-progress::-webkit-progress-bar { background: #d9dde1; }
 .audition-progress::-webkit-progress-value { background: #2bb8b2; }
-.audition-time { color: #697079; font-size: 11px; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.audition-time { color: #697079; font-size: 13px; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .audition-status-row { display: flex; align-items: center; gap: 7px; margin-top: 8px; }
 .audition-status-dot { flex: 0 0 auto; width: 7px; height: 7px; border-radius: 50%; background: #2bb8b2; }
 .audition-status-dot[data-state="playing"] { background: #9270ed; }
 .audition-status-dot[data-state="error"] { background: #d85555; }
-.audition-status { margin: 0; color: #697079; font-size: 11px; line-height: 1.4; }
-@media (max-width: 520px) { .audition-heading { align-items: flex-start; flex-direction: column; gap: 3px; } .audition-transport { grid-template-columns: 1fr 108px; } .audition-time { font-size: 10px; } }
+.audition-status { margin: 0; color: #697079; font-size: 13px; line-height: 1.4; }
+@media (max-width: 520px) { .audition-heading { align-items: flex-start; flex-direction: column; gap: 3px; } .audition-transport { grid-template-columns: minmax(80px, 1fr) 132px; } .audition-time { font-size: 11px; } }
 `;
   documentInside.head.append(style);
 

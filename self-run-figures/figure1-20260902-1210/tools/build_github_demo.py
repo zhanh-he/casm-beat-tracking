@@ -126,14 +126,14 @@ base_style = """
 * { box-sizing: border-box; }
 html, body { margin: 0; min-width: 320px; background: #fff; }
 body { padding: 2px 0 12px; }
-.text-small { font-size: 12px; line-height: 1.45; }
+.text-small { font-size: 14px; line-height: 1.5; }
 .tabular-nums { font-variant-numeric: tabular-nums; }
 .text-end { text-align: right; }
-.form-label { color: var(--foreground); font-size: 12px; font-weight: 650; }
+.form-label { color: var(--foreground); font-size: 15px; font-weight: 650; }
 .form-select {
   display: block;
   width: 100%;
-  min-height: 36px;
+  min-height: 42px;
   margin-top: 5px;
   padding: 6px 32px 6px 10px;
   border: 1px solid var(--border);
@@ -143,8 +143,8 @@ body { padding: 2px 0 12px; }
   font: inherit;
 }
 .form-range { accent-color: var(--viz-series-6); }
-.table { width: 100%; border-collapse: collapse; font-size: 13px; }
-.table th, .table td { padding: 8px 7px; border-bottom: 1px solid var(--border); }
+.table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.table th, .table td { padding: 10px 7px; border-bottom: 1px solid var(--border); }
 .table th { font-weight: 680; text-align: left; }
 .table th.text-end, .table td.text-end { text-align: right; }
 </style>

@@ -87,7 +87,7 @@ h2 {
   margin: 10px 0 0;
   max-width: 760px;
   color: var(--muted);
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.5;
 }
 
@@ -298,7 +298,7 @@ progress::-moz-progress-bar { background: var(--activation); }
 .status-dot[data-state="error"] { background: var(--danger); }
 .status-dot[data-state="playing"] { background: var(--casm); }
 
-.figure-section { padding: 30px 0 10px; }
+.figure-section { padding: 22px 0 10px; }
 
 .figure-heading p:last-child {
   margin: 0;
@@ -313,7 +313,7 @@ progress::-moz-progress-bar { background: var(--activation); }
   display: block;
   width: 100%;
   height: 1260px;
-  margin-top: 18px;
+  margin-top: 0;
   border: 0;
   background: #fff;
 }
@@ -335,7 +335,7 @@ progress::-moz-progress-bar { background: var(--activation); }
 .protocol-grid > p {
   margin: 0;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.58;
 }
 
@@ -350,7 +350,7 @@ footer { padding: 22px 0 34px; }
 .footer-inner p {
   margin: 0;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .footer-inner a { color: #137b76; }

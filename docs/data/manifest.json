@@ -1,8 +1,8 @@
 {
   "source_figure_generator": "self-run-figures/figure1-20260902-1210/reference/build_decoder_contrast_visualization.py",
-  "source_figure_sha256": "6f3fe97b448044636af13d31cbbecfb22c17bb025c7ebefd8b0dedbdb169a375",
+  "source_figure_sha256": "23c3dc143cfa7c09b1a1fe3e19ba07664c74e05be92e3c1276c08243ce765a1e",
   "case_data_sha256": "7193b96047865d2bea3a3d1063dc9b3f876eb535676987511a7333269b8b39a8",
-  "visualization_sha256": "a8507be8dbfc52f86ed68166bd78e401a361805aa75b60e8f14317249a6287b3",
+  "visualization_sha256": "b3f278ef9b3da15f3793154970516d323b1cc6f91981984d6f6262f7a9d6bb0a",
   "case_count": 5,
   "audio_source": "http://smc.inescporto.pt/data/SMC_MIREX.zip",
   "audio_download_mirror": "https://bit.ly/33SlutJ",

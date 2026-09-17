@@ -332,7 +332,7 @@ function mountInlineAuditionControls() {
 .audition-method[data-playing="true"] .play-glyph { border-left-color: var(--method-color); }
 .audition-method:disabled, .audition-stop:disabled { cursor: not-allowed; opacity: .45; }
 .play-glyph { width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 7px solid currentColor; }
-.audition-stop { display: inline-flex; align-items: center; justify-content: center; padding: 0; }
+.audition-stop { display: inline-flex; flex: 0 0 36px; width: 36px; align-items: center; justify-content: center; padding: 0; }
 .stop-glyph { width: 9px; height: 9px; background: currentColor; }
 .audition-transport { display: grid; grid-template-columns: minmax(120px, 1fr) 120px; align-items: center; gap: 10px; margin-top: 10px; }
 .audition-progress { width: 100%; height: 6px; border: 0; border-radius: 0; overflow: hidden; background: #d9dde1; }

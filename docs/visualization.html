@@ -103,7 +103,16 @@ body { padding: 2px 0 12px; }
       border-top: 1px solid var(--border);
       color: var(--muted-foreground);
     }
-    #decoder-contrast-real-v2 .metric-table { margin: 2px 0 8px; }
+    #decoder-contrast-real-v2 .metric-table { margin: 2px 0 8px; table-layout: fixed; font-variant-numeric: tabular-nums; }
+    #decoder-contrast-real-v2 .metric-table th:first-child { width: 28%; }
+    #decoder-contrast-real-v2 .metric-table th:nth-child(2),
+    #decoder-contrast-real-v2 .metric-table th:nth-child(3),
+    #decoder-contrast-real-v2 .metric-table th:nth-child(4) { width: 13%; }
+    #decoder-contrast-real-v2 .metric-table th:nth-child(5) { width: 15%; text-align: right; }
+    #decoder-contrast-real-v2 .metric-table th:last-child,
+    #decoder-contrast-real-v2 .metric-table td:last-child { width: 18%; text-align: center; }
+    #decoder-contrast-real-v2 .metric-table tbody tr:hover { background: #f7faf9; }
+    #decoder-contrast-real-v2 .metric-table .reference-row { border-bottom: 2px solid var(--border); }
     #decoder-contrast-real-v2 .table-responsive {
       width: 100%;
       max-width: 100%;
@@ -138,8 +147,13 @@ body { padding: 2px 0 12px; }
     #decoder-contrast-real-v2 .window-control label { grid-column: 1 / -1; }
     #decoder-contrast-real-v2 .window-control input { width: 100%; }
     #decoder-contrast-real-v2 .table-play {
-      width: 32px; height: 30px; border: 1px solid var(--border); border-radius: 4px;
+      width: 34px; height: 32px; border: 1px solid var(--border); border-radius: 4px;
       color: var(--foreground); background: #fff; cursor: pointer; font: inherit;
+    }
+    #decoder-contrast-real-v2 .table-play::before {
+      content: ""; display: inline-block; width: 0; height: 0;
+      border-top: 5px solid transparent; border-bottom: 5px solid transparent;
+      border-left: 7px solid currentColor; margin-left: 2px;
     }
     #decoder-contrast-real-v2 .table-play:hover:not(:disabled) { background: #f0f7f6; }
     #decoder-contrast-real-v2 .table-play[aria-pressed="true"] { border-color: var(--casm-color); background: #f4f0fa; }
@@ -374,10 +388,10 @@ body { padding: 2px 0 12px; }
       const local = d.casm_analysis.period_seconds.slice().sort((a, b) => a - b);
       const q = p => local[Math.min(local.length - 1, Math.floor(p * local.length))];
       summary.textContent = DEMO ? entry.summary : `${entry.summary} Global fixed τ = ${d.fixed_semimarkov.period_seconds.toFixed(2)} s; CASM local τ 10–90% = ${q(.1).toFixed(2)}–${q(.9).toFixed(2)} s.`;
-      const referenceRow = DEMO ? '<tr class="reference-row"><td><span class="method-label">GroundTruth</span></td><td class="text-end">—</td><td class="text-end">—</td><td class="text-end">—</td><td class="text-end">—</td><td><button type="button" class="table-play" data-audition-source="reference" aria-label="Play GroundTruth" title="Play GroundTruth">▶</button></td></tr>' : '';
+      const referenceRow = DEMO ? `<tr class="reference-row"><td><span class="method-label">GroundTruth</span></td><td class="text-end">—</td><td class="text-end">—</td><td class="text-end">—</td><td class="text-end tabular-nums">${d.truth.beat_times.length}</td><td><button type="button" class="table-play" data-audition-source="reference" aria-label="Play GroundTruth" title="Play GroundTruth"></button></td></tr>` : '';
       tableBody.innerHTML = referenceRow + methods.map(method => {
         const metric = d.decoders[method.id].beat_metrics;
-        return `<tr><td><span class="method-label ${method.color}-color"><i class="method-swatch"></i>${displayLabel(method, d)}</span></td><td class="text-end tabular-nums">${pct(metric.fmeasure)}</td><td class="text-end tabular-nums">${pct(metric.cmlt)}</td><td class="text-end tabular-nums">${pct(metric.amlt)}</td><td class="text-end tabular-nums">${metric.event_count}</td><td class="play-column" ${DEMO ? '' : 'hidden'}>${DEMO ? `<button type="button" class="table-play" data-audition-source="${method.id}" aria-label="Play ${method.label}" title="Play ${method.label}">▶</button>` : ''}</td></tr>`;
+        return `<tr><td><span class="method-label ${method.color}-color"><i class="method-swatch"></i>${displayLabel(method, d)}</span></td><td class="text-end tabular-nums">${pct(metric.fmeasure)}</td><td class="text-end tabular-nums">${pct(metric.cmlt)}</td><td class="text-end tabular-nums">${pct(metric.amlt)}</td><td class="text-end tabular-nums">${metric.event_count}</td><td class="play-column" ${DEMO ? '' : 'hidden'}>${DEMO ? `<button type="button" class="table-play" data-audition-source="${method.id}" aria-label="Play ${method.label}" title="Play ${method.label}"></button>` : ''}</td></tr>`;
       }).join('');
       const maxStart = Math.max(0, d.duration_seconds - d.window_seconds);
       slider.min = '0';

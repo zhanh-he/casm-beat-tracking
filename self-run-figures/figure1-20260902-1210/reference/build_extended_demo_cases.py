@@ -47,6 +47,7 @@ GTZAN_CASES = (
     ("gtzan_blues_00023", "gtzan/gtzan_blues_00023/track.npy"),
     ("gtzan_metal_00026", "gtzan/gtzan_metal_00026/track.npy"),
     ("gtzan_pop_00053", "gtzan/gtzan_pop_00053/track.npy"),
+    ("gtzan_pop_00064", "gtzan/gtzan_pop_00064/track.npy"),
 )
 
 
@@ -63,6 +64,7 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         default=Path(__file__).resolve().parents[1],
     )
+    parser.add_argument("--only-gtzan", choices=[case for case, _ in GTZAN_CASES])
     return parser.parse_args()
 
 
@@ -247,8 +249,11 @@ def build_gtzan(
     edge_local_maxima,
     load_cache_item,
     beat_metrics,
+    only_gtzan=None,
 ):
     for stem, expected_piece in GTZAN_CASES:
+        if only_gtzan and stem != only_gtzan:
+            continue
         cache = bundle_root / "data" / "raw_cache" / f"{stem}_beat_this_final0.npz"
         item = load_cache_item(cache)
         assert item["piece"] == expected_piece
@@ -366,9 +371,10 @@ def main() -> None:
     )
     from structbeat.evaluation import beat_metrics, load_cache_item  # noqa: PLC0415
 
-    add_plpdp_to_smc(
-        args.bundle_root, PLPDPDecoder, load_cache_item, beat_metrics
-    )
+    if not args.only_gtzan:
+        add_plpdp_to_smc(
+            args.bundle_root, PLPDPDecoder, load_cache_item, beat_metrics
+        )
     build_gtzan(
         args.bundle_root,
         CASMDecoder,
@@ -378,6 +384,7 @@ def main() -> None:
         _edge_local_maxima,
         load_cache_item,
         beat_metrics,
+        args.only_gtzan,
     )
 
 

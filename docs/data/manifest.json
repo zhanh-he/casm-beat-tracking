@@ -1,9 +1,9 @@
 {
   "source_figure_generator": "self-run-figures/figure1-20260902-1210/reference/build_decoder_contrast_visualization.py",
   "source_figure_sha256": "f9c3f9b99223f7b08a0775beb7a3445e49ec3e21ebe6cc14a1313f501a2abf1d",
-  "case_data_sha256": "7193b96047865d2bea3a3d1063dc9b3f876eb535676987511a7333269b8b39a8",
-  "visualization_sha256": "3d8d69415cbbceb42b62888618074b327979a0be0b90ee74e8930e5abd8eee54",
-  "case_count": 5,
+  "case_data_sha256": "0e904178e1ced18678d2c51b27fdf188ead68668ed0fd14553cc388448f93e70",
+  "visualization_sha256": "570d7011ad1f2553a1f0740a8841607325089f4a8ac7c3e91889b934f57ac918",
+  "case_count": 6,
   "audio_source": "http://smc.inescporto.pt/data/SMC_MIREX.zip",
   "audio_download_mirror": "https://bit.ly/33SlutJ",
   "audio_download_script": "https://github.com/nicolaus625/CMI-bench/blob/main/data/SMC/download_smc.sh",
@@ -11,12 +11,13 @@
   "gtzan_audio_source": "http://marsyas.info/downloads/datasets.html",
   "gtzan_audio_download_mirror": "https://huggingface.co/datasets/m-a-p/GTZAN",
   "gtzan_audio_citation": "Tzanetakis and Cook, Musical Genre Classification of Audio Signals, IEEE TSAP 10(5), 2002.",
-  "audio_policy": "Only the two selected SMC examples and three selected GTZAN examples are published; neither complete dataset is mirrored.",
+  "audio_policy": "Only the two selected SMC examples and four selected GTZAN examples are published; neither complete dataset is mirrored.",
   "audio_files": {
     "smc-117.mp3": "7eb10d22690f4d3df7d72e97330fb26c78a325c874bbbe9a6819a5e63367703a",
     "smc-221.mp3": "b7c1cdbd1cc9eee112b4bcad28a633f6050852fb3c9acedce0f0d908569361d8",
     "gtzan-blues-00023.mp3": "4502e23eb9020532ae7a1e61e6e1b7f091c68d0eae3899f14cedaaa71910a487",
     "gtzan-metal-00026.mp3": "e3d8a75a56a5d6e98430c80f479fb374b74d5c4ed80679a74f89a081cbdce262",
-    "gtzan-pop-00053.mp3": "52bc7f761a33a4d1868a6eb8dfa054ef15b93ea9599cc41cff4db85d8ae8e94c"
+    "gtzan-pop-00053.mp3": "52bc7f761a33a4d1868a6eb8dfa054ef15b93ea9599cc41cff4db85d8ae8e94c",
+    "gtzan-pop-00064.mp3": "f4bbc5284de2fb6e77a9c1356b270ab8df2f26791f1633830c408933709c9f4d"
   }
 }

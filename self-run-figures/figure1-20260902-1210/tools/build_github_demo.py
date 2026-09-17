@@ -68,6 +68,12 @@ for case, label, rank, summary in (
         None,
         "A difficult track for every decoder: CASM remains clearly ahead in F1 and continuity without changing the shared front-end.",
     ),
+    (
+        "gtzan_pop_00064",
+        "GTZAN · Pop 00064",
+        None,
+        "A clearer pop comparison: CASM improves beat F1 and metrical continuity over PLPDP on this held-out track, with the same frozen activations.",
+    ),
 ):
     payload_path = FIGURE_ROOT / "data" / "figure_payloads" / f"{case}.json"
     case_id = case.replace("_", "-")
@@ -172,7 +178,7 @@ manifest = {
     "gtzan_audio_source": audio_config["gtzan_source_url"],
     "gtzan_audio_download_mirror": audio_config["gtzan_download_mirror_url"],
     "gtzan_audio_citation": audio_config["gtzan_citation"],
-    "audio_policy": "Only the two selected SMC examples and three selected GTZAN examples are published; neither complete dataset is mirrored.",
+    "audio_policy": "Only the two selected SMC examples and four selected GTZAN examples are published; neither complete dataset is mirrored.",
     "audio_files": {
         selection["output_file"]: sha256(DOCS_ROOT / "audio" / selection["output_file"])
         for selection in audio_config["cases"].values()

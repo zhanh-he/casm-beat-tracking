@@ -1,7 +1,7 @@
 # SMC MIREX and GTZAN listening examples
 
 The demo contains two complete 40-second mono MP3 examples from SMC MIREX and
-three complete 30-second mono examples from GTZAN:
+four complete 30-second mono examples from GTZAN:
 
 | Demo case | Source file | Source interval |
 |---|---|---:|
@@ -10,6 +10,7 @@ three complete 30-second mono examples from GTZAN:
 | GTZAN Blues 00023 | `blues.00023.wav` | 0.00-30.00 s |
 | GTZAN Metal 00026 | `metal.00026.wav` | 0.00-30.00 s |
 | GTZAN Pop 00053 | `pop.00053.wav` | 0.00-30.00 s |
+| GTZAN Pop 00064 | `pop.00064.wav` | 0.00-30.00 s |
 
 Dataset citation:
 
@@ -37,5 +38,5 @@ waveforms used by this demo were recovered from the public GTZAN mirror at
 `https://huggingface.co/datasets/m-a-p/GTZAN`.
 
 The visualization initially opens on selected 18-second analysis windows, but
-the complete audio for all five examples supports playback after moving the
+the complete audio for all six examples supports playback after moving the
 slider. The remainder of either dataset is not mirrored here.

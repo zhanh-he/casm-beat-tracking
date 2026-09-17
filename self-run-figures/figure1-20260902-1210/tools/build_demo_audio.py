@@ -22,6 +22,7 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         help="Directory containing the configured source WAV files.",
     )
+    parser.add_argument("--only-case", help="Build only one configured case ID.")
     return parser.parse_args()
 
 
@@ -35,6 +36,8 @@ def main() -> None:
     output_root.mkdir(parents=True, exist_ok=True)
 
     for case_id, selection in config["cases"].items():
+        if args.only_case and case_id != args.only_case:
+            continue
         source = args.audio_root / selection["source_file"]
         output = output_root / selection["output_file"]
         duration = float(selection["duration_seconds"])

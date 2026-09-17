@@ -37,6 +37,12 @@
       "output_file": "gtzan-pop-00053.mp3",
       "start_seconds": 0.0,
       "duration_seconds": 30.0
+    },
+    "gtzan-pop-00064": {
+      "source_file": "GTZAN_pop_00064.wav",
+      "output_file": "gtzan-pop-00064.mp3",
+      "start_seconds": 0.0,
+      "duration_seconds": 30.0
     }
   }
 }

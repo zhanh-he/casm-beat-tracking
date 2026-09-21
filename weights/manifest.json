@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-21",
+  "artifacts": [
+    {"family": "beat_this", "name": "final0", "bytes": 81058141, "sha256": "8c328b45f59d8dd3dff219253ff6a8d6482be57d0133a29140e2febbf8eb8331", "status": "protected_in_mygroup", "origin": "upstream_official"},
+    {"family": "beat_this", "name": "final1", "bytes": 81058141, "sha256": "365b553f43750717c907f32fbc42910f3b264d616654583df6e44472c93ead80", "status": "protected_in_mygroup", "origin": "upstream_official"},
+    {"family": "beat_this", "name": "final2", "bytes": 81058141, "sha256": "8f810c0a44d3a979b0372b00fa61b4e3f83a8f2a6d963c7791b9d4852cdd1abc", "status": "protected_in_mygroup", "origin": "upstream_official"},
+    {"family": "beat_this", "name": "fold0", "bytes": 81054590, "sha256": "f5c6b6726179e20710e4be6a0fba4018f6cbc89f32f9c0dfd15072cb047578ad", "status": "protected_in_mygroup", "origin": "upstream_official"},
+    {"family": "beat_this", "name": "fold1", "bytes": 81054590, "sha256": "617b5b9641cefa585c975c97ac4e7fb9c00165ec9827303e8a88fdbd5ff3b71f", "status": "protected_in_mygroup", "origin": "upstream_official"},
+    {"family": "beat_this", "name": "fold2", "bytes": 81054590, "sha256": "cece4323bccc50738e415c91c204c93ca7021e42ab3a24da6a84dccaa7cc0d4c", "status": "protected_in_mygroup", "origin": "upstream_official"},
+    {"family": "beat_this", "name": "fold3", "bytes": 81054590, "sha256": "849de186a21ed1cd41d0ac78dc412c61f5283dcafffa9dd32f390674c50792cf", "status": "protected_in_mygroup", "origin": "upstream_official"},
+    {"family": "beat_this", "name": "fold4", "bytes": 81054590, "sha256": "0a17b1691edbae73a7fac35f6d26d5f8f9aa483b0e3aff5d891c74140f836c52", "status": "protected_in_mygroup", "origin": "upstream_official"},
+    {"family": "beat_this", "name": "fold5", "bytes": 81054590, "sha256": "ea651e7a0d1a1b243ad3ff268969c8c3d4b7e6d06b1bfb451b020d40526275c2", "status": "protected_in_mygroup", "origin": "upstream_official"},
+    {"family": "beat_this", "name": "fold6", "bytes": 81054590, "sha256": "07b32a484f2c99b676e7061650ea2cd2f9f889d87ea6c712782c5855742070b1", "status": "protected_in_mygroup", "origin": "upstream_official"},
+    {"family": "beat_this", "name": "fold7", "bytes": 81054590, "sha256": "f26bed3c18c8f338a39b5a9524ffea7dce654e847ccf3d006e147fa7bf71d43f", "status": "protected_in_mygroup", "origin": "upstream_official"},
+    {"family": "mscnn_lite", "name": "s3_mmoe_sum-best-epoch89", "bytes": 159686072, "sha256": "d8ee2dc74ebe3e9f0aaf43b08517ff6ea06ce42b37e605e79a75f4b5437df9bf", "status": "protected_in_mygroup", "origin": "casm_experiment"},
+    {"family": "mscnn_lite", "name": "s5_nommoe_ind-best-epoch879", "bytes": 176911681, "sha256": "947de33b83728e94c7cf0d85c1d16f439d462f20b57adfd5d31ecbf9ad9c7a98", "status": "protected_in_mygroup", "origin": "casm_experiment"},
+    {"family": "mscnn_lite", "name": "s7_mmoe_ind-best-epoch254", "bytes": 194289080, "sha256": "571403afddb2ca05399c15b004b7809020548752ac8794a14bf812f8ef6c516c", "status": "protected_in_mygroup", "origin": "casm_experiment"},
+    {"family": "tcn", "name": "final0-last", "bytes": 912683, "sha256": "9d67182932a298d4bda87b874869c9bb6245e202cc95db70f56dd42fd28bee33", "status": "recovered_to_mygroup", "origin": "casm_experiment"},
+    {"family": "tcn", "name": "final1-last", "bytes": 912683, "sha256": "11c8e3602fd49d397685b9fcfd0e851fa7b8a2b7b1bcbd022fcecd5438325e49", "status": "recovered_to_mygroup", "origin": "casm_experiment"},
+    {"family": "tcn", "name": "final2-last", "bytes": null, "sha256": null, "status": "missing", "origin": "casm_experiment"},
+    {"family": "tcn", "name": "fold0-fold7", "bytes": null, "sha256": null, "status": "missing", "origin": "casm_experiment"}
+  ]
+}

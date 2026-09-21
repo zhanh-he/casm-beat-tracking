@@ -1,3 +1,7 @@
 self-run-figures/figure1-20260902-1210/local_audio/
 **/__pycache__/
 .DS_Store
+*.egg-info/
+.pytest_cache/
+build/
+dist/

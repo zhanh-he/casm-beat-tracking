@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "casm-beat-tracking"
+version = "0.1.0"
+description = "Fast confidence-adaptive semi-Markov decoding for beat tracking"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.24",
+  "scipy>=1.10",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7", "mir_eval>=0.8"]
+evaluation = ["mir_eval>=0.8"]
+
+[project.scripts]
+casm-decode = "casm_beat_tracking.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

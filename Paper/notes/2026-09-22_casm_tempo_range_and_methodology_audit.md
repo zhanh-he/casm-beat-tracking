@@ -238,7 +238,7 @@ v4 的组织和直觉解释比 v3 更紧凑，核心 path objective、ambiguity 
 
 ### P0：提交前阻断项
 
-#### P0.1 主结果表出现疑似 CASM/DBN 整行错配
+#### P0.1 主结果表出现确定的 block-level provenance 错配
 
 位置：[`casm_v4.tex` 主结果表](../main/casm_v4.tex#L334)
 
@@ -249,7 +249,7 @@ v4 的组织和直觉解释比 v3 更紧凑，核心 path objective、ambiguity 
 - TCN CASM 的 `+1.7/+4.5/+8.2` 与审计表中的 **DBN SMC-opt** 行完全一致；
 - TCN DBN 30--300 的 `-0.4/+2.1/+5.9` 与审计表中的 **CASM [7F]** 行完全一致。
 
-这不是舍入误差，极像 row assignment 被交换。BeatThis 的 55--215 SMC F1 在当前 v4 为 `+0.1`，审计过的 Frozen-7F 表则为 `-0.6`。当前 30--300 CASM 行也无法作为 Frozen-7F tempo archive 的直接重现。
+这不是舍入误差。更精确地说，是 SMC 三指标 block 在 CASM 与 DBN 之间发生了可逐值确认的交叉贴错；同一行的 GTZAN block 又来自不同 range/operating point，因此不能理解成两条完整 row 的简单互换。BeatThis 的 55--215 SMC F1 在当前 v4 为 `+0.1`，审计过的 Frozen-7F 表则为 `-0.6`。当前 30--300 CASM 行也无法作为 Frozen-7F tempo archive 的直接重现。详细溯源见 [v4 表格错配、calibration protocol、DP 与 PLPDP：逐项解释](2026-09-22_v4_table_calibration_dp_plpdp_explainer.md)。
 
 **建议：不要逐格手改。** 从锁定的 piece-level 结果重新生成完整表，并在生成阶段验证 method label、config hash、range 和 aggregation source。之后再同步 SOTA table、abstract 和正文。
 

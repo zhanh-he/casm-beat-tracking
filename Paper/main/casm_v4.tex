@@ -6,7 +6,7 @@
 \usepackage{booktabs, multirow}
 \usepackage{enumitem} %缩进itemize
 \usepackage{amssymb}
-\usepackage{xcolor}
+\usepackage[table]{xcolor}
 
 \newif\ifshowchanges
 \showchangestrue
@@ -18,7 +18,6 @@
     #1%
   \fi
 }
-\usepackage[table]{xcolor}
 \usepackage{pgf}
 
 \definecolor{heatblue}{RGB}{65,115,200}
@@ -96,16 +95,9 @@ Beats give music its temporal scaffold, so reliable beat tracking is crucial for
 
 For post-processors, the central design question is when and how strongly this temporal regularity should constrain the local evidence. Weak temporal regularization preserves the network's predictions but can sacrifice continuity, whereas overly strong regularization can override correct evidence under expressive or unusual timing. Earlier methods largely set this balance through predefined temporal constraints. The pioneering dynamic-programming approach~\cite{ellis2007beattracking} penalized inter-beat intervals (IBIs) that deviate from a single global tempo. Conditional random fields (CRFs)~\cite{fillon2015crf} provided a more flexible probabilistic formulation that allowed local tempo variations while still penalizing abrupt IBI changes. The dominant post-processing approach is the dynamic Bayesian network (DBN)~\cite{krebs2015dbn}, which operates under pre-specified tempo ranges, meters, and transition behaviors. This works well when those assumptions match the recording, but may require corpus-specific retuning when they do not~\cite{ahn2026smcblindspot}.
 
-Recent proposed PLPDP~\cite{chiu2023localperiodicity} takes an important step toward locally adaptive post-processing. It estimates a time-varying IBI and confidence from predominant local pulse (PLP), and uses them to adapt the temporal constraint during dynamic programming. This establishes an important principle for activation decoding: the temporal prior can depend on the local evidence itself. However, the strongest local period need not be decisive. Half- and double-tempo hypotheses can receive similar support, in which case strongly enforcing either interpretation may be undesirable. (verA)
+PLPDP~\cite{chiu2023localperiodicity} represents an important step toward locally adaptive post-processing. It converts predominant local pulse (PLP) into a time-varying IBI $\hat{\delta}(n)$ and confidence $\lambda(n)$: the former centers the tempo-consistency penalty, while the latter scales it according to the mean heights of adjacent PLP peaks. PLPDP therefore already adapts both the target and strength of the temporal constraint. Its confidence, however, is a non-comparative measure: the dynamic-programming condition contains no explicit term for how decisively the selected periodicity exceeds a competing interpretation. The relative uncertainty between, for example, half- and double-tempo hypotheses can thus remain implicit when they receive similar local support.
 
-Recent proposed PLPDP~\cite{chiu2023localperiodicity} takes an important step toward locally adaptive post-processing. Rather than relying on a fixed global tempo condition, it derives a time-varying IBI and confidence from predominant local pulse (PLP), and uses them to adapt both the target and strength of the temporal constraint during dynamic programming. This establishes an important principle: temporal regularity can be inferred from the activation evidence itself rather than specified entirely in advance. However, confidence in a selected local period is not necessarily the same as ambiguity among competing periodic interpretations. In particular, half- and double-tempo hypotheses may receive similar local support, in which case strongly committing to a single period may be undesirable. (verB)
-
-We introduce CASM, a context-aware semi-Markov decoder that makes this distinction explicit. CASM constructs a sparse path over activation-supported peaks and estimates both local periodicity and its ambiguity. These estimates control the target, strength, and tolerance of the segment-duration preference: when the periodic evidence is clear, CASM commits strongly to local regularity; when competing periods are similarly plausible, it weakens that preference and lets the neural activations dominate. Fig.~\ref{fig:casm-examples} illustrates both cases. On the left, clear local periodicity allows CASM to recover weak, activation-supported beats that Direct misses; on the right, competing periodicity hypotheses make CASM defer to the Direct path. A beat-count safeguard and beat-synchronous meter decoder further keep the procedure deterministic and predictable. The core advantages of CASM are as follows:
-\begin{itemize}[leftmargin=*, nosep]
-\item \textbf{Model-agnostic.} CASM is a plug-in post-processor that operates on existing beat tracking systems and requires not neural network retraining.
-\item \textbf{Low tuning burden and well generalization.} CASM requires less per-track or per-dataset tuning than DBNs, and the current calibrated configuration is good performed on the MIREX benchmark.
-\item \textbf{Open and ready to use.} We release CASM as an open-source, pip-installable package with an interface compatible with the DBN post-processors in madmom.
-\end{itemize}
+We introduce CASM, a context-aware semi-Markov post-processor that makes this comparison explicit. At each retained activation maximum, CASM scores the admissible autocorrelation lags, selects the strongest as the local period, and computes a normalized margin to the strongest alternative outside a small lag neighborhood. This margin is not a calibrated probability and does not create a multi-hypothesis tempo path; instead, through a multiplicative weight and an ambiguity-dependent scale, it controls the stiffness of the duration cost centered on the selected period. CASM combines the period and margin at both endpoints of each candidate-to-candidate segment. A clear winner yields a strong duration preference that can recover weak but activation-supported beats, whereas a small margin flattens that preference so activation evidence dominates while periodicity remains unresolved. Fig.~\ref{fig:casm-examples} illustrates these two regimes. A deterministic beat-count safeguard and beat-synchronous meter stage further stabilizes the output. CASM is model-agnostic, requires no neural-network retraining, and is provided as a pip-installable reference implementation with a madmom-style activation interface.
 
 
 
@@ -168,7 +160,7 @@ The proposed Context-Aware Semi-Markov (CASM) decoder is a model-agnostic post-p
 \begin{figure}[t!]
 \centering
 \includegraphics[width=\columnwidth]{figures/p0.jpg}
-\caption{CASM behaviour on held-out Beat This activations from SMC. Clear local periodicity recovers weak activation-supported beats (left), whereas ambiguous competing periods make CASM defer to Direct (right). Reference IBI is shown only for interpretation.}
+\caption{CASM behaviour on held-out Beat This activations from SMC. Clear local periodicity recovers weak activation-supported beats (left), whereas ambiguity among competing periods weakens the duration preference, allowing the decoded path to match Direct in this example (right). Reference IBI is shown only for interpretation.}
 \label{fig:casm-examples}
 \end{figure}
 \begin{figure}[t!]

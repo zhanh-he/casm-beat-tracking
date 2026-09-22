@@ -68,6 +68,16 @@ def test_cli_writes_reusable_npz(tmp_path: Path) -> None:
         assert result["downbeats"].ndim == 1
 
 
+def test_cli_accepts_combined_npy(tmp_path: Path) -> None:
+    beat, downbeat = regular_logits()
+    source = tmp_path / "activations.npy"
+    output = tmp_path / "events.npz"
+    np.save(source, np.column_stack((beat, downbeat)))
+    assert main([str(source), "-o", str(output)]) == 0
+    with np.load(output) as result:
+        assert len(result["beats"])
+
+
 def test_cli_writes_standard_beats_file(tmp_path: Path) -> None:
     beat, downbeat = regular_logits()
     source = tmp_path / "activations.npz"

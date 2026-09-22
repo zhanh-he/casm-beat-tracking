@@ -8,8 +8,10 @@ from typing import Sequence
 
 import numpy as np
 
+from . import __version__
 from .config import CASMConfig
 from .decoder import CASMDecoder
+from .processors import beat_numbers
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -17,7 +19,14 @@ def _parser() -> argparse.ArgumentParser:
         prog="casm-decode",
         description="Decode beat/downbeat activation arrays with CASM 7F.",
     )
-    parser.add_argument("input", type=Path, help="input .npz activation file")
+    parser.add_argument(
+        "input",
+        type=Path,
+        help="input .npz with separate arrays or .npy with shape (frames, 2)",
+    )
+    parser.add_argument(
+        "--version", action="version", version=f"%(prog)s {__version__}"
+    )
     parser.add_argument("--output", "-o", type=Path, required=True)
     parser.add_argument("--config", type=Path, help="optional CASM JSON config")
     parser.add_argument("--beat-key", default="beat_logits")
@@ -28,27 +37,27 @@ def _parser() -> argparse.ArgumentParser:
     return parser
 
 
+def _load_activations(
+    path: Path, beat_key: str, downbeat_key: str
+) -> tuple[np.ndarray, np.ndarray]:
+    if path.suffix.lower() == ".npy":
+        values = np.load(path, allow_pickle=False)
+        if values.ndim != 2 or values.shape[1] != 2:
+            raise SystemExit(".npy input must have shape (frames, 2)")
+        return values[:, 0], values[:, 1]
+    if path.suffix.lower() != ".npz":
+        raise SystemExit("input must end in .npz or .npy")
+
+    with np.load(path, allow_pickle=False) as payload:
+        missing = [key for key in (beat_key, downbeat_key) if key not in payload]
+        if missing:
+            raise SystemExit(f"missing input key(s): {', '.join(missing)}")
+        return payload[beat_key].copy(), payload[downbeat_key].copy()
+
+
 def _infer_beat_numbers(beats: np.ndarray, downbeats: np.ndarray) -> np.ndarray:
-    downbeat_indices = [
-        index
-        for index, beat in enumerate(beats)
-        if np.any(np.isclose(downbeats, beat, atol=1e-9))
-    ]
-    if len(downbeat_indices) >= 2:
-        meter = downbeat_indices[1] - downbeat_indices[0]
-        pickup = downbeat_indices[0]
-        counter = meter - pickup if pickup < meter else 1
-    else:
-        counter = 0
-    numbers: list[int] = []
-    downbeat_set = set(downbeat_indices)
-    for index in range(len(beats)):
-        if index in downbeat_set:
-            counter = 1
-        else:
-            counter += 1
-        numbers.append(counter)
-    return np.asarray(numbers, dtype=np.int64)
+    """Backward-compatible wrapper around the public numbering helper."""
+    return beat_numbers(beats, downbeats)
 
 
 def _write_tsv(path: Path, beats: np.ndarray, downbeats: np.ndarray) -> None:
@@ -62,19 +71,14 @@ def _write_tsv(path: Path, beats: np.ndarray, downbeats: np.ndarray) -> None:
 def main(argv: Sequence[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     config = CASMConfig.from_json(args.config) if args.config else CASMConfig()
-    with np.load(args.input) as payload:
-        missing = [
-            key
-            for key in (args.beat_key, args.downbeat_key)
-            if key not in payload
-        ]
-        if missing:
-            raise SystemExit(f"missing input key(s): {', '.join(missing)}")
-        beats, downbeats = CASMDecoder(config).decode(
-            payload[args.beat_key],
-            payload[args.downbeat_key],
-            input_type=args.input_type,
-        )
+    beat_values, downbeat_values = _load_activations(
+        args.input, args.beat_key, args.downbeat_key
+    )
+    beats, downbeats = CASMDecoder(config).decode(
+        beat_values,
+        downbeat_values,
+        input_type=args.input_type,
+    )
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     if args.output.suffix.lower() == ".npz":

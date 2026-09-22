@@ -8,6 +8,20 @@ version = "0.1.0"
 description = "Fast confidence-adaptive semi-Markov decoding for beat tracking"
 readme = "README.md"
 requires-python = ">=3.10"
+keywords = ["audio", "beat-tracking", "downbeat-tracking", "music-information-retrieval"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Multimedia :: Sound/Audio :: Analysis",
+  "Typing :: Typed",
+]
 dependencies = [
   "numpy>=1.24",
   "scipy>=1.10",
@@ -16,12 +30,22 @@ dependencies = [
 [project.optional-dependencies]
 test = ["pytest>=7", "mir_eval>=0.8"]
 evaluation = ["mir_eval>=0.8"]
+dev = ["build>=1", "pytest>=7", "mir_eval>=0.8", "twine>=5"]
+
+[project.urls]
+Homepage = "https://zhanh-he.github.io/casm-beat-tracking/"
+Repository = "https://github.com/zhanh-he/casm-beat-tracking"
+Documentation = "https://github.com/zhanh-he/casm-beat-tracking/tree/paper-revisions"
+Issues = "https://github.com/zhanh-he/casm-beat-tracking/issues"
 
 [project.scripts]
 casm-decode = "casm_beat_tracking.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+casm_beat_tracking = ["py.typed", "data/*.json"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]

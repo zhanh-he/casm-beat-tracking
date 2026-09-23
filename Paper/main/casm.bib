@@ -25,7 +25,8 @@
 % ----------------------- Conferences -----------------------
 
 % @string{aaai = "Proc. AAAI"}
-@string{aaai = "Proceedings of the AAAI Conference on Artificial Intelligence (AAAI)"}
+@string{aaai = "Proc.~AAAI Conf. Artif. Intell. (AAAI)"}
+%string{aaai = "Proceedings of the AAAI Conference on Artificial Intelligence (AAAI)"}
 
 % @string{icassp = "Proc. ICASSP"}
 % @string{icassp = "Proc. IEEE Int. Conf. Acoust., Speech, Signal Process. (ICASSP)"}
@@ -51,7 +52,8 @@
 @string{icmc = "Proceedings of the International Computer Music Conference (ICMC)"}
 
 % @string{icme = "Proc. ICME"}
-@string{icme = "Proc.~ICME"}
+% string{icme = "Proc.~ICME"}
+@string{icme = "Proc.~IEEE Int. Conf. Multimedia Expo (ICME)"}
 
 % @string{mmsp = "Proc. MMSP"}
 @string{mmsp = "Proceedings of the IEEE International Workshop on Multimedia Signal Processing (MMSP)"}
@@ -66,7 +68,8 @@
 @string{iclr = "Proceedings of the International Conference on Learning Representations (ICLR)"}
 
 % @string{cvpr = "Proc. CVPR"}
-@string{cvpr = "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)"}
+@string{cvpr = "Proc.~IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)"}
+%string{cvpr = "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)"}
 
 % @string{interspeech = "Proc. Interspeech"}
 @string{interspeech = "Proceedings of the Annual Conference of the International Speech Communication Association (INTERSPEECH)"}
@@ -84,7 +87,8 @@
 @string{lrec = "Proceedings of the International Conference on Language Resources and Evaluation (LREC)"}
 
 % @string{eccv = "Proc. ECCV"}
-@string{eccv = "Proceedings of the European Conference on Computer Vision (ECCV)"}
+@string{eccv = "Proc.~Euro. Conf. Comput. Vision (ECCV)"}
+%string{eccv = "Proceedings of the European Conference on Computer Vision (ECCV)"}
 
 % @string{iccv = "Proc. ICCV"}
 @string{iccv = "Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)"}
@@ -1022,6 +1026,23 @@ year={2016},
 pages={386--392},
 }
 
+@inproceedings{fuentes2019downbeat,
+  title={A music structure informed downbeat tracking system using skip-chain conditional random fields and deep learning},
+  author={Fuentes, Magdalena and McFee, Brian and Crayencour, H{\'e}l{\`e}ne C and Essid, Slim and Bello, Juan Pablo},
+  booktitle=icassp,
+  pages={481--485},
+  year={2019},
+}
+
+@article{chiu2023local,
+  title={Local periodicity-based beat tracking for expressive classical piano music},
+  author={Chiu, Chih-Yun and M{\"u}ller, Meinard and Davies, Matthew EP and Su, Alvin W-Y and Yang, Yi-Hsuan},
+  journal=ieee-acm-taslp,
+  volume={31},
+  pages={2824--2835},
+  year={2023},
+}
+
 @InProceedings{fuentes2018design,
 author={Fuentes, Magdalena and McFee, Brian and Crayencour, H{\'e}l{\`e}ne C. and Essid, Slim and Bello, Juan Pablo},
 title={Analysis of Common Design Choices in Deep Learning Systems for Downbeat Tracking},
@@ -1080,7 +1101,6 @@ pages={486--493},
   title     = {{Beat-It}: Beat-Synchronized Multi-Condition {3D} Dance Generation},
   booktitle = eccv,
   pages     = {273--290},
-  publisher = {Springer},
   year      = {2024},
   doi       = {10.1007/978-3-031-72655-2_16}
 }
@@ -1089,8 +1109,6 @@ pages={486--493},
   author    = {Yu, Jiashuo and Wang, Yaohui and Chen, Xinyuan and Sun, Xiao and Qiao, Yu},
   title     = {Long-Term Rhythmic Video Soundtracker},
   booktitle = icml,
-  series    = {Proceedings of Machine Learning Research (PMLR)},
-  volume    = {202},
   pages     = {40339--40353},
   year      = {2023}
 }
@@ -1257,7 +1275,6 @@ booktitle={Music and Sound Generation in the AI Era},
 series={Lecture Notes in Computer Science},
 volume={15236},
 pages={461--479},
-publisher={Springer},
 year={2026},
 doi={10.1007/978-3-032-02042-0_35},
 mycomment={Revised selected paper from CMMR 2023},
@@ -2637,7 +2654,6 @@ mycomment={arXiv: 2604.11052; accepted to ACM Multimedia 2026},
   booktitle=eccv,
   year={2016},
   pages={649--666},
-  bk_organization={Springer},
   mycomment={ConvAE first use in Image Colorization
         GitHub: https://github.com/richzhang/colorization/tree/master},
 }

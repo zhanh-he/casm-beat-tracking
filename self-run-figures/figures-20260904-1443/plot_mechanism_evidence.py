@@ -25,6 +25,8 @@ CHARCOAL = "#252A30"
 GREY = "#7B828A"
 LIGHT_GREY = "#D9DEE3"
 PALE = "#F4F6F8"
+HEAT_BLUE = "#4173C8"  # LaTeX heatblue: RGB(65, 115, 200)
+HEAT_RED = "#CD5C5C"   # LaTeX heatred: RGB(205, 92, 92)
 
 PANEL_ORDER = [
     "bt_smc_oof",
@@ -313,20 +315,55 @@ def trace_metrics(representatives: list[dict[str, object]], panel: str, role: st
     return next(row for row in representatives if row["panel"] == panel and row["role"] == role)
 
 
-def plot_event_raster(ax: plt.Axes, values: np.ndarray, y: float, color: str, marker: str, label: str, start: float, end: float) -> None:
+def plot_event_raster(
+    ax: plt.Axes,
+    values: np.ndarray,
+    y: float,
+    color: str,
+    marker: str,
+    label: str,
+    start: float,
+    end: float,
+    *,
+    size: float = 10.0,
+    linewidth: float = 0.7,
+    hollow: bool = False,
+) -> None:
     values = np.asarray(values, dtype=float)
     values = values[(values >= start) & (values <= end)]
     if marker == "|":
-        ax.vlines(values, y - 0.025, y + 0.025, color=color, lw=1.0, label=label)
+        half_height = 0.036 if size > 10 else 0.025
+        ax.vlines(values, y - half_height, y + half_height, color=color, lw=linewidth, label=label)
     else:
-        ax.scatter(values, np.full(len(values), y), s=10, marker=marker, color=color, linewidths=0.7, label=label, zorder=5)
+        scatter_kwargs = {
+            "s": size,
+            "marker": marker,
+            "linewidths": linewidth,
+            "label": label,
+            "zorder": 5,
+        }
+        if hollow:
+            scatter_kwargs.update(facecolors="none", edgecolors=color)
+        else:
+            scatter_kwargs.update(color=color)
+        ax.scatter(values, np.full(len(values), y), **scatter_kwargs)
 
 
-def figure_real_traces(data: Path, figures: Path, frozen: dict[str, object]) -> None:
+def figure_real_traces(data: Path, figures: Path, frozen: dict[str, object], *, wide_layout: bool = False) -> None:
     representatives = json.loads((data / "representatives.json").read_text())
-    selections = [("improvement", "Mechanism-visible improvement"), ("ambiguous", "Ambiguous evidence; CASM defers")]
-    fig, axes = plt.subplots(3, 2, figsize=(7.15, 5.0), gridspec_kw={"height_ratios": [1.4, 1.0, 0.9]})
-    fig.subplots_adjust(wspace=0.25, hspace=0.2, top=0.78, bottom=0.13)
+    selections = [
+        ("improvement", "(a) Clear periodicity: CASM improves" if wide_layout else "Mechanism-visible improvement"),
+        ("ambiguous", "(b) Ambiguous evidence: CASM defers" if wide_layout else "Ambiguous evidence; CASM defers"),
+    ]
+    figsize = (24.0, 9.5) if wide_layout else (7.15, 5.0)
+    label_font = 16.0 if wide_layout else None
+    tick_font = 14.0 if wide_layout else None
+    height_ratios = [2.3, 1.05, 0.95] if wide_layout else [1.4, 1.0, 0.9]
+    fig, axes = plt.subplots(3, 2, figsize=figsize, gridspec_kw={"height_ratios": height_ratios})
+    if wide_layout:
+        fig.subplots_adjust(wspace=0.05, hspace=0.24, top=0.72, bottom=0.10, left=0.105, right=0.95)
+    else:
+        fig.subplots_adjust(wspace=0.25, hspace=0.2, top=0.78, bottom=0.13)
 
     for column, (role, heading) in enumerate(selections):
         trace = load_trace(data / "representative_traces" / f"bt_smc_oof__{role}.npz")
@@ -340,32 +377,51 @@ def figure_real_traces(data: Path, figures: Path, frozen: dict[str, object]) -> 
         ax = axes[0, column]
         ax.fill_between(times, trace["beat_prob"][frame_start:frame_end], color=LIGHT_GREY, alpha=0.65, lw=0)
         ax.plot(times, trace["beat_prob"][frame_start:frame_end], color=GREY, lw=0.75)
-        plot_event_raster(ax, trace["truth_beat"], -0.05, CHARCOAL, "|", "Reference", start, end)
-        plot_event_raster(ax, trace["direct_beat"], -0.12, ORANGE, "x", "Direct", start, end)
-        plot_event_raster(ax, trace["casm_beat"], -0.19, BLUE, "|", "CASM", start, end)
-        plot_event_raster(ax, trace["dbn_matched_beat"], -0.26, GREY, ".", "DBN 30–300", start, end)
-        plot_event_raster(ax, trace["plpdp_beat"], -0.33, OLIVE, "+", "PLPDP", start, end)
+        symbol_size = 34.0 if wide_layout else 10.0
+        symbol_lw = 1.8 if wide_layout else 0.7
+        if wide_layout:
+            result_y = [-0.05, -0.16, -0.27, -0.38, -0.49]
+        else:
+            result_y = [-0.05, -0.12, -0.19, -0.26, -0.33]
+        plot_event_raster(ax, trace["truth_beat"], result_y[0], CHARCOAL, "o" if wide_layout else "|", "Reference", start, end, size=24.0 if wide_layout else symbol_size, linewidth=1.4 if wide_layout else symbol_lw)
+        plot_event_raster(ax, trace["direct_beat"], result_y[1], BLUE, "|", "Direct", start, end, size=symbol_size, linewidth=symbol_lw)
+        plot_event_raster(ax, trace["casm_beat"], result_y[2], ORANGE, "x", "CASM", start, end, size=symbol_size, linewidth=symbol_lw)
+        plot_event_raster(ax, trace["dbn_matched_beat"], result_y[3], GREY, "^", "DBN (BPM=30–300)" if wide_layout else "DBN 30–300", start, end, size=symbol_size, linewidth=1.2 if wide_layout else 0.7)
+        plot_event_raster(ax, trace["plpdp_beat"], result_y[4], HEAT_RED if wide_layout else OLIVE, "o" if wide_layout else "+", "PLPDP", start, end, size=symbol_size, linewidth=symbol_lw, hollow=wide_layout)
         ax.set_xlim(start, end)
-        ax.set_ylim(-0.38, 1.03)
+        ax.set_ylim(-0.54 if wide_layout else -0.38, 1.03)
         ax.set_yticks([0, 0.5, 1.0])
-        ax.set_ylabel("Beat activation" if column == 0 else "")
+        ax.set_ylabel("Beat activation" if column == 0 else "", fontsize=label_font)
         ax.set_title(
             f"{heading}\n{str(trace['piece'].item()).replace('/track.npy', '')}",
-            fontsize=8.3,
+            fontsize=18.0 if wide_layout else 8.3,
             fontweight="bold",
+            pad=7 if wide_layout else None,
         )
+        if wide_layout:
+            ax.tick_params(axis="both", labelsize=tick_font)
         ax.grid(axis="y")
         if column == 0:
             handles, labels = ax.get_legend_handles_labels()
+            if wide_layout:
+                handles = [
+                    Line2D([], [], color=CHARCOAL, marker="o", linestyle="None", markersize=7),
+                    Line2D([], [], color=BLUE, marker="|", linestyle="None", markersize=15, markeredgewidth=2.0),
+                    Line2D([], [], color=ORANGE, marker="x", linestyle="None", markersize=9, markeredgewidth=2.0),
+                    Line2D([], [], color=GREY, marker="^", linestyle="None", markersize=8),
+                    Line2D([], [], color=HEAT_RED, marker="o", markerfacecolor="none", linestyle="None", markersize=8, markeredgewidth=2.0),
+                ]
+                labels = ["Reference", "Direct", "CASM", "DBN (BPM=30–300)", "PLPDP"]
             fig.legend(
                 handles,
                 labels,
                 frameon=False,
                 ncol=5,
                 loc="upper center",
-                bbox_to_anchor=(0.5, 0.885),
-                handlelength=1.0,
-                columnspacing=1.2,
+                bbox_to_anchor=(0.5, 0.88 if wide_layout else 0.885),
+                handlelength=1.15 if wide_layout else 1.0,
+                columnspacing=1.35 if wide_layout else 1.2,
+                fontsize=16.0 if wide_layout else None,
             )
 
         ax = axes[1, column]
@@ -375,28 +431,59 @@ def figure_real_traces(data: Path, figures: Path, frozen: dict[str, object]) -> 
         sc = ax.scatter(
             candidate_times[mask],
             target_bpm[mask],
-            c=trace["confidence"][mask],
-            cmap=mpl.colors.LinearSegmentedColormap.from_list("casm_c", [LIGHT_GREY, BLUE]),
-            vmin=0,
-            vmax=max(0.5, float(np.max(trace["confidence"]))),
-            s=9,
-            linewidths=0,
+            color=ORANGE if wide_layout else None,
+            c=None if wide_layout else trace["confidence"][mask],
+            cmap=None if wide_layout else mpl.colors.LinearSegmentedColormap.from_list("casm_c", [LIGHT_GREY, BLUE]),
+            vmin=None if wide_layout else 0,
+            vmax=None if wide_layout else max(0.5, float(np.max(trace["confidence"]))),
+            s=34 if wide_layout else 9,
+            marker="x" if wide_layout else "o",
+            linewidths=1.7 if wide_layout else 0,
             label="CASM local target",
         )
         truth = trace["truth_beat"]
         truth_bpm = 60.0 / np.diff(truth)
         truth_times = 0.5 * (truth[:-1] + truth[1:])
         truth_mask = (truth_times >= start) & (truth_times <= end)
-        ax.plot(truth_times[truth_mask], truth_bpm[truth_mask], color=CHARCOAL, lw=1.0, marker=".", ms=2.5, label="Reference IBI")
+        ax.plot(
+            truth_times[truth_mask],
+            truth_bpm[truth_mask],
+            color=CHARCOAL,
+            lw=1.8 if wide_layout else 1.0,
+            marker="o",
+            ms=3.8 if wide_layout else 2.5,
+            label="Reference IBI",
+        )
         ax.set_yscale("log")
-        ax.set_ylim(30, 300)
-        ax.yaxis.set_major_locator(mpl.ticker.FixedLocator([30, 60, 120, 240]))
-        ax.yaxis.set_major_formatter(mpl.ticker.FixedFormatter(["30", "60", "120", "240"]))
+        if wide_layout and column == 0:
+            tempo_ticks = [30, 60, 120]
+            ax.set_ylim(28, 120)
+        elif wide_layout:
+            tempo_ticks = [30, 60, 120, 180]
+            ax.set_ylim(30, 180)
+        else:
+            tempo_ticks = [30, 60, 120, 240]
+            ax.set_ylim(30, 300)
+        ax.yaxis.set_major_locator(mpl.ticker.FixedLocator(tempo_ticks))
+        ax.yaxis.set_major_formatter(mpl.ticker.FixedFormatter([str(value) for value in tempo_ticks]))
         ax.yaxis.set_minor_formatter(mpl.ticker.NullFormatter())
         ax.set_xlim(start, end)
-        ax.set_ylabel("Local tempo (BPM)" if column == 0 else "")
+        ax.set_ylabel("Local tempo (BPM)" if column == 0 else "", fontsize=13.0 if wide_layout else label_font)
         ax.grid(which="both", axis="y")
-        if column == 0:
+        if wide_layout:
+            ax.tick_params(axis="both", labelsize=tick_font)
+        if wide_layout and column == 0:
+            ax.legend(
+                frameon=True,
+                facecolor="white",
+                edgecolor="black",
+                framealpha=1.0,
+                fancybox=False,
+                loc="upper left",
+                ncol=2,
+                fontsize=12.0,
+            )
+        elif not wide_layout and column == 0:
             ax.legend(frameon=False, loc="upper left", ncol=2)
 
         ax = axes[2, column]
@@ -408,38 +495,53 @@ def figure_real_traces(data: Path, figures: Path, frozen: dict[str, object]) -> 
         coefficient = lam * confidence / (2 * (sigma0 + (1 - confidence) * sigmau) ** 2)
         ax.fill_between(ctime, confidence, color=BLUE_LIGHT, alpha=0.65, step="mid")
         ax.plot(ctime, confidence, color=BLUE, lw=0.8)
-        ax.set_ylim(0, max(0.5, float(np.max(trace["confidence"])) * 1.08))
+        ax.set_ylim(0, 0.5 if wide_layout else max(0.5, float(np.max(trace["confidence"])) * 1.08))
         ax.set_xlim(start, end)
-        ax.set_ylabel("Margin $c_i$" if column == 0 else "")
-        ax.set_xlabel("Time (s)")
-        ax.grid(axis="y")
+        ax.set_ylabel("Margin $c_i$" if column == 0 else "", fontsize=label_font)
+        ax.set_xlabel("Time (s)", fontsize=label_font)
+        if wide_layout:
+            ax.set_yticks([0.0, 0.5])
+            ax.yaxis.set_minor_locator(mpl.ticker.FixedLocator([0.125, 0.25, 0.375]))
+            ax.grid(which="major", axis="y")
+            ax.grid(which="minor", axis="y", color=LIGHT_GREY, linewidth=0.8)
+        else:
+            ax.grid(axis="y")
+        if wide_layout:
+            ax.tick_params(axis="both", labelsize=tick_font)
         twin = ax.twinx()
         twin.plot(ctime, coefficient, color=ORANGE, lw=0.8, alpha=0.9)
         twin.set_ylim(0, max(4.0, float(np.max(coefficient)) * 1.12))
-        twin.set_ylabel("$w(c_i)$" if column == 1 else "", color=ORANGE)
-        twin.tick_params(axis="y", colors=ORANGE)
+        twin.set_ylabel("$w(c_i)$" if column == 1 else "", color=ORANGE, fontsize=label_font)
+        twin.tick_params(axis="y", colors=ORANGE, labelsize=tick_font)
         ax.text(
             0.01,
             0.92,
             f"ΔF1 {100*float(meta['delta_fmeasure']):+.1f} pp · ΔCMLt {100*float(meta['delta_cmlt']):+.1f} pp",
             transform=ax.transAxes,
             va="top",
-            fontsize=6.7,
+            fontsize=14.0 if wide_layout else 6.7,
             color=CHARCOAL,
         )
 
     for ax in axes[:2].flat:
         ax.tick_params(labelbottom=False)
-    fig.suptitle("CASM behavior on real Beat This OOF activations from SMC", x=0.02, y=0.985, ha="left", fontweight="bold")
+    fig.suptitle(
+        "CASM behavior on real BeatThis OOF activations from SMC",
+        x=0.015 if wide_layout else 0.02,
+        y=0.99 if wide_layout else 0.985,
+        ha="left",
+        fontweight="bold",
+        fontsize=22.0 if wide_layout else None,
+    )
     fig.text(
-        0.02,
-        0.02,
+        0.015 if wide_layout else 0.02,
+        0.015 if wide_layout else 0.02,
         "Windows were selected post hoc for mechanism visualization, not for performance estimation. "
         "Every CASM beat remains on a retained activation maximum.",
-        fontsize=6.4,
+        fontsize=12.0 if wide_layout else 6.4,
         color=GREY,
     )
-    save_all(fig, figures, "fig02_real_track_mechanism")
+    save_all(fig, figures, "fig02a" if wide_layout else "fig02_real_track_mechanism")
 
 
 def aggregate_lookup(aggregate: pd.DataFrame, panel: str, method: str, metric: str) -> float:
@@ -500,6 +602,73 @@ def figure_ablation(data: Path, figures: Path) -> None:
         color=GREY,
     )
     save_all(fig, figures, "fig03_ablation_matrix")
+
+
+def latex_heat_rgb(value: float) -> tuple[float, float, float]:
+    """Match the manuscript's heatpos/heatneg white-mixing rule."""
+    if abs(value) < 1e-12:
+        return (1.0, 1.0, 1.0)
+    shade = min(54.0, 14.0 + 40.0 * math.sqrt(abs(value) / 10.0)) / 100.0
+    base = mpl.colors.to_rgb(HEAT_BLUE if value > 0 else HEAT_RED)
+    return tuple(1.0 - shade * (1.0 - channel) for channel in base)
+
+
+def latex_heat_cmap(bound: float) -> mpl.colors.ListedColormap:
+    values = np.linspace(-bound, bound, 1025)
+    return mpl.colors.ListedColormap([latex_heat_rgb(value) for value in values], name="latex_signed")
+
+
+def figure_ablation_bt_only(data: Path, figures: Path) -> None:
+    """BeatThis-only ablation matrix, ordered GTZAN then SMC."""
+    aggregate = pd.read_csv(data / "aggregate_metrics.csv")
+    panels = ["bt_gtzan_seed0", "bt_smc_oof"]
+    panel_labels = ["BeatThis\nGTZAN", "BeatThis\nSMC"]
+    methods = ["casm_full", "local_target_fixed", "strength_only", "width_only", "one_sided", "no_safeguard"]
+    metrics = [("beat_fmeasure", "Beat F1"), ("beat_cmlt", "CMLt"), ("beat_amlt", "AMLt")]
+    matrices = []
+    for metric, _ in metrics:
+        matrices.append(
+            np.asarray(
+                [
+                    [
+                        100
+                        * (
+                            aggregate_lookup(aggregate, panel, method, metric)
+                            - aggregate_lookup(aggregate, panel, "direct", metric)
+                        )
+                        for panel in panels
+                    ]
+                    for method in methods
+                ]
+            )
+        )
+
+    bound = max(5.0, math.ceil(max(np.max(np.abs(matrix)) for matrix in matrices)))
+    cmap = latex_heat_cmap(bound)
+    norm = mpl.colors.Normalize(vmin=-bound, vmax=bound)
+    fig, axes = plt.subplots(1, 3, figsize=(5.8, 3.05), sharey=True)
+    fig.subplots_adjust(wspace=0.12, top=0.82, bottom=0.25, left=0.24, right=0.98)
+    for index, (ax, matrix, (_, title)) in enumerate(zip(axes, matrices, metrics)):
+        image = ax.imshow(matrix, cmap=cmap, norm=norm, aspect="auto", interpolation="nearest")
+        for row in range(matrix.shape[0]):
+            for col in range(matrix.shape[1]):
+                ax.text(col, row, f"{matrix[row, col]:+.1f}", ha="center", va="center", fontsize=7.0, color=CHARCOAL)
+        ax.set_xticks(np.arange(len(panels)), panel_labels)
+        ax.set_title(f"({chr(97 + index)}) Δ {title}", loc="left", fontweight="bold")
+        ax.tick_params(length=0)
+        ax.set_xticks(np.arange(-0.5, len(panels), 1), minor=True)
+        ax.set_yticks(np.arange(-0.5, len(methods), 1), minor=True)
+        ax.grid(which="minor", color="white", linewidth=1.0)
+        ax.tick_params(which="minor", bottom=False, left=False)
+    axes[0].set_yticks(np.arange(len(methods)), [METHOD_LABEL[method] for method in methods])
+    for ax in axes[1:]:
+        ax.tick_params(labelleft=False)
+    cbar_axis = fig.add_axes([0.34, 0.09, 0.48, 0.035])
+    cbar = fig.colorbar(image, cax=cbar_axis, orientation="horizontal")
+    cbar.set_label("Worse (red) ← paired macro change from Direct (percentage points) → Better (blue)")
+    cbar.ax.xaxis.set_label_position("top")
+    fig.suptitle("CASM ablations on BeatThis activations", x=0.02, ha="left", fontweight="bold")
+    save_all(fig, figures, "fig03a")
 
 
 def figure_operating_points(data: Path, figures: Path) -> None:
@@ -855,7 +1024,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--only",
         nargs="*",
-        choices=[f"fig{i:02d}" for i in range(1, 7)],
+        choices=[*[f"fig{i:02d}" for i in range(1, 7)], "fig02a", "fig03a"],
         help="Render only selected figures, e.g. --only fig05. Default: all figures.",
     )
     return parser.parse_args()
@@ -873,8 +1042,12 @@ def main() -> None:
         figure_input_conditioning(args.data_dir, args.figure_dir, frozen)
     if "fig02" in selected:
         figure_real_traces(args.data_dir, args.figure_dir, frozen)
+    if "fig02a" in selected:
+        figure_real_traces(args.data_dir, args.figure_dir, frozen, wide_layout=True)
     if "fig03" in selected:
         figure_ablation(args.data_dir, args.figure_dir)
+    if "fig03a" in selected:
+        figure_ablation_bt_only(args.data_dir, args.figure_dir)
     if "fig04" in selected:
         figure_operating_points(args.data_dir, args.figure_dir)
     if "fig05" in selected:

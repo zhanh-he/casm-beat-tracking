@@ -90,89 +90,41 @@ beat tracking, context-aware, semi-Markov model, post-processing, local periodic
 
 \section{Introduction}
 \label{sec:intro}
-Beats give music its temporal scaffold, so reliable beat tracking is crucial for music production, analysis, synchronization, and interactive systems~\cite{purwins2019deep}. More recently, beat tracking has become a key component of multimodal AI-generated content (AIGC), where the estimated beats serve as timing anchors for aligning generated content such as dance~\cite{tseng2023edge, huang2024beatit}, video~\cite{yu2023loris, tong2026vem}, and music~\cite{lan2024musicongen, chen2024musicldm}. Current music beat trackers typically operate in two stages: a network maps audio to framewise beat activations, and a post-processor converts these activations into discrete events. Despite recent attempts to remove the post-processor~\cite{chen2022postprocessingfree, foscarin2024beat, bolt2026reformulated}, many contemporary systems \cite{deng2024efficient, ru2025hingenet, ru2025beatfm, ru2026beatmamba, zhang2025beatkan} still rely on it to obtain musically coherent estimates. However accurate the neural activations become, direct peak picking makes isolated local decisions without considering the periodicity of beat sequences. Structured post-processing addresses this limitation by combining local activation evidence with music temporal regularity.
+Beats give music its temporal scaffold, so reliable beat tracking is crucial for music production, analysis, synchronization, and interactive systems~\cite{purwins2019deep}. More recently, beat tracking has become a key component of multimodal AI-generated content (AIGC), where the estimated beats serve as timing anchors for aligning generated content such as dance~\cite{tseng2023edge, huang2024beatit}, video~\cite{yu2023loris, tong2026vem}, and music~\cite{lan2024musicongen, chen2024musicldm}. Most music beat trackers operate in two stages: a network maps audio to framewise beat activations, and a post-processor converts these activations into discrete events. Despite recent attempts to remove the post-processor~\cite{chen2022postprocessingfree, foscarin2024beat, bolt2026reformulated}, many contemporary systems \cite{deng2024efficient, ru2025hingenet, ru2025beatfm, ru2026beatmamba, zhang2025beatkan} still rely on it to obtain musically coherent estimates. However accurate the neural activations become, direct peak picking makes isolated local decisions without considering the periodicity of beat sequences. Post-processing addresses this limitation by combining local activation evidence with the temporal regularity of music.
 
-%\cite{bock2016joint}
+For post-processors, the key design question is how to balance temporal regularity against local activation evidence. A weak regularity constraint preserves the network's predictions but may fail to correct missed or spurious beats, whereas an overly strong one may suppress correct activation peaks in passages with expressive
+timing or frequent local tempo changes, as is common in classical music performances~\cite{Schreiber2020LocalTempo}. 
 
-For post-processors, the central design question is when and how strongly this temporal regularity should constrain the local evidence. Weak temporal regularization preserves the network's predictions but can sacrifice continuity, whereas overly strong regularization can override correct evidence under expressive or unusual timing. Earlier methods largely set this balance through predefined temporal constraints. The pioneering dynamic-programming approach~\cite{ellis2007beattracking} penalized inter-beat intervals (IBIs) that deviate from a single global tempo. Conditional random fields (CRFs)~\cite{fillon2015crf} provided a more flexible probabilistic formulation that allowed local tempo variations while still penalizing abrupt IBI changes. The dominant post-processing approach is the dynamic Bayesian network (DBN)~\cite{krebs2015dbn}, which operates under pre-specified tempo ranges, meters, and transition behaviors. This works well when those assumptions match the recording, but may require corpus-specific retuning when they do not~\cite{ahn2026smcblindspot}.
+Many existing post-processors tilt this balance toward predefined temporal constraints. Early dynamic programming approach~\cite{ellis2007beattracking} assumes a single global tempo per track and penalizes inter-beat intervals (IBIs) that deviate from it. Conditional random fields (CRFs)~\cite{fillon2015crf, fuentes2019skipchain} learn sequence preferences that permit a range of local tempo variation while discouraging abrupt IBI changes. The dominant post-processor is the dynamic Bayesian network (DBN)~\cite{krebs2015dbn, bock2016joint}, which operates under pre-specified tempo ranges, meter states, and tempo transition probabilities. This design works well when these assumptions match the recording, but may require per-track or corpus-specific retuning when they do not~\cite{ahn2026smcblindspot}.
 
-Recent proposed PLPDP~\cite{chiu2023localperiodicity} takes an important step toward locally adaptive post-processing. It estimates a time-varying IBI and confidence from predominant local pulse (PLP), and uses them to adapt the temporal constraint during dynamic programming. This establishes an important principle for activation decoding: the temporal prior can depend on the local evidence itself. However, the strongest local period need not be decisive. Half- and double-tempo hypotheses can receive similar support, in which case strongly enforcing either interpretation may be undesirable. (verA)
+The recently proposed PLPDP~\cite{chiu2023localperiodicity} shifts this balance by letting local evidence shape the temporal constraint. It derives a time-varying IBI and confidence from the predominant local pulse (PLP), which set the preferred period and how strongly it is enforced. However, this confidence is derived from PLP peak heights, it reflects how strong the selected period is but not whether a competing period is nearly as plausible. A strong period may still be nearly tied with a metrical alternative, such as half or double tempo, and enforcing it strongly then risks committing to the wrong metrical level.
 
-% Recent proposed PLPDP~\cite{chiu2023localperiodicity} takes an important step toward locally adaptive post-processing. Rather than relying on a fixed global tempo condition, it derives a time-varying IBI and confidence from predominant local pulse (PLP), and uses them to adapt both the target and strength of the temporal constraint during dynamic programming. This establishes an important principle: temporal regularity can be inferred from the activation evidence itself rather than specified entirely in advance. However, confidence in a selected local period is not necessarily the same as ambiguity among competing periodic interpretations. In particular, half- and double-tempo hypotheses may receive similar local support, in which case strongly committing to a single period may be undesirable. (verB)
+\begin{figure*}[h!]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/p0.jpg}
+\caption{CASM behaviour on held-out Beat This activations from SMC. Clear local periodicity recovers weak activation-supported beats (left), whereas ambiguous competing periods make CASM defer to Direct (right). Reference IBI is shown only for interpretation.}
+\label{fig:casm-examples}
+\end{figure*}
 
-We introduce CASM, a context-aware semi-Markov decoder that makes this distinction explicit. CASM constructs a sparse path over activation-supported peaks and estimates both local periodicity and its ambiguity. These estimates control the target, strength, and tolerance of the segment-duration preference: when the periodic evidence is clear, CASM commits strongly to local regularity; when competing periods are similarly plausible, it weakens that preference and lets the neural activations dominate. Fig.~\ref{fig:casm-examples} illustrates both cases. On the left, clear local periodicity allows CASM to recover weak, activation-supported beats that Direct misses; on the right, competing periodicity hypotheses make CASM defer to the Direct path. A beat-count safeguard and beat-synchronous meter decoder further keep the procedure deterministic and predictable. The core advantages of CASM are as follows:
+We introduce CASM, a context-aware semi-Markov post-processor. The core philosophy of our approach is simple: whereas PLPDP measures periodicity strength, CASM additionally considers periodicity ambiguity. By constructing a sparse path over activation-supported peaks, CASM explicitly estimates both factors. When periodic evidence is unambiguous, CASM enforces strict temporal regularity. When competing periods create ambiguity, it weakens the temporal constraint and allows the neural activations to dominate. Bounded by a beat-count safeguard and a beat-synchronous meter decoder for deterministic performance, CASM offers four core advantages:
 \begin{itemize}[leftmargin=*, nosep]
-\item \textbf{Model-agnostic.} CASM is a plug-in post-processor that operates on existing beat tracking systems and requires not neural network retraining.
-\item \textbf{Low tuning burden and well generalization.} CASM requires less per-track or per-dataset tuning than DBNs, and the current calibrated configuration is good performed on the MIREX benchmark.
-\item \textbf{Open and ready to use.} We release CASM as an open-source, pip-installable package with an interface compatible with the DBN post-processors in madmom.
+\item \textbf{Model-agnostic.} CASM is a plug-in post-processor that operates on existing beat tracking systems and requires no neural network retraining.
+\item \textbf{Low tuning burden.} CASM derives its temporal constraint directly from the activations like PLPDP, requiring less per-track or per-dataset tuning than DBNs.
+\item \textbf{Good generalization.} By evaluating periodicity ambiguity, a single CASM configuration robustly handles both steady and complex rhythms across the MIREX2026 benchmark evaluation datasets: GTZAN (common genres) and SMC (deliberately challenging).
+\item \textbf{Open and ready to use.} We release CASM as an open-source, pip-installable package with an interface compatible with the DBN post-processors in \textit{madmom}.
 \end{itemize}
 
 
+% We introduce CASM, a context-aware semi-Markov post-processor. Whereas PLPDP measures periodicity strength, CASM additionally considers periodicity ambiguity. CASM constructs a sparse path over activation-supported peaks and estimates both the local periodicity and its ambiguity, which together control the target, strength, and tolerance of the segment-duration preference. When the periodic evidence is clear, CASM commits strongly to local regularity and can recover weak but activation-supported beats that direct peak picking misses; when competing periods are similarly plausible, it weakens this preference and lets the neural activations dominate. A beat-count safeguard and a beat-synchronous meter decoder further keep the procedure deterministic and predictable. The core advantages of CASM are as follows:
 
-% \section{Related Work}
-% \label{sec:related}
 
-% \subsection{Structured post-processing}
-% Dynamic programming has long balanced onset evidence against inter-beat
-% regularity \cite{ellis2007beattracking}. Bayesian beat-position models used a
-% dominant beat interval \cite{korzeniowski2014crf}, while learned CRFs were later
-% extended from beats to downbeats, long-range section consistency, and
-% genre-specific microtiming \cite{fillon2015crf,durand2016crfdownbeat,
-% fuentes2019skipchain,fuentes2019microtiming}. Resonating comb filters estimate a
-% dominant periodicity before event alignment \cite{bock2015combfilter}, and DBNs
-% enumerate tempo--phase--meter states and decode their most likely trajectory
-% \cite{krebs2015dbn,bock2016joint}. These methods differ in state representation
-% and optimization, but they share a useful principle: noisy framewise evidence
-% should be interpreted as a sequence rather than thresholded independently.
 
-% \subsection{From PLPDP to ambiguity-aware local constraints}
-% PLPDP is CASM's direct methodological predecessor \cite{chiu2023localperiodicity}. Its central diagnosis was that a fixed global tempo penalty, including the empirically chosen transition law of common HMM trackers, can be too rigid for expressive timing. PLPDP extracts a time-varying inter-beat interval and a confidence curve from PLP, then replaces the global target and weight of dense-frame dynamic programming with those local quantities. Its real-time continuation improves controllability \cite{meier2024realtime}, and dPLP makes local-pulse estimation differentiable \cite{chiu2025dplp}. Reliability-informed tracking previously established the broader principle that temporal commitment should depend on evidence quality \cite{degara2012reliability}. CASM's margin is a local, deterministic separation score rather than predicted track-level accuracy. It also differs from the causal one-dimensional semi-Markov state space of \cite{heydari2022semimarkov},
-% which maintains a framewise posterior and adapts a jump-back distribution
-% online. CASM is an offline maximum-score path over candidate-to-candidate
-% segments. Nor is it a semi-CRF: its potentials are hand-specified, unnormalized,
-% and not learned \cite{sarawagi2004semimarkov}.
-
-% % CASM advances this line of work rather than treating PLPDP as an unrelated
-% % baseline. PLPDP asks, ``What is the current local pulse, and how strong is its
-% % PLP peak?'' CASM additionally asks, ``How decisively does that pulse beat the
-% % next plausible explanation?'' It measures a top-versus-runner-up period margin
-% % around each retained activation maximum, combines the two endpoint contexts,
-% % and uses the result to change both the strength and the tolerance of a complete
-% % event-to-event duration cost. The path is sparse and remains anchored to
-% % observed maxima, whereas PLPDP can evaluate every frame. This extension is
-% % designed for half/double-tempo competition: when no period wins clearly, the
-% % decoder should not enforce any of them confidently.
-
-% \subsection{Alternatives beyond plug-in decoding}
-% Particle filters maintain online tempo hypotheses \cite{hainsworth2004particle},
-% and BeatNet/BeatNet+ extend this branch to joint real-time rhythm analysis
-% \cite{heydari2021beatnet,heydari2024beatnetplus}. Another line adapts a tracker
-% with user annotations \cite{pinto2021userdriven,maia2022adapting,
-% pinto2023bridging,maia2024selective,pinto2026challenging}. More recent systems
-% remove or redesign post-processing: masked diffusion iteratively refines
-% coherent sequences \cite{foscarin2026masked}, BeatFCOS predicts intervals as
-% objects with Soft-NMS \cite{ahn2025beatfcos}, and other work reformulates the
-% prediction target \cite{bolt2026reformulated}. These approaches change the
-% predictor or import additional supervision. CASM instead addresses the
-% deployment setting in which only the activation output of a frozen tracker is
-% available.
 
 \section{Methodology}
 \label{sec:method}
 
 \subsection{CASM Overview}
 The proposed Context-Aware Semi-Markov (CASM) decoder is a model-agnostic post-processor that operates on beat and downbeat activations produced by a frozen tracker. It modifies only the decoding stage and therefore requires no retraining. Like PLPDP, CASM estimates a local beat period and its support from the activation sequence. CASM differs in how this support is defined and used: it measures the separation between the dominant period and competing tempo hypotheses and uses this margin to adapt the rhythmic constraint. Consequently, CASM enforces local regularity when the periodic evidence is clear, but relaxes the constraint when the evidence is ambiguous.
-
-
-
-\begin{figure}[t!]
-\centering
-\includegraphics[width=\columnwidth]{figures/p0.jpg}
-\includegraphics[width=\columnwidth]{figures/p0.jpg}
-\caption{CASM behaviour on held-out Beat This activations from SMC. Clear local periodicity recovers weak activation-supported beats (left), whereas ambiguous competing periods make CASM defer to Direct (right). Reference IBI is shown only for interpretation.}
-\label{fig:casm-examples}
-\end{figure}
-% we need enlarge figure so make this temp stategies
 
 
 
@@ -248,13 +200,13 @@ The cost vanishes when $\Delta_{ij}=\bar{\tau}_{ij}$; a large $c_{ij}$
 enforces rhythmic regularity, while a small $c_{ij}$ relaxes the
 constraint. CASM can therefore recover weak but rhythmically supported beats without forcing an unreliable tempo grid.
 
-\begin{figure}[!h]
-\centering
-\includegraphics[width=\columnwidth]{figures/p1.jpg}
-\caption{Input-conditioned duration stiffness under one frozen CASM
-configuration. (a) The fixed constants map period margin $c$ to coefficient $w(c)$; shading contains 99.5\% of observed structured-path edges. (b) Edge margin distributions differ across backbones and corpora. (c) Per-piece median coefficients therefore occupy different operating ranges; annotations give the separate count-ratio fallback rate. Fixed parameters define one response law, not one effective rigidity for every input.}
-\label{fig:casm-response}
-\end{figure}
+% \begin{figure}[!h]
+% \centering
+% \includegraphics[width=\columnwidth]{figures/p1.jpg}
+% \caption{Input-conditioned duration stiffness under one frozen CASM
+% configuration. (a) The fixed constants map period margin $c$ to coefficient $w(c)$; shading contains 99.5\% of observed structured-path edges. (b) Edge margin distributions differ across backbones and corpora. (c) Per-piece median coefficients therefore occupy different operating ranges; annotations give the separate count-ratio fallback rate. Fixed parameters define one response law, not one effective rigidity for every input.}
+% \label{fig:casm-response}
+% \end{figure}
 
 Figure~\ref{fig:casm-response} shows how Eq.~\eqref{eq:casm-duration} converts the local period-separation margin into an input-dependent timing constraint. Panel (a) shows the fixed response, panel (b) maps transitions from different datasets and backbones onto it, and panel (c) summarizes the resulting track-level
 constraint strengths. Thus, one frozen CASM configuration adapts its
@@ -287,9 +239,9 @@ per-track tuning, or learned decoder parameters.
 
 \textbf{Backbones.} We select three models whose implementations are publicly available and readily reproducible. For BeatThis, we use the original code and pretrained checkpoints \cite{foscarin2024beat}. MSCNN is adapted from the multi-scale, multi-task convolutional network of \cite{he2026dynest}, which was designed for 60s Bark-scale specific-loudness features. We modify it to accept the 30s the unified log-Mel input and remove the task heads unrelated to beat and downbeat tracking. TCN was introduced by \cite{bock2020deconstruct}, and we use the re-implementation distributed with \cite{he2026dynest}, which has been adapted from its original 5\,s input to the same 30\,s log-Mel input, with the tempo task head removed. All resulting backbones are trained on the same data and frozen before decoding performance comparison, ensuring that every post-processor receives exactly the same 50\,Hz framewise beat/downbeat activations from a given backbone.
 
-\textbf{Evaluation.} Following previous work \cite{foscarin2024beat}, the eight fold-specific checkpoints of each backbone are evaluated on GTZAN and their corresponding out-of-fold SMC partitions, with scores macro-averaged over total evaluation. We use \texttt{mir\_eval} to compute F1 score with a $\pm70$\,ms tolerance, CMLt, and AMLt \cite{raffel2014mireval}. CMLt measures continuity at the correct metrical level, whereas AMLt additionally accepts standard off-beat and half- or double-level interpretations.
+\textbf{Evaluation.} We conduct the same eight-fold cross-validation as in \cite{foscarin2024beat}, where backbones are each evaluated on the held-out GTZAN and their corresponding out-of-fold SMC partitions. We use \texttt{mir\_eval} \cite{raffel2014mireval} to compute F1 score with a $\pm70$\,ms tolerance, CMLt, and AMLt. CMLt measures continuity at the correct metrical level, whereas AMLt additionally accepts standard off-beat and half- or double-level interpretations.
 
-%CombFilter \cite{bock2015combfilter},
+%CombFilter \cite{bock2015combfilter}, 
 
 \subsection{Post-processors and tempo support}
 As we defined our task is offline, the future information is accessible for model to top up the estimate accuracy. We compare CASM with the direct decoding, along with other offline post-processing methods including DBN \cite{krebs2015dbn}, PLPDP \cite{chiu2023localperiodicity}, and CRF beat detection \cite{korzeniowski2014crf}. Direct is the peak-picking path defined in Sec.~\ref{sec:method}, and CASM uses its fixed 30--300-BPM support. PLPDP, CombFilter, and CRF are run with their released/default parameters. For methods without a joint beat/downbeat decoder, downbeats are decoded from the downbeat activation stream and snapped to the corresponding beat grid.
@@ -300,6 +252,8 @@ DBN receives separate treatment because its behaviour is particularly sensitive 
 CASM has no learned weights or random seed. The final configuration used in all main tables is calibrated once on the union of SMC folds 1--7 (7F) and then frozen for every track, backbone, and dataset. The same global scalar settings are therefore used on BeatThis, MSCNN, and TCN, on both SMC and GTZAN, without per-track or per-dataset BPM, meter, or parameter tuning at inference. Because the aggregate SMC results use eight-fold out-of-fold backbone activations while the decoder configuration is calibrated on folds 1--7, they are out-of-fold with respect to backbone training but are not a nested estimate of decoder calibration.
 
 We analyse calibration-data sensitivity separately rather than using it to choose the main operating point. SMC fold 0 is held out from decoder calibration throughout. From folds 1--7, we enumerate every 1-, 2-, and 4-fold calibration subset ($7$, $21$, and $35$ combinations) and the seven-fold union. For both CASM and DBN, a decoder configuration is selected independently on each calibration subset and then evaluated on the same fixed SMC-fold-0 panel and on GTZAN using one fixed backbone seed. The resulting distributions therefore measure sensitivity to the amount and composition of calibration data, while the 7F CASM configuration is the maximally supported global configuration used for the main results.
+
+
 \section{Results}
 \label{sec:results}
 
@@ -326,7 +280,7 @@ Table~\ref{tab:postprocessor_ablation} isolates the post-processor by holding th
 & F1 & CMLt & AMLt
 & F1 & CMLt & AMLt \\
 \midrule
-\textbf{BeatThis}\cite{foscarin2024beat}
+\textbf{BeatThis}(direct)\cite{foscarin2024beat}
 & 89.1 & 79.8 & 89.8
 & 78.3 & 67.2 & 79.1
 & 62.7 & 51.4 & 61.0 \\
@@ -334,10 +288,10 @@ w. CASM
 & \heatposbest{0.3} & \heatposbest{0.8} & \heatpos{1.2}
 & \heatposbest{0.7} & \heatpos{3.6} & \heatpos{8.0}
 & \heatposbest{0.3} & \heatposbest{2.4} & \heatposbest{3.6} \\
-w. CASM$^{\mathrm{[dbn]}}$
-& \heatpos{0.1} & \heatpos{0.5} & \heatpos{0.6}
-& \heatpos{0.5} & \heatpos{2.9} & \heatpos{5.8}
-& \heatpos{0.1} & \heatpos{0.4} & \heatpos{2.0} \\
+% w. CASM$^{\mathrm{[dbn]}}$
+% & \heatpos{0.1} & \heatpos{0.5} & \heatpos{0.6}
+% & \heatpos{0.5} & \heatpos{2.9} & \heatpos{5.8}
+% & \heatpos{0.1} & \heatpos{0.4} & \heatpos{2.0} \\
 w. DBN \cite{krebs2015dbn}
 & \heatneg{0.5} & \heatneg{0.9} & \heatpos{0.2}
 & \heatneg{1.5} & \heatneg{0.6} & \heatpos{1.1}
@@ -363,6 +317,10 @@ w. CASM
 & \heatposbest{0.4} & \heatpos{1.6} & \heatpos{2.4}
 & \heatpos{1.5} & \heatpos{12.5} & \heatpos{18.3}
 & \heatposbest{0.3} & \heatposbest{3.5} & \heatposbest{6.8} \\
+% w. CASM$^{\mathrm{[dbn]}}$
+% &&&
+% &&&
+% &&& \\
 w. DBN
 & \heatneg{1.1} & \heatpos{0.2} & \heatpos{5.9}
 & \heatneg{0.9} & \heatpos{9.5} & \heatpos{14.6}
@@ -380,6 +338,10 @@ w. CASM
 & \heatposbest{0.3} & \heatposbest{1.3} & \heatpos{1.6}
 & \heatpos{2.1} & \heatpos{9.2} & \heatpos{13.4}
 & \heatposbest{1.7} & \heatposbest{4.5} & \heatposbest{8.2} \\
+% w. CASM$^{\mathrm{[dbn]}}$
+% &&&
+% &&&
+% &&& \\
 w. DBN
 & \heatneg{1.9} & \heatneg{0.8} & \heatpos{4.4}
 & \heatneg{0.2} & \heatpos{8.9} & \heatpos{9.3}
@@ -388,6 +350,55 @@ w. DBN$^{\mathrm{[dbn]}}$
 & \heatneg{2.6} & \heatneg{0.7} & \heatposbest{5.0}
 & \heatposbest{4.9} & \heatposbest{23.2} & \heatposbest{22.9}
 & \heatneg{0.9} & \heatneg{7.0} & \heatpos{2.3} \\
+\bottomrule
+\end{tabular}%
+}
+\endgroup
+\end{table}
+
+\subsection{Ablation study}
+Table~\ref{tab:casm_ablation} shows that the main CASM components contribute to a balanced F1--continuity trade-off. Fixing the local-target precision substantially reduces the gains, particularly on GTZAN, while using only periodicity strength or width also degrades Beat F1 and weakens continuity improvements. This supports combining complementary local periodicity cues rather than relying on a single confidence measure. Using one endpoint produces results close to the full CASM, suggesting that this design choice has a relatively small effect. Removing the safeguards can yield slightly larger CMLt or AMLt gains, but at the cost of Beat F1, most clearly on SMC ($+0.2$ to $-0.3$). Overall, the full CASM provides the most consistent balance between preserving local beat evidence and improving temporal continuity across both datasets.
+
+\begin{table}[!h]
+\centering
+\caption{Ablation study of CASM on BeatThis activations. All values are changes relative to the direct backbone output.}
+\label{tab:casm_ablation}
+\begingroup
+\fontsize{9pt}{10pt}\selectfont
+\setlength{\tabcolsep}{3.6pt}
+\renewcommand{\arraystretch}{0.95}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{l|rrr@{\hspace{2pt}}|rrr}
+\toprule
+\multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Method}}}
+& \multicolumn{3}{c|}{\textbf{GTZAN (Beat)}}
+& \multicolumn{3}{c}{\textbf{SMC (Beat)}} \\
+\cmidrule(lr){2-4}
+\cmidrule(l){5-7}
+& F1 & CMLt & AMLt
+& F1 & CMLt & AMLt \\
+\midrule
+\textbf{CASM} (default, 30--300 BPM)
+& \heatposbest{0.3} & \heatposbest{0.8} & \heatposbest{1.2}
+& \heatposbest{0.3} & \heatposbest{2.4} & \heatposbest{3.6} \\
+Change to 55--215 BPM
+& \heatpos{0.1} & \heatpos{0.5} & \heatpos{0.6}
+& \heatpos{0.1} & \heatpos{0.4} & \heatpos{2.0} \\
+Local target fixed precision
+& \heatneg{0.3} & \heatneg{0.8} & \heatneg{0.8}
+& \heatpos{0.1} & \heatpos{0.7} & \heatpos{0.9} \\
+Strength only
+& \heatneg{0.1} & \heatneg{0.2} & \heatneg{0.2}
+& \heatneg{0.5} & \heatpos{0.9} & \heatpos{2.1} \\
+Width only
+& \heatneg{0.3} & \heatneg{0.6} & \heatneg{0.6}
+& \heatneg{0.5} & \heatpos{0.9} & \heatpos{2.2} \\
+One endpoint
+& \heatpos{0.1} & \heatpos{0.3} & \heatpos{0.4}
+& \heatpos{0.2} & \heatpos{2.2} & \heatpos{2.6} \\
+No safeguards
+& \heatneg{0.1} & \heatpos{0.4} & \heatpos{0.5}
+& \heatneg{0.3} & \heatpos{2.5} & \heatpos{2.7} \\
 \bottomrule
 \end{tabular}%
 }
@@ -403,7 +414,7 @@ Table~\ref{tab:audiodyn_cross_dataset_sota} compares the BeatThis works with CAS
 \caption{Comparison with recent beat-tracking systems. BeatThis (direct) and CASM results were obtained from our experiments, while all other values are reported from their original papers.}
 \label{tab:audiodyn_cross_dataset_sota}
 \begingroup
-\fontsize{8pt}{11pt}\selectfont
+\fontsize{9pt}{10pt}\selectfont
 \setlength{\tabcolsep}{0.5pt}
 \renewcommand{\arraystretch}{1.0}
 \resizebox{\columnwidth}{!}{%
@@ -420,24 +431,24 @@ Table~\ref{tab:audiodyn_cross_dataset_sota} compares the BeatThis works with CAS
 & F1 & CMLt & AMLt \\
 \midrule
 \rowcolor{gray!10}
-\textbf{HingeNet-MERT} w. DBN \cite{ru2025hingenet}
+\textbf{HN-MERT} w.DBN \cite{ru2025hingenet}
 & \textbf{89.7} & 81.4 & \textbf{94.3}
 & 77.4 & 71.6 & 87.2
 & 61.7 & -- & -- \\
-\textbf{HingeNet-MusicFM} w. DBN
+\textbf{HN-MusicFM} w.DBN
 & 89.2 & 80.9 & 93.7
 & \textbf{79.8} & 73.2 & \textbf{89.5}
 & 60.6 & -- & -- \\
 \rowcolor{gray!10}
-\textbf{BeatFM-MERT} w. DBN \cite{ru2025beatfm}
+\textbf{BeatFM-MERT} w.DBN \cite{ru2025beatfm}
 & \underline{89.5} & \underline{82.7} & \underline{93.9}
 & 76.7 & 70.2 & 85.4
 & 61.3 & -- & -- \\
-\textbf{BeatFM-MusicFM} w. DBN
+\textbf{BeatFM-MusicFM} w.DBN
 & 89.1 & 80.6 & 93.5
 & \underline{79.6} & \underline{74.4} & \underline{88.7}
 & 60.5 & -- & -- \\
-% \textbf{SpecTNT-TCN} w. DBN \cite{hung2022modeling}
+% \textbf{SpecTNT-TCN} w.DBN \cite{hung2022modeling}
 % & 88.7 & 81.2 & 92.0
 % & 75.6 & 71.5 & 88.1
 % & 60.5 & 51.4 & 66.3 \\
@@ -446,11 +457,11 @@ Table~\ref{tab:audiodyn_cross_dataset_sota} compares the BeatThis works with CAS
 % & 67.2 & 64.0 & 83.2
 % & 55.2 & 46.5 & 64.3 \\
 \rowcolor{gray!10}
-\textbf{BeatMamba} w. DBN \cite{ru2026beatmamba}
+\textbf{BeatMamba} w.DBN \cite{ru2026beatmamba}
 & 88.9 & 82.3 & \textbf{94.3}
 & -- & -- & --
 & 58.7 & 46.8 & 62.4 \\
-\textbf{BeatKAN} w. DBN \cite{zhang2025beatkan}
+\textbf{BeatKAN} w.DBN \cite{zhang2025beatkan}
 & 88.2 & 78.1 & 92.3
 & -- & -- & --
 & 59.8 & 48.4 & 64.0 \\
@@ -464,12 +475,12 @@ Table~\ref{tab:audiodyn_cross_dataset_sota} compares the BeatThis works with CAS
 & 89.1 & 79.8 & 89.8
 & 78.3 & 67.2 & 79.1
 & \underline{62.7} & \underline{51.4} & 61.0 \\
-% \textbf{BeatThis} w. DBN (default \& opt)
+% \textbf{BeatThis} w.DBN (default \& opt)
 % & 88.1 & 80.5 & 91.1
 % & 77.4 & 73.4 & 87.8
 % & 57.5 & 47.5 & 62.5 \\
 \rowcolor{gray!10}
-\textbf{BeatThis} w. CASM
+\textbf{BeatThis} w.CASM
 & 89.4 & 80.6 & 91.0
 & 79.0 & 70.8 & 87.1
 & \textbf{63.0} & \textbf{53.8} & \textbf{64.6} \\
@@ -482,14 +493,15 @@ Table~\ref{tab:audiodyn_cross_dataset_sota} compares the BeatThis works with CAS
 \subsection{Sensitivity to calibration data}
 The sensitivity experiment keeps the evaluation panels fixed and changes only the data used to calibrate the decoder. For each calibration scale $k\in\{1,2,4,7\}$, CASM and DBN are calibrated on the corresponding SMC fold subsets described in Sec.~\ref{sec:exp}, and every selected configuration is evaluated on the same held-out SMC fold 0 and the same GTZAN backbone seed. Thus, the spread at a given scale measures dependence on which calibration folds were used, while the movement of the distribution centre measures how additional calibration data changes transfer to the two fixed evaluation panels.
 
-\begin{figure}[t!]
+\vspace{-3pt}
+\begin{figure}[!h]
 \begin{center}
 \includegraphics[width=0.9\columnwidth]{figures/p2.jpg}
 \caption{Sensitivity to calibration data for CASM and DBN. Each point corresponds to a decoder configuration selected from one of the $7/21/35$ exhaustive 1-/2-/4-fold subsets of SMC folds 1--7 and evaluated on fixed SMC-fold-0 and GTZAN panels; 7F is a single configuration. Boxes are descriptive because calibration subsets overlap, and dashed lines show Direct performance.}
 \label{fig:calibration-scale}
 \end{center}
 \end{figure}
-
+\vspace{-3pt}
 Fig.~\ref{fig:calibration-scale} shows a clear difference in calibration behaviour. CASM remains tightly clustered across fold combinations, and its central performance improves consistently as more calibration folds are used on both the held-out SMC panel and GTZAN. In contrast, DBN exhibits much wider variation across calibration subsets, and the trends on SMC and GTZAN do not move together: configurations favoured by one panel can transfer poorly to the other. This cross-dataset disagreement is consistent with stronger calibration-set over-specialisation in the fixed DBN parameterisation. The 7F CASM setting used in the main tables is therefore supported by the full available calibration pool rather than selected from a favourable smaller-fold combination.
 
 \section{Conclusion and Future Work}

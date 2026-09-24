@@ -85,19 +85,18 @@ At the final stage of music beat tracking, neural activations need to be decoded
 \end{abstract}
 
 \begin{keywords}
-beat tracking, context-aware, semi-Markov model, post-processing, local periodicity
+beat tracking, context-aware, semi-Markov decoder, post-processing, local periodicity
 \end{keywords}
 
 \section{Introduction}
 \label{sec:intro}
 Beats give music its temporal scaffold, so reliable beat tracking is crucial for music production, analysis, synchronization, and interactive systems~\cite{purwins2019deep}. More recently, beat tracking has become a key component of multimodal AI-generated content (AIGC), where the estimated beats serve as timing anchors for aligning generated content such as dance~\cite{tseng2023edge, huang2024beatit}, video~\cite{yu2023loris, tong2026vem}, and music~\cite{lan2024musicongen, chen2024musicldm}. Most music beat trackers operate in two stages: a network maps audio to framewise beat activations, and a post-processor converts these activations into discrete events. Despite recent attempts to remove the post-processor~\cite{chen2022postprocessingfree, foscarin2024beat, bolt2026reformulated}, many contemporary systems \cite{deng2024efficient, ru2025hingenet, ru2025beatfm, ru2026beatmamba, zhang2025beatkan} still rely on it to obtain musically coherent estimates. However accurate the neural activations become, direct peak picking makes isolated local decisions without considering the periodicity of beat sequences. Post-processing addresses this limitation by combining local activation evidence with the temporal regularity of music.
 
-For post-processors, the key design question is how to balance temporal regularity against local activation evidence. A weak regularity constraint preserves the network's predictions but may fail to correct missed or spurious beats, whereas an overly strong one may suppress correct activation peaks in passages with expressive
-timing or frequent local tempo changes, as is common in classical music performances~\cite{Schreiber2020LocalTempo}. 
+For post-processors, the key design question is how to balance temporal regularity against local activation evidence. A weak regularity constraint preserves the network's predictions but may leave missed or spurious beats uncorrected. An overly strong constraint can instead suppress valid peaks under expressive timing or rapid local tempo variation, which is common in classical music performances~\cite{Schreiber2020LocalTempo}.
 
 Many existing post-processors tilt this balance toward predefined temporal constraints. Early dynamic programming approach~\cite{ellis2007beattracking} assumes a single global tempo per track and penalizes inter-beat intervals (IBIs) that deviate from it. Conditional random fields (CRFs)~\cite{fillon2015crf, fuentes2019skipchain} learn sequence preferences that permit a range of local tempo variation while discouraging abrupt IBI changes. The dominant post-processor is the dynamic Bayesian network (DBN)~\cite{krebs2015dbn, bock2016joint}, which operates under pre-specified tempo ranges, meter states, and tempo transition probabilities. This design works well when these assumptions match the recording, but may require per-track or corpus-specific retuning when they do not~\cite{ahn2026smcblindspot}.
 
-The recently proposed PLPDP~\cite{chiu2023localperiodicity} shifts this balance by letting local evidence shape the temporal constraint. It derives a time-varying IBI and confidence from the predominant local pulse (PLP), which set the preferred period and how strongly it is enforced. However, this confidence is derived from PLP peak heights, it reflects how strong the selected period is but not whether a competing period is nearly as plausible. A strong period may still be nearly tied with a metrical alternative, such as half or double tempo, and enforcing it strongly then risks committing to the wrong metrical level.
+The recently proposed PLPDP~\cite{chiu2023localperiodicity} shifts this balance to local evidence-conditioned temporal constraint. It derives a time-varying IBI and confidence from the predominant local pulse (PLP), which set the preferred period and how strongly it is enforced. However, this confidence is derived from PLP peak heights, it reflects how strong the selected period is but not whether a competing period is nearly as plausible. A strong period may still be nearly tied with a metrical alternative, such as half or double tempo, and enforcing it strongly then risks committing to the wrong metrical level.
 
 \begin{figure*}[h!]
 \centering
@@ -110,7 +109,7 @@ We introduce CASM, a context-aware semi-Markov post-processor. The core philosop
 \begin{itemize}[leftmargin=*, nosep]
 \item \textbf{Model-agnostic.} CASM is a plug-in post-processor that operates on existing beat tracking systems and requires no neural network retraining.
 \item \textbf{Low tuning burden.} CASM derives its temporal constraint directly from the activations like PLPDP, requiring less per-track or per-dataset tuning than DBNs.
-\item \textbf{Good generalization.} By evaluating periodicity ambiguity, a single CASM configuration robustly handles both steady and complex rhythms across the MIREX2026 benchmark evaluation datasets: GTZAN (common genres) and SMC (deliberately challenging).
+\item \textbf{Good generalization.} A frozen deployment of CASM can handle both steady (GTZAN, common genres) and complex rhythms (SMC, deliberately challenging) across the MIREX2026 beat tracking benchmark test datasets.
 \item \textbf{Open and ready to use.} We release CASM as an open-source, pip-installable package with an interface compatible with the DBN post-processors in \textit{madmom}.
 \end{itemize}
 
@@ -123,8 +122,8 @@ We introduce CASM, a context-aware semi-Markov post-processor. The core philosop
 \section{Methodology}
 \label{sec:method}
 
-\subsection{CASM Overview}
-The proposed Context-Aware Semi-Markov (CASM) decoder is a model-agnostic post-processor that operates on beat and downbeat activations produced by a frozen tracker. It modifies only the decoding stage and therefore requires no retraining. Like PLPDP, CASM estimates a local beat period and its support from the activation sequence. CASM differs in how this support is defined and used: it measures the separation between the dominant period and competing tempo hypotheses and uses this margin to adapt the rhythmic constraint. Consequently, CASM enforces local regularity when the periodic evidence is clear, but relaxes the constraint when the evidence is ambiguous.
+% \subsection{CASM Overview}
+% The proposed Context-Aware Semi-Markov (CASM) decoder is a model-agnostic post-processor that operates on beat and downbeat activations produced by a frozen tracker. It modifies only the decoding stage and therefore requires no retraining. Like PLPDP, CASM estimates a local beat period and its support from the activation sequence. CASM differs in how this support is defined and used: it measures the separation between the dominant period and competing tempo hypotheses and uses this margin to adapt the rhythmic constraint. Consequently, CASM enforces local regularity when the periodic evidence is clear, but relaxes the constraint when the evidence is ambiguous.
 
 
 

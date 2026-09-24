@@ -371,7 +371,7 @@ def figure_real_traces(
     if wide_layout:
         fig.subplots_adjust(wspace=0.05, hspace=0.24, top=0.72, bottom=0.10, left=0.105, right=0.95)
     elif single_column:
-        fig.subplots_adjust(wspace=0.25, hspace=0.20, top=0.78, bottom=0.13)
+        fig.subplots_adjust(wspace=0.25, hspace=0.20, top=0.88, bottom=0.24)
     else:
         fig.subplots_adjust(wspace=0.25, hspace=0.2, top=0.78, bottom=0.13)
 
@@ -427,11 +427,11 @@ def figure_real_traces(
                 labels,
                 frameon=False,
                 ncol=5,
-                loc="upper center",
-                bbox_to_anchor=(0.5, 0.88 if wide_layout else 0.885),
+                loc="lower center" if single_column else "upper center",
+                bbox_to_anchor=(0.5, 0.105 if single_column else (0.88 if wide_layout else 0.885)),
                 handlelength=1.15 if wide_layout else 1.0,
                 columnspacing=1.35 if wide_layout else 1.2,
-                fontsize=16.0 if wide_layout else None,
+                fontsize=16.0 if wide_layout else (8.0 if single_column else None),
             )
 
         ax = axes[1, column]
@@ -535,15 +535,15 @@ def figure_real_traces(
 
     for ax in axes[:2].flat:
         ax.tick_params(labelbottom=False)
-    figure_title = "CASM behavior on real BeatThis OOF activations from SMC"
-    fig.suptitle(
-        figure_title,
-        x=0.015 if wide_layout else 0.02,
-        y=0.99 if revised_layout else 0.985,
-        ha="left",
-        fontweight="bold",
-        fontsize=22.0 if wide_layout else None,
-    )
+    if not single_column:
+        fig.suptitle(
+            "CASM behavior on real BeatThis OOF activations from SMC",
+            x=0.015 if wide_layout else 0.02,
+            y=0.99 if revised_layout else 0.985,
+            ha="left",
+            fontweight="bold",
+            fontsize=22.0 if wide_layout else None,
+        )
     footer = (
         "Windows were selected post hoc for mechanism visualization, not for performance estimation. "
         "Every CASM beat remains on a retained activation maximum."

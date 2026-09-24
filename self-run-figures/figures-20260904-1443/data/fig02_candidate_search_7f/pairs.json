@@ -1,0 +1,85 @@
+[
+  {
+    "id": "A",
+    "panel": "bt_smc_oof",
+    "clear_piece": "smc/smc_036/track.npy",
+    "ambiguous_piece": "smc/smc_140/track.npy",
+    "note": "Largest visible clear-case advantage; strongest ambiguous baseline separation."
+  },
+  {
+    "id": "B",
+    "panel": "bt_smc_oof",
+    "clear_piece": "smc/smc_001/track.npy",
+    "ambiguous_piece": "smc/smc_140/track.npy",
+    "note": "Strongest high-margin versus low-margin contrast."
+  },
+  {
+    "id": "C",
+    "panel": "bt_smc_oof",
+    "clear_piece": "smc/smc_001/track.npy",
+    "ambiguous_piece": "smc/smc_043/track.npy",
+    "note": "High-margin correction paired with a higher-F1 exact deferral."
+  },
+  {
+    "id": "D",
+    "panel": "bt_smc_oof",
+    "clear_piece": "smc/smc_098/track.npy",
+    "ambiguous_piece": "smc/smc_032/track.npy",
+    "note": "Both windows have comparatively high absolute F1."
+  },
+  {
+    "id": "E",
+    "panel": "bt_smc_oof",
+    "clear_piece": "smc/smc_011/track.npy",
+    "ambiguous_piece": "smc/smc_227/track.npy",
+    "note": "Balanced pair with clean event overlays in both windows."
+  },
+  {
+    "id": "F",
+    "panel": "bt_smc_oof",
+    "clear_piece": "smc/smc_221/track.npy",
+    "ambiguous_piece": "smc/smc_005/track.npy",
+    "note": "Alternative tracks with strong margin contrast."
+  },
+  {
+    "id": "G",
+    "panel": "bt_smc_oof",
+    "clear_piece": "smc/smc_036/track.npy",
+    "ambiguous_piece": "smc/smc_043/track.npy",
+    "note": "Most dramatic correction paired with visibly conflicting local-tempo evidence."
+  },
+  {
+    "id": "H",
+    "panel": "bt_smc_oof",
+    "clear_piece": "smc/smc_001/track.npy",
+    "ambiguous_piece": "smc/smc_167/track.npy",
+    "note": "High-margin correction paired with a track whose CASM and Direct whole-track F1/CMLt are equal."
+  },
+  {
+    "id": "I",
+    "panel": "bt_smc_oof",
+    "clear_piece": "smc/smc_001/track.npy",
+    "clear_window": [15.5, 27.5],
+    "ambiguous_piece": "smc/smc_032/track.npy",
+    "ambiguous_window": [7.25, 19.25],
+    "note": "Recommended mechanism pair: strongest high-confidence versus low-confidence contrast after visual audit."
+  },
+  {
+    "id": "J",
+    "panel": "bt_smc_oof",
+    "clear_piece": "smc/smc_042/track.npy",
+    "clear_window": [19.0, 31.0],
+    "ambiguous_piece": "smc/smc_032/track.npy",
+    "ambiguous_window": [7.25, 19.25],
+    "note": "Largest stiffness contrast, with a smaller CASM-versus-Direct clear-case gain."
+  },
+  {
+    "id": "K",
+    "panel": "bt_smc_oof",
+    "clear_piece": "smc/smc_001/track.npy",
+    "clear_window": [15.5, 27.5],
+    "ambiguous_piece": "smc/smc_022/track.npy",
+    "ambiguous_window": [5.75, 17.75],
+    "note": "High-accuracy ambiguous alternative whose tempo target remains close to the reference."
+  }
+]

@@ -1,0 +1,2655 @@
+{
+  "baseline_reuse": "Direct, DBN, and PLPDP whole-track metrics are reused from the mechanism bundle because they do not depend on CASM duration_sigma; every displayed event trace was decoded again.",
+  "configuration_hash": "c3311ff6a0bfa0d0344838fdc923b7627ccbe32332a2fb9f17664c2804eca22a",
+  "frozen_family": "exhaustive_7f",
+  "frozen_lock": "/media/mengh/SharedData/zhanh/auto_structbeat/runs/20260924_fig02_candidate_search_7f_v1/input/FROZEN_COMBINATIONS_LOCK.json",
+  "frozen_lock_sha256": "43a9574f7acff5bb97b3b7ff6bc17ec74ce6e14731c8120fbc61363c857e9f3e",
+  "frozen_parameter_sha256": "93f40ad87602ae68d84c6d1d72e307c27a67cc94d2b508f619f3376df08ae7de",
+  "frozen_parameters": {
+    "bar_reward": 0.0,
+    "candidate_threshold": 0.03,
+    "downbeat_agreement_threshold": 0.6,
+    "downbeat_agreement_tolerance": 0.07,
+    "downbeat_mode": "meter",
+    "downbeat_temperature": 4.0,
+    "duration_sigma": 0.15,
+    "duration_weight": 4.0,
+    "fallback_maximal_ratio": 1.8,
+    "fallback_minimal_ratio": 0.85,
+    "fps": 50.0,
+    "local_window_seconds": 8.0,
+    "logit_clip": 6.0,
+    "max_bpm": 300.0,
+    "meter_change_penalty": 3.0,
+    "meters": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "min_bpm": 30.0,
+    "temperature": 2.0,
+    "tempo_bias": 0.15,
+    "uncertain_sigma": 0.4
+  },
+  "intended_use": "mechanism visualization only; not aggregate performance evidence",
+  "panels": [
+    "bt_smc_oof"
+  ],
+  "records": [
+    {
+      "beat_fallback": false,
+      "count_ratio": 0.8787878787878788,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.10343366116285324,
+      "period_margin_median": 0.10830600559711456,
+      "piece": "smc/smc_036/track.npy",
+      "rank": 1,
+      "role": "clear",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold7_val/smc__smc_036__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_036.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.44,
+          "beat_cmlt": 0.44,
+          "beat_fmeasure": 0.813953488372093
+        },
+        "dbn_default": {
+          "beat_amlt": 0.84,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.5945945945945945
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.84,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.5945945945945945
+        },
+        "direct": {
+          "beat_amlt": 0.6056338028169014,
+          "beat_cmlt": 0.2203389830508474,
+          "beat_fmeasure": 0.736842105263158
+        },
+        "plpdp": {
+          "beat_amlt": 0.6901408450704225,
+          "beat_cmlt": 0.1612903225806451,
+          "beat_fmeasure": 0.7142857142857143
+        }
+      },
+      "window": {
+        "casm_direct_exact": false,
+        "end": 31.25,
+        "margin_max": 0.16851702332496643,
+        "margin_mean": 0.14175067842006683,
+        "margin_median": 0.1381850391626358,
+        "mean_f1_gain": 0.30628654970760233,
+        "method_count": {
+          "casm_full": 13,
+          "dbn_default": 25,
+          "dbn_matched_30_300": 25,
+          "direct": 23,
+          "plpdp": 25
+        },
+        "method_f1": {
+          "casm_full": 1.0,
+          "dbn_default": 0.6842105263157895,
+          "dbn_matched_30_300": 0.6842105263157895,
+          "direct": 0.7222222222222222,
+          "plpdp": 0.6842105263157895
+        },
+        "min_f1_gain": 0.2777777777777778,
+        "score": 2.0799228643447334,
+        "start": 19.25,
+        "truth_count": 13
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 0.9,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.28000885248184204,
+      "period_margin_median": 0.34818050265312195,
+      "piece": "smc/smc_001/track.npy",
+      "rank": 2,
+      "role": "clear",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold2_val/smc__smc_001__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_001.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.4878048780487805,
+          "beat_cmlt": 0.4878048780487805,
+          "beat_fmeasure": 0.6376811594202899
+        },
+        "dbn_default": {
+          "beat_amlt": 0.0,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.4107142857142857
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.0,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.4107142857142857
+        },
+        "direct": {
+          "beat_amlt": 0.3695652173913043,
+          "beat_cmlt": 0.3695652173913043,
+          "beat_fmeasure": 0.5945945945945946
+        },
+        "plpdp": {
+          "beat_amlt": 0.0,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.3859649122807018
+        }
+      },
+      "window": {
+        "casm_direct_exact": false,
+        "end": 29.25,
+        "margin_max": 0.4497111141681671,
+        "margin_mean": 0.2915443181991577,
+        "margin_median": 0.29161766171455383,
+        "mean_f1_gain": 0.33988174777648467,
+        "method_count": {
+          "casm_full": 9,
+          "dbn_default": 29,
+          "dbn_matched_30_300": 29,
+          "direct": 13,
+          "plpdp": 28
+        },
+        "method_f1": {
+          "casm_full": 0.7777777777777778,
+          "dbn_default": 0.3684210526315789,
+          "dbn_matched_30_300": 0.3684210526315789,
+          "direct": 0.6363636363636364,
+          "plpdp": 0.3783783783783784
+        },
+        "min_f1_gain": 0.14141414141414144,
+        "score": 1.4718904977816867,
+        "start": 17.25,
+        "truth_count": 9
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 0.9491525423728814,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.09109864383935928,
+      "period_margin_median": 0.0936724841594696,
+      "piece": "smc/smc_219/track.npy",
+      "rank": 3,
+      "role": "clear",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold1_val/smc__smc_219__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_219.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.92,
+          "beat_cmlt": 0.92,
+          "beat_fmeasure": 0.8484848484848485
+        },
+        "dbn_default": {
+          "beat_amlt": 0.3265306122448979,
+          "beat_cmlt": 0.3265306122448979,
+          "beat_fmeasure": 0.4375
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.28,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.4166666666666667
+        },
+        "direct": {
+          "beat_amlt": 0.7636363636363637,
+          "beat_cmlt": 0.7636363636363637,
+          "beat_fmeasure": 0.8076923076923076
+        },
+        "plpdp": {
+          "beat_amlt": 0.6727272727272727,
+          "beat_cmlt": 0.6727272727272727,
+          "beat_fmeasure": 0.7692307692307693
+        }
+      },
+      "window": {
+        "casm_direct_exact": false,
+        "end": 27.5,
+        "margin_max": 0.1467258781194687,
+        "margin_mean": 0.06999779492616653,
+        "margin_median": 0.054258860647678375,
+        "mean_f1_gain": 0.35395431920058607,
+        "method_count": {
+          "casm_full": 16,
+          "dbn_default": 19,
+          "dbn_matched_30_300": 8,
+          "direct": 18,
+          "plpdp": 19
+        },
+        "method_f1": {
+          "casm_full": 0.9032258064516129,
+          "dbn_default": 0.47058823529411764,
+          "dbn_matched_30_300": 0.17391304347826086,
+          "direct": 0.7878787878787878,
+          "plpdp": 0.7647058823529411
+        },
+        "min_f1_gain": 0.11534701857282503,
+        "score": 1.4079546351955425,
+        "start": 15.5,
+        "truth_count": 15
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 0.9615384615384616,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.07460887730121613,
+      "period_margin_median": 0.07006646692752838,
+      "piece": "smc/smc_048/track.npy",
+      "rank": 4,
+      "role": "clear",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold2_val/smc__smc_048__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_048.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.7391304347826086,
+          "beat_cmlt": 0.7391304347826086,
+          "beat_fmeasure": 0.5116279069767442
+        },
+        "dbn_default": {
+          "beat_amlt": 0.9230769230769232,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.3389830508474576
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 1.0,
+          "beat_cmlt": 1.0,
+          "beat_fmeasure": 0.5
+        },
+        "direct": {
+          "beat_amlt": 0.7083333333333334,
+          "beat_cmlt": 0.7083333333333334,
+          "beat_fmeasure": 0.5
+        },
+        "plpdp": {
+          "beat_amlt": 0.5769230769230769,
+          "beat_cmlt": 0.5769230769230769,
+          "beat_fmeasure": 0.3913043478260869
+        }
+      },
+      "window": {
+        "casm_direct_exact": false,
+        "end": 22.5,
+        "margin_max": 0.07824329286813736,
+        "margin_mean": 0.05090215429663658,
+        "margin_median": 0.04772857204079628,
+        "mean_f1_gain": 0.2711538461538462,
+        "method_count": {
+          "casm_full": 6,
+          "dbn_default": 13,
+          "dbn_matched_30_300": 6,
+          "direct": 6,
+          "plpdp": 6
+        },
+        "method_f1": {
+          "casm_full": 0.7692307692307693,
+          "dbn_default": 0.3,
+          "dbn_matched_30_300": 0.46153846153846156,
+          "direct": 0.6153846153846154,
+          "plpdp": 0.6153846153846154
+        },
+        "min_f1_gain": 0.15384615384615385,
+        "score": 1.3564244924428372,
+        "start": 10.5,
+        "truth_count": 7
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 1.0666666666666667,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.17571362853050232,
+      "period_margin_median": 0.16276800632476807,
+      "piece": "smc/smc_006/track.npy",
+      "rank": 5,
+      "role": "clear",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold1_val/smc__smc_006__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_006.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.5833333333333334,
+          "beat_cmlt": 0.5833333333333334,
+          "beat_fmeasure": 0.8437499999999999
+        },
+        "dbn_default": {
+          "beat_amlt": 0.1971830985915492,
+          "beat_cmlt": 0.0454545454545454,
+          "beat_fmeasure": 0.475
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.4722222222222222,
+          "beat_cmlt": 0.4722222222222222,
+          "beat_fmeasure": 0.7272727272727272
+        },
+        "direct": {
+          "beat_amlt": 0.5555555555555556,
+          "beat_cmlt": 0.5555555555555556,
+          "beat_fmeasure": 0.8571428571428571
+        },
+        "plpdp": {
+          "beat_amlt": 0.5277777777777778,
+          "beat_cmlt": 0.5277777777777778,
+          "beat_fmeasure": 0.8529411764705882
+        }
+      },
+      "window": {
+        "casm_direct_exact": false,
+        "end": 31.75,
+        "margin_max": 0.3377601206302643,
+        "margin_mean": 0.23577535152435303,
+        "margin_median": 0.22233805060386658,
+        "mean_f1_gain": 0.17925625099538145,
+        "method_count": {
+          "casm_full": 9,
+          "dbn_default": 15,
+          "dbn_matched_30_300": 10,
+          "direct": 9,
+          "plpdp": 12
+        },
+        "method_f1": {
+          "casm_full": 0.9,
+          "dbn_default": 0.5384615384615384,
+          "dbn_matched_30_300": 0.7619047619047619,
+          "direct": 0.8,
+          "plpdp": 0.782608695652174
+        },
+        "min_f1_gain": 0.09999999999999998,
+        "score": 1.2099888564526873,
+        "start": 19.75,
+        "truth_count": 11
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 0.9148936170212766,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.11105279624462128,
+      "period_margin_median": 0.10774222016334534,
+      "piece": "smc/smc_098/track.npy",
+      "rank": 6,
+      "role": "clear",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold3_val/smc__smc_098__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_098.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.36082474226804123,
+          "beat_cmlt": 0.358974358974359,
+          "beat_fmeasure": 0.7401574803149606
+        },
+        "dbn_default": {
+          "beat_amlt": 0.6206896551724138,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.5575757575757575
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.6206896551724138,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.5575757575757575
+        },
+        "direct": {
+          "beat_amlt": 0.4639175257731959,
+          "beat_cmlt": 0.2235294117647059,
+          "beat_fmeasure": 0.7014925373134329
+        },
+        "plpdp": {
+          "beat_amlt": 0.6082474226804123,
+          "beat_cmlt": 0.1052631578947368,
+          "beat_fmeasure": 0.6527777777777778
+        }
+      },
+      "window": {
+        "casm_direct_exact": false,
+        "end": 18.5,
+        "margin_max": 0.2612954378128052,
+        "margin_mean": 0.18128077685832977,
+        "margin_median": 0.20010480284690857,
+        "mean_f1_gain": 0.20378787878787888,
+        "method_count": {
+          "casm_full": 19,
+          "dbn_default": 39,
+          "dbn_matched_30_300": 39,
+          "direct": 24,
+          "plpdp": 26
+        },
+        "method_f1": {
+          "casm_full": 0.8,
+          "dbn_default": 0.509090909090909,
+          "dbn_matched_30_300": 0.509090909090909,
+          "direct": 0.7,
+          "plpdp": 0.6666666666666666
+        },
+        "min_f1_gain": 0.10000000000000009,
+        "score": 1.1781721118453783,
+        "start": 6.5,
+        "truth_count": 16
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 0.9473684210526315,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.2045029252767563,
+      "period_margin_median": 0.1849597990512848,
+      "piece": "smc/smc_019/track.npy",
+      "rank": 7,
+      "role": "clear",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold2_val/smc__smc_019__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_019.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.5862068965517241,
+          "beat_cmlt": 0.5862068965517241,
+          "beat_fmeasure": 0.8846153846153846
+        },
+        "dbn_default": {
+          "beat_amlt": 0.9361702127659576,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.6
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.9361702127659576,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.6
+        },
+        "direct": {
+          "beat_amlt": 0.5333333333333333,
+          "beat_cmlt": 0.5333333333333333,
+          "beat_fmeasure": 0.8679245283018869
+        },
+        "plpdp": {
+          "beat_amlt": 0.9111111111111112,
+          "beat_cmlt": 0.0444444444444444,
+          "beat_fmeasure": 0.676470588235294
+        }
+      },
+      "window": {
+        "casm_direct_exact": false,
+        "end": 31.25,
+        "margin_max": 0.27046746015548706,
+        "margin_mean": 0.20094521343708038,
+        "margin_median": 0.19030849635601044,
+        "mean_f1_gain": 0.27803921568627454,
+        "method_count": {
+          "casm_full": 8,
+          "dbn_default": 17,
+          "dbn_matched_30_300": 17,
+          "direct": 9,
+          "plpdp": 16
+        },
+        "method_f1": {
+          "casm_full": 1.0,
+          "dbn_default": 0.64,
+          "dbn_matched_30_300": 0.64,
+          "direct": 0.9411764705882353,
+          "plpdp": 0.6666666666666666
+        },
+        "min_f1_gain": 0.05882352941176472,
+        "score": 1.1536168973644576,
+        "start": 19.25,
+        "truth_count": 8
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 1.0,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.11769194900989532,
+      "period_margin_median": 0.07841696590185165,
+      "piece": "smc/smc_221/track.npy",
+      "rank": 8,
+      "role": "clear",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold6_val/smc__smc_221__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_221.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.6333333333333333,
+          "beat_cmlt": 0.6333333333333333,
+          "beat_fmeasure": 0.5172413793103449
+        },
+        "dbn_default": {
+          "beat_amlt": 0.4915254237288136,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.3058823529411765
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.5,
+          "beat_cmlt": 0.5,
+          "beat_fmeasure": 0.3272727272727273
+        },
+        "direct": {
+          "beat_amlt": 0.5161290322580645,
+          "beat_cmlt": 0.5161290322580645,
+          "beat_fmeasure": 0.4918032786885246
+        },
+        "plpdp": {
+          "beat_amlt": 0.2711864406779661,
+          "beat_cmlt": 0.2,
+          "beat_fmeasure": 0.3733333333333333
+        }
+      },
+      "window": {
+        "casm_direct_exact": false,
+        "end": 30.25,
+        "margin_max": 0.46501269936561584,
+        "margin_mean": 0.2987563908100128,
+        "margin_median": 0.3228834271430969,
+        "mean_f1_gain": 0.21059169278996867,
+        "method_count": {
+          "casm_full": 11,
+          "dbn_default": 21,
+          "dbn_matched_30_300": 9,
+          "direct": 14,
+          "plpdp": 18
+        },
+        "method_f1": {
+          "casm_full": 0.7272727272727273,
+          "dbn_default": 0.375,
+          "dbn_matched_30_300": 0.5,
+          "direct": 0.64,
+          "plpdp": 0.5517241379310345
+        },
+        "min_f1_gain": 0.08727272727272728,
+        "score": 1.1229458827602454,
+        "start": 18.25,
+        "truth_count": 11
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 1.0476190476190477,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.07326798886060715,
+      "period_margin_median": 0.06552134454250336,
+      "piece": "smc/smc_117/track.npy",
+      "rank": 9,
+      "role": "clear",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold5_val/smc__smc_117__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_117.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.7894736842105263,
+          "beat_cmlt": 0.7894736842105263,
+          "beat_fmeasure": 0.684931506849315
+        },
+        "dbn_default": {
+          "beat_amlt": 0.0869565217391304,
+          "beat_cmlt": 0.0192307692307692,
+          "beat_fmeasure": 0.2068965517241379
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.0571428571428571,
+          "beat_cmlt": 0.0571428571428571,
+          "beat_fmeasure": 0.2295081967213114
+        },
+        "direct": {
+          "beat_amlt": 0.6388888888888888,
+          "beat_cmlt": 0.6388888888888888,
+          "beat_fmeasure": 0.647887323943662
+        },
+        "plpdp": {
+          "beat_amlt": 0.5454545454545454,
+          "beat_cmlt": 0.5454545454545454,
+          "beat_fmeasure": 0.5822784810126581
+        }
+      },
+      "window": {
+        "casm_direct_exact": false,
+        "end": 22.5,
+        "margin_max": 0.1574232280254364,
+        "margin_mean": 0.0892852321267128,
+        "margin_median": 0.10615599155426025,
+        "mean_f1_gain": 0.3493673227193564,
+        "method_count": {
+          "casm_full": 12,
+          "dbn_default": 19,
+          "dbn_matched_30_300": 9,
+          "direct": 11,
+          "plpdp": 14
+        },
+        "method_f1": {
+          "casm_full": 0.8333333333333334,
+          "dbn_default": 0.1935483870967742,
+          "dbn_matched_30_300": 0.19047619047619047,
+          "direct": 0.782608695652174,
+          "plpdp": 0.7692307692307693
+        },
+        "min_f1_gain": 0.050724637681159424,
+        "score": 1.1157181097486746,
+        "start": 10.5,
+        "truth_count": 12
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 1.0,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.36129501461982727,
+      "period_margin_median": 0.36099550127983093,
+      "piece": "smc/smc_042/track.npy",
+      "rank": 10,
+      "role": "clear",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold0_val/smc__smc_042__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_042.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.6060606060606061,
+          "beat_cmlt": 0.6060606060606061,
+          "beat_fmeasure": 0.8333333333333334
+        },
+        "dbn_default": {
+          "beat_amlt": 1.0,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.6
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 1.0,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.6
+        },
+        "direct": {
+          "beat_amlt": 0.6060606060606061,
+          "beat_cmlt": 0.6060606060606061,
+          "beat_fmeasure": 0.8333333333333334
+        },
+        "plpdp": {
+          "beat_amlt": 0.9622641509433962,
+          "beat_cmlt": 0.0192307692307692,
+          "beat_fmeasure": 0.6075949367088607
+        }
+      },
+      "window": {
+        "casm_direct_exact": false,
+        "end": 27.0,
+        "margin_max": 0.6023972630500793,
+        "margin_mean": 0.47010207176208496,
+        "margin_median": 0.4685232639312744,
+        "mean_f1_gain": 0.24979114452798662,
+        "method_count": {
+          "casm_full": 9,
+          "dbn_default": 19,
+          "dbn_matched_30_300": 19,
+          "direct": 10,
+          "plpdp": 19
+        },
+        "method_f1": {
+          "casm_full": 0.8888888888888888,
+          "dbn_default": 0.5714285714285714,
+          "dbn_matched_30_300": 0.5714285714285714,
+          "direct": 0.8421052631578947,
+          "plpdp": 0.5714285714285714
+        },
+        "min_f1_gain": 0.04678362573099415,
+        "score": 1.112400713425033,
+        "start": 15.0,
+        "truth_count": 9
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 0.9523809523809523,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.07936534285545349,
+      "period_margin_median": 0.07695238292217255,
+      "piece": "smc/smc_076/track.npy",
+      "rank": 11,
+      "role": "clear",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold5_val/smc__smc_076__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_076.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.11764705882352941,
+          "beat_cmlt": 0.11764705882352941,
+          "beat_fmeasure": 0.46938775510204084
+        },
+        "dbn_default": {
+          "beat_amlt": 0.0434782608695652,
+          "beat_cmlt": 0.0434782608695652,
+          "beat_fmeasure": 0.2931034482758621
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.3478260869565217,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.1470588235294117
+        },
+        "direct": {
+          "beat_amlt": 0.1346153846153846,
+          "beat_cmlt": 0.1346153846153846,
+          "beat_fmeasure": 0.4646464646464646
+        },
+        "plpdp": {
+          "beat_amlt": 0.086021505376344,
+          "beat_cmlt": 0.0588235294117647,
+          "beat_fmeasure": 0.4
+        }
+      },
+      "window": {
+        "casm_direct_exact": false,
+        "end": 18.5,
+        "margin_max": 0.19532683491706848,
+        "margin_mean": 0.08393345773220062,
+        "margin_median": 0.05849877744913101,
+        "mean_f1_gain": 0.265457817818164,
+        "method_count": {
+          "casm_full": 13,
+          "dbn_default": 24,
+          "dbn_matched_30_300": 8,
+          "direct": 17,
+          "plpdp": 23
+        },
+        "method_f1": {
+          "casm_full": 0.7096774193548387,
+          "dbn_default": 0.38095238095238093,
+          "dbn_matched_30_300": 0.23076923076923078,
+          "direct": 0.6285714285714286,
+          "plpdp": 0.5365853658536586
+        },
+        "min_f1_gain": 0.08110599078341019,
+        "score": 1.0899005279488843,
+        "start": 6.5,
+        "truth_count": 18
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 0.967741935483871,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.1309823989868164,
+      "period_margin_median": 0.1291455626487732,
+      "piece": "smc/smc_012/track.npy",
+      "rank": 12,
+      "role": "clear",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold2_val/smc__smc_012__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_012.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.6792452830188679,
+          "beat_cmlt": 0.6792452830188679,
+          "beat_fmeasure": 0.576923076923077
+        },
+        "dbn_default": {
+          "beat_amlt": 0.6470588235294118,
+          "beat_cmlt": 0.6470588235294118,
+          "beat_fmeasure": 0.4901960784313725
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.6470588235294118,
+          "beat_cmlt": 0.6470588235294118,
+          "beat_fmeasure": 0.4901960784313725
+        },
+        "direct": {
+          "beat_amlt": 0.5272727272727272,
+          "beat_cmlt": 0.5272727272727272,
+          "beat_fmeasure": 0.5471698113207548
+        },
+        "plpdp": {
+          "beat_amlt": 0.46875,
+          "beat_cmlt": 0.46875,
+          "beat_fmeasure": 0.5217391304347826
+        }
+      },
+      "window": {
+        "casm_direct_exact": false,
+        "end": 27.25,
+        "margin_max": 0.18160657584667206,
+        "margin_mean": 0.09300407767295837,
+        "margin_median": 0.0969434455037117,
+        "mean_f1_gain": 0.2650802307095057,
+        "method_count": {
+          "casm_full": 20,
+          "dbn_default": 17,
+          "dbn_matched_30_300": 17,
+          "direct": 19,
+          "plpdp": 26
+        },
+        "method_f1": {
+          "casm_full": 0.5945945945945946,
+          "dbn_default": 0.17647058823529413,
+          "dbn_matched_30_300": 0.17647058823529413,
+          "direct": 0.5,
+          "plpdp": 0.46511627906976744
+        },
+        "min_f1_gain": 0.09459459459459463,
+        "score": 1.088657129687069,
+        "start": 15.25,
+        "truth_count": 17
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 0.8732394366197183,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.24035122990608215,
+      "period_margin_median": 0.2443465143442154,
+      "piece": "smc/smc_011/track.npy",
+      "rank": 13,
+      "role": "clear",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold0_val/smc__smc_011__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_011.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.6909090909090909,
+          "beat_cmlt": 0.6909090909090909,
+          "beat_fmeasure": 0.8301886792452831
+        },
+        "dbn_default": {
+          "beat_amlt": 0.5892857142857143,
+          "beat_cmlt": 0.5892857142857143,
+          "beat_fmeasure": 0.7102803738317757
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.5892857142857143,
+          "beat_cmlt": 0.5892857142857143,
+          "beat_fmeasure": 0.7102803738317757
+        },
+        "direct": {
+          "beat_amlt": 0.515625,
+          "beat_cmlt": 0.515625,
+          "beat_fmeasure": 0.7652173913043478
+        },
+        "plpdp": {
+          "beat_amlt": 0.5,
+          "beat_cmlt": 0.5,
+          "beat_fmeasure": 0.7478260869565218
+        }
+      },
+      "window": {
+        "casm_direct_exact": false,
+        "end": 26.25,
+        "margin_max": 0.2759029269218445,
+        "margin_mean": 0.23731036484241486,
+        "margin_median": 0.24434904754161835,
+        "mean_f1_gain": 0.15034059507743716,
+        "method_count": {
+          "casm_full": 18,
+          "dbn_default": 19,
+          "dbn_matched_30_300": 19,
+          "direct": 21,
+          "plpdp": 22
+        },
+        "method_f1": {
+          "casm_full": 0.9142857142857143,
+          "dbn_default": 0.7222222222222222,
+          "dbn_matched_30_300": 0.7222222222222222,
+          "direct": 0.8421052631578947,
+          "plpdp": 0.7692307692307693
+        },
+        "min_f1_gain": 0.07218045112781957,
+        "score": 1.087398366184297,
+        "start": 14.25,
+        "truth_count": 17
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 1.03125,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.20417994260787964,
+      "period_margin_median": 0.22256684303283691,
+      "piece": "smc/smc_260/track.npy",
+      "rank": 14,
+      "role": "clear",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold0_val/smc__smc_260__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_260.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.7241379310344828,
+          "beat_cmlt": 0.7241379310344828,
+          "beat_fmeasure": 0.8288288288288289
+        },
+        "dbn_default": {
+          "beat_amlt": 0.6415094339622641,
+          "beat_cmlt": 0.6415094339622641,
+          "beat_fmeasure": 0.660377358490566
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.6415094339622641,
+          "beat_cmlt": 0.6415094339622641,
+          "beat_fmeasure": 0.660377358490566
+        },
+        "direct": {
+          "beat_amlt": 0.7321428571428571,
+          "beat_cmlt": 0.7321428571428571,
+          "beat_fmeasure": 0.8440366972477065
+        },
+        "plpdp": {
+          "beat_amlt": 0.5074626865671642,
+          "beat_cmlt": 0.5074626865671642,
+          "beat_fmeasure": 0.7833333333333334
+        }
+      },
+      "window": {
+        "casm_direct_exact": false,
+        "end": 25.25,
+        "margin_max": 0.31756022572517395,
+        "margin_mean": 0.22955258190631866,
+        "margin_median": 0.23763835430145264,
+        "mean_f1_gain": 0.2875167112299466,
+        "method_count": {
+          "casm_full": 18,
+          "dbn_default": 15,
+          "dbn_matched_30_300": 15,
+          "direct": 17,
+          "plpdp": 19
+        },
+        "method_f1": {
+          "casm_full": 0.8484848484848485,
+          "dbn_default": 0.3333333333333333,
+          "dbn_matched_30_300": 0.3333333333333333,
+          "direct": 0.8125,
+          "plpdp": 0.7647058823529411
+        },
+        "min_f1_gain": 0.03598484848484851,
+        "score": 1.0445643039836605,
+        "start": 13.25,
+        "truth_count": 15
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 0.9459459459459459,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.2515224814414978,
+      "period_margin_median": 0.27135100960731506,
+      "piece": "smc/smc_208/track.npy",
+      "rank": 15,
+      "role": "clear",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold0_val/smc__smc_208__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_208.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 1.0,
+          "beat_cmlt": 1.0,
+          "beat_fmeasure": 0.8387096774193549
+        },
+        "dbn_default": {
+          "beat_amlt": 0.6935483870967742,
+          "beat_cmlt": 0.032258064516129,
+          "beat_fmeasure": 0.4731182795698926
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.967741935483871,
+          "beat_cmlt": 0.967741935483871,
+          "beat_fmeasure": 0.7741935483870968
+        },
+        "direct": {
+          "beat_amlt": 0.8787878787878788,
+          "beat_cmlt": 0.8787878787878788,
+          "beat_fmeasure": 0.8125
+        },
+        "plpdp": {
+          "beat_amlt": 0.5573770491803278,
+          "beat_cmlt": 0.2075471698113207,
+          "beat_fmeasure": 0.6190476190476191
+        }
+      },
+      "window": {
+        "casm_direct_exact": false,
+        "end": 28.0,
+        "margin_max": 0.29743969440460205,
+        "margin_mean": 0.2158285528421402,
+        "margin_median": 0.2075394243001938,
+        "mean_f1_gain": 0.23449238933109903,
+        "method_count": {
+          "casm_full": 10,
+          "dbn_default": 23,
+          "dbn_matched_30_300": 10,
+          "direct": 11,
+          "plpdp": 21
+        },
+        "method_f1": {
+          "casm_full": 0.9,
+          "dbn_default": 0.42424242424242425,
+          "dbn_matched_30_300": 0.8,
+          "direct": 0.8571428571428571,
+          "plpdp": 0.5806451612903226
+        },
+        "min_f1_gain": 0.04285714285714293,
+        "score": 1.020669526612313,
+        "start": 16.0,
+        "truth_count": 10
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 1.0294117647058822,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.15651360154151917,
+      "period_margin_median": 0.16697002947330475,
+      "piece": "smc/smc_004/track.npy",
+      "rank": 16,
+      "role": "clear",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold5_val/smc__smc_004__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_004.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.5454545454545454,
+          "beat_cmlt": 0.5454545454545454,
+          "beat_fmeasure": 0.59375
+        },
+        "dbn_default": {
+          "beat_amlt": 0.2325581395348837,
+          "beat_cmlt": 0.2325581395348837,
+          "beat_fmeasure": 0.368421052631579
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.3157894736842105,
+          "beat_cmlt": 0.3157894736842105,
+          "beat_fmeasure": 0.4225352112676056
+        },
+        "direct": {
+          "beat_amlt": 0.4545454545454545,
+          "beat_cmlt": 0.4545454545454545,
+          "beat_fmeasure": 0.5714285714285713
+        },
+        "plpdp": {
+          "beat_amlt": 0.2978723404255319,
+          "beat_cmlt": 0.2978723404255319,
+          "beat_fmeasure": 0.625
+        }
+      },
+      "window": {
+        "casm_direct_exact": false,
+        "end": 18.5,
+        "margin_max": 0.4269575774669647,
+        "margin_mean": 0.24271272122859955,
+        "margin_median": 0.2210468202829361,
+        "mean_f1_gain": 0.15424901185770754,
+        "method_count": {
+          "casm_full": 12,
+          "dbn_default": 13,
+          "dbn_matched_30_300": 13,
+          "direct": 11,
+          "plpdp": 14
+        },
+        "method_f1": {
+          "casm_full": 0.9565217391304348,
+          "dbn_default": 0.75,
+          "dbn_matched_30_300": 0.75,
+          "direct": 0.9090909090909091,
+          "plpdp": 0.8
+        },
+        "min_f1_gain": 0.04743083003952575,
+        "score": 1.0050470179496078,
+        "start": 6.5,
+        "truth_count": 11
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 0.9772727272727273,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.14356444776058197,
+      "period_margin_median": 0.13347506523132324,
+      "piece": "smc/smc_022/track.npy",
+      "rank": 17,
+      "role": "clear",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold0_val/smc__smc_022__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_022.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.9230769230769231,
+          "beat_cmlt": 0.9230769230769231,
+          "beat_fmeasure": 0.9610389610389611
+        },
+        "dbn_default": {
+          "beat_amlt": 0.6585365853658537,
+          "beat_cmlt": 0.6585365853658537,
+          "beat_fmeasure": 0.7341772151898733
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.631578947368421,
+          "beat_cmlt": 0.631578947368421,
+          "beat_fmeasure": 0.7631578947368421
+        },
+        "direct": {
+          "beat_amlt": 0.875,
+          "beat_cmlt": 0.875,
+          "beat_fmeasure": 0.9487179487179488
+        },
+        "plpdp": {
+          "beat_amlt": 0.7857142857142857,
+          "beat_cmlt": 0.7857142857142857,
+          "beat_fmeasure": 0.925
+        }
+      },
+      "window": {
+        "casm_direct_exact": false,
+        "end": 21.25,
+        "margin_max": 0.24668139219284058,
+        "margin_mean": 0.15375903248786926,
+        "margin_median": 0.16520728170871735,
+        "mean_f1_gain": 0.24836956521739126,
+        "method_count": {
+          "casm_full": 12,
+          "dbn_default": 13,
+          "dbn_matched_30_300": 12,
+          "direct": 13,
+          "plpdp": 14
+        },
+        "method_f1": {
+          "casm_full": 0.8695652173913043,
+          "dbn_default": 0.4166666666666667,
+          "dbn_matched_30_300": 0.43478260869565216,
+          "direct": 0.8333333333333334,
+          "plpdp": 0.8
+        },
+        "min_f1_gain": 0.03623188405797095,
+        "score": 0.9842074198912881,
+        "start": 9.25,
+        "truth_count": 11
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 0.88,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.10183998942375183,
+      "period_margin_median": 0.10355651378631592,
+      "piece": "smc/smc_130/track.npy",
+      "rank": 18,
+      "role": "clear",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold1_val/smc__smc_130__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_130.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.275,
+          "beat_cmlt": 0.275,
+          "beat_fmeasure": 0.4923076923076923
+        },
+        "dbn_default": {
+          "beat_amlt": 0.175,
+          "beat_cmlt": 0.175,
+          "beat_fmeasure": 0.3692307692307692
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.125,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.2666666666666666
+        },
+        "direct": {
+          "beat_amlt": 0.1521739130434782,
+          "beat_cmlt": 0.1521739130434782,
+          "beat_fmeasure": 0.4225352112676057
+        },
+        "plpdp": {
+          "beat_amlt": 0.1666666666666666,
+          "beat_cmlt": 0.1666666666666666,
+          "beat_fmeasure": 0.4657534246575343
+        }
+      },
+      "window": {
+        "casm_direct_exact": false,
+        "end": 32.75,
+        "margin_max": 0.24063916504383087,
+        "margin_mean": 0.09053458273410797,
+        "margin_median": 0.07881993800401688,
+        "mean_f1_gain": 0.18128205128205133,
+        "method_count": {
+          "casm_full": 17,
+          "dbn_default": 14,
+          "dbn_matched_30_300": 7,
+          "direct": 18,
+          "plpdp": 19
+        },
+        "method_f1": {
+          "casm_full": 0.5833333333333334,
+          "dbn_default": 0.38095238095238093,
+          "dbn_matched_30_300": 0.2857142857142857,
+          "direct": 0.48,
+          "plpdp": 0.46153846153846156
+        },
+        "min_f1_gain": 0.10333333333333339,
+        "score": 0.9834424261022838,
+        "start": 20.75,
+        "truth_count": 7
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 0.9727272727272728,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.051793474704027176,
+      "period_margin_median": 0.0527670755982399,
+      "piece": "smc/smc_056/track.npy",
+      "rank": 19,
+      "role": "clear",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold3_val/smc__smc_056__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_056.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.14583333333333334,
+          "beat_cmlt": 0.14583333333333334,
+          "beat_fmeasure": 0.36129032258064514
+        },
+        "dbn_default": {
+          "beat_amlt": 0.0427350427350427,
+          "beat_cmlt": 0.0112359550561797,
+          "beat_fmeasure": 0.2702702702702703
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.2666666666666666,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.2298850574712643
+        },
+        "direct": {
+          "beat_amlt": 0.1452991452991453,
+          "beat_cmlt": 0.1030927835051546,
+          "beat_fmeasure": 0.3205128205128205
+        },
+        "plpdp": {
+          "beat_amlt": 0.2307692307692307,
+          "beat_cmlt": 0.0566037735849056,
+          "beat_fmeasure": 0.303030303030303
+        }
+      },
+      "window": {
+        "casm_direct_exact": false,
+        "end": 27.25,
+        "margin_max": 0.10180013626813889,
+        "margin_mean": 0.05928688868880272,
+        "margin_median": 0.06516773998737335,
+        "mean_f1_gain": 0.19058123249299716,
+        "method_count": {
+          "casm_full": 27,
+          "dbn_default": 30,
+          "dbn_matched_30_300": 9,
+          "direct": 30,
+          "plpdp": 35
+        },
+        "method_f1": {
+          "casm_full": 0.6666666666666666,
+          "dbn_default": 0.3137254901960784,
+          "dbn_matched_30_300": 0.4666666666666667,
+          "direct": 0.5882352941176471,
+          "plpdp": 0.5357142857142857
+        },
+        "min_f1_gain": 0.07843137254901955,
+        "score": 0.9754261226290495,
+        "start": 15.25,
+        "truth_count": 21
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 0.9375,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.1497003585100174,
+      "period_margin_median": 0.16019803285598755,
+      "piece": "smc/smc_005/track.npy",
+      "rank": 20,
+      "role": "clear",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold0_val/smc__smc_005__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_005.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.7692307692307693,
+          "beat_cmlt": 0.7692307692307693,
+          "beat_fmeasure": 0.40816326530612246
+        },
+        "dbn_default": {
+          "beat_amlt": 0.8260869565217391,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.3188405797101449
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.8260869565217391,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.3188405797101449
+        },
+        "direct": {
+          "beat_amlt": 0.6428571428571429,
+          "beat_cmlt": 0.6428571428571429,
+          "beat_fmeasure": 0.392156862745098
+        },
+        "plpdp": {
+          "beat_amlt": 0.7608695652173914,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.2898550724637681
+        }
+      },
+      "window": {
+        "casm_direct_exact": false,
+        "end": 24.0,
+        "margin_max": 0.20362643897533417,
+        "margin_mean": 0.1798994094133377,
+        "margin_median": 0.18824276328086853,
+        "mean_f1_gain": 0.2211956521739131,
+        "method_count": {
+          "casm_full": 7,
+          "dbn_default": 15,
+          "dbn_matched_30_300": 15,
+          "direct": 8,
+          "plpdp": 15
+        },
+        "method_f1": {
+          "casm_full": 0.8,
+          "dbn_default": 0.5217391304347826,
+          "dbn_matched_30_300": 0.5217391304347826,
+          "direct": 0.75,
+          "plpdp": 0.5217391304347826
+        },
+        "min_f1_gain": 0.050000000000000044,
+        "score": 0.9551654749979146,
+        "start": 12.0,
+        "truth_count": 8
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 1.0483870967741935,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.06668824702501297,
+      "period_margin_median": 0.06640660762786865,
+      "piece": "smc/smc_140/track.npy",
+      "rank": 1,
+      "role": "ambiguous",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold3_val/smc__smc_140__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_140.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.65,
+          "beat_cmlt": 0.65,
+          "beat_fmeasure": 0.6324786324786326
+        },
+        "dbn_default": {
+          "beat_amlt": 0.2439024390243902,
+          "beat_cmlt": 0.05,
+          "beat_fmeasure": 0.3366336633663366
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.2439024390243902,
+          "beat_cmlt": 0.05,
+          "beat_fmeasure": 0.3564356435643565
+        },
+        "direct": {
+          "beat_amlt": 0.55,
+          "beat_cmlt": 0.55,
+          "beat_fmeasure": 0.6491228070175439
+        },
+        "plpdp": {
+          "beat_amlt": 0.7,
+          "beat_cmlt": 0.7,
+          "beat_fmeasure": 0.5833333333333334
+        }
+      },
+      "window": {
+        "casm_direct_exact": true,
+        "end": 27.0,
+        "margin_max": 0.1202031821012497,
+        "margin_mean": 0.09663873165845871,
+        "margin_median": 0.1001928448677063,
+        "mean_structured_f1_gain": 0.27081627081627085,
+        "method_count": {
+          "casm_full": 18,
+          "dbn_default": 14,
+          "dbn_matched_30_300": 14,
+          "direct": 18,
+          "plpdp": 18
+        },
+        "method_f1": {
+          "casm_full": 0.5945945945945946,
+          "dbn_default": 0.24242424242424243,
+          "dbn_matched_30_300": 0.24242424242424243,
+          "direct": 0.5945945945945946,
+          "plpdp": 0.4864864864864865
+        },
+        "min_structured_f1_gain": 0.10810810810810811,
+        "score": 0.7231773756791863,
+        "start": 15.0,
+        "truth_count": 19
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 0.9375,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.1497003585100174,
+      "period_margin_median": 0.16019803285598755,
+      "piece": "smc/smc_005/track.npy",
+      "rank": 2,
+      "role": "ambiguous",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold0_val/smc__smc_005__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_005.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.7692307692307693,
+          "beat_cmlt": 0.7692307692307693,
+          "beat_fmeasure": 0.40816326530612246
+        },
+        "dbn_default": {
+          "beat_amlt": 0.8260869565217391,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.3188405797101449
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.8260869565217391,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.3188405797101449
+        },
+        "direct": {
+          "beat_amlt": 0.6428571428571429,
+          "beat_cmlt": 0.6428571428571429,
+          "beat_fmeasure": 0.392156862745098
+        },
+        "plpdp": {
+          "beat_amlt": 0.7608695652173914,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.2898550724637681
+        }
+      },
+      "window": {
+        "casm_direct_exact": true,
+        "end": 27.75,
+        "margin_max": 0.2028374820947647,
+        "margin_mean": 0.13620387017726898,
+        "margin_median": 0.15001870691776276,
+        "mean_structured_f1_gain": 0.15345268542199492,
+        "method_count": {
+          "casm_full": 9,
+          "dbn_default": 15,
+          "dbn_matched_30_300": 15,
+          "direct": 9,
+          "plpdp": 15
+        },
+        "method_f1": {
+          "casm_full": 0.5882352941176471,
+          "dbn_default": 0.43478260869565216,
+          "dbn_matched_30_300": 0.43478260869565216,
+          "direct": 0.5882352941176471,
+          "plpdp": 0.43478260869565216
+        },
+        "min_structured_f1_gain": 0.15345268542199492,
+        "score": 0.6088127371817447,
+        "start": 15.75,
+        "truth_count": 8
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 0.9491525423728814,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.09109864383935928,
+      "period_margin_median": 0.0936724841594696,
+      "piece": "smc/smc_219/track.npy",
+      "rank": 3,
+      "role": "ambiguous",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold1_val/smc__smc_219__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_219.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.92,
+          "beat_cmlt": 0.92,
+          "beat_fmeasure": 0.8484848484848485
+        },
+        "dbn_default": {
+          "beat_amlt": 0.3265306122448979,
+          "beat_cmlt": 0.3265306122448979,
+          "beat_fmeasure": 0.4375
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.28,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.4166666666666667
+        },
+        "direct": {
+          "beat_amlt": 0.7636363636363637,
+          "beat_cmlt": 0.7636363636363637,
+          "beat_fmeasure": 0.8076923076923076
+        },
+        "plpdp": {
+          "beat_amlt": 0.6727272727272727,
+          "beat_cmlt": 0.6727272727272727,
+          "beat_fmeasure": 0.7692307692307693
+        }
+      },
+      "window": {
+        "casm_direct_exact": true,
+        "end": 20.25,
+        "margin_max": 0.1597786545753479,
+        "margin_mean": 0.12352931499481201,
+        "margin_median": 0.11894895136356354,
+        "mean_structured_f1_gain": 0.2515873015873016,
+        "method_count": {
+          "casm_full": 17,
+          "dbn_default": 18,
+          "dbn_matched_30_300": 7,
+          "direct": 17,
+          "plpdp": 18
+        },
+        "method_f1": {
+          "casm_full": 1.0,
+          "dbn_default": 0.8571428571428571,
+          "dbn_matched_30_300": 0.4166666666666667,
+          "direct": 1.0,
+          "plpdp": 0.9714285714285714
+        },
+        "min_structured_f1_gain": 0.02857142857142858,
+        "score": 0.6048360313782617,
+        "start": 8.25,
+        "truth_count": 17
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 0.9772727272727273,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.14356444776058197,
+      "period_margin_median": 0.13347506523132324,
+      "piece": "smc/smc_022/track.npy",
+      "rank": 4,
+      "role": "ambiguous",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold0_val/smc__smc_022__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_022.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.9230769230769231,
+          "beat_cmlt": 0.9230769230769231,
+          "beat_fmeasure": 0.9610389610389611
+        },
+        "dbn_default": {
+          "beat_amlt": 0.6585365853658537,
+          "beat_cmlt": 0.6585365853658537,
+          "beat_fmeasure": 0.7341772151898733
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.631578947368421,
+          "beat_cmlt": 0.631578947368421,
+          "beat_fmeasure": 0.7631578947368421
+        },
+        "direct": {
+          "beat_amlt": 0.875,
+          "beat_cmlt": 0.875,
+          "beat_fmeasure": 0.9487179487179488
+        },
+        "plpdp": {
+          "beat_amlt": 0.7857142857142857,
+          "beat_cmlt": 0.7857142857142857,
+          "beat_fmeasure": 0.925
+        }
+      },
+      "window": {
+        "casm_direct_exact": true,
+        "end": 17.0,
+        "margin_max": 0.24320442974567413,
+        "margin_mean": 0.13042284548282623,
+        "margin_median": 0.10071665048599243,
+        "mean_structured_f1_gain": 0.2603323836657169,
+        "method_count": {
+          "casm_full": 13,
+          "dbn_default": 15,
+          "dbn_matched_30_300": 12,
+          "direct": 13,
+          "plpdp": 14
+        },
+        "method_f1": {
+          "casm_full": 0.96,
+          "dbn_default": 0.5925925925925926,
+          "dbn_matched_30_300": 0.5833333333333334,
+          "direct": 0.96,
+          "plpdp": 0.9230769230769231
+        },
+        "min_structured_f1_gain": 0.036923076923076836,
+        "score": 0.5913315539575991,
+        "start": 5.0,
+        "truth_count": 12
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 0.9841269841269841,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.1328851878643036,
+      "period_margin_median": 0.12928542494773865,
+      "piece": "smc/smc_043/track.npy",
+      "rank": 5,
+      "role": "ambiguous",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold5_val/smc__smc_043__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_043.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.7321428571428571,
+          "beat_cmlt": 0.7321428571428571,
+          "beat_fmeasure": 0.8113207547169812
+        },
+        "dbn_default": {
+          "beat_amlt": 0.5925925925925926,
+          "beat_cmlt": 0.5925925925925926,
+          "beat_fmeasure": 0.6538461538461539
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.32,
+          "beat_cmlt": 0.02,
+          "beat_fmeasure": 0.3466666666666667
+        },
+        "direct": {
+          "beat_amlt": 0.6964285714285714,
+          "beat_cmlt": 0.6964285714285714,
+          "beat_fmeasure": 0.8113207547169812
+        },
+        "plpdp": {
+          "beat_amlt": 0.6666666666666666,
+          "beat_cmlt": 0.6666666666666666,
+          "beat_fmeasure": 0.7663551401869159
+        }
+      },
+      "window": {
+        "casm_direct_exact": true,
+        "end": 17.0,
+        "margin_max": 0.2912904918193817,
+        "margin_mean": 0.0893138125538826,
+        "margin_median": 0.08455736190080643,
+        "mean_structured_f1_gain": 0.2434201118411645,
+        "method_count": {
+          "casm_full": 19,
+          "dbn_default": 18,
+          "dbn_matched_30_300": 10,
+          "direct": 19,
+          "plpdp": 20
+        },
+        "method_f1": {
+          "casm_full": 0.8108108108108109,
+          "dbn_default": 0.5555555555555556,
+          "dbn_matched_30_300": 0.35714285714285715,
+          "direct": 0.8108108108108109,
+          "plpdp": 0.7894736842105263
+        },
+        "min_structured_f1_gain": 0.02133712660028453,
+        "score": 0.5205475141061551,
+        "start": 5.0,
+        "truth_count": 18
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 0.9779411764705882,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.14176824688911438,
+      "period_margin_median": 0.13715730607509613,
+      "piece": "smc/smc_030/track.npy",
+      "rank": 6,
+      "role": "ambiguous",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold4_val/smc__smc_030__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_030.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.8632478632478633,
+          "beat_cmlt": 0.8632478632478633,
+          "beat_fmeasure": 0.9527896995708154
+        },
+        "dbn_default": {
+          "beat_amlt": 0.9827586206896552,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.6206896551724138
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.9827586206896552,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.6206896551724138
+        },
+        "direct": {
+          "beat_amlt": 0.825,
+          "beat_cmlt": 0.825,
+          "beat_fmeasure": 0.9406779661016949
+        },
+        "plpdp": {
+          "beat_amlt": 0.847457627118644,
+          "beat_cmlt": 0.847457627118644,
+          "beat_fmeasure": 0.9572649572649572
+        }
+      },
+      "window": {
+        "casm_direct_exact": true,
+        "end": 25.5,
+        "margin_max": 0.13764694333076477,
+        "margin_mean": 0.12321063876152039,
+        "margin_median": 0.11981698870658875,
+        "mean_structured_f1_gain": 0.2295081967213115,
+        "method_count": {
+          "casm_full": 41,
+          "dbn_default": 20,
+          "dbn_matched_30_300": 20,
+          "direct": 41,
+          "plpdp": 41
+        },
+        "method_f1": {
+          "casm_full": 1.0,
+          "dbn_default": 0.6557377049180327,
+          "dbn_matched_30_300": 0.6557377049180327,
+          "direct": 1.0,
+          "plpdp": 1.0
+        },
+        "min_structured_f1_gain": 0.0,
+        "score": 0.5172436943747958,
+        "start": 13.5,
+        "truth_count": 41
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 1.0810810810810811,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.1322571337223053,
+      "period_margin_median": 0.13475386798381805,
+      "piece": "smc/smc_227/track.npy",
+      "rank": 7,
+      "role": "ambiguous",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold4_val/smc__smc_227__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_227.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.631578947368421,
+          "beat_cmlt": 0.631578947368421,
+          "beat_fmeasure": 0.547945205479452
+        },
+        "dbn_default": {
+          "beat_amlt": 0.5897435897435898,
+          "beat_cmlt": 0.5897435897435898,
+          "beat_fmeasure": 0.4935064935064934
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.6052631578947368,
+          "beat_cmlt": 0.6052631578947368,
+          "beat_fmeasure": 0.5217391304347826
+        },
+        "direct": {
+          "beat_amlt": 0.6052631578947368,
+          "beat_cmlt": 0.6052631578947368,
+          "beat_fmeasure": 0.5633802816901409
+        },
+        "plpdp": {
+          "beat_amlt": 0.631578947368421,
+          "beat_cmlt": 0.631578947368421,
+          "beat_fmeasure": 0.5405405405405405
+        }
+      },
+      "window": {
+        "casm_direct_exact": true,
+        "end": 28.75,
+        "margin_max": 0.13475386798381805,
+        "margin_mean": 0.118230901658535,
+        "margin_median": 0.11612161993980408,
+        "mean_structured_f1_gain": 0.1342995169082126,
+        "method_count": {
+          "casm_full": 11,
+          "dbn_default": 13,
+          "dbn_matched_30_300": 12,
+          "direct": 11,
+          "plpdp": 12
+        },
+        "method_f1": {
+          "casm_full": 0.9565217391304348,
+          "dbn_default": 0.8,
+          "dbn_matched_30_300": 0.75,
+          "direct": 0.9565217391304348,
+          "plpdp": 0.9166666666666666
+        },
+        "min_structured_f1_gain": 0.03985507246376818,
+        "score": 0.5131542577770888,
+        "start": 16.75,
+        "truth_count": 12
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 0.967741935483871,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.07402470707893372,
+      "period_margin_median": 0.07615956664085388,
+      "piece": "smc/smc_032/track.npy",
+      "rank": 8,
+      "role": "ambiguous",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold5_val/smc__smc_032__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_032.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.5,
+          "beat_cmlt": 0.5,
+          "beat_fmeasure": 0.6190476190476191
+        },
+        "dbn_default": {
+          "beat_amlt": 0.4426229508196721,
+          "beat_cmlt": 0.4426229508196721,
+          "beat_fmeasure": 0.591304347826087
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.4426229508196721,
+          "beat_cmlt": 0.4426229508196721,
+          "beat_fmeasure": 0.591304347826087
+        },
+        "direct": {
+          "beat_amlt": 0.5,
+          "beat_cmlt": 0.5,
+          "beat_fmeasure": 0.6117647058823529
+        },
+        "plpdp": {
+          "beat_amlt": 0.5370370370370371,
+          "beat_cmlt": 0.5370370370370371,
+          "beat_fmeasure": 0.6470588235294118
+        }
+      },
+      "window": {
+        "casm_direct_exact": true,
+        "end": 20.25,
+        "margin_max": 0.1641675978899002,
+        "margin_mean": 0.1172468289732933,
+        "margin_median": 0.14182597398757935,
+        "mean_structured_f1_gain": 0.08922888616891056,
+        "method_count": {
+          "casm_full": 19,
+          "dbn_default": 24,
+          "dbn_matched_30_300": 24,
+          "direct": 19,
+          "plpdp": 21
+        },
+        "method_f1": {
+          "casm_full": 0.9473684210526315,
+          "dbn_default": 0.8372093023255814,
+          "dbn_matched_30_300": 0.8372093023255814,
+          "direct": 0.9473684210526315,
+          "plpdp": 0.9
+        },
+        "min_structured_f1_gain": 0.047368421052631504,
+        "score": 0.4774907919284833,
+        "start": 8.25,
+        "truth_count": 19
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 1.0,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.09245076030492783,
+      "period_margin_median": 0.06531254202127457,
+      "piece": "smc/smc_167/track.npy",
+      "rank": 9,
+      "role": "ambiguous",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold1_val/smc__smc_167__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_167.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.7083333333333334,
+          "beat_cmlt": 0.7083333333333334,
+          "beat_fmeasure": 0.5333333333333333
+        },
+        "dbn_default": {
+          "beat_amlt": 0.8048780487804879,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.3548387096774194
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.4137931034482758,
+          "beat_cmlt": 0.4137931034482758,
+          "beat_fmeasure": 0.44
+        },
+        "direct": {
+          "beat_amlt": 0.7083333333333334,
+          "beat_cmlt": 0.7083333333333334,
+          "beat_fmeasure": 0.5333333333333333
+        },
+        "plpdp": {
+          "beat_amlt": 0.4,
+          "beat_cmlt": 0.4,
+          "beat_fmeasure": 0.4313725490196078
+        }
+      },
+      "window": {
+        "casm_direct_exact": true,
+        "end": 25.0,
+        "margin_max": 0.2592927813529968,
+        "margin_mean": 0.15951895713806152,
+        "margin_median": 0.15778633952140808,
+        "mean_structured_f1_gain": 0.1585218702865762,
+        "method_count": {
+          "casm_full": 6,
+          "dbn_default": 13,
+          "dbn_matched_30_300": 10,
+          "direct": 6,
+          "plpdp": 9
+        },
+        "method_f1": {
+          "casm_full": 0.6153846153846154,
+          "dbn_default": 0.4,
+          "dbn_matched_30_300": 0.47058823529411764,
+          "direct": 0.6153846153846154,
+          "plpdp": 0.5
+        },
+        "min_structured_f1_gain": 0.11538461538461542,
+        "score": 0.4761220802288071,
+        "start": 13.0,
+        "truth_count": 7
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 1.0,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.1034885123372078,
+      "period_margin_median": 0.11148487776517868,
+      "piece": "smc/smc_271/track.npy",
+      "rank": 10,
+      "role": "ambiguous",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold1_val/smc__smc_271__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_271.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 1.0,
+          "beat_cmlt": 1.0,
+          "beat_fmeasure": 1.0
+        },
+        "dbn_default": {
+          "beat_amlt": 1.0,
+          "beat_cmlt": 1.0,
+          "beat_fmeasure": 1.0
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 1.0,
+          "beat_cmlt": 1.0,
+          "beat_fmeasure": 1.0
+        },
+        "direct": {
+          "beat_amlt": 1.0,
+          "beat_cmlt": 1.0,
+          "beat_fmeasure": 1.0
+        },
+        "plpdp": {
+          "beat_amlt": 1.0,
+          "beat_cmlt": 1.0,
+          "beat_fmeasure": 1.0
+        }
+      },
+      "window": {
+        "casm_direct_exact": true,
+        "end": 27.0,
+        "margin_max": 0.11384724080562592,
+        "margin_mean": 0.0765022337436676,
+        "margin_median": 0.07337544113397598,
+        "mean_structured_f1_gain": 0.024390243902439046,
+        "method_count": {
+          "casm_full": 21,
+          "dbn_default": 20,
+          "dbn_matched_30_300": 20,
+          "direct": 21,
+          "plpdp": 20
+        },
+        "method_f1": {
+          "casm_full": 1.0,
+          "dbn_default": 0.975609756097561,
+          "dbn_matched_30_300": 0.975609756097561,
+          "direct": 1.0,
+          "plpdp": 0.975609756097561
+        },
+        "min_structured_f1_gain": 0.024390243902439046,
+        "score": 0.435101362964729,
+        "start": 15.0,
+        "truth_count": 21
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 1.0,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.1231425404548645,
+      "period_margin_median": 0.1242852434515953,
+      "piece": "smc/smc_215/track.npy",
+      "rank": 11,
+      "role": "ambiguous",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold6_val/smc__smc_215__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_215.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.9090909090909091,
+          "beat_cmlt": 0.9090909090909091,
+          "beat_fmeasure": 0.8787878787878788
+        },
+        "dbn_default": {
+          "beat_amlt": 0.6486486486486487,
+          "beat_cmlt": 0.6486486486486487,
+          "beat_fmeasure": 0.6571428571428571
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.9090909090909092,
+          "beat_cmlt": 0.9090909090909092,
+          "beat_fmeasure": 0.8181818181818182
+        },
+        "direct": {
+          "beat_amlt": 0.8787878787878788,
+          "beat_cmlt": 0.8787878787878788,
+          "beat_fmeasure": 0.8787878787878788
+        },
+        "plpdp": {
+          "beat_amlt": 0.9090909090909092,
+          "beat_cmlt": 0.9090909090909092,
+          "beat_fmeasure": 0.9090909090909092
+        }
+      },
+      "window": {
+        "casm_direct_exact": true,
+        "end": 29.25,
+        "margin_max": 0.22064422070980072,
+        "margin_mean": 0.13076423108577728,
+        "margin_median": 0.15209296345710754,
+        "mean_structured_f1_gain": 0.1717171717171717,
+        "method_count": {
+          "casm_full": 11,
+          "dbn_default": 13,
+          "dbn_matched_30_300": 11,
+          "direct": 11,
+          "plpdp": 11
+        },
+        "method_f1": {
+          "casm_full": 1.0,
+          "dbn_default": 0.6666666666666666,
+          "dbn_matched_30_300": 0.8181818181818182,
+          "direct": 1.0,
+          "plpdp": 1.0
+        },
+        "min_structured_f1_gain": 0.0,
+        "score": 0.4196390392367888,
+        "start": 17.25,
+        "truth_count": 11
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 1.0,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.032824911177158356,
+      "period_margin_median": 0.030568189918994904,
+      "piece": "smc/smc_287/track.npy",
+      "rank": 12,
+      "role": "ambiguous",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold6_val/smc__smc_287__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_287.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.9833333333333333,
+          "beat_cmlt": 0.9833333333333333,
+          "beat_fmeasure": 1.0
+        },
+        "dbn_default": {
+          "beat_amlt": 0.9833333333333332,
+          "beat_cmlt": 0.9833333333333332,
+          "beat_fmeasure": 1.0
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.9833333333333332,
+          "beat_cmlt": 0.9833333333333332,
+          "beat_fmeasure": 1.0
+        },
+        "direct": {
+          "beat_amlt": 0.9833333333333332,
+          "beat_cmlt": 0.9833333333333332,
+          "beat_fmeasure": 1.0
+        },
+        "plpdp": {
+          "beat_amlt": 1.0,
+          "beat_cmlt": 1.0,
+          "beat_fmeasure": 1.0
+        }
+      },
+      "window": {
+        "casm_direct_exact": true,
+        "end": 34.75,
+        "margin_max": 0.06477181613445282,
+        "margin_mean": 0.03166193515062332,
+        "margin_median": 0.03127766773104668,
+        "mean_structured_f1_gain": 0.0,
+        "method_count": {
+          "casm_full": 20,
+          "dbn_default": 20,
+          "dbn_matched_30_300": 20,
+          "direct": 20,
+          "plpdp": 20
+        },
+        "method_f1": {
+          "casm_full": 1.0,
+          "dbn_default": 1.0,
+          "dbn_matched_30_300": 1.0,
+          "direct": 1.0,
+          "plpdp": 1.0
+        },
+        "min_structured_f1_gain": 0.0,
+        "score": 0.41581272378563877,
+        "start": 22.75,
+        "truth_count": 20
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 1.0,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.11769194900989532,
+      "period_margin_median": 0.07841696590185165,
+      "piece": "smc/smc_221/track.npy",
+      "rank": 13,
+      "role": "ambiguous",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold6_val/smc__smc_221__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_221.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.6333333333333333,
+          "beat_cmlt": 0.6333333333333333,
+          "beat_fmeasure": 0.5172413793103449
+        },
+        "dbn_default": {
+          "beat_amlt": 0.4915254237288136,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.3058823529411765
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.5,
+          "beat_cmlt": 0.5,
+          "beat_fmeasure": 0.3272727272727273
+        },
+        "direct": {
+          "beat_amlt": 0.5161290322580645,
+          "beat_cmlt": 0.5161290322580645,
+          "beat_fmeasure": 0.4918032786885246
+        },
+        "plpdp": {
+          "beat_amlt": 0.2711864406779661,
+          "beat_cmlt": 0.2,
+          "beat_fmeasure": 0.3733333333333333
+        }
+      },
+      "window": {
+        "casm_direct_exact": true,
+        "end": 20.75,
+        "margin_max": 0.14455163478851318,
+        "margin_mean": 0.09464549273252487,
+        "margin_median": 0.10203930735588074,
+        "mean_structured_f1_gain": 0.23062558356676002,
+        "method_count": {
+          "casm_full": 10,
+          "dbn_default": 18,
+          "dbn_matched_30_300": 7,
+          "direct": 10,
+          "plpdp": 11
+        },
+        "method_f1": {
+          "casm_full": 0.5,
+          "dbn_default": 0.21428571428571427,
+          "dbn_matched_30_300": 0.11764705882352941,
+          "direct": 0.5,
+          "plpdp": 0.47619047619047616
+        },
+        "min_structured_f1_gain": 0.023809523809523836,
+        "score": 0.41543689311441145,
+        "start": 8.75,
+        "truth_count": 10
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 1.0,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.06300561875104904,
+      "period_margin_median": 0.061837710440158844,
+      "piece": "smc/smc_273/track.npy",
+      "rank": 14,
+      "role": "ambiguous",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold3_val/smc__smc_273__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_273.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 1.0,
+          "beat_cmlt": 1.0,
+          "beat_fmeasure": 1.0
+        },
+        "dbn_default": {
+          "beat_amlt": 1.0,
+          "beat_cmlt": 1.0,
+          "beat_fmeasure": 1.0
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 1.0,
+          "beat_cmlt": 1.0,
+          "beat_fmeasure": 1.0
+        },
+        "direct": {
+          "beat_amlt": 1.0,
+          "beat_cmlt": 1.0,
+          "beat_fmeasure": 1.0
+        },
+        "plpdp": {
+          "beat_amlt": 1.0,
+          "beat_cmlt": 1.0,
+          "beat_fmeasure": 1.0
+        }
+      },
+      "window": {
+        "casm_direct_exact": true,
+        "end": 35.0,
+        "margin_max": 0.061837710440158844,
+        "margin_mean": 0.053276997059583664,
+        "margin_median": 0.05168784409761429,
+        "mean_structured_f1_gain": 0.0,
+        "method_count": {
+          "casm_full": 19,
+          "dbn_default": 19,
+          "dbn_matched_30_300": 19,
+          "direct": 19,
+          "plpdp": 19
+        },
+        "method_f1": {
+          "casm_full": 1.0,
+          "dbn_default": 1.0,
+          "dbn_matched_30_300": 1.0,
+          "direct": 1.0,
+          "plpdp": 1.0
+        },
+        "min_structured_f1_gain": 0.0,
+        "score": 0.39060817591845987,
+        "start": 23.0,
+        "truth_count": 19
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 0.9615384615384616,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.07460887730121613,
+      "period_margin_median": 0.07006646692752838,
+      "piece": "smc/smc_048/track.npy",
+      "rank": 15,
+      "role": "ambiguous",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold2_val/smc__smc_048__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_048.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.7391304347826086,
+          "beat_cmlt": 0.7391304347826086,
+          "beat_fmeasure": 0.5116279069767442
+        },
+        "dbn_default": {
+          "beat_amlt": 0.9230769230769232,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.3389830508474576
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 1.0,
+          "beat_cmlt": 1.0,
+          "beat_fmeasure": 0.5
+        },
+        "direct": {
+          "beat_amlt": 0.7083333333333334,
+          "beat_cmlt": 0.7083333333333334,
+          "beat_fmeasure": 0.5
+        },
+        "plpdp": {
+          "beat_amlt": 0.5769230769230769,
+          "beat_cmlt": 0.5769230769230769,
+          "beat_fmeasure": 0.3913043478260869
+        }
+      },
+      "window": {
+        "casm_direct_exact": true,
+        "end": 24.5,
+        "margin_max": 0.07824329286813736,
+        "margin_mean": 0.05121088773012161,
+        "margin_median": 0.048869550228118896,
+        "mean_structured_f1_gain": 0.17777777777777773,
+        "method_count": {
+          "casm_full": 6,
+          "dbn_default": 14,
+          "dbn_matched_30_300": 6,
+          "direct": 6,
+          "plpdp": 6
+        },
+        "method_f1": {
+          "casm_full": 0.6666666666666666,
+          "dbn_default": 0.3,
+          "dbn_matched_30_300": 0.5,
+          "direct": 0.6666666666666666,
+          "plpdp": 0.6666666666666666
+        },
+        "min_structured_f1_gain": 0.0,
+        "score": 0.3900972226179308,
+        "start": 12.5,
+        "truth_count": 6
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 1.0,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.07782096415758133,
+      "period_margin_median": 0.07141589373350143,
+      "piece": "smc/smc_216/track.npy",
+      "rank": 16,
+      "role": "ambiguous",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold5_val/smc__smc_216__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_216.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.8333333333333334,
+          "beat_cmlt": 0.8333333333333334,
+          "beat_fmeasure": 0.7714285714285715
+        },
+        "dbn_default": {
+          "beat_amlt": 0.7222222222222222,
+          "beat_cmlt": 0.7222222222222222,
+          "beat_fmeasure": 0.6111111111111112
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.7567567567567568,
+          "beat_cmlt": 0.7567567567567568,
+          "beat_fmeasure": 0.7671232876712328
+        },
+        "direct": {
+          "beat_amlt": 0.8333333333333334,
+          "beat_cmlt": 0.8333333333333334,
+          "beat_fmeasure": 0.732394366197183
+        },
+        "plpdp": {
+          "beat_amlt": 0.945945945945946,
+          "beat_cmlt": 0.945945945945946,
+          "beat_fmeasure": 0.7945205479452055
+        }
+      },
+      "window": {
+        "casm_direct_exact": true,
+        "end": 34.75,
+        "margin_max": 0.17980550229549408,
+        "margin_mean": 0.08935325592756271,
+        "margin_median": 0.08102294057607651,
+        "mean_structured_f1_gain": 0.12922705314009664,
+        "method_count": {
+          "casm_full": 12,
+          "dbn_default": 12,
+          "dbn_matched_30_300": 11,
+          "direct": 12,
+          "plpdp": 12
+        },
+        "method_f1": {
+          "casm_full": 0.8333333333333334,
+          "dbn_default": 0.5833333333333334,
+          "dbn_matched_30_300": 0.6956521739130435,
+          "direct": 0.8333333333333334,
+          "plpdp": 0.8333333333333334
+        },
+        "min_structured_f1_gain": 0.0,
+        "score": 0.3887184371198146,
+        "start": 22.75,
+        "truth_count": 12
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 0.9857142857142858,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.16111154854297638,
+      "period_margin_median": 0.16061776876449585,
+      "piece": "smc/smc_171/track.npy",
+      "rank": 17,
+      "role": "ambiguous",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold0_val/smc__smc_171__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_171.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.8387096774193549,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.5
+        },
+        "dbn_default": {
+          "beat_amlt": 0.9016393442622952,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.5054945054945054
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.9016393442622952,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.5054945054945054
+        },
+        "direct": {
+          "beat_amlt": 0.8253968253968254,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.4946236559139785
+        },
+        "plpdp": {
+          "beat_amlt": 0.8387096774193549,
+          "beat_cmlt": 0.0,
+          "beat_fmeasure": 0.4782608695652173
+        }
+      },
+      "window": {
+        "casm_direct_exact": true,
+        "end": 23.0,
+        "margin_max": 0.13575704395771027,
+        "margin_mean": 0.1233963668346405,
+        "margin_median": 0.12285124510526657,
+        "mean_structured_f1_gain": 0.10416666666666667,
+        "method_count": {
+          "casm_full": 21,
+          "dbn_default": 21,
+          "dbn_matched_30_300": 21,
+          "direct": 21,
+          "plpdp": 21
+        },
+        "method_f1": {
+          "casm_full": 0.5625,
+          "dbn_default": 0.4375,
+          "dbn_matched_30_300": 0.4375,
+          "direct": 0.5625,
+          "plpdp": 0.5
+        },
+        "min_structured_f1_gain": 0.0625,
+        "score": 0.38527676547567047,
+        "start": 11.0,
+        "truth_count": 11
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 1.0,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.14910286664962769,
+      "period_margin_median": 0.14049306511878967,
+      "piece": "smc/smc_007/track.npy",
+      "rank": 18,
+      "role": "ambiguous",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold5_val/smc__smc_007__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_007.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.8,
+          "beat_cmlt": 0.8,
+          "beat_fmeasure": 0.6
+        },
+        "dbn_default": {
+          "beat_amlt": 0.4745762711864407,
+          "beat_cmlt": 0.24,
+          "beat_fmeasure": 0.4
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 0.7741935483870968,
+          "beat_cmlt": 0.7741935483870968,
+          "beat_fmeasure": 0.5573770491803278
+        },
+        "direct": {
+          "beat_amlt": 0.8,
+          "beat_cmlt": 0.8,
+          "beat_fmeasure": 0.6
+        },
+        "plpdp": {
+          "beat_amlt": 0.7272727272727273,
+          "beat_cmlt": 0.7272727272727273,
+          "beat_fmeasure": 0.6349206349206349
+        }
+      },
+      "window": {
+        "casm_direct_exact": true,
+        "end": 24.5,
+        "margin_max": 0.18745215237140656,
+        "margin_mean": 0.15935064852237701,
+        "margin_median": 0.15632304549217224,
+        "mean_structured_f1_gain": 0.1794871794871795,
+        "method_count": {
+          "casm_full": 10,
+          "dbn_default": 16,
+          "dbn_matched_30_300": 10,
+          "direct": 10,
+          "plpdp": 10
+        },
+        "method_f1": {
+          "casm_full": 0.9,
+          "dbn_default": 0.46153846153846156,
+          "dbn_matched_30_300": 0.8,
+          "direct": 0.9,
+          "plpdp": 0.9
+        },
+        "min_structured_f1_gain": 0.0,
+        "score": 0.35640336316747545,
+        "start": 12.5,
+        "truth_count": 10
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 1.0,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.11329711973667145,
+      "period_margin_median": 0.10353818535804749,
+      "piece": "smc/smc_281/track.npy",
+      "rank": 19,
+      "role": "ambiguous",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold4_val/smc__smc_281__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_281.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 1.0,
+          "beat_cmlt": 1.0,
+          "beat_fmeasure": 1.0
+        },
+        "dbn_default": {
+          "beat_amlt": 1.0,
+          "beat_cmlt": 1.0,
+          "beat_fmeasure": 1.0
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 1.0,
+          "beat_cmlt": 1.0,
+          "beat_fmeasure": 1.0
+        },
+        "direct": {
+          "beat_amlt": 1.0,
+          "beat_cmlt": 1.0,
+          "beat_fmeasure": 1.0
+        },
+        "plpdp": {
+          "beat_amlt": 1.0,
+          "beat_cmlt": 1.0,
+          "beat_fmeasure": 1.0
+        }
+      },
+      "window": {
+        "casm_direct_exact": true,
+        "end": 28.0,
+        "margin_max": 0.09697924554347992,
+        "margin_mean": 0.081492580473423,
+        "margin_median": 0.07629341632127762,
+        "mean_structured_f1_gain": 0.0,
+        "method_count": {
+          "casm_full": 18,
+          "dbn_default": 18,
+          "dbn_matched_30_300": 18,
+          "direct": 18,
+          "plpdp": 18
+        },
+        "method_f1": {
+          "casm_full": 1.0,
+          "dbn_default": 1.0,
+          "dbn_matched_30_300": 1.0,
+          "direct": 1.0,
+          "plpdp": 1.0
+        },
+        "min_structured_f1_gain": 0.0,
+        "score": 0.3479640920460224,
+        "start": 16.0,
+        "truth_count": 18
+      }
+    },
+    {
+      "beat_fallback": false,
+      "count_ratio": 0.9305555555555556,
+      "panel": "bt_smc_oof",
+      "period_margin_mean": 0.13134193420410156,
+      "period_margin_median": 0.13270451128482819,
+      "piece": "smc/smc_283/track.npy",
+      "rank": 20,
+      "role": "ambiguous",
+      "source_path": "/media/mengh/SharedData/zhanh/auto_structbeat/caches/8fold/beat_this_fold2_val/smc__smc_283__track.npy.npz",
+      "trace_file": "bt_smc_oof__smc__smc_283.npz",
+      "track_metrics": {
+        "casm_full": {
+          "beat_amlt": 0.6666666666666666,
+          "beat_cmlt": 0.6666666666666666,
+          "beat_fmeasure": 0.9090909090909091
+        },
+        "dbn_default": {
+          "beat_amlt": 1.0,
+          "beat_cmlt": 1.0,
+          "beat_fmeasure": 1.0
+        },
+        "dbn_matched_30_300": {
+          "beat_amlt": 1.0,
+          "beat_cmlt": 1.0,
+          "beat_fmeasure": 1.0
+        },
+        "direct": {
+          "beat_amlt": 0.5538461538461539,
+          "beat_cmlt": 0.5538461538461539,
+          "beat_fmeasure": 0.8695652173913044
+        },
+        "plpdp": {
+          "beat_amlt": 0.7373737373737373,
+          "beat_cmlt": 0.1477272727272727,
+          "beat_fmeasure": 0.7101449275362319
+        }
+      },
+      "window": {
+        "casm_direct_exact": true,
+        "end": 23.0,
+        "margin_max": 0.1623084396123886,
+        "margin_mean": 0.14907582104206085,
+        "margin_median": 0.15339839458465576,
+        "mean_structured_f1_gain": 0.09722222222222221,
+        "method_count": {
+          "casm_full": 17,
+          "dbn_default": 17,
+          "dbn_matched_30_300": 17,
+          "direct": 17,
+          "plpdp": 31
+        },
+        "method_f1": {
+          "casm_full": 1.0,
+          "dbn_default": 1.0,
+          "dbn_matched_30_300": 1.0,
+          "direct": 1.0,
+          "plpdp": 0.7083333333333334
+        },
+        "min_structured_f1_gain": 0.0,
+        "score": 0.34775412706865205,
+        "start": 11.0,
+        "truth_count": 17
+      }
+    }
+  ],
+  "retained_trace_count": 35,
+  "selected_candidate_hash": "93f40ad87602ae68d84c6d1d72e307c27a67cc94d2b508f619f3376df08ae7de",
+  "selection_is_post_hoc": true,
+  "selection_policy": {
+    "ambiguous": "non-fallback; exact CASM/Direct event equality in the window; mean and median period margin <= 0.16; CASM F1 >= 0.35; no more than 0.01 below either DBN or PLPDP",
+    "clear": "non-fallback; at least six references; window CASM F1 >= 0.55 and >= 0.025 above Direct, DBN default, DBN 30-300, and PLPDP"
+  },
+  "source_piece_count": 217,
+  "status": "COMPLETE",
+  "trim_seconds": 5.0,
+  "window_seconds": 12.0,
+  "window_step": 0.25
+}

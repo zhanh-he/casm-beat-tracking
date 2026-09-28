@@ -579,13 +579,6 @@ body { padding: 2px 0 12px; }
       const yDbn = panelScale(dbnPanel);
       const yPlpdp = panelScale(plpdpPanel);
 
-      if (referenceIntervals.length) {
-        svg.append('path').datum(referenceIntervals).attr('clip-path', `url(#${groundPanel.clip})`).attr('fill', 'none').attr('stroke', colors.foreground).attr('stroke-width', .8).attr('opacity', .2)
-          .attr('d', d3.line().x(row => x(row.time)).y(row => yGround(row.interval)));
-        svg.selectAll('.groundtruth-ibi').data(referenceIntervals).enter().append('circle').attr('class', 'groundtruth-ibi').attr('cx', row => x(row.time)).attr('cy', row => yGround(row.interval)).attr('r', 3.6)
-          .attr('fill', colors.foreground).attr('data-tooltip', row => `GroundTruth IBI: ${row.interval.toFixed(3)} s`);
-      }
-
       const fixedTau = d.fixed_semimarkov.period_seconds;
       if (fixedPanel) {
         svg.append('line').attr('clip-path', `url(#${fixedPanel.clip})`).attr('x1', margin.left).attr('x2', width - margin.right).attr('y1', yFixed(fixedTau)).attr('y2', yFixed(fixedTau)).attr('stroke', colors.fixed).attr('stroke-width', 2).attr('stroke-dasharray', '5 4');
@@ -602,11 +595,17 @@ body { padding: 2px 0 12px; }
             .attr('data-tooltip', row => `${label.replaceAll('-', ' ')} IBI: ${row.interval.toFixed(3)} s`);
         }
       }
-      plotIntervals(methodIntervals.direct, colors.direct, null, 'direct-output', directPanel, yDirect);
+      plotIntervals(methodIntervals.direct, colors.direct, d3.symbolCircle, 'direct-output', directPanel, yDirect);
       if (fixedPanel) plotIntervals(methodIntervals.fixed_semimarkov, colors.fixed, d3.symbolSquare, 'fixed-output', fixedPanel, yFixed);
       plotIntervals(methodIntervals.casm, colors.casm, d3.symbolCircle, 'casm-output', casmPanel, yCasm);
-      plotIntervals(methodIntervals.dbn, colors.dbn, null, 'dbn-output', dbnPanel, yDbn);
-      plotIntervals(methodIntervals.plpdp, colors.plpdp, null, 'plpdp-output', plpdpPanel, yPlpdp);
+      plotIntervals(methodIntervals.dbn, colors.dbn, d3.symbolCircle, 'dbn-output', dbnPanel, yDbn);
+      plotIntervals(methodIntervals.plpdp, colors.plpdp, d3.symbolCircle, 'plpdp-output', plpdpPanel, yPlpdp);
+      if (referenceIntervals.length) {
+        svg.append('path').datum(referenceIntervals).attr('clip-path', `url(#${groundPanel.clip})`).attr('fill', 'none').attr('stroke', colors.foreground).attr('stroke-width', 1.8).attr('opacity', 1)
+          .attr('d', d3.line().x(row => x(row.time)).y(row => yGround(row.interval)));
+        svg.selectAll('.groundtruth-ibi').data(referenceIntervals).enter().append('circle').attr('class', 'groundtruth-ibi').attr('cx', row => x(row.time)).attr('cy', row => yGround(row.interval)).attr('r', 3.6)
+          .attr('fill', colors.foreground).attr('data-tooltip', row => `GroundTruth IBI: ${row.interval.toFixed(3)} s`);
+      }
       [
         [directPanel, methodIntervals.direct, colors.direct],
         ...(!DEMO ? [[fixedPanel, methodIntervals.fixed_semimarkov, colors.fixed]] : []),
@@ -616,8 +615,14 @@ body { padding: 2px 0 12px; }
       ].forEach(([panel, rows, color]) => {
         const mae = intervalCurveMae(referenceIntervals, rows);
         if (!Number.isFinite(mae)) return;
-        svg.append('text').attr('class', 'plot-label').attr('x', width - margin.right - 5).attr('y', panel.top + 14).attr('text-anchor', 'end')
+        const labelGroup = svg.append('g').attr('class', 'ibi-mae-label');
+        const labelText = labelGroup.append('text').attr('class', 'plot-label').attr('x', width - margin.right - 9).attr('y', panel.top + 26).attr('text-anchor', 'end')
           .style('fill', color).text(`window IBI MAE ${mae.toFixed(3)} s`);
+        const labelBounds = labelText.node().getBBox();
+        labelGroup.insert('rect', 'text')
+          .attr('x', labelBounds.x - 5).attr('y', labelBounds.y - 3)
+          .attr('width', labelBounds.width + 10).attr('height', labelBounds.height + 6)
+          .attr('rx', 2).attr('fill', '#fff').attr('stroke', colors.foreground).attr('stroke-width', .8).attr('opacity', .96);
       });
 
       const marks = svg.selectAll('[data-tooltip]');

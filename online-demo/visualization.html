@@ -310,12 +310,6 @@ body { padding: 2px 0 12px; }
     <span class="legend-item"><i class="legend-guide"></i>GroundTruth alignment guide</span>
     <span class="legend-item"><i class="legend-tick"></i>matched prediction</span>
     <span class="legend-item"><i class="legend-symbol">×</i>false-positive prediction</span>
-    <span class="legend-item"><i class="legend-dot"></i>GroundTruth IBI</span>
-    <span class="legend-item direct-color"><i class="legend-output-line"></i>Direct output IBI</span>
-    <span class="legend-item fixed-color fixed-only"><i class="legend-prior"></i>Fixed Semi-Markov output IBI (fixed τ + square)</span>
-    <span class="legend-item casm-color"><i class="legend-output-line"></i>CASM output IBI</span>
-    <span class="legend-item dbn-color"><i class="legend-output-line"></i>DBN output IBI</span>
-    <span class="legend-item plpdp-color"><i class="legend-output-line"></i>PLPDP output IBI</span>
   </div>
 
   <div class="window-control">
@@ -370,7 +364,7 @@ body { padding: 2px 0 12px; }
     };
     if (DEMO) {
       root.querySelector('.play-column').hidden = false;
-      root.querySelector('.fixed-only').remove();
+      root.querySelector('.fixed-only')?.remove();
       root.querySelector('svg desc').textContent = 'Frozen Beat This activation, reference and four decoder beat paths, followed by five interval panels.';
     }
 

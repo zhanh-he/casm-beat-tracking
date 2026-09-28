@@ -2,7 +2,7 @@ name: pages
 
 on:
   push:
-    branches: [main, paper-revisions]
+    branches: [main]
   workflow_dispatch:
 
 permissions:

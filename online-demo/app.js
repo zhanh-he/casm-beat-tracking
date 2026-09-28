@@ -41,9 +41,9 @@ function inlineElement(selector) {
 
 function setStatus(message, state = "ready") {
   const status = inlineElement("#audition-status");
-  const dot = inlineElement("#audition-status-dot");
+  const prefix = inlineElement("#audition-status-prefix");
   if (status) status.textContent = message;
-  if (dot) dot.dataset.state = state;
+  if (prefix) prefix.dataset.state = state;
 }
 
 function currentCase() {
@@ -339,11 +339,11 @@ function mountInlineAuditionControls() {
 .audition-progress::-webkit-progress-bar { background: #d9dde1; }
 .audition-progress::-webkit-progress-value { background: #4173c8; }
 .audition-time { color: #697079; font-size: 13px; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
-.audition-status-row { display: flex; align-items: center; gap: 7px; margin-top: 8px; }
-.audition-status-dot { flex: 0 0 auto; width: 7px; height: 7px; border-radius: 50%; background: #7b828a; }
-.audition-status-dot[data-state="playing"] { background: #4173c8; }
-.audition-status-dot[data-state="error"] { background: #d85555; }
+.audition-status-row { margin-top: 8px; }
 .audition-status { margin: 0; color: #697079; font-size: 13px; line-height: 1.4; }
+.audition-status-prefix { color: #252a30; font-weight: 680; }
+.audition-status-prefix[data-state="playing"] { color: #4173c8; }
+.audition-status-prefix[data-state="error"] { color: #d85555; }
 @media (max-width: 520px) { .audition-heading { align-items: flex-start; flex-direction: column; gap: 3px; } .audition-transport { grid-template-columns: minmax(80px, 1fr) 132px; } .audition-time { font-size: 11px; } }
 `;
   documentInside.head.append(style);
@@ -400,16 +400,18 @@ function mountInlineAuditionControls() {
 
   const statusRow = documentInside.createElement("div");
   statusRow.className = "audition-status-row";
-  const dot = documentInside.createElement("span");
-  dot.id = "audition-status-dot";
-  dot.className = "audition-status-dot";
-  dot.setAttribute("aria-hidden", "true");
-  const status = documentInside.createElement("p");
+  const statusLine = documentInside.createElement("p");
+  statusLine.className = "audition-status";
+  statusLine.setAttribute("role", "status");
+  statusLine.setAttribute("aria-live", "polite");
+  const statusPrefix = documentInside.createElement("span");
+  statusPrefix.id = "audition-status-prefix";
+  statusPrefix.className = "audition-status-prefix";
+  statusPrefix.textContent = "[Status]";
+  const status = documentInside.createElement("span");
   status.id = "audition-status";
-  status.className = "audition-status";
-  status.setAttribute("role", "status");
-  status.setAttribute("aria-live", "polite");
-  statusRow.append(dot, status);
+  statusLine.append(statusPrefix, " ", status);
+  statusRow.append(statusLine);
 
   toolbar.append(heading, transport, statusRow);
   table.insertAdjacentElement("afterend", toolbar);

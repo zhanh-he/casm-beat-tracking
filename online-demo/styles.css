@@ -123,17 +123,33 @@ h2 {
   font-weight: 650;
 }
 
-.github-link { padding: 0 14px; }
+.github-link {
+  min-height: 42px;
+  padding: 0 16px;
+  border-color: #24292f;
+  background: #24292f;
+  color: #fff;
+}
 
-.github-link:hover,
 .command:hover,
 .icon-command:hover { border-color: #aeb6bd; background: var(--soft); }
+
+.github-link:hover {
+  border-color: #111418;
+  background: #111418;
+}
 
 .github-link svg,
 .command svg,
 .icon-command svg {
   width: 18px;
   height: 18px;
+}
+
+.github-link svg {
+  width: 21px;
+  height: 21px;
+  stroke-width: 2;
 }
 
 .listening-band {

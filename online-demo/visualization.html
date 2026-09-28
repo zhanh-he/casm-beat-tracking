@@ -313,7 +313,7 @@ body { padding: 2px 0 12px; }
     <span class="legend-item"><i class="legend-dot"></i>GroundTruth IBI</span>
     <span class="legend-item direct-color"><i class="legend-output-line"></i>Direct output IBI</span>
     <span class="legend-item fixed-color fixed-only"><i class="legend-prior"></i>Fixed Semi-Markov output IBI (fixed τ + square)</span>
-    <span class="legend-item casm-color"><i class="legend-prior"></i>CASM local τ(t) + circle output IBI</span>
+    <span class="legend-item casm-color"><i class="legend-output-line"></i>CASM output IBI</span>
     <span class="legend-item dbn-color"><i class="legend-output-line"></i>DBN output IBI</span>
     <span class="legend-item plpdp-color"><i class="legend-output-line"></i>PLPDP output IBI</span>
   </div>
@@ -495,11 +495,6 @@ body { padding: 2px 0 12px; }
       const truthDownbeats = d.truth.downbeat_times.filter(time => time >= start && time <= end);
       const methodIntervals = Object.fromEntries(methods.map(method => [method.id, intervals(d.decoders[method.id].beat_times, start, end)]));
       const referenceIntervals = intervals(truthAll, start, end);
-      const localPrior = d.casm_analysis.candidate_times.map((time, index) => ({
-        time,
-        interval: d.casm_analysis.period_seconds[index],
-        confidence: d.casm_analysis.reliability_proxy[index]
-      })).filter(row => row.time >= start && row.time <= end);
       const intervalValues = DEMO ? [] : [d.fixed_semimarkov.period_seconds];
       referenceIntervals.forEach(row => intervalValues.push(row.interval));
       methodIntervals.direct.forEach(row => intervalValues.push(row.interval));
@@ -507,7 +502,6 @@ body { padding: 2px 0 12px; }
       methodIntervals.casm.forEach(row => intervalValues.push(row.interval));
       methodIntervals.dbn.forEach(row => intervalValues.push(row.interval));
       methodIntervals.plpdp.forEach(row => intervalValues.push(row.interval));
-      localPrior.forEach(row => intervalValues.push(row.interval));
       const extent = d3.extent(intervalValues);
       const pad = Math.max(.12, (extent[1] - extent[0]) * .12);
       const intervalDomain = d3.scaleLinear().domain([Math.max(0, extent[0] - pad), extent[1] + pad]).nice().domain();
@@ -598,15 +592,9 @@ body { padding: 2px 0 12px; }
         svg.append('text').attr('class', 'plot-label').attr('x', margin.left + 5).attr('y', yFixed(fixedTau) - 5).style('fill', colors.fixed).text(`global τ = ${fixedTau.toFixed(2)} s`);
       }
 
-      if (localPrior.length) {
-        svg.append('path').datum(localPrior).attr('clip-path', `url(#${casmPanel.clip})`).attr('fill', 'none').attr('stroke', colors.casm).attr('stroke-width', 2).attr('stroke-dasharray', '5 3')
-          .attr('d', d3.line().x(row => x(row.time)).y(row => yCasm(row.interval)));
-        svg.append('text').attr('class', 'plot-label').attr('x', margin.left + 5).attr('y', casmPanel.top + 14).style('fill', colors.casm).text('local τ(t), dashed');
-      }
-
       function plotIntervals(rows, color, symbolType, label, panel, yPanel) {
         if (!rows.length) return;
-        svg.append('path').datum(rows).attr('clip-path', `url(#${panel.clip})`).attr('fill', 'none').attr('stroke', color).attr('stroke-width', 1.25).attr('opacity', .72)
+        svg.append('path').datum(rows).attr('clip-path', `url(#${panel.clip})`).attr('fill', 'none').attr('stroke', color).attr('stroke-width', 1.8).attr('opacity', 1)
           .attr('d', d3.line().x(row => x(row.time)).y(row => yPanel(row.interval)));
         if (symbolType) {
           svg.selectAll(`.${label}`).data(rows).enter().append('path').attr('class', label).attr('d', d3.symbol().type(symbolType).size(38)())

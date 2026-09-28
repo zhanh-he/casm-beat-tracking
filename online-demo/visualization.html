@@ -90,8 +90,7 @@ body { padding: 2px 0 12px; }
       overflow-wrap: anywhere;
     }
     #decoder-contrast-real-v2 .subtitle,
-    #decoder-contrast-real-v2 .case-summary,
-    #decoder-contrast-real-v2 .source-line {
+    #decoder-contrast-real-v2 .case-summary {
       margin: 0;
       letter-spacing: 0;
       overflow-wrap: anywhere;
@@ -260,11 +259,6 @@ body { padding: 2px 0 12px; }
       fill: transparent;
       stroke: var(--border);
     }
-    #decoder-contrast-real-v2 .source-line {
-      padding: 4px 7px 0;
-      color: var(--muted-foreground);
-      font-size: 13px;
-    }
     #decoder-contrast-real-v2 .tooltip {
       position: absolute;
       pointer-events: none;
@@ -324,7 +318,6 @@ body { padding: 2px 0 12px; }
     </svg>
     <div class="tooltip text-small" role="tooltip"></div>
   </div>
-  <p class="source-line text-small"></p>
 
   <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
   <script>
@@ -338,7 +331,6 @@ body { padding: 2px 0 12px; }
     const tableBody = root.querySelector('tbody');
     const slider = root.querySelector('.form-range');
     const readout = root.querySelector('.window-readout');
-    const sourceLine = root.querySelector('.source-line');
     const tooltip = root.querySelector('.tooltip');
     const svg = d3.select(root.querySelector('svg'));
     const requestedCase = Number(new URLSearchParams(window.location.search).get('case') || 0);
@@ -401,13 +393,6 @@ body { padding: 2px 0 12px; }
       slider.min = '0';
       slider.max = maxStart.toFixed(2);
       if (resetWindow) slider.value = Math.min(maxStart, d.recommended_window_start).toFixed(2);
-      const dbnDetail = d.dbn_tuning
-        ? ` For the two SMC illustrations, DBN uses a shared display setting: min/max BPM ${d.dbn_tuning.parameters.min_bpm}/${d.dbn_tuning.parameters.max_bpm}, transition λ ${d.dbn_tuning.parameters.transition_lambda}; it is not the aggregate DBN baseline.`
-        : ` DBN uses the matched 30–300 BPM benchmark configuration.`;
-      const selectionDetail = entry.screen_rank
-        ? `Illustration-only selection: 768 high-divergence candidates screened from 4,556 OOF pieces; this case ranked ${entry.screen_rank}.`
-        : `Mechanism illustration selected from 993 clean held-out GTZAN final0 tracks; CASM exceeded Direct, Fixed Semi-Markov, DBN, and PLPDP on full-track beat F1, CMLt, and AMLt.`;
-      sourceLine.textContent = DEMO ? `Selected for illustration, not aggregate evaluation. PLPDP uses its released 30–300 BPM default. IBI curves show decoded output intervals, not beat-alignment guides.${dbnDetail}` : `${selectionDetail} PLPDP uses its released 30–300 BPM default. Fixed Semi-Markov is a global-period mechanism replay, not an aggregate baseline. Decoder intervals below are decoded output IBIs, not hidden-state traces.${dbnDetail}`;
     }
 
     function matchedFlags(events, truth, tolerance = .07) {

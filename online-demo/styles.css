@@ -325,19 +325,14 @@ progress::-moz-progress-bar { background: var(--activation); }
   background: var(--soft);
 }
 
-.protocol-grid {
-  display: grid;
-  grid-template-columns: 0.9fr 1.2fr 1.2fr;
-  gap: 34px;
-  align-items: start;
-}
-
-.protocol-grid > p {
+.protocol-copy {
   margin: 0;
   color: var(--muted);
   font-size: 15px;
   line-height: 1.58;
 }
+
+.protocol-copy strong { color: var(--foreground); }
 
 footer { padding: 22px 0 34px; }
 
@@ -368,7 +363,6 @@ footer { padding: 22px 0 34px; }
   .method-switch { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .method-option:nth-child(3) { border-right: 0; }
   .method-option:nth-child(-n + 3) { border-bottom: 1px solid var(--border); }
-  .protocol-grid { grid-template-columns: 1fr; gap: 15px; }
   .figure-heading p:last-child { text-align: left; }
 }
 

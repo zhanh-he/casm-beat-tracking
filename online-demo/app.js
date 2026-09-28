@@ -304,7 +304,7 @@ async function loadBundledAudio() {
       : Number(bundled.duration_seconds);
     musicReady = true;
     renderSourceButtons();
-    setStatus(`${record.label} complete performance ready.`);
+    setStatus(`${record.label} loaded, performance ready to play.`);
   } catch (error) {
     if (generation !== audioLoadGeneration) return;
     clearAudio();

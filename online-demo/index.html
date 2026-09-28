@@ -6,9 +6,9 @@
   <meta name="theme-color" content="#ffffff">
   <meta name="description" content="Listen to reference and decoded beat paths while inspecting the frozen CASM decoder visualization.">
   <title>CASM Beat Tracking Demo</title>
-  <link rel="stylesheet" href="styles.css?v=20260928-11">
+  <link rel="stylesheet" href="styles.css?v=20260928-12">
   <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
-  <script defer src="app.js?v=20260928-11"></script>
+  <script defer src="app.js?v=20260928-12"></script>
 </head>
 <body>
   <header class="site-header">
@@ -30,7 +30,13 @@
 
     <section class="figure-section" aria-label="Beat decoding results">
       <div class="content-width">
-        <iframe id="figureFrame" src="visualization.html?v=20260928-11" title="Interactive decoder contrast visualization"></iframe>
+        <iframe id="figureFrame" src="visualization.html?v=20260928-12" title="Interactive decoder contrast visualization"></iframe>
+      </div>
+    </section>
+
+    <section class="metric-note-band" aria-label="IBI MAE definition">
+      <div class="content-width">
+        <p class="metric-note"><strong>IBI MAE:</strong> Mean absolute error between decoded and reference inter-beat intervals within the displayed listening window, measured in seconds (lower is better).</p>
       </div>
     </section>
 

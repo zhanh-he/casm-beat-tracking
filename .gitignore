@@ -1,7 +1,21 @@
-self-run-figures/figure1-20260902-1210/local_audio/
+**/local_audio/
 **/__pycache__/
 .DS_Store
+~$*
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
 *.egg-info/
 .pytest_cache/
 build/
 dist/
+
+# Keep the local research history out of the public release.  The directory's
+# README remains visible so the four-part repository layout is explicit.
+/archive/*
+!/archive/README.md

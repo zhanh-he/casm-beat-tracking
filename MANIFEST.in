@@ -1,9 +1,4 @@
 include README.md
-recursive-include benchmarks *.py
-recursive-include config *.json
-recursive-include docs *.md
-recursive-include experiments *.md *.py *.sbatch
-recursive-include results *.csv *.md
-recursive-include scripts *.py
-recursive-include tests *.py
-recursive-include weights *.json *.md
+recursive-include casm *.py *.json *.md
+recursive-include experiments *.py *.json *.csv *.md *.sbatch *.tex
+recursive-include online-demo *.html *.css *.js *.json *.md

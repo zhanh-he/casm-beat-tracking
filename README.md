@@ -1,16 +1,15 @@
 # CASM beat tracking
 
-CASM is a lightweight confidence-adaptive semi-Markov postprocessor for framewise beat and downbeat activations. The release API uses the frozen **7F calibration** by default and depends only on NumPy and SciPy at inference time—no PyTorch model and no `madmom` state lattice are required.
+CASM is a lightweight confidence-adaptive semi-Markov postprocessor for framewise beat and downbeat activations. The public API uses the frozen **7F calibration** by default and depends only on NumPy and SciPy at inference time—no PyTorch model and no `madmom` state lattice are required.
 
-This branch is a paper-revision release candidate. The CASM decoder, calibration record, reproducible result tables, checkpoint inventory, and experiment entry points are organized here for review before anything is merged to `main`.
+This repository contains the decoder, frozen calibration record, reproducible result tables, experiment entry points, paper figures, and an interactive listening demo.
 
 ## Install
 
-Install the review branch today:
+Install directly from GitHub:
 
 ```bash
-python -m pip install \
-  'git+https://github.com/zhanh-he/casm-beat-tracking.git@paper-revisions'
+python -m pip install 'git+https://github.com/zhanh-he/casm-beat-tracking.git'
 ```
 
 For local development:
@@ -19,7 +18,7 @@ For local development:
 python -m pip install -e .
 ```
 
-After the first reviewed PyPI release, installation will be:
+Once the package is available on PyPI, installation will be:
 
 ```bash
 python -m pip install casm-beat-tracking
@@ -40,7 +39,7 @@ processor = CASMDownBeatTrackingProcessor(input_type="probabilities")
 events = processor(activations)            # (num_beats, 2)
 ```
 
-`CASMProcessor` is the short alias; `CASMBeatTrackingProcessor` returns beat times from one-dimensional activations. This is a familiar processor interface, not a complete drop-in replacement for madmom: CASM starts from framewise activations and intentionally does not bundle an audio frontend or neural model. See the [Python API contract](https://github.com/zhanh-he/casm-beat-tracking/blob/paper-revisions/docs/API.md) for details.
+`CASMProcessor` is the short alias; `CASMBeatTrackingProcessor` returns beat times from one-dimensional activations. This is a familiar processor interface, not a complete drop-in replacement for madmom: CASM starts from framewise activations and intentionally does not bundle an audio frontend or neural model. See the [Python API contract](casm/docs/API.md) for details.
 
 For separate logit arrays and separate beat/downbeat outputs, use the lower-level API:
 
@@ -73,8 +72,8 @@ The interface follows the practical “activations in, event times out” patter
 
 The default was selected on the union of SMC folds 1–7, with fold 0 excluded from decoder selection. It is global: CASM does not tune itself per track and has no learned weights or random seed.
 
-- Human-readable protocol and complete parameter table: [calibration documentation](https://github.com/zhanh-he/casm-beat-tracking/blob/paper-revisions/docs/CALIBRATION.md)
-- Machine-readable default: [7F JSON](https://github.com/zhanh-he/casm-beat-tracking/blob/paper-revisions/config/casm-7f-default.json)
+- Human-readable protocol and complete parameter table: [calibration documentation](casm/docs/CALIBRATION.md)
+- Machine-readable default: [7F JSON](casm/config/casm-7f-default.json)
 - Candidate hash: `93f40ad87602ae68d84c6d1d72e307c27a67cc94d2b508f619f3376df08ae7de`
 
 Use `CASMConfig.from_json(...)` only when reproducing a named configuration; ordinary inference should use `CASMDecoder()`.
@@ -89,10 +88,10 @@ The locked Beat This-backbone evaluation contains 4,556 pieces across all eight 
 | SMC (217-piece macro) | 62.9 | 53.7 | 63.5 | — | — | — |
 | SMC (8-fold mean ± SD) | 63.0 ± 3.3 | 53.8 ± 7.8 | 63.6 ± 5.9 | — | — | — |
 
-The full per-dataset table, fold-level SMC table, GTZAN caveat, and Beat This/MSCNN-lite/TCN release matrix are in the [results documentation](https://github.com/zhanh-he/casm-beat-tracking/blob/paper-revisions/docs/RESULTS.md). Run this local, cluster-free check to validate the source and rebuild all public tables:
+The full per-dataset table, fold-level SMC table, GTZAN caveat, and Beat This/MSCNN-lite/TCN release matrix are in the [results documentation](experiments/tables/RESULTS.md). Run this local, cluster-free check to validate the locked source and rebuild all public tables:
 
 ```bash
-python scripts/build_results_tables.py
+python experiments/tables/build_results_tables.py
 ```
 
 GTZAN mean ± standard deviation and the MSCNN-lite/TCN frozen-7F refreshes remain explicitly pending. Historical settings are not mixed into the final-7F table.
@@ -102,17 +101,16 @@ GTZAN mean ± standard deviation and the MSCNN-lite/TCN frozen-7F refreshes rema
 CASM has no audio frontend or neural-network dependency. On one Apple M4 run, the high-level processor decoded a synthetic 30-minute activation sequence in a median 0.192 seconds after warm-up (about 9,367× real time); the low-level decoder took 0.190 seconds. This is a point measurement, not a cross-library benchmark; reproduce it on your machine with:
 
 ```bash
-python benchmarks/benchmark_decoder.py --api processor --minutes 30 --repeats 5
+python casm/benchmarks/benchmark_decoder.py --api processor --minutes 30 --repeats 5
 ```
 
 ## Reproduction and provenance
 
-- [Data and annotations](https://github.com/zhanh-he/casm-beat-tracking/blob/paper-revisions/docs/DATA_AND_ANNOTATIONS.md): Beat This annotation version, splits, and exact spectrogram recipe.
-- [Experiments](https://github.com/zhanh-he/casm-beat-tracking/blob/paper-revisions/experiments/README.md): cached-activation evaluation contract and eight-fold command.
-- [Checkpoint plan](https://github.com/zhanh-he/casm-beat-tracking/blob/paper-revisions/weights/README.md): publication and recovery status.
-- [Checkpoint manifest](https://github.com/zhanh-he/casm-beat-tracking/blob/paper-revisions/weights/manifest.json): recoverable sizes and SHA-256 hashes.
-- [Release checklist](https://github.com/zhanh-he/casm-beat-tracking/blob/paper-revisions/docs/RELEASE_CHECKLIST.md): remaining publication blockers.
-- [PyPI release procedure](https://github.com/zhanh-he/casm-beat-tracking/blob/paper-revisions/docs/PYPI_RELEASE.md): wheel/sdist validation and guarded publication.
+- [Data and annotations](experiments/DATA_AND_ANNOTATIONS.md): Beat This annotation version, splits, and exact spectrogram recipe.
+- [Experiments](experiments/README.md): cached-activation evaluation contract and eight-fold command.
+- [Checkpoint plan](casm/weights/README.md): publication and recovery status.
+- [Checkpoint manifest](casm/weights/manifest.json): recoverable sizes and SHA-256 hashes.
+- [Locked result source](experiments/tables/source/locked-7f/): compact source bundle used by the public table validator.
 
 The experiments use [Beat This](https://github.com/CPJKU/beat_this) data organization, annotations, preprocessing, and backbone outputs. CASM does not redistribute audio.
 
@@ -120,11 +118,10 @@ The experiments use [Beat This](https://github.com/CPJKU/beat_this) data organiz
 
 The existing interactive comparison remains available at [zhanh-he.github.io/casm-beat-tracking](https://zhanh-he.github.io/casm-beat-tracking/).
 
-- `src/casm_beat_tracking/`: installable decoder and CLI.
-- `config/`: frozen defaults.
-- `tests/` and `benchmarks/`: local correctness and throughput checks.
-- `experiments/`: readable evaluation entry points.
-- `results/` and `docs/`: validated tables, methods, provenance, and demo.
-- `Paper/` and `self-run-figures/`: existing paper/reproduction workspaces.
-
-Public release still requires an explicit license choice for this code and the CASM-trained weights.
+- `casm/`: installable decoder, frozen defaults, weight manifest, tests, benchmarks, and API documentation.
+- `experiments/`: decoder/backbone protocols, paper figures, validated tables, and compact result sources.
+- `online-demo/`: interactive GitHub Pages site, audio excerpts, and
+  visualization data.
+- `archive/`: a public pointer for the authors' local research archive; the
+  manuscript, reading, presentation, and historical figure workspaces are kept
+  out of the release repository.

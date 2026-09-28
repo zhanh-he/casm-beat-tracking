@@ -35,18 +35,18 @@ dev = ["build>=1", "pytest>=7", "mir_eval>=0.8", "twine>=5"]
 [project.urls]
 Homepage = "https://zhanh-he.github.io/casm-beat-tracking/"
 Repository = "https://github.com/zhanh-he/casm-beat-tracking"
-Documentation = "https://github.com/zhanh-he/casm-beat-tracking/tree/paper-revisions"
+Documentation = "https://github.com/zhanh-he/casm-beat-tracking/tree/main/casm/docs"
 Issues = "https://github.com/zhanh-he/casm-beat-tracking/issues"
 
 [project.scripts]
 casm-decode = "casm_beat_tracking.cli:main"
 
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["casm/src"]
 
 [tool.setuptools.package-data]
 casm_beat_tracking = ["py.typed", "data/*.json"]
 
 [tool.pytest.ini_options]
-pythonpath = ["src"]
-testpaths = ["tests"]
+pythonpath = ["casm/src"]
+testpaths = ["casm/tests"]

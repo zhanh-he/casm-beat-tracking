@@ -91,6 +91,19 @@ h2 {
   line-height: 1.5;
 }
 
+.submission-note {
+  margin: 8px 0 0;
+  max-width: 820px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.submission-note a {
+  color: #137b76;
+  font-weight: 650;
+}
+
 .github-link,
 .command,
 .icon-command {

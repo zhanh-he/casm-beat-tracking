@@ -1,11 +1,11 @@
 "use strict";
 
 const SOURCES = [
-  { id: "reference", label: "GroundTruth", color: "#242629" },
-  { id: "direct", label: "Direct", color: "#409eff" },
-  { id: "dbn", label: "DBN", color: "#59c879" },
-  { id: "plpdp", label: "PLPDP", color: "#d89b31" },
-  { id: "casm", label: "CASM", color: "#9270ed" },
+  { id: "reference", label: "GroundTruth", color: "#252a30" },
+  { id: "direct", label: "Direct", color: "#7b828a" },
+  { id: "dbn", label: "DBN", color: "#cd5c5c" },
+  { id: "plpdp", label: "PLPDP", color: "#708238" },
+  { id: "casm", label: "CASM", color: "#4173c8" },
 ];
 
 const ui = {
@@ -337,11 +337,11 @@ function mountInlineAuditionControls() {
 .audition-transport { display: grid; grid-template-columns: minmax(120px, 1fr) 158px; align-items: center; gap: 10px; margin-top: 10px; }
 .audition-progress { width: 100%; height: 6px; border: 0; border-radius: 0; overflow: hidden; background: #d9dde1; }
 .audition-progress::-webkit-progress-bar { background: #d9dde1; }
-.audition-progress::-webkit-progress-value { background: #2bb8b2; }
+.audition-progress::-webkit-progress-value { background: #4173c8; }
 .audition-time { color: #697079; font-size: 13px; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .audition-status-row { display: flex; align-items: center; gap: 7px; margin-top: 8px; }
-.audition-status-dot { flex: 0 0 auto; width: 7px; height: 7px; border-radius: 50%; background: #2bb8b2; }
-.audition-status-dot[data-state="playing"] { background: #9270ed; }
+.audition-status-dot { flex: 0 0 auto; width: 7px; height: 7px; border-radius: 50%; background: #7b828a; }
+.audition-status-dot[data-state="playing"] { background: #4173c8; }
 .audition-status-dot[data-state="error"] { background: #d85555; }
 .audition-status { margin: 0; color: #697079; font-size: 13px; line-height: 1.4; }
 @media (max-width: 520px) { .audition-heading { align-items: flex-start; flex-direction: column; gap: 3px; } .audition-transport { grid-template-columns: minmax(80px, 1fr) 132px; } .audition-time { font-size: 11px; } }

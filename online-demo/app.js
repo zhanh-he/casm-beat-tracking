@@ -3,9 +3,9 @@
 const SOURCES = [
   { id: "reference", label: "GroundTruth", color: "#252a30" },
   { id: "direct", label: "Direct", color: "#7b828a" },
+  { id: "casm", label: "CASM", color: "#4173c8" },
   { id: "dbn", label: "DBN", color: "#cd5c5c" },
   { id: "plpdp", label: "PLPDP", color: "#708238" },
-  { id: "casm", label: "CASM", color: "#4173c8" },
 ];
 
 const ui = {

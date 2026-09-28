@@ -313,9 +313,9 @@ body { padding: 2px 0 12px; }
     <span class="legend-item"><i class="legend-dot"></i>GroundTruth IBI</span>
     <span class="legend-item direct-color"><i class="legend-output-line"></i>Direct output IBI</span>
     <span class="legend-item fixed-color fixed-only"><i class="legend-prior"></i>Fixed Semi-Markov output IBI (fixed τ + square)</span>
+    <span class="legend-item casm-color"><i class="legend-prior"></i>CASM local τ(t) + circle output IBI</span>
     <span class="legend-item dbn-color"><i class="legend-output-line"></i>DBN output IBI</span>
     <span class="legend-item plpdp-color"><i class="legend-output-line"></i>PLPDP output IBI</span>
-    <span class="legend-item casm-color"><i class="legend-prior"></i>CASM local τ(t) + circle output IBI</span>
   </div>
 
   <div class="window-control">
@@ -353,9 +353,9 @@ body { padding: 2px 0 12px; }
     const methods = [
       {id: 'direct', label: 'Direct', short: 'Direct', color: 'direct'},
       ...(!DEMO ? [{id: 'fixed_semimarkov', label: 'Fixed Semi-Markov', short: 'Fixed SMM', color: 'fixed'}] : []),
+      {id: 'casm', label: 'CASM', short: 'CASM', color: 'casm'},
       {id: 'dbn', label: 'DBN', short: 'DBN', color: 'dbn'},
-      {id: 'plpdp', label: 'PLPDP', short: 'PLPDP', color: 'plpdp'},
-      {id: 'casm', label: 'CASM', short: 'CASM', color: 'casm'}
+      {id: 'plpdp', label: 'PLPDP', short: 'PLPDP', color: 'plpdp'}
     ];
     const css = getComputedStyle(root);
     const colors = {
@@ -475,9 +475,9 @@ body { padding: 2px 0 12px; }
         {id: 'groundtruth', label: 'GroundTruth IBI', short: 'GT IBI'},
         {id: 'direct', label: 'Direct IBI', short: 'Direct IBI'},
         ...(!DEMO ? [{id: 'fixed', label: 'Fixed Semi-Markov IBI', short: 'Fixed IBI'}] : []),
+        {id: 'casm', label: 'CASM IBI', short: 'CASM IBI'},
         {id: 'dbn', label: 'DBN IBI', short: 'DBN IBI'},
-        {id: 'plpdp', label: 'PLPDP IBI', short: 'PLPDP IBI'},
-        {id: 'casm', label: 'CASM IBI', short: 'CASM IBI'}
+        {id: 'plpdp', label: 'PLPDP IBI', short: 'PLPDP IBI'}
       ];
       const panelHeight = (intervalBottom - intervalAreaTop - panelGap * (intervalPanels.length - 1)) / intervalPanels.length;
       intervalPanels.forEach((panel, index) => Object.assign(panel, {
@@ -504,9 +504,9 @@ body { padding: 2px 0 12px; }
       referenceIntervals.forEach(row => intervalValues.push(row.interval));
       methodIntervals.direct.forEach(row => intervalValues.push(row.interval));
       if (!DEMO) methodIntervals.fixed_semimarkov.forEach(row => intervalValues.push(row.interval));
+      methodIntervals.casm.forEach(row => intervalValues.push(row.interval));
       methodIntervals.dbn.forEach(row => intervalValues.push(row.interval));
       methodIntervals.plpdp.forEach(row => intervalValues.push(row.interval));
-      methodIntervals.casm.forEach(row => intervalValues.push(row.interval));
       localPrior.forEach(row => intervalValues.push(row.interval));
       const extent = d3.extent(intervalValues);
       const pad = Math.max(.12, (extent[1] - extent[0]) * .12);
@@ -575,15 +575,15 @@ body { padding: 2px 0 12px; }
       const groundPanel = intervalPanels[0];
       const directPanel = intervalPanels[1];
       const fixedPanel = DEMO ? null : intervalPanels[2];
-      const dbnPanel = intervalPanels[DEMO ? 2 : 3];
-      const plpdpPanel = intervalPanels[DEMO ? 3 : 4];
-      const casmPanel = intervalPanels[DEMO ? 4 : 5];
+      const casmPanel = intervalPanels[DEMO ? 2 : 3];
+      const dbnPanel = intervalPanels[DEMO ? 3 : 4];
+      const plpdpPanel = intervalPanels[DEMO ? 4 : 5];
       const yGround = panelScale(groundPanel);
       const yDirect = panelScale(directPanel);
       const yFixed = fixedPanel ? panelScale(fixedPanel) : null;
+      const yCasm = panelScale(casmPanel);
       const yDbn = panelScale(dbnPanel);
       const yPlpdp = panelScale(plpdpPanel);
-      const yCasm = panelScale(casmPanel);
 
       if (referenceIntervals.length) {
         svg.append('path').datum(referenceIntervals).attr('clip-path', `url(#${groundPanel.clip})`).attr('fill', 'none').attr('stroke', colors.foreground).attr('stroke-width', .8).attr('opacity', .2)
@@ -616,15 +616,15 @@ body { padding: 2px 0 12px; }
       }
       plotIntervals(methodIntervals.direct, colors.direct, null, 'direct-output', directPanel, yDirect);
       if (fixedPanel) plotIntervals(methodIntervals.fixed_semimarkov, colors.fixed, d3.symbolSquare, 'fixed-output', fixedPanel, yFixed);
+      plotIntervals(methodIntervals.casm, colors.casm, d3.symbolCircle, 'casm-output', casmPanel, yCasm);
       plotIntervals(methodIntervals.dbn, colors.dbn, null, 'dbn-output', dbnPanel, yDbn);
       plotIntervals(methodIntervals.plpdp, colors.plpdp, null, 'plpdp-output', plpdpPanel, yPlpdp);
-      plotIntervals(methodIntervals.casm, colors.casm, d3.symbolCircle, 'casm-output', casmPanel, yCasm);
       [
         [directPanel, methodIntervals.direct, colors.direct],
         ...(!DEMO ? [[fixedPanel, methodIntervals.fixed_semimarkov, colors.fixed]] : []),
+        [casmPanel, methodIntervals.casm, colors.casm],
         [dbnPanel, methodIntervals.dbn, colors.dbn],
-        [plpdpPanel, methodIntervals.plpdp, colors.plpdp],
-        [casmPanel, methodIntervals.casm, colors.casm]
+        [plpdpPanel, methodIntervals.plpdp, colors.plpdp]
       ].forEach(([panel, rows, color]) => {
         const mae = intervalCurveMae(referenceIntervals, rows);
         if (!Number.isFinite(mae)) return;

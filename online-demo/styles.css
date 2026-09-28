@@ -104,6 +104,8 @@ h2 {
   font-weight: 650;
 }
 
+.submission-note strong { color: var(--foreground); }
+
 .github-link,
 .command,
 .icon-command {

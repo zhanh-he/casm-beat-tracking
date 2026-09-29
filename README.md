@@ -13,8 +13,9 @@ This repository contains the decoder, frozen calibration record, reproducible re
 | [`mirex2026/`](mirex2026/) | MIREX 2026 competition pipeline, no-SMC backbone retraining, guarded diagnostics, results, and submission packaging. |
 
 These are **different protocols in directories, not separate development
-branches**. The ICASSP paper presents our CASM methodology with the paper's
-eight-fold backbone evaluation. MIREX is a competition entry applying that
+branches**. Our core CASM methodology was submitted to ICASSP 2027 as a
+conference paper with eight-fold backbone evaluation. MIREX is a competition
+entry applying that
 methodology to a newly retrained, no-SMC backbone; it is not a repeat
 submission of the conference paper. The paper and competition do not reuse
 one another's backbone checkpoints or selection records. BeatThis is an

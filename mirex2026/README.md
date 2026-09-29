@@ -2,8 +2,9 @@
 
 This directory is the MIREX-facing inference and packaging workspace within
 the single `paper-revision` branch. It is a **competition entry, not a repeat
-conference-paper submission**. The ICASSP 2027 paper in [`../experiments/`](../experiments/)
-presents CASM methodology and eight-fold experiments; MIREX applies the method
+conference-paper submission**. Our CASM methodology was submitted to ICASSP
+2027 as a conference paper, with its experiments in [`../experiments/`](../experiments/).
+MIREX applies the method
 to competition backbones retrained without SMC or GTZAN in development.
 After allowed-validation selection is frozen, the chosen model is to be
 retrained on all remaining allowed data. The two protocols do not share

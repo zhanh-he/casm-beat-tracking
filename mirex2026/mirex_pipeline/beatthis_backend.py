@@ -1,4 +1,4 @@
-"""BeatThis audio frontend adapter."""
+"""Shared BeatThis-fork Audio2Frames frontend adapter."""
 
 from __future__ import annotations
 
@@ -10,6 +10,8 @@ from .contracts import FrameActivations
 
 
 class BeatThisBackend:
+    """Load BeatThis or MSCNN according to checkpoint architecture metadata."""
+
     def __init__(self, *, checkpoint: Path, device: str, fps: float = 50.0):
         import torch
         from beat_this.inference import Audio2Frames

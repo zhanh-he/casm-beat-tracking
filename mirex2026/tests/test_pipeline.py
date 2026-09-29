@@ -21,7 +21,7 @@ class PipelineTest(unittest.TestCase):
         specs = load_specs(ROOT / "config" / "backbones.json")
         self.assertEqual(set(specs), {"beatthis", "mscnn", "beatfm"})
         self.assertIsNotNone(specs["beatthis"].adapter)
-        self.assertIsNone(specs["mscnn"].adapter)
+        self.assertEqual(specs["mscnn"].adapter, specs["beatthis"].adapter)
         self.assertIsNone(specs["beatfm"].adapter)
 
     def test_dbn_ranges(self) -> None:

@@ -22,9 +22,10 @@ all required fields below are frozen and its one-WAV smoke test passes.
 
 - [x] One seed-0 training run retained.
 - [x] Additional seed expansion cancelled by project decision.
+- [x] Exact preprocessing and checkpoint loader audited.
+- [x] Shared `Audio2Frames` adapter verified by loading an MSCNN checkpoint and
+  running a finite 50 Hz beat/downbeat-logit forward pass.
 - [ ] Seed-0 training and screening complete.
-- [ ] Exact preprocessing and checkpoint loader audited.
-- [ ] `mirex_pipeline.mscnn_backend:MSCNNBackend` implemented and registered.
 - [ ] Final checkpoint copied to `weights/mscnn.ckpt` and smoke-tested.
 
 ## BeatFM — reserved next candidate

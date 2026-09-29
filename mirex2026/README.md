@@ -14,13 +14,13 @@ at 50 Hz. The shared decoder layer then applies the requested postprocessor.
 | Backbone | Status | MIREX role |
 |---|---|---|
 | BeatThis | adapter ready; final checkpoint pending | primary submission |
-| MSCNN | seed-0 training in progress; adapter pending | lightweight secondary |
+| MSCNN | shared adapter verified; seed-0 training in progress | lightweight secondary |
 | BeatFM | source revision, adapter, and checkpoint pending | next primary candidate |
 
-The pending entries are deliberate integration slots in
-`config/backbones.json`. They fail with an explicit message until audited
-source and weights are supplied; the repository does not silently substitute
-another model.
+The BeatThis fork's audited `Audio2Frames` loader reads checkpoint architecture
+metadata and supports both BeatThis and MSCNN. BeatFM remains a deliberate,
+disabled integration slot in `config/backbones.json`; it fails with an explicit
+message until its audited source and weights are supplied.
 
 | Decoder | Default tempo range | Notes |
 |---|---:|---|

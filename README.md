@@ -4,6 +4,19 @@ CASM is a lightweight confidence-adaptive semi-Markov postprocessor for framewis
 
 This repository contains the decoder, frozen calibration record, reproducible result tables, experiment entry points, paper figures, and an interactive listening demo.
 
+## Three supported pipelines
+
+| Pipeline | Branch / directory | Purpose |
+|---|---|---|
+| Standalone CASM | [`casm/`](casm/) | Madmom-style activation-to-events package with the frozen release configuration. |
+| ICASSP 2027 reproduction | [`icassp2027`](https://github.com/zhanh-he/casm-beat-tracking/tree/icassp2027) / [`experiments/`](experiments/) | This branch: eight-fold BeatThis, MSCNN, and TCN evidence with Direct, DBN, CASM, CRF, and PLPDP comparisons. |
+| MIREX 2026 competition | [`mirex2026`](https://github.com/zhanh-he/casm-beat-tracking/tree/mirex2026) | Separate no-SMC competition code for BeatThis, MSCNN, and BeatFM with Direct, DBN, or CASM. |
+
+The ICASSP and MIREX branches deliberately keep different training protocols.
+ICASSP reproduces the paper's eight-fold setup; MIREX excludes SMC and GTZAN
+from development and trains on the remaining allowed data. Their weights and
+selection records must not be interchanged.
+
 ## Install
 
 Install directly from GitHub:

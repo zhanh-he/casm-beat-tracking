@@ -1,4 +1,8 @@
-# Final-repository handoff for Jollibear
+# Historical release handoff for Jollibear
+
+Current development is split between the `icassp2027` reproduction branch and
+the `mirex2026` competition branch. The text below records the earlier
+`paper-revisions` release handoff and is retained for provenance.
 
 Date: 2026-09-28
 

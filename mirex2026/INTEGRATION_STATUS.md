@@ -12,8 +12,10 @@ all required fields below are frozen and its one-WAV smoke test passes.
   logit threshold zero, plateau averaging, downbeat-to-beat snapping, and the
   original raw-downbeat behavior when no beat peak exists.
 - [x] Audio-to-logit adapter implemented.
-- [x] No-SMC, GTZAN-held-out 100-epoch seed-0 baseline launched.
-- [ ] Training complete; checkpoint hashes and epoch inventory recorded.
+- [x] No-SMC, GTZAN-held-out 100-epoch seed-0 baseline completed with exit 0;
+  checkpoint hashes and epoch inventory recorded.
+- [x] First [disjoint diagnostic](experiments/BASELINE_DIAGNOSTIC.md) rebuilt;
+  official final0 is evaluated on GTZAN only.
 - [ ] Allowed-validation checkpoint/seed decision frozen.
 - [ ] Winning recipe retrained on all allowed development data.
 - [ ] Final checkpoint copied to `weights/beatthis.ckpt` and smoke-tested.

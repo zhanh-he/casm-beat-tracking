@@ -83,6 +83,9 @@ hashes in `MANIFEST.json`.
 
 ## Experiment and submission policy
 
+- Every evaluation must pass the [training/evaluation disjointness guard](experiments/README.md).
+  The official BeatThis `final0` includes SMC in training and is never scored
+  on SMC in this pipeline.
 - SMC and GTZAN are absent from training, validation, seed selection,
   checkpoint selection, and decoder calibration.
 - Clean selection is frozen on allowed validation data before target

@@ -16,6 +16,8 @@ The ICASSP and MIREX branches deliberately keep different training protocols.
 ICASSP reproduces the paper's eight-fold setup; MIREX excludes SMC and GTZAN
 from development and trains on the remaining allowed data. Their weights and
 selection records must not be interchanged.
+Every reported benchmark must pass the
+[training/evaluation disjointness gate](EXPERIMENT_EVALUATION_POLICY.md).
 
 ## Install
 

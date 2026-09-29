@@ -9,6 +9,8 @@ different from the [`mirex2026`](https://github.com/zhanh-he/casm-beat-tracking/
 branch, whose training pool excludes SMC and GTZAN and uses a final full-data
 competition retrain.
 
+All benchmark rows must pass the [evaluation eligibility policy](../EXPERIMENT_EVALUATION_POLICY.md).
+
 ## Decoders
 
 - [`casm/`](casm/): frozen CASM evaluator and eight-fold batch entry point.

@@ -17,6 +17,9 @@ ICASSP reproduces the paper's eight-fold setup; MIREX excludes SMC and GTZAN
 from development and trains on the remaining allowed data. Their weights and
 selection records must not be interchanged.
 
+All experiments follow the [evaluation eligibility policy](EXPERIMENT_EVALUATION_POLICY.md):
+in-sample checkpoint/evaluation overlap is never presented as held-out evidence.
+
 ## Install
 
 Install directly from GitHub:

@@ -2,20 +2,24 @@
 
 CASM is a lightweight confidence-adaptive semi-Markov postprocessor for framewise beat and downbeat activations. The public API uses the frozen **7F calibration** by default and depends only on NumPy and SciPy at inference time—no PyTorch model and no `madmom` state lattice are required.
 
-This repository contains the decoder, frozen calibration record, reproducible result tables, experiment entry points, paper figures, and an interactive listening demo.
+This repository contains the decoder, frozen calibration record, reproducible result tables, experiment entry points, paper figures, an interactive listening demo, and a separate MIREX competition workspace. The `paper-revision` branch keeps the paper and competition work in one tree.
 
-## Three supported pipelines
+## Repository map
 
-| Pipeline | Branch / directory | Purpose |
+| Area | Purpose |
 |---|---|---|
-| Standalone CASM | [`casm/`](casm/) | Madmom-style activation-to-events package with the frozen release configuration. |
-| ICASSP 2027 reproduction | [`icassp2027`](https://github.com/zhanh-he/casm-beat-tracking/tree/icassp2027) / [`experiments/`](experiments/) | This branch: eight-fold BeatThis, MSCNN, and TCN evidence with Direct, DBN, CASM, CRF, and PLPDP comparisons. |
-| MIREX 2026 competition | [`mirex2026`](https://github.com/zhanh-he/casm-beat-tracking/tree/mirex2026) | Separate no-SMC competition code for BeatThis, MSCNN, and BeatFM with Direct, DBN, or CASM. |
+| [`casm/`](casm/) | Standalone, madmom-style activation-to-events decoder with the frozen public 7F default. |
+| [`experiments/`](experiments/) | ICASSP 2027 paper reproduction: eight-fold BeatThis, MSCNN, and TCN evidence, decoder comparisons, figures, and tables. |
+| [`mirex2026/`](mirex2026/) | MIREX 2026 competition pipeline, no-SMC backbone retraining, guarded diagnostics, results, and submission packaging. |
 
-The ICASSP and MIREX branches deliberately keep different training protocols.
-ICASSP reproduces the paper's eight-fold setup; MIREX excludes SMC and GTZAN
-from development and trains on the remaining allowed data. Their weights and
-selection records must not be interchanged.
+These are **different protocols in directories, not separate development
+branches**. The ICASSP paper presents our CASM methodology with the paper's
+eight-fold backbone evaluation. MIREX is a competition entry applying that
+methodology to a newly retrained, no-SMC backbone; it is not a repeat
+submission of the conference paper. The paper and competition do not reuse
+one another's backbone checkpoints or selection records. BeatThis is an
+upstream backbone from the [Beat This repository](https://github.com/CPJKU/beat_this),
+not a neural architecture we claim to have invented.
 
 All experiments follow the [evaluation eligibility policy](EXPERIMENT_EVALUATION_POLICY.md):
 in-sample checkpoint/evaluation overlap is never presented as held-out evidence.
@@ -25,7 +29,7 @@ in-sample checkpoint/evaluation overlap is never presented as held-out evidence.
 Install directly from GitHub:
 
 ```bash
-python -m pip install 'git+https://github.com/zhanh-he/casm-beat-tracking.git'
+python -m pip install 'git+https://github.com/zhanh-he/casm-beat-tracking.git@paper-revision'
 ```
 
 For local development:
@@ -136,6 +140,7 @@ The existing interactive comparison remains available at [zhanh-he.github.io/cas
 
 - `casm/`: installable decoder, frozen defaults, weight manifest, tests, benchmarks, and API documentation.
 - `experiments/`: decoder/backbone protocols, paper figures, validated tables, and compact result sources.
+- `mirex2026/`: competition inference package, `backbone-retrain/`, `scripts/`, and `results/`.
 - `online-demo/`: interactive GitHub Pages site, audio excerpts, and
   visualization data.
 - `archive/`: a public pointer for the authors' local research archive; the

@@ -4,10 +4,17 @@ This directory groups the paper-facing experimental record by decoder or
 backbone. It separates runnable public artifacts from historical material and
 does not claim reproducibility where a sealed source bundle is unavailable.
 
-This is the canonical **ICASSP 2027 eight-fold** workspace. It is intentionally
-different from the [`mirex2026`](https://github.com/zhanh-he/casm-beat-tracking/tree/mirex2026)
-branch, whose training pool excludes SMC and GTZAN and uses a final full-data
-competition retrain.
+This is the **ICASSP 2027 paper** workspace on `paper-revision`. The BeatThis
+backbone architecture, training/preprocessing implementation, and starting
+code come directly from the upstream [Beat This repository](https://github.com/CPJKU/beat_this);
+BeatThis is not our proposed neural architecture. Our paper contribution is
+CASM postprocessing and its controlled comparisons on the paper's eight-fold
+protocol. The backbone source/checkpoint packaging limits are recorded below.
+
+The sibling [`mirex2026/`](../mirex2026/) directory is a competition system,
+not a second copy of this submission. It excludes SMC and GTZAN from
+backbone development and uses a final full-data retrain on the remaining
+allowed pool. Its checkpoints must not be mixed with these eight-fold results.
 
 All benchmark rows must pass the [evaluation eligibility policy](../EXPERIMENT_EVALUATION_POLICY.md).
 
@@ -44,7 +51,7 @@ for the command-line entry point.
 
 The CASM cached-activation evaluator, eight-fold batch entry point, DBN
 calibration driver, result validator, figures, and compact locked result source
-are present in this branch. The BeatThis, MSCNN, and TCN directories currently
+are present here. The BeatThis, MSCNN, and TCN directories currently
 preserve their protocols and result pointers; their complete cluster training
 source snapshots and weight files are not yet sealed here. Those directories
 are the reserved import locations, and no README-only entry is represented as

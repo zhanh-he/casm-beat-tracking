@@ -19,8 +19,9 @@ estimate. Fold 0 and GTZAN were not used for that decoder selection. A final
 model trained with SMC is **not** a held-out SMC backbone. For
 the MIREX no-SMC protocol, only checkpoints with SMC excluded from all training
 and selection can support held-out SMC diagnostics; SMC/GTZAN diagnostics must
-not drive competition checkpoint selection. The MIREX branch contains a
-machine-enforced manifest/piece-disjointness guard.
+not drive competition checkpoint selection. The sibling `mirex2026/` workspace
+contains a machine-enforced manifest/piece-disjointness guard and a separate
+no-SMC CASM configuration. Do not conflate it with the paper's 7F default.
 
 Before each report, validate the checkpoint manifest against evaluation piece
 IDs, then review every exported row/figure for provenance. A result-row

@@ -2,6 +2,12 @@
 
 ## Scope
 
+This is a MIREX competition system, not a repeat submission of the ICASSP
+2027 conference paper. The paper submits the CASM decoding methodology and
+its eight-fold experiments; this system applies CASM to separately retrained
+competition backbones. BeatThis model code comes from the upstream CPJKU Beat
+This repository, not from a new architecture proposed here.
+
 The competition package shares one audio-to-activation contract across three
 planned neural frontends: BeatThis, MSCNN, and BeatFM. Each frontend returns
 50 Hz beat and downbeat logits. The user can then choose Direct peak picking,

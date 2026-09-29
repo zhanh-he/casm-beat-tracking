@@ -6,11 +6,12 @@ logits after excluding every model/dataset pair with training overlap. The
 official BeatThis `final0` model appears on GTZAN only; it trained on SMC and
 has no SMC result in this artifact. The corrected remote artifact is:
 
-Important distinction: our BeatThis backbone did not train on SMC, but the
-released CASM 7F decoder was calibrated using SMC folds 1–7. Thus the SMC
-CASM rows below are *backbone-held-out, decoder-calibration-overlap
-diagnostics*, not fully held-out pipeline estimates. GTZAN was not used for
-either backbone training or 7F decoder calibration.
+The CASM rows below used the **MIREX-specific no-SMC configuration** in
+[`../config/casm-no-smc.json`](../config/casm-no-smc.json), calibrated on 556
+allowed-validation pieces; they did not use the released 7F default. Neither
+SMC nor GTZAN was used for this backbone's training/selection or this
+decoder's calibration. These panels remain post-freeze diagnostics, not
+checkpoint-selection data or official MIREX scores.
 
 `/storage/zhanh_storage/auto_structbeat_runs/beatthis_final_nosmc_seed0_e100_20260929T1145/evaluation_disjoint_baseline_rebuild_20260929`
 
@@ -32,9 +33,9 @@ The identical rows in this repository use LF line endings and have SHA-256
 Compared with Direct on identical activations, CASM changes beat F by only
 +0.08 percentage points (paired piece bootstrap 95% interval −0.21 to +0.38).
 It raises CMLt by +1.15 points (interval +0.46 to +1.88) and AMLt by +1.95
-points (interval +1.25 to +2.67). Since 7F decoder selection used SMC,
-these differences are descriptive calibration-overlap diagnostics, not
-independent evidence of a continuity gain on unseen SMC.
+points (interval +1.25 to +2.67). Under the no-SMC training and calibration
+protocol, this is evidence of a continuity gain on this unseen SMC panel,
+not a beat-F improvement claim.
 
 The paper's BeatThis eight-fold out-of-fold Direct result is 62.70% on SMC.
 Those fold models trained on other SMC folds, so it is contextual information,
@@ -63,8 +64,8 @@ downbeat-F points (interval −1.42 to +0.41). The intervals include zero, so
 this baseline does not establish a reliable advantage over official `final0`.
 
 The paired intervals use 10,000 piece-level bootstrap resamples with seed
-20260929. SMC and GTZAN were excluded from backbone training and checkpoint
-selection for our model, but SMC was used for the released 7F decoder
-calibration as noted above. These panels remain diagnostics only. The final
+20260929. SMC and GTZAN were excluded from backbone training, checkpoint
+selection, and the no-SMC CASM decoder calibration. These panels remain
+diagnostics only. The final
 BeatThis seed, epoch, and decoder choice must come from the allowed validation
 set.

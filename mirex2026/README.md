@@ -1,10 +1,23 @@
 # CASM MIREX 2026 competition pipeline
 
-This directory is the self-contained MIREX-facing inference and packaging
-layer. It is intentionally separate from the ICASSP 2027 eight-fold
-reproduction pipeline: MIREX backbones exclude SMC and GTZAN from all
-development, and the final competition models are retrained on all remaining
-allowed data after checkpoint/seed selection is frozen.
+This directory is the MIREX-facing inference and packaging workspace within
+the single `paper-revision` branch. It is a **competition entry, not a repeat
+conference-paper submission**. The ICASSP 2027 paper in [`../experiments/`](../experiments/)
+presents CASM methodology and eight-fold experiments; MIREX applies the method
+to competition backbones retrained without SMC or GTZAN in development.
+After allowed-validation selection is frozen, the chosen model is to be
+retrained on all remaining allowed data. The two protocols do not share
+backbone checkpoints.
+
+## Layout
+
+- [`backbone-retrain/`](backbone-retrain/): why and how BeatThis/other backbones
+  are retrained for MIREX; current training script and pending final recipe.
+- [`scripts/`](scripts/): provenance-gated evaluation and result rebuild tools.
+- [`results/`](results/): corrected diagnostics and result tables, clearly
+  separate from final official MIREX scores.
+- `mirex_pipeline/`, `config/`, and the root `run.sh`/`install.sh`: runtime
+  adapters, decoder choices, and packaging entry points.
 
 ## Supported matrix
 
@@ -79,15 +92,20 @@ docker run --rm --gpus all \
 
 The final archive is built with `build_submission.py`. It copies only supplied
 checkpoints, vendors the audited BeatThis and CASM sources, and records SHA-256
-hashes in `MANIFEST.json`.
+hashes in `MANIFEST.json`. Its concise
+[`SUBMISSION_README.md`](SUBMISSION_README.md) is copied as the bundle README;
+the development links in this file are not placed into the standalone archive.
 
 ## Experiment and submission policy
 
-- Every evaluation must pass the [training/evaluation disjointness guard](experiments/README.md).
+- Every evaluation must pass the [training/evaluation disjointness guard](scripts/README.md).
   The official BeatThis `final0` includes SMC in training and is never scored
   on SMC in this pipeline.
-- SMC and GTZAN are absent from training, validation, seed selection,
-  checkpoint selection, and decoder calibration.
+- SMC and GTZAN are absent from MIREX backbone training, validation, seed
+  selection, checkpoint selection, and the competition CASM configuration's
+  calibration. That configuration is
+  [`config/casm-no-smc.json`](config/casm-no-smc.json), **not** the paper's
+  published 7F default (which did use SMC for calibration).
 - Clean selection is frozen on allowed validation data before target
   diagnostics are generated.
 - Target-oracle tables, when produced for internal diagnosis, are labeled

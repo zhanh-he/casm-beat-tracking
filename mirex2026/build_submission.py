@@ -89,10 +89,10 @@ def main() -> None:
         "run_casm_beatthis.py",
         "requirements.txt",
         "requirements-dbn.txt",
-        "README.md",
         "SYSTEM_DESCRIPTION.md",
     ):
         shutil.copy2(ROOT / name, output / name)
+    shutil.copy2(ROOT / "SUBMISSION_README.md", output / "README.md")
     copy_python_package(ROOT / "mirex_pipeline", output / "mirex_pipeline")
     (output / "weights").mkdir()
     shutil.copy2(checkpoint, output / "weights" / "beatthis.ckpt")

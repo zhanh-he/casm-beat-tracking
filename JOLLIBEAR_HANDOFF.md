@@ -1,8 +1,9 @@
 # Historical release handoff for Jollibear
 
-Current development is split between the `icassp2027` reproduction branch and
-the `mirex2026` competition branch. The text below records the earlier
-`paper-revisions` release handoff and is retained for provenance.
+Current development is consolidated on `paper-revision`: `experiments/` is the
+ICASSP paper record and `mirex2026/` is the competition workspace. The text
+below records the earlier `paper-revisions` release handoff and is retained
+for historical provenance; its old branch instructions are not current.
 
 Date: 2026-09-28
 

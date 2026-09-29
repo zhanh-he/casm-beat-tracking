@@ -1,0 +1,205 @@
+#!/usr/bin/env python3
+"""Build a self-contained, hashed MIREX multi-backbone source bundle."""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import shutil
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parent
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--beat-this-root", type=Path, required=True)
+    parser.add_argument("--casm-root", type=Path, required=True)
+    parser.add_argument(
+        "--beatthis-checkpoint",
+        "--checkpoint",
+        dest="beatthis_checkpoint",
+        type=Path,
+        required=True,
+    )
+    parser.add_argument("--mscnn-checkpoint", type=Path)
+    parser.add_argument("--beatfm-checkpoint", type=Path)
+    parser.add_argument(
+        "--casm-config", type=Path, default=ROOT / "config" / "casm-no-smc.json"
+    )
+    parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--checkpoint-role", required=True)
+    parser.add_argument("--checkpoint-epoch", type=int, required=True)
+    parser.add_argument("--training-run", required=True)
+    parser.add_argument("--expected-checkpoint-sha256")
+    parser.add_argument("--expected-mscnn-checkpoint-sha256")
+    parser.add_argument("--expected-beatfm-checkpoint-sha256")
+    parser.add_argument("--expected-casm-config-sha256")
+    return parser.parse_args()
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def copy_python_package(source: Path, target: Path) -> None:
+    if not source.is_dir():
+        raise FileNotFoundError(source)
+    shutil.copytree(
+        source,
+        target,
+        ignore=shutil.ignore_patterns("__pycache__", "*.pyc", ".DS_Store"),
+    )
+
+
+def require_hash(path: Path, expected: str | None) -> str:
+    actual = sha256_file(path)
+    if expected is not None and actual != expected:
+        raise RuntimeError(
+            f"SHA256 mismatch for {path}: expected {expected}, got {actual}"
+        )
+    return actual
+
+
+def main() -> None:
+    args = parse_args()
+    output = args.output_dir.resolve()
+    if output.exists():
+        raise RuntimeError(f"Refusing to replace existing output: {output}")
+    checkpoint = args.beatthis_checkpoint.resolve()
+    config = args.casm_config.resolve()
+    checkpoint_sha256 = require_hash(
+        checkpoint, args.expected_checkpoint_sha256
+    )
+    config_sha256 = require_hash(config, args.expected_casm_config_sha256)
+
+    output.mkdir(parents=True)
+    for name in (
+        ".dockerignore",
+        "Dockerfile",
+        "run.sh",
+        "install.sh",
+        "run_pipeline.py",
+        "run_casm_beatthis.py",
+        "requirements.txt",
+        "requirements-dbn.txt",
+        "README.md",
+        "SYSTEM_DESCRIPTION.md",
+    ):
+        shutil.copy2(ROOT / name, output / name)
+    copy_python_package(ROOT / "mirex_pipeline", output / "mirex_pipeline")
+    (output / "weights").mkdir()
+    shutil.copy2(checkpoint, output / "weights" / "beatthis.ckpt")
+    (output / "config").mkdir()
+    shutil.copy2(config, output / "config" / "casm-no-smc.json")
+    shutil.copy2(
+        ROOT / "config" / "backbones.json",
+        output / "config" / "backbones.json",
+    )
+
+    backbone_records = {
+        "beatthis": {
+            "checkpoint": "weights/beatthis.ckpt",
+            "role": args.checkpoint_role,
+            "epoch": args.checkpoint_epoch,
+            "training_run": args.training_run,
+            "sha256": checkpoint_sha256,
+        }
+    }
+    optional_checkpoints = (
+        (
+            "mscnn",
+            args.mscnn_checkpoint,
+            args.expected_mscnn_checkpoint_sha256,
+        ),
+        (
+            "beatfm",
+            args.beatfm_checkpoint,
+            args.expected_beatfm_checkpoint_sha256,
+        ),
+    )
+    for name, source, expected in optional_checkpoints:
+        if source is None:
+            continue
+        source = source.resolve()
+        digest = require_hash(source, expected)
+        relative = f"weights/{name}.ckpt"
+        shutil.copy2(source, output / relative)
+        backbone_records[name] = {
+            "checkpoint": relative,
+            "sha256": digest,
+            "status": (
+                "checkpoint-copied; adapter status is authoritative in "
+                "config/backbones.json"
+            ),
+        }
+
+    copy_python_package(
+        args.beat_this_root.resolve() / "beat_this",
+        output / "third_party" / "beat_this" / "beat_this",
+    )
+    beat_this_license = args.beat_this_root.resolve() / "LICENSE"
+    if beat_this_license.is_file():
+        (output / "third_party" / "beat_this").mkdir(
+            parents=True, exist_ok=True
+        )
+        shutil.copy2(
+            beat_this_license,
+            output / "third_party" / "beat_this" / "LICENSE",
+        )
+
+    casm_package = args.casm_root.resolve() / "src" / "casm_beat_tracking"
+    copy_python_package(
+        casm_package,
+        output / "vendor" / "casm" / "src" / "casm_beat_tracking",
+    )
+    casm_license = args.casm_root.resolve().parent / "LICENSE"
+    if casm_license.is_file():
+        (output / "vendor" / "casm").mkdir(parents=True, exist_ok=True)
+        shutil.copy2(casm_license, output / "vendor" / "casm" / "LICENSE")
+
+    files = {}
+    for path in sorted(item for item in output.rglob("*") if item.is_file()):
+        files[str(path.relative_to(output))] = {
+            "bytes": path.stat().st_size,
+            "sha256": sha256_file(path),
+        }
+    manifest = {
+        "schema_version": 1,
+        "system": "CASM MIREX 2026 multi-backbone inference matrix",
+        "default_mirex_command": (
+            "./run.sh --backbone beatthis --decoder casm %input %output"
+        ),
+        "backbones": backbone_records,
+        "casm_config_sha256": config_sha256,
+        "files": files,
+    }
+    with (output / "MANIFEST.json").open("x") as handle:
+        json.dump(manifest, handle, indent=2, sort_keys=True, allow_nan=False)
+        handle.write("\n")
+
+    archive = shutil.make_archive(str(output), "gztar", output.parent, output.name)
+    archive_path = Path(archive)
+    print(
+        json.dumps(
+            {
+                "output_dir": str(output),
+                "archive": str(archive_path),
+                "archive_sha256": sha256_file(archive_path),
+                "beatthis_checkpoint_sha256": checkpoint_sha256,
+                "casm_config_sha256": config_sha256,
+            },
+            indent=2,
+            sort_keys=True,
+        )
+    )
+
+
+if __name__ == "__main__":
+    main()

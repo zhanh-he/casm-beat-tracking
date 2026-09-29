@@ -1,0 +1,7 @@
+weights/
+third_party/
+vendor/
+MANIFEST.json
+*.tar.gz
+__pycache__/
+*.pyc

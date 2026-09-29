@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "activation_contract": {
+    "fps": 50.0,
+    "outputs": [
+      "beat_logits",
+      "downbeat_logits"
+    ]
+  },
+  "backbones": {
+    "beatthis": {
+      "status": "adapter-ready-checkpoint-pending",
+      "adapter": "mirex_pipeline.beatthis_backend:BeatThisBackend",
+      "checkpoint": "weights/beatthis.ckpt",
+      "fps": 50.0,
+      "description": "Primary MIREX backbone; no-SMC full-data checkpoint is selected by the frozen experiment protocol."
+    },
+    "mscnn": {
+      "status": "training-in-progress-adapter-pending",
+      "adapter": null,
+      "checkpoint": "weights/mscnn.ckpt",
+      "fps": 50.0,
+      "description": "Secondary lightweight competition backbone; final adapter and checkpoint will be filled after the current seed-0 run."
+    },
+    "beatfm": {
+      "status": "source-and-checkpoint-pending",
+      "adapter": null,
+      "checkpoint": "weights/beatfm.ckpt",
+      "fps": 50.0,
+      "description": "Planned competition backbone. Its audited upstream source revision, adapter, and checkpoint must be supplied before enabling it."
+    }
+  }
+}

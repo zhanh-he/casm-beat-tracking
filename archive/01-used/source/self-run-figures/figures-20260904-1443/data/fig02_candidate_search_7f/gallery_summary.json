@@ -1,0 +1,607 @@
+[
+  {
+    "columns": {
+      "ambiguous": {
+        "casm_direct_exact": true,
+        "manually_curated_window": false,
+        "piece": "smc/smc_140/track.npy",
+        "track_f1": {
+          "casm_full": 0.6324786324786326,
+          "dbn_matched_30_300": 0.3564356435643565,
+          "direct": 0.6491228070175439,
+          "plpdp": 0.5833333333333334
+        },
+        "window": [
+          15.0,
+          27.0
+        ],
+        "window_f1": {
+          "casm_full": 0.5945945945945946,
+          "dbn_matched_30_300": 0.24242424242424243,
+          "direct": 0.5945945945945946,
+          "plpdp": 0.4864864864864865
+        },
+        "window_margin_max": 0.1202031821012497,
+        "window_margin_mean": 0.09663873165845871,
+        "window_margin_median": 0.1001928448677063
+      },
+      "clear": {
+        "casm_direct_exact": false,
+        "manually_curated_window": false,
+        "piece": "smc/smc_036/track.npy",
+        "track_f1": {
+          "casm_full": 0.813953488372093,
+          "dbn_matched_30_300": 0.5945945945945945,
+          "direct": 0.736842105263158,
+          "plpdp": 0.7142857142857143
+        },
+        "window": [
+          19.25,
+          31.25
+        ],
+        "window_f1": {
+          "casm_full": 1.0,
+          "dbn_matched_30_300": 0.6842105263157895,
+          "direct": 0.7222222222222222,
+          "plpdp": 0.6842105263157895
+        },
+        "window_margin_max": 0.16851702332496643,
+        "window_margin_mean": 0.14175067842006683,
+        "window_margin_median": 0.1381850391626358
+      }
+    },
+    "figure_stem": "fig02b_candidate_A",
+    "id": "A",
+    "panel": "bt_smc_oof"
+  },
+  {
+    "columns": {
+      "ambiguous": {
+        "casm_direct_exact": true,
+        "manually_curated_window": false,
+        "piece": "smc/smc_140/track.npy",
+        "track_f1": {
+          "casm_full": 0.6324786324786326,
+          "dbn_matched_30_300": 0.3564356435643565,
+          "direct": 0.6491228070175439,
+          "plpdp": 0.5833333333333334
+        },
+        "window": [
+          15.0,
+          27.0
+        ],
+        "window_f1": {
+          "casm_full": 0.5945945945945946,
+          "dbn_matched_30_300": 0.24242424242424243,
+          "direct": 0.5945945945945946,
+          "plpdp": 0.4864864864864865
+        },
+        "window_margin_max": 0.1202031821012497,
+        "window_margin_mean": 0.09663873165845871,
+        "window_margin_median": 0.1001928448677063
+      },
+      "clear": {
+        "casm_direct_exact": false,
+        "manually_curated_window": false,
+        "piece": "smc/smc_001/track.npy",
+        "track_f1": {
+          "casm_full": 0.6376811594202899,
+          "dbn_matched_30_300": 0.4107142857142857,
+          "direct": 0.5945945945945946,
+          "plpdp": 0.3859649122807018
+        },
+        "window": [
+          17.25,
+          29.25
+        ],
+        "window_f1": {
+          "casm_full": 0.7777777777777778,
+          "dbn_matched_30_300": 0.3684210526315789,
+          "direct": 0.6363636363636364,
+          "plpdp": 0.3783783783783784
+        },
+        "window_margin_max": 0.4497111141681671,
+        "window_margin_mean": 0.2915443181991577,
+        "window_margin_median": 0.29161766171455383
+      }
+    },
+    "figure_stem": "fig02b_candidate_B",
+    "id": "B",
+    "panel": "bt_smc_oof"
+  },
+  {
+    "columns": {
+      "ambiguous": {
+        "casm_direct_exact": true,
+        "manually_curated_window": false,
+        "piece": "smc/smc_043/track.npy",
+        "track_f1": {
+          "casm_full": 0.8113207547169812,
+          "dbn_matched_30_300": 0.3466666666666667,
+          "direct": 0.8113207547169812,
+          "plpdp": 0.7663551401869159
+        },
+        "window": [
+          5.0,
+          17.0
+        ],
+        "window_f1": {
+          "casm_full": 0.8108108108108109,
+          "dbn_matched_30_300": 0.35714285714285715,
+          "direct": 0.8108108108108109,
+          "plpdp": 0.7894736842105263
+        },
+        "window_margin_max": 0.2912904918193817,
+        "window_margin_mean": 0.0893138125538826,
+        "window_margin_median": 0.08455736190080643
+      },
+      "clear": {
+        "casm_direct_exact": false,
+        "manually_curated_window": false,
+        "piece": "smc/smc_001/track.npy",
+        "track_f1": {
+          "casm_full": 0.6376811594202899,
+          "dbn_matched_30_300": 0.4107142857142857,
+          "direct": 0.5945945945945946,
+          "plpdp": 0.3859649122807018
+        },
+        "window": [
+          17.25,
+          29.25
+        ],
+        "window_f1": {
+          "casm_full": 0.7777777777777778,
+          "dbn_matched_30_300": 0.3684210526315789,
+          "direct": 0.6363636363636364,
+          "plpdp": 0.3783783783783784
+        },
+        "window_margin_max": 0.4497111141681671,
+        "window_margin_mean": 0.2915443181991577,
+        "window_margin_median": 0.29161766171455383
+      }
+    },
+    "figure_stem": "fig02b_candidate_C",
+    "id": "C",
+    "panel": "bt_smc_oof"
+  },
+  {
+    "columns": {
+      "ambiguous": {
+        "casm_direct_exact": true,
+        "manually_curated_window": false,
+        "piece": "smc/smc_032/track.npy",
+        "track_f1": {
+          "casm_full": 0.6190476190476191,
+          "dbn_matched_30_300": 0.591304347826087,
+          "direct": 0.6117647058823529,
+          "plpdp": 0.6470588235294118
+        },
+        "window": [
+          8.25,
+          20.25
+        ],
+        "window_f1": {
+          "casm_full": 0.9473684210526315,
+          "dbn_matched_30_300": 0.8372093023255814,
+          "direct": 0.9473684210526315,
+          "plpdp": 0.9
+        },
+        "window_margin_max": 0.1641675978899002,
+        "window_margin_mean": 0.1172468289732933,
+        "window_margin_median": 0.14182597398757935
+      },
+      "clear": {
+        "casm_direct_exact": false,
+        "manually_curated_window": false,
+        "piece": "smc/smc_098/track.npy",
+        "track_f1": {
+          "casm_full": 0.7401574803149606,
+          "dbn_matched_30_300": 0.5575757575757575,
+          "direct": 0.7014925373134329,
+          "plpdp": 0.6527777777777778
+        },
+        "window": [
+          6.5,
+          18.5
+        ],
+        "window_f1": {
+          "casm_full": 0.8,
+          "dbn_matched_30_300": 0.509090909090909,
+          "direct": 0.7,
+          "plpdp": 0.6666666666666666
+        },
+        "window_margin_max": 0.2612954378128052,
+        "window_margin_mean": 0.18128077685832977,
+        "window_margin_median": 0.20010480284690857
+      }
+    },
+    "figure_stem": "fig02b_candidate_D",
+    "id": "D",
+    "panel": "bt_smc_oof"
+  },
+  {
+    "columns": {
+      "ambiguous": {
+        "casm_direct_exact": true,
+        "manually_curated_window": false,
+        "piece": "smc/smc_227/track.npy",
+        "track_f1": {
+          "casm_full": 0.547945205479452,
+          "dbn_matched_30_300": 0.5217391304347826,
+          "direct": 0.5633802816901409,
+          "plpdp": 0.5405405405405405
+        },
+        "window": [
+          16.75,
+          28.75
+        ],
+        "window_f1": {
+          "casm_full": 0.9565217391304348,
+          "dbn_matched_30_300": 0.75,
+          "direct": 0.9565217391304348,
+          "plpdp": 0.9166666666666666
+        },
+        "window_margin_max": 0.13475386798381805,
+        "window_margin_mean": 0.118230901658535,
+        "window_margin_median": 0.11612161993980408
+      },
+      "clear": {
+        "casm_direct_exact": false,
+        "manually_curated_window": false,
+        "piece": "smc/smc_011/track.npy",
+        "track_f1": {
+          "casm_full": 0.8301886792452831,
+          "dbn_matched_30_300": 0.7102803738317757,
+          "direct": 0.7652173913043478,
+          "plpdp": 0.7478260869565218
+        },
+        "window": [
+          14.25,
+          26.25
+        ],
+        "window_f1": {
+          "casm_full": 0.9142857142857143,
+          "dbn_matched_30_300": 0.7222222222222222,
+          "direct": 0.8421052631578947,
+          "plpdp": 0.7692307692307693
+        },
+        "window_margin_max": 0.2759029269218445,
+        "window_margin_mean": 0.23731036484241486,
+        "window_margin_median": 0.24434904754161835
+      }
+    },
+    "figure_stem": "fig02b_candidate_E",
+    "id": "E",
+    "panel": "bt_smc_oof"
+  },
+  {
+    "columns": {
+      "ambiguous": {
+        "casm_direct_exact": true,
+        "manually_curated_window": false,
+        "piece": "smc/smc_005/track.npy",
+        "track_f1": {
+          "casm_full": 0.40816326530612246,
+          "dbn_matched_30_300": 0.3188405797101449,
+          "direct": 0.392156862745098,
+          "plpdp": 0.2898550724637681
+        },
+        "window": [
+          15.75,
+          27.75
+        ],
+        "window_f1": {
+          "casm_full": 0.5882352941176471,
+          "dbn_matched_30_300": 0.43478260869565216,
+          "direct": 0.5882352941176471,
+          "plpdp": 0.43478260869565216
+        },
+        "window_margin_max": 0.2028374820947647,
+        "window_margin_mean": 0.13620387017726898,
+        "window_margin_median": 0.15001870691776276
+      },
+      "clear": {
+        "casm_direct_exact": false,
+        "manually_curated_window": false,
+        "piece": "smc/smc_221/track.npy",
+        "track_f1": {
+          "casm_full": 0.5172413793103449,
+          "dbn_matched_30_300": 0.3272727272727273,
+          "direct": 0.4918032786885246,
+          "plpdp": 0.3733333333333333
+        },
+        "window": [
+          18.25,
+          30.25
+        ],
+        "window_f1": {
+          "casm_full": 0.7272727272727273,
+          "dbn_matched_30_300": 0.5,
+          "direct": 0.64,
+          "plpdp": 0.5517241379310345
+        },
+        "window_margin_max": 0.46501269936561584,
+        "window_margin_mean": 0.2987563908100128,
+        "window_margin_median": 0.3228834271430969
+      }
+    },
+    "figure_stem": "fig02b_candidate_F",
+    "id": "F",
+    "panel": "bt_smc_oof"
+  },
+  {
+    "columns": {
+      "ambiguous": {
+        "casm_direct_exact": true,
+        "manually_curated_window": false,
+        "piece": "smc/smc_043/track.npy",
+        "track_f1": {
+          "casm_full": 0.8113207547169812,
+          "dbn_matched_30_300": 0.3466666666666667,
+          "direct": 0.8113207547169812,
+          "plpdp": 0.7663551401869159
+        },
+        "window": [
+          5.0,
+          17.0
+        ],
+        "window_f1": {
+          "casm_full": 0.8108108108108109,
+          "dbn_matched_30_300": 0.35714285714285715,
+          "direct": 0.8108108108108109,
+          "plpdp": 0.7894736842105263
+        },
+        "window_margin_max": 0.2912904918193817,
+        "window_margin_mean": 0.0893138125538826,
+        "window_margin_median": 0.08455736190080643
+      },
+      "clear": {
+        "casm_direct_exact": false,
+        "manually_curated_window": false,
+        "piece": "smc/smc_036/track.npy",
+        "track_f1": {
+          "casm_full": 0.813953488372093,
+          "dbn_matched_30_300": 0.5945945945945945,
+          "direct": 0.736842105263158,
+          "plpdp": 0.7142857142857143
+        },
+        "window": [
+          19.25,
+          31.25
+        ],
+        "window_f1": {
+          "casm_full": 1.0,
+          "dbn_matched_30_300": 0.6842105263157895,
+          "direct": 0.7222222222222222,
+          "plpdp": 0.6842105263157895
+        },
+        "window_margin_max": 0.16851702332496643,
+        "window_margin_mean": 0.14175067842006683,
+        "window_margin_median": 0.1381850391626358
+      }
+    },
+    "figure_stem": "fig02b_candidate_G",
+    "id": "G",
+    "panel": "bt_smc_oof"
+  },
+  {
+    "columns": {
+      "ambiguous": {
+        "casm_direct_exact": true,
+        "manually_curated_window": false,
+        "piece": "smc/smc_167/track.npy",
+        "track_f1": {
+          "casm_full": 0.5333333333333333,
+          "dbn_matched_30_300": 0.44,
+          "direct": 0.5333333333333333,
+          "plpdp": 0.4313725490196078
+        },
+        "window": [
+          13.0,
+          25.0
+        ],
+        "window_f1": {
+          "casm_full": 0.6153846153846154,
+          "dbn_matched_30_300": 0.47058823529411764,
+          "direct": 0.6153846153846154,
+          "plpdp": 0.5
+        },
+        "window_margin_max": 0.2592927813529968,
+        "window_margin_mean": 0.15951895713806152,
+        "window_margin_median": 0.15778633952140808
+      },
+      "clear": {
+        "casm_direct_exact": false,
+        "manually_curated_window": false,
+        "piece": "smc/smc_001/track.npy",
+        "track_f1": {
+          "casm_full": 0.6376811594202899,
+          "dbn_matched_30_300": 0.4107142857142857,
+          "direct": 0.5945945945945946,
+          "plpdp": 0.3859649122807018
+        },
+        "window": [
+          17.25,
+          29.25
+        ],
+        "window_f1": {
+          "casm_full": 0.7777777777777778,
+          "dbn_matched_30_300": 0.3684210526315789,
+          "direct": 0.6363636363636364,
+          "plpdp": 0.3783783783783784
+        },
+        "window_margin_max": 0.4497111141681671,
+        "window_margin_mean": 0.2915443181991577,
+        "window_margin_median": 0.29161766171455383
+      }
+    },
+    "figure_stem": "fig02b_candidate_H",
+    "id": "H",
+    "panel": "bt_smc_oof"
+  },
+  {
+    "columns": {
+      "ambiguous": {
+        "casm_direct_exact": true,
+        "manually_curated_window": true,
+        "piece": "smc/smc_032/track.npy",
+        "track_f1": {
+          "casm_full": 0.6190476190476191,
+          "dbn_matched_30_300": 0.591304347826087,
+          "direct": 0.6117647058823529,
+          "plpdp": 0.6470588235294118
+        },
+        "window": [
+          7.25,
+          19.25
+        ],
+        "window_f1": {
+          "casm_full": 0.9142857142857143,
+          "dbn_matched_30_300": 0.8095238095238095,
+          "direct": 0.9142857142857143,
+          "plpdp": 0.8947368421052632
+        },
+        "window_margin_max": 0.1641675978899002,
+        "window_margin_mean": 0.11383569240570068,
+        "window_margin_median": 0.11961084604263306
+      },
+      "clear": {
+        "casm_direct_exact": false,
+        "manually_curated_window": true,
+        "piece": "smc/smc_001/track.npy",
+        "track_f1": {
+          "casm_full": 0.6376811594202899,
+          "dbn_matched_30_300": 0.4107142857142857,
+          "direct": 0.5945945945945946,
+          "plpdp": 0.3859649122807018
+        },
+        "window": [
+          15.5,
+          27.5
+        ],
+        "window_f1": {
+          "casm_full": 0.8,
+          "dbn_matched_30_300": 0.41025641025641024,
+          "direct": 0.7272727272727273,
+          "plpdp": 0.42105263157894735
+        },
+        "window_margin_max": 0.5435563921928406,
+        "window_margin_mean": 0.36561664938926697,
+        "window_margin_median": 0.4366762936115265
+      }
+    },
+    "figure_stem": "fig02b_candidate_I",
+    "id": "I",
+    "panel": "bt_smc_oof"
+  },
+  {
+    "columns": {
+      "ambiguous": {
+        "casm_direct_exact": true,
+        "manually_curated_window": true,
+        "piece": "smc/smc_032/track.npy",
+        "track_f1": {
+          "casm_full": 0.6190476190476191,
+          "dbn_matched_30_300": 0.591304347826087,
+          "direct": 0.6117647058823529,
+          "plpdp": 0.6470588235294118
+        },
+        "window": [
+          7.25,
+          19.25
+        ],
+        "window_f1": {
+          "casm_full": 0.9142857142857143,
+          "dbn_matched_30_300": 0.8095238095238095,
+          "direct": 0.9142857142857143,
+          "plpdp": 0.8947368421052632
+        },
+        "window_margin_max": 0.1641675978899002,
+        "window_margin_mean": 0.11383569240570068,
+        "window_margin_median": 0.11961084604263306
+      },
+      "clear": {
+        "casm_direct_exact": false,
+        "manually_curated_window": true,
+        "piece": "smc/smc_042/track.npy",
+        "track_f1": {
+          "casm_full": 0.8333333333333334,
+          "dbn_matched_30_300": 0.6,
+          "direct": 0.8333333333333334,
+          "plpdp": 0.6075949367088607
+        },
+        "window": [
+          19.0,
+          31.0
+        ],
+        "window_f1": {
+          "casm_full": 0.8888888888888888,
+          "dbn_matched_30_300": 0.5714285714285714,
+          "direct": 0.8421052631578947,
+          "plpdp": 0.5925925925925926
+        },
+        "window_margin_max": 0.6023972630500793,
+        "window_margin_mean": 0.4424765408039093,
+        "window_margin_median": 0.484719455242157
+      }
+    },
+    "figure_stem": "fig02b_candidate_J",
+    "id": "J",
+    "panel": "bt_smc_oof"
+  },
+  {
+    "columns": {
+      "ambiguous": {
+        "casm_direct_exact": true,
+        "manually_curated_window": true,
+        "piece": "smc/smc_022/track.npy",
+        "track_f1": {
+          "casm_full": 0.9610389610389611,
+          "dbn_matched_30_300": 0.7631578947368421,
+          "direct": 0.9487179487179488,
+          "plpdp": 0.925
+        },
+        "window": [
+          5.75,
+          17.75
+        ],
+        "window_f1": {
+          "casm_full": 0.9166666666666666,
+          "dbn_matched_30_300": 0.5217391304347826,
+          "direct": 0.9166666666666666,
+          "plpdp": 0.88
+        },
+        "window_margin_max": 0.24320442974567413,
+        "window_margin_mean": 0.12940368056297302,
+        "window_margin_median": 0.10071665048599243
+      },
+      "clear": {
+        "casm_direct_exact": false,
+        "manually_curated_window": true,
+        "piece": "smc/smc_001/track.npy",
+        "track_f1": {
+          "casm_full": 0.6376811594202899,
+          "dbn_matched_30_300": 0.4107142857142857,
+          "direct": 0.5945945945945946,
+          "plpdp": 0.3859649122807018
+        },
+        "window": [
+          15.5,
+          27.5
+        ],
+        "window_f1": {
+          "casm_full": 0.8,
+          "dbn_matched_30_300": 0.41025641025641024,
+          "direct": 0.7272727272727273,
+          "plpdp": 0.42105263157894735
+        },
+        "window_margin_max": 0.5435563921928406,
+        "window_margin_mean": 0.36561664938926697,
+        "window_margin_median": 0.4366762936115265
+      }
+    },
+    "figure_stem": "fig02b_candidate_K",
+    "id": "K",
+    "panel": "bt_smc_oof"
+  }
+]

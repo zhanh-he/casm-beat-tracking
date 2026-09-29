@@ -1,0 +1,98 @@
+# CASM mechanism figure contracts
+
+## Figure 1 — input-conditioned stiffness
+
+- Question: does one Frozen-4F configuration actually instantiate different
+  structural constraints from different activation sequences?
+- Takeaway: the deterministic response curve is fixed, but real edge margins
+  occupy different ranges across datasets/backbones and produce a broad range
+  of effective duration coefficients.
+- Form: two-row composite research figure: response curve and empirical
+  edge-margin ECDF side by side above a full-width per-piece
+  effective-coefficient distribution.
+- Data: every structured-path edge from 3,630 panel-track instances across a
+  balanced 3-backbone x 2-corpus mechanism panel. SMC contains 217 tracks per
+  backbone; GTZAN contains 993 tracks per backbone. Both TCN panels are
+  exploratory final0 mechanism evidence rather than OOF estimates.
+- Renderer/output: static Matplotlib; PNG/PDF/SVG; final QA on PNG.
+- Palette: backbone identity is fixed across corpora—BeatThis blue, MSCNN
+  gold, and TCN olive-green. SMC uses solid lines/box outlines and GTZAN uses
+  dashed lines/box outlines, so corpus identity does not rely on color.
+
+## Figure 2 — real-track mechanism traces
+
+- Question: what does CASM change in a real successful case, and what does it
+  do when periodic evidence is ambiguous?
+- Takeaway: in the selected SMC improvement window, the path follows retained
+  activation maxima while suppressing an inconsistent local sequence; in the
+  ambiguous example, low margin yields low stiffness and CASM defers to Direct.
+- Form: two-column, three-row trace figure showing activation/events, local
+  target tempo versus reference IBI, and margin/effective coefficient.
+- Data: actual Beat This OOF activation caches and reference beats.
+- Renderer/output: static Matplotlib; PNG/PDF/SVG; final QA on PNG.
+- Palette: blue CASM, charcoal truth, orange Direct, olive PLPDP; event rows and
+  marker shapes preserve grayscale legibility.
+
+## Figure 3 — mechanism ablation matrix
+
+- Question: which parts of ambiguity conditioning account for the observed
+  F1/continuity operating point?
+- Takeaway: local targeting alone is insufficient; strength-only and
+  width-only variants generally underperform the coupled rule on SMC, while
+  removing safeguards trades some F1 for continuity rather than uniformly
+  improving the decoder.
+- Form: three aligned diverging heatmaps for paired macro deltas versus Direct
+  in Beat F1, CMLt, and AMLt.
+- Data: five activation panels, 217 SMC tracks or 993 GTZAN tracks per panel.
+- Renderer/output: static Matplotlib; PNG/PDF/SVG; final QA on PNG.
+- Palette: blue positive, orange negative, white zero; signed labels included.
+
+## Figure 4 — post-processor operating points
+
+- Question: does CASM replace every prior decoder, or occupy a distinct
+  F1–continuity trade-off?
+- Takeaway: CASM consistently moves Direct toward higher continuity with small
+  F1 changes on these panels; DBN, PLPDP, and support-matched DBN occupy
+  different points, with no universal winner.
+- Form: small-multiple scatter, Beat F1 versus AMLt, one panel per
+  backbone/dataset pair.
+- Data: the same fixed cached activations; five decoders per panel.
+- Renderer/output: static Matplotlib; PNG/PDF/SVG; final QA on PNG.
+- Palette: two-root cap plus distinct marker shapes and direct labels.
+
+## Figure 5 — calibration scale stability
+
+- Question: under matched calibration splits and fixed evaluation panels, how
+  sensitive are automatically selected CASM and DBN decoders to calibration
+  size and fold composition?
+- Takeaway: CASM occupies a much narrower fixed-panel operating range across
+  fold subsets. DBN's selected global rigidity varies substantially with fold
+  composition; increasing calibration scale improves its GTZAN transfer but
+  does not monotonically improve the held-out SMC fold.
+- Form: two matched box/strip figures, one for CASM and one for DBN, preserving
+  the original Figure 5 design. Rows are the fixed SMC-fold0 and GTZAN-final0
+  panels; columns are Beat F1/CMLt/AMLt; every x-axis contains
+  1F/2F/4F/7F. A dashed horizontal line shows Direct in each panel.
+- Data: 7 one-fold, 21 two-fold, 35 four-fold selections plus one seven-fold
+  configuration per decoder, all evaluated on fixed SMC-fold0 and Beat This
+  GTZAN-final0 panels. The frontend, fold subsets, primary selection metric,
+  macro-piece aggregation, and lock order are matched. DBN searches a
+  preregistered 52-point grid over minimum tempo, maximum tempo, and transition
+  strength; all 64 choices were locked before either fixed panel was scored.
+- Renderer/output: static Matplotlib; PNG/PDF/SVG; final QA on PNG.
+- Palette: blue circles in the CASM figure, orange triangles in the DBN figure,
+  and a charcoal dashed Direct reference; marker shapes preserve grayscale
+  legibility across the two files.
+
+## Figure 6 — gain versus regression risk
+
+- Question: do CASM's fallback and count-ratio safeguards reduce harmful
+  overcorrection, even when an unconstrained decoder has a larger mean gain?
+- Takeaway: safeguards consistently reduce the fraction of tracks degraded by
+  more than five percentage points, at the cost of some peak mean correction.
+- Form: two-panel scatter for Beat F1 and AMLt; arrows connect the no-safeguard
+  decoder to full CASM on each fixed activation panel.
+- Data: paired piece-level scores from 2,637 panel-track instances.
+- Renderer/output: static Matplotlib; PNG/PDF/SVG; final QA on PNG.
+- Palette: panel identity uses five approved roots; marker shape distinguishes
+  fixed precision, no safeguards, and full CASM without relying on color.

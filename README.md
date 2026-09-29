@@ -144,6 +144,7 @@ The existing interactive comparison remains available at [zhanh-he.github.io/cas
 - `mirex2026/`: competition inference package, `backbone-retrain/`, `scripts/`, and `results/`.
 - `online-demo/`: interactive GitHub Pages site, audio excerpts, and
   visualization data.
-- `archive/`: a public pointer for the authors' local research archive; the
-  manuscript, reading, presentation, and historical figure workspaces are kept
-  out of the release repository.
+- [`archive/`](archive/): selected paper figures first, then historical and
+  unselected figure variants, with plotting-source snapshots, provenance
+  checksums, and warnings on rejected evaluation graphics. Raw audio,
+  third-party reading PDFs, and full research caches remain excluded.

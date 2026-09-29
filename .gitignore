@@ -15,7 +15,11 @@
 build/
 dist/
 
-# Keep the local research history out of the public release.  The directory's
-# README remains visible so the four-part repository layout is explicit.
+# Publish curated figure archives, not the full private research workspace.
 /archive/*
 !/archive/README.md
+!/archive/.gitattributes
+!/archive/MANIFEST.json
+!/archive/verify_archive.py
+!/archive/01-used/
+!/archive/02-unused/

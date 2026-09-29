@@ -37,6 +37,8 @@ All benchmark rows must pass the [evaluation eligibility policy](../EXPERIMENT_E
 - [`tables/`](tables/): validated tables, compact locked source, and ablation
   artifacts.
 - [`figures/`](figures/): the three final paper figures retained in this repo.
+- [`../archive/`](../archive/): copies of selected figures and separate
+  historical/unselected figure outputs with source snapshots.
 - [`DATA_AND_ANNOTATIONS.md`](DATA_AND_ANNOTATIONS.md): data, split, annotation,
   and preprocessing contract.
 

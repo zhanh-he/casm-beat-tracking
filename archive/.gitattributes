@@ -1,0 +1,4 @@
+# Preserve historical bytes while keeping generated vector/data diffs readable.
+*.svg -diff
+*.csv -diff
+*.ipynb -diff

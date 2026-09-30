@@ -259,6 +259,14 @@ body { padding: 2px 0 12px; }
       fill: transparent;
       stroke: var(--border);
     }
+    #decoder-contrast-real-v2 [data-audition-row] {
+      fill: transparent;
+      pointer-events: none;
+      transition: fill 140ms ease;
+    }
+    #decoder-contrast-real-v2[data-active-audition-source="casm"] [data-audition-row="casm"] {
+      fill: #edf4ff;
+    }
     #decoder-contrast-real-v2 .tooltip {
       position: absolute;
       pointer-events: none;
@@ -500,6 +508,7 @@ body { padding: 2px 0 12px; }
       svg.append('g').attr('class', 'axis').attr('transform', `translate(${margin.left},0)`).call(d3.axisLeft(yActivation).tickValues([0, .5, 1]));
       intervalPanels.forEach(panel => {
         const yPanel = panelScale(panel);
+        svg.append('rect').attr('data-audition-row', panel.id).attr('x', 0).attr('y', panel.top).attr('width', width - margin.right).attr('height', panelHeight);
         svg.append('rect').attr('data-chart-frame', '').attr('x', margin.left).attr('y', panel.top).attr('width', plotWidth).attr('height', panelHeight);
         svg.append('g').attr('class', 'ibi-grid').attr('transform', `translate(${margin.left},0)`).call(d3.axisLeft(yPanel).ticks(3).tickSize(-plotWidth).tickFormat(''));
         svg.append('g').attr('class', 'axis').attr('transform', `translate(${margin.left},0)`).call(d3.axisLeft(yPanel).ticks(2));
@@ -511,6 +520,11 @@ body { padding: 2px 0 12px; }
       svg.append('text').attr('class', 'axis-title').attr('data-axis', 'y').attr('x', margin.left).attr('y', 11).text('beat activation probability');
       svg.append('text').attr('class', 'axis-title').attr('data-axis', 'y').attr('x', margin.left).attr('y', intervalAreaTop - 9).text(compact ? 'duration / IBI panels (s, shared scale)' : 'separated duration / decoded IBI panels (s, shared scale)');
       svg.append('text').attr('class', 'axis-title').attr('data-axis', 'x').attr('text-anchor', 'end').attr('x', width - margin.right).attr('y', height - 6).text('time (s)');
+
+      methods.forEach((method, methodIndex) => {
+        const y = laneStart + methodIndex * laneGap;
+        svg.append('rect').attr('data-audition-row', method.id).attr('x', 0).attr('y', y - laneGap / 2 + 2).attr('width', width - margin.right).attr('height', laneGap - 4);
+      });
 
       svg.append('path').datum(frames).attr('clip-path', `url(#${activationClip})`).attr('fill', 'none').attr('stroke', colors.activation).attr('stroke-width', 2)
         .attr('d', d3.line().x(row => x(row.time)).y(row => yActivation(row.value)));

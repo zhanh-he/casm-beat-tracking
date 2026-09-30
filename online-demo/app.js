@@ -73,6 +73,10 @@ function renderSourceButtons() {
     button.dataset.playing = String(selected && isPlaying);
     button.disabled = !musicReady;
   });
+  const figureRoot = inlineElement("#decoder-contrast-real-v2");
+  if (figureRoot) {
+    figureRoot.dataset.activeAuditionSource = isPlaying ? selectedSource : "";
+  }
   const stop = inlineElement("#audition-stop");
   if (stop) stop.disabled = !isPlaying;
 }

@@ -73,7 +73,7 @@ function renderSourceButtons() {
     button.dataset.playing = String(selected && isPlaying);
     const row = button.closest("tr");
     if (row) {
-      row.dataset.auditionRow = button.dataset.auditionSource;
+      row.dataset.auditionTableRow = button.dataset.auditionSource;
       row.dataset.auditionActive = String(selected);
     }
     button.disabled = !musicReady;
@@ -342,12 +342,12 @@ function mountInlineAuditionControls() {
 .audition-method[aria-pressed="true"] { background: color-mix(in srgb, var(--method-color) 10%, white); border-color: var(--method-color); }
 .audition-method[data-playing="true"] .play-glyph { border-left-color: var(--method-color); }
 .audition-method:disabled, .audition-stop:disabled { cursor: not-allowed; opacity: .45; }
-[data-audition-row][data-audition-active="true"] > * { transition: background-color 140ms ease; }
-[data-audition-row="reference"][data-audition-active="true"] > *,
-[data-audition-row="direct"][data-audition-active="true"] > * { background-color: #f0f2f4 !important; }
-[data-audition-row="casm"][data-audition-active="true"] > * { background-color: #edf4ff !important; }
-[data-audition-row="dbn"][data-audition-active="true"] > * { background-color: #fceeee !important; }
-[data-audition-row="plpdp"][data-audition-active="true"] > * { background-color: #f2f5e9 !important; }
+[data-audition-table-row][data-audition-active="true"] > * { transition: background-color 140ms ease; }
+[data-audition-table-row="reference"][data-audition-active="true"] > *,
+[data-audition-table-row="direct"][data-audition-active="true"] > * { background-color: #f0f2f4 !important; }
+[data-audition-table-row="casm"][data-audition-active="true"] > * { background-color: #edf4ff !important; }
+[data-audition-table-row="dbn"][data-audition-active="true"] > * { background-color: #fceeee !important; }
+[data-audition-table-row="plpdp"][data-audition-active="true"] > * { background-color: #f2f5e9 !important; }
 .play-glyph { width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 7px solid currentColor; }
 .audition-stop { display: inline-flex; flex: 0 0 36px; width: 36px; align-items: center; justify-content: center; padding: 0; }
 .stop-glyph { width: 9px; height: 9px; background: currentColor; }

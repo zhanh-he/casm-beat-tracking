@@ -334,7 +334,7 @@ function mountInlineAuditionControls() {
 #audition-toolbar { margin: 2px 0 20px; padding: 5px 0 14px; border-bottom: 1px solid #dce1e5; }
 .audition-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 9px; }
 .audition-heading strong { font-size: 14px; font-weight: 700; }
-.audition-window { color: #697079; font-size: 13px; font-variant-numeric: tabular-nums; }
+.audition-window { color: #4f565e; font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }
 .audition-method, .audition-stop { min-height: 36px; border: 1px solid #dce1e5; border-radius: 5px; background: #fff; color: #202327; cursor: pointer; font: inherit; font-size: 11px; font-weight: 650; }
 .audition-method { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 6px 7px 6px 10px; overflow: hidden; }
 .audition-method::after { content: ""; position: absolute; inset: auto 0 0; height: 3px; background: var(--method-color); }

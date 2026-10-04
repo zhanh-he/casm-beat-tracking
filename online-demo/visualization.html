@@ -43,8 +43,8 @@ body { padding: 2px 0 12px; }
   font: inherit;
 }
 .form-range { accent-color: var(--viz-series-6); }
-.table { width: 100%; border-collapse: collapse; font-size: 15px; }
-.table th, .table td { padding: 10px 7px; border-bottom: 1px solid var(--border); }
+.table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.table th, .table td { padding: 8px 7px; border-bottom: 1px solid var(--border); }
 .table th { font-weight: 680; text-align: left; }
 .table th.text-end, .table td.text-end { text-align: right; }
 </style>
@@ -259,6 +259,16 @@ body { padding: 2px 0 12px; }
       fill: transparent;
       stroke: var(--border);
     }
+    #decoder-contrast-real-v2 svg [data-audition-row] {
+      fill: transparent;
+      pointer-events: none;
+      transition: fill 140ms ease;
+    }
+    #decoder-contrast-real-v2[data-active-audition-source="groundtruth"] [data-audition-row="groundtruth"],
+    #decoder-contrast-real-v2[data-active-audition-source="direct"] [data-audition-row="direct"] { fill: #f0f2f4; }
+    #decoder-contrast-real-v2[data-active-audition-source="casm"] [data-audition-row="casm"] { fill: #edf4ff; }
+    #decoder-contrast-real-v2[data-active-audition-source="dbn"] [data-audition-row="dbn"] { fill: #fceeee; }
+    #decoder-contrast-real-v2[data-active-audition-source="plpdp"] [data-audition-row="plpdp"] { fill: #f2f5e9; }
     #decoder-contrast-real-v2 .tooltip {
       position: absolute;
       pointer-events: none;
@@ -500,17 +510,28 @@ body { padding: 2px 0 12px; }
       svg.append('g').attr('class', 'axis').attr('transform', `translate(${margin.left},0)`).call(d3.axisLeft(yActivation).tickValues([0, .5, 1]));
       intervalPanels.forEach(panel => {
         const yPanel = panelScale(panel);
+        svg.append('rect').attr('data-audition-row', panel.id).attr('x', 0).attr('y', panel.top).attr('width', width - margin.right).attr('height', panelHeight);
         svg.append('rect').attr('data-chart-frame', '').attr('x', margin.left).attr('y', panel.top).attr('width', plotWidth).attr('height', panelHeight);
         svg.append('g').attr('class', 'ibi-grid').attr('transform', `translate(${margin.left},0)`).call(d3.axisLeft(yPanel).ticks(3).tickSize(-plotWidth).tickFormat(''));
         svg.append('g').attr('class', 'axis').attr('transform', `translate(${margin.left},0)`).call(d3.axisLeft(yPanel).ticks(2));
-        svg.append('text').attr('class', 'lane-label').attr('x', margin.left - 18).attr('y', (panel.top + panel.bottom) / 2 + 4).attr('text-anchor', 'end')
-          .style('fill', panel.id === 'direct' ? colors.direct : panel.id === 'fixed' ? colors.fixed : panel.id === 'dbn' ? colors.dbn : panel.id === 'plpdp' ? colors.plpdp : panel.id === 'casm' ? colors.casm : colors.foreground)
-          .text(compact ? panel.short : panel.label);
+        const panelLabel = (compact ? panel.short : panel.label).replace(/ IBI$/, '');
+        const panelLabelX = margin.left - 18;
+        const panelLabelY = (panel.top + panel.bottom) / 2 - 3;
+        const panelLabelText = svg.append('text').attr('class', 'lane-label').attr('x', panelLabelX).attr('y', panelLabelY).attr('text-anchor', 'end')
+          .style('fill', panel.id === 'direct' ? colors.direct : panel.id === 'fixed' ? colors.fixed : panel.id === 'dbn' ? colors.dbn : panel.id === 'plpdp' ? colors.plpdp : panel.id === 'casm' ? colors.casm : colors.foreground);
+        panelLabelText.append('tspan').attr('x', panelLabelX).text(panelLabel);
+        panelLabelText.append('tspan').attr('x', panelLabelX).attr('dy', '1.05em').text('IBI');
       });
       svg.append('g').attr('class', 'axis').attr('transform', `translate(0,${intervalBottom})`).call(d3.axisBottom(x).ticks(compact ? 4 : 7));
       svg.append('text').attr('class', 'axis-title').attr('data-axis', 'y').attr('x', margin.left).attr('y', 11).text('beat activation probability');
       svg.append('text').attr('class', 'axis-title').attr('data-axis', 'y').attr('x', margin.left).attr('y', intervalAreaTop - 9).text(compact ? 'duration / IBI panels (s, shared scale)' : 'separated duration / decoded IBI panels (s, shared scale)');
       svg.append('text').attr('class', 'axis-title').attr('data-axis', 'x').attr('text-anchor', 'end').attr('x', width - margin.right).attr('y', height - 6).text('time (s)');
+
+      svg.append('rect').attr('data-audition-row', 'groundtruth').attr('x', 0).attr('y', groundTruthY - laneGap / 2 + 2).attr('width', width - margin.right).attr('height', laneGap - 4);
+      methods.forEach((method, methodIndex) => {
+        const y = laneStart + methodIndex * laneGap;
+        svg.append('rect').attr('data-audition-row', method.id).attr('x', 0).attr('y', y - laneGap / 2 + 2).attr('width', width - margin.right).attr('height', laneGap - 4);
+      });
 
       svg.append('path').datum(frames).attr('clip-path', `url(#${activationClip})`).attr('fill', 'none').attr('stroke', colors.activation).attr('stroke-width', 2)
         .attr('d', d3.line().x(row => x(row.time)).y(row => yActivation(row.value)));

@@ -1,7 +1,7 @@
 # MIREX evaluation scripts and eligibility rule
 
 Run these scripts from an environment with the audited BeatThis and CASM
-evaluation dependencies. They are experiment/diagnostic tools, **not** part
+evaluation dependencies. They are historical experiment/diagnostic tools, **not** part
 of the one-WAV MIREX submission runtime. The submission runtime lives in
 `../mirex_pipeline/` and is packaged by `../build_submission.py`.
 
@@ -24,8 +24,19 @@ ineligible model and dataset pair. Do not bypass the guard by changing a
 training-status label. Add new checkpoint provenance to the policy before
 evaluating a new model family.
 
-SMC and GTZAN remain diagnostics only for MIREX; neither panel is used for
-checkpoint, seed, or decoder selection.
+The [2026 MIREX rules](https://music-ir.org/mirex/wiki/2026:Audio_Beat_Tracking)
+ban SMC and GTZAN from training, validation, model selection, tuning, **and
+any other development purpose**. Thus the old target-comparison runner is
+disabled by default and its existing outputs are historical, not MIREX
+development evidence. Use allowed validation collections for BeatFM and the
+final competition-system choice.
+
+`choose_mscnn_allowed.py` audits the four-candidate MSCNN allowed panel and
+freezes its Direct Beatles selection. `choose_beatfm_allowed.py` audits the
+five-candidate BeatFM common 137-piece Ballroom/RWC panel, requiring identical
+piece inventories and checkpoint hashes across Direct/CASM/both DBN decoders;
+it selects by the predeclared Direct beat composite only. Neither selector
+reads SMC or GTZAN results.
 
 The corrected seed-0 baseline and its limits are in
 [`../results/BASELINE_DIAGNOSTIC.md`](../results/BASELINE_DIAGNOSTIC.md).

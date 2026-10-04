@@ -6,14 +6,14 @@ conference-paper submission**. Our CASM methodology was submitted to ICASSP
 2027 as a conference paper, with its experiments in [`../experiments/`](../experiments/).
 MIREX applies the method
 to competition backbones retrained without SMC or GTZAN in development.
-After allowed-validation selection is frozen, the chosen model is to be
-retrained on all remaining allowed data. The two protocols do not share
-backbone checkpoints.
+After allowed-validation selection was frozen, the primary BeatThis model was
+retrained on all allowed data. Secondary models retain their explicitly
+declared data coverage. The two protocols do not share backbone checkpoints.
 
 ## Layout
 
-- [`backbone-retrain/`](backbone-retrain/): why and how BeatThis/other backbones
-  are retrained for MIREX; current training script and pending final recipe.
+- [`backbone-retrain/`](backbone-retrain/): why and how the backbones are
+  retrained for MIREX, including the [BeatFM source/data audit](backbone-retrain/BEATFM_SOURCE_AUDIT.md).
 - [`scripts/`](scripts/): provenance-gated evaluation and result rebuild tools.
 - [`results/`](results/): corrected diagnostics and result tables, clearly
   separate from final official MIREX scores.
@@ -27,18 +27,22 @@ at 50 Hz. The shared decoder layer then applies the requested postprocessor.
 
 | Backbone | Status | MIREX role |
 |---|---|---|
-| BeatThis | adapter ready; final checkpoint pending | primary submission |
-| MSCNN | shared adapter verified; seed-0 training in progress | lightweight secondary |
-| BeatFM | source revision, adapter, and checkpoint pending | next primary candidate |
+| BeatThis | three-seed expanded search, full-allowed retrain, and four-decoder one-WAV smoke complete | primary submission |
+| MSCNN | four-candidate seed-0 allowed-validation screen complete; last epoch 1499 chosen and smoke-tested | lightweight secondary, train-split weight |
+| BeatFM | 911-piece epoch-15 checkpoint selected on 137 allowed Ballroom/RWC pieces; 1,684-piece expansion running | additional train-split candidate, with reduced-data disclosure and private-source rights check |
 
 The BeatThis fork's audited `Audio2Frames` loader reads checkpoint architecture
-metadata and supports both BeatThis and MSCNN. BeatFM remains a deliberate,
-disabled integration slot in `config/backbones.json`; it fails with an explicit
-message until its audited source and weights are supplied.
+metadata and supports both BeatThis and MSCNN. BeatFM has a separate
+frozen-MERT adapter. A private self-contained bundle includes the audited
+BeatFM source and pinned MERT files; the repository runtime instead accepts
+`BEATFM_SOURCE_DIR` and `BEATFM_MERT_DIR`. Its one-epoch pilot weight is
+explicitly refused for ordinary submission inference. The full BeatThis-data
+comparison remains blocked by missing original audio. The 911- and
+1,684-piece candidates are labeled as reduced-data experiments.
 
 | Decoder | Default tempo range | Notes |
 |---|---:|---|
-| `direct` | unconstrained | BeatThis-compatible 70 ms local-max peak picking |
+| `direct` | unconstrained | BeatThis-compatible seven-frame local-max peak picking |
 | `dbn` | 55–215 BPM | joint madmom beat/downbeat DBN |
 | `casm` | 30–300 BPM | frozen no-SMC global CASM configuration |
 
@@ -91,9 +95,11 @@ docker run --rm --gpus all \
   /input/example.wav /output/example.txt
 ```
 
-The final archive is built with `build_submission.py`. It copies only supplied
-checkpoints, vendors the audited BeatThis and CASM sources, and records SHA-256
-hashes in `MANIFEST.json`. Its concise
+The private final archive is built with `build_submission.py`. It copies only
+supplied checkpoints, vendors the audited BeatThis and CASM sources, includes
+BeatFM/MERT only when explicitly supplied, and records SHA-256 hashes in
+`MANIFEST.json`. Check [third-party rights](THIRD_PARTY.md) before any external
+distribution. Its concise
 [`SUBMISSION_README.md`](SUBMISSION_README.md) is copied as the bundle README;
 the development links in this file are not placed into the standalone archive.
 
@@ -107,12 +113,12 @@ the development links in this file are not placed into the standalone archive.
   calibration. That configuration is
   [`config/casm-no-smc.json`](config/casm-no-smc.json), **not** the paper's
   published 7F default (which did use SMC for calibration).
-- Clean selection is frozen on allowed validation data before target
-  diagnostics are generated.
-- Target-oracle tables, when produced for internal diagnosis, are labeled
-  ineligible for the MIREX submission.
-- After seed/epoch selection, the winning backbone is retrained on all allowed
-  training and validation pieces with the fixed recipe.
+- Clean selection is frozen on allowed validation data. The [2026 rules](https://music-ir.org/mirex/wiki/2026:Audio_Beat_Tracking)
+  prohibit SMC and GTZAN for any development purpose; earlier target-set
+  screens are historical artifacts, not a permitted MIREX diagnostic loop.
+- After seed/epoch selection, the primary BeatThis was retrained on all allowed
+  training and validation pieces with the fixed recipe. MSCNN and BeatFM
+  candidates remain train/validation split models until separately retrained.
 - The final README submitted to MIREX will contain only the command lines that
   we actually want the organizers to execute; examples above are capability
   documentation, not a request to evaluate every Cartesian-product variant.

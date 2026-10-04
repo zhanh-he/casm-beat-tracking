@@ -1,0 +1,22 @@
+{
+  "role": "exact common allowed-validation comparison, not MIREX test",
+  "models": [
+    "beatthis_search",
+    "mscnn_split",
+    "beatfm_911_split"
+  ],
+  "selected_beatfm_candidate": "epoch_0015",
+  "validation_pieces": 137,
+  "source_csv_sha256": {
+    "mirex2026/results/beatfm/allowed_eval_911_5090_20261004/pieces.csv": "f5dd7327cfde97fc06ef68bf45aafa6063a4ff00f2971ed30b6750eddd783ec1",
+    "mirex2026/results/beatthis_seed2_allowed_panel_20261004/direct.pieces.csv": "2ae20894d0fd110ed81b6cdce168cfe16133f3cc3adb0e80aa5e6fd9bd7b12bc",
+    "mirex2026/results/mscnn_seed0_allowed_screen_20261004/last_1499/direct.pieces.csv": "d9e3902ae6d107de60331b1d4f9bce2a4af01db8fb46e362562cb316084cbdd2",
+    "mirex2026/results/beatthis_seed2_allowed_panel_20261004/casm_no_smc.pieces.csv": "19702033d22d8a1e6aba72e307d30ae077830d6ba89b8b46bed3d169399f855a",
+    "mirex2026/results/mscnn_seed0_allowed_screen_20261004/last_1499/casm_no_smc.pieces.csv": "dd067f59a92ac4888a82090cc5a050d0a2b8259943583d74af265904596857a0",
+    "mirex2026/results/beatthis_seed2_allowed_panel_20261004/dbn_55_215.pieces.csv": "98e891b1e1118c0a83fe509777f25461f9d98e39ebaf833539615a361329398d",
+    "mirex2026/results/mscnn_seed0_allowed_screen_20261004/last_1499/dbn_55_215.pieces.csv": "31bb2e48bbb09dbbbc2d624f0b7bda31f1384cdbe47171e8092630343d8f0691",
+    "mirex2026/results/beatthis_seed2_allowed_panel_20261004/dbn_30_300.pieces.csv": "31c64e11133342bb92d2dfdf0c077c24ce0771b1bb32807c9b24f997053cc7d9",
+    "mirex2026/results/mscnn_seed0_allowed_screen_20261004/last_1499/dbn_30_300.pieces.csv": "4111016ffb83b668001575e6ff9d343a8f0d1099e8aa249dc08b0bfdd85263f7"
+  },
+  "target_datasets_used": []
+}

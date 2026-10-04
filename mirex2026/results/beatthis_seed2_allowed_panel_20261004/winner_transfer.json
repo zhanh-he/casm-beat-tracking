@@ -1,0 +1,12 @@
+{
+  "full_retrain_epochs": 120,
+  "selection_source": "allowed validation Beatles only",
+  "submission_choice_sha256": "f8e01f3fc6b70ec35d135050a34ab6672af8402e592a92bc4c1e1eb94482bcdc",
+  "targets_observed_before_freeze": false,
+  "winner_candidate_id": "epoch_0119_2f56b23a",
+  "winner_checkpoint": "/storage/zhanh_storage/auto_structbeat_runs/beatthis_expanded_search_20260929T1200/seeds/seed2/production/checkpoints/beatthis_nosmc_single_seed2_e200-epoch0119.ckpt",
+  "winner_checkpoint_sha256": "cd8a8c93b11c189daab497076261730bc8a059fa2b8d2b9c07b012c2d9c4bd4d",
+  "winner_model_state_sha256": "2f56b23ae8a4d56f278fa4174050b9cd8cb0cebf3bc1dfdf2e227581347e75d3",
+  "winner_seed": 2,
+  "winner_zero_based_epoch": 119
+}

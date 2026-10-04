@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# The MIREX 2026 rules prohibit SMC/GTZAN for any development purpose. This
+# runner is retained only for exact reproduction of pre-rule historical work.
+if [[ "${HISTORICAL_TARGET_REBUILD:-}" != "yes" ]]; then
+  echo "disabled for MIREX 2026: SMC/GTZAN may not be used for development; set HISTORICAL_TARGET_REBUILD=yes only for retrospective reproduction" >&2
+  exit 2
+fi
+
 EVAL_PROJECT=${EVAL_PROJECT:-/media/mengh/SharedData/zhanh/auto_structbeat}
 TRAIN_PROJECT=${TRAIN_PROJECT:-/media/mengh/SharedData/zhanh/auto_beatthis_mscnn}
 PYTHON=${PYTHON:-/home/mengh/miniconda3/envs/auto-structbeat/bin/python}

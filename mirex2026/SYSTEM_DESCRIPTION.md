@@ -14,10 +14,15 @@ planned neural frontends: BeatThis, MSCNN, and BeatFM. Each frontend returns
 the joint madmom DBN, or Confidence-Adaptive Semi-Markov (CASM) decoding.
 
 BeatThis is the primary current system. MSCNN is retained as a lightweight
-secondary comparison. BeatFM will be enabled only after its upstream source
-revision, preprocessing, checkpoint loader, and no-SMC weights have been
-audited. The source tree contains an explicit disabled registry entry until
-those materials are available.
+secondary comparison. BeatFM's provided source ZIP, preprocessing, private
+MERT revision, and checkpoint loader are audited. A 911-piece Ballroom/RWC
+no-SMC subset completed training, and its epoch-15 train-split weight was
+selected using 137 allowed validation pieces. A 1,684-piece expanded subset
+is in training and may supersede it after its own matched-panel screen. The
+BeatFM source ZIP has no resolvable Git commit or redistribution license, so
+no bundle containing it may be externally distributed without a rights check.
+These reduced-data runs cannot be portrayed as equal-data BeatThis comparisons
+or exact reproductions of the BeatFM paper.
 
 ## Decoder defaults
 
@@ -32,24 +37,29 @@ those materials are available.
 SMC and GTZAN are excluded from training, validation, model selection,
 checkpoint selection, seed selection, CASM calibration, and all other system
 development decisions. A clean seed/checkpoint decision is frozen using only
-allowed validation datasets. Diagnostic target-set results are generated only
-after this freeze and cannot change the compliant recommendation.
+allowed validation datasets. SMC/GTZAN scores are not generated as part of
+the MIREX 2026 development protocol; earlier screens are historical and
+cannot change the compliant recommendation.
 
-For the final competition model, the selected seed and training duration are
-retrained using all allowed training and validation data. This corresponds to
-the final-model protocol rather than the ICASSP eight-fold protocol.
+The primary BeatThis seed and duration were frozen on allowed validation and
+retrained using all allowed training and validation data. MSCNN and BeatFM
+currently retain declared train/validation-split weights; do not describe them
+as full-allowed-data retrains.
 
-## Reproducibility fields still to freeze
+## Reproducibility and remaining submission decisions
 
-The following are intentionally placeholders until the running experiments
-finish:
-
-- BeatThis final checkpoint path, epoch, seed, and SHA-256;
-- MSCNN final checkpoint path, epoch, seed, and SHA-256;
-- BeatFM upstream revision, environment, adapter, training recipe, checkpoint,
-  and SHA-256;
-- final list of MIREX command lines;
-- training compute and inference-time declaration.
+- BeatThis: seed 2, 120-epoch full-allowed retrain; checkpoint SHA-256
+  `0fed3858ac75ec716e622c0a5bd50ee1345fb1443902d3024ecff5e88fa20053`.
+- MSCNN: seed 0, train-split last epoch 1499; checkpoint SHA-256
+  `6cb647407caf367e1e3e66d13061a4459899f26e1ae0001e5c519cac95ab30b1`.
+- BeatFM: 911-piece train-split epoch 15 was selected from five candidates
+  using Direct beat F/CMLt/AMLt on the 137-piece allowed Ballroom/RWC panel;
+  checkpoint SHA-256
+  `44a1a33f6c3d08180bea2f0619c16a39a756644f101d0cd5d1691f7abd8ba764`.
+  It is a reduced-data candidate, not a full-allowed-data retrain. The
+  expanded 1,684-piece training and common-panel screen remain open.
+- Freeze the final organizer command lines, BeatFM redistribution decision,
+  training compute, and inference-time declaration after candidate selection.
 
 The archive builder refuses to overwrite an existing bundle and writes a
 SHA-256 manifest for all supplied artifacts.

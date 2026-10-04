@@ -1,0 +1,22 @@
+{
+  "role": "allowed-validation candidate screen; not MIREX test",
+  "manifest": "/storage/zhanh_storage/auto_structbeat_runs/beatfm_allowed_5090_20261004/expanded_verified_1684.tsv",
+  "manifest_sha256": "92e1ef0c4a02dc7d52b671966dccd7bc333e9bb55e66a609688a674ae282aeef",
+  "subset": "expanded-1684",
+  "panel": "common-137",
+  "relocated_validation": "/storage/zhanh_storage/auto_structbeat_runs/beatfm_allowed_5090_20261004/allowed_validation_137_transfer_v1/validation_relocated.tsv",
+  "validation_pieces": 137,
+  "datasets": [
+    "ballroom",
+    "rwc"
+  ],
+  "checkpoint_candidates": [
+    {
+      "name": "interim_best_epoch2",
+      "path": "/storage/zhanh_storage/auto_structbeat_runs/beatfm_allowed_5090_20261004/expanded_checkpoints/interim_best_epoch2.pt",
+      "sha256": "560c0f4b3ed9e6860919beed700b77beac9fd58424bcf35b3f508955c41610b1",
+      "epoch": 2,
+      "val_loss": 0.810604939034505
+    }
+  ]
+}

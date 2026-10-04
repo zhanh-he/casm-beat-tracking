@@ -1,0 +1,50 @@
+{
+  "role": "allowed-validation candidate screen; not MIREX test",
+  "manifest": "/storage/zhanh_storage/auto_structbeat_runs/beatfm_allowed_5090_20261004/allowed_validation_137_transfer_v1/source_manifest.tsv",
+  "manifest_sha256": "24deea630d5c7d8bf88f4f1d9c035c3370ae3a5ff181d448e5a164a9f5e13f1b",
+  "subset": "verified-911",
+  "panel": "all",
+  "relocated_validation": "/storage/zhanh_storage/auto_structbeat_runs/beatfm_allowed_5090_20261004/allowed_validation_137_transfer_v1/validation_relocated.tsv",
+  "validation_pieces": 137,
+  "datasets": [
+    "ballroom",
+    "rwc"
+  ],
+  "checkpoint_candidates": [
+    {
+      "name": "best_val_loss",
+      "path": "/storage/zhanh_storage/auto_structbeat_runs/beatfm_allowed_5090_20261004/checkpoints/best_val_loss.pt",
+      "sha256": "174c4b056b47e344eb841de5f6025581cd8e7f2362a5aafb99a7d3bfe63892cb",
+      "epoch": 2,
+      "val_loss": 0.8657218765477287
+    },
+    {
+      "name": "epoch_0005",
+      "path": "/storage/zhanh_storage/auto_structbeat_runs/beatfm_allowed_5090_20261004/checkpoints/epoch_0005.pt",
+      "sha256": "a66b9934af9ff152ea566d1fef059f9a597f259da884d84b822591372e017ade",
+      "epoch": 5,
+      "val_loss": 0.8698106761280675
+    },
+    {
+      "name": "epoch_0010",
+      "path": "/storage/zhanh_storage/auto_structbeat_runs/beatfm_allowed_5090_20261004/checkpoints/epoch_0010.pt",
+      "sha256": "47d27b2dd71261d628c749152336bffeedebfc174f6b8f7586786f1e230f1156",
+      "epoch": 10,
+      "val_loss": 0.9057450851410707
+    },
+    {
+      "name": "epoch_0015",
+      "path": "/storage/zhanh_storage/auto_structbeat_runs/beatfm_allowed_5090_20261004/checkpoints/epoch_0015.pt",
+      "sha256": "44a1a33f6c3d08180bea2f0619c16a39a756644f101d0cd5d1691f7abd8ba764",
+      "epoch": 15,
+      "val_loss": 0.9769473891873258
+    },
+    {
+      "name": "epoch_0020",
+      "path": "/storage/zhanh_storage/auto_structbeat_runs/beatfm_allowed_5090_20261004/checkpoints/epoch_0020.pt",
+      "sha256": "7128b593636a42c102e0ab19324b6f5720b13029609a17d1d44202e7c59b1f4e",
+      "epoch": 20,
+      "val_loss": 0.9935094153246686
+    }
+  ]
+}

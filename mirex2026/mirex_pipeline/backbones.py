@@ -1,8 +1,8 @@
 """Manifest-driven audio frontend registry.
 
 BeatThis and MSCNN share the audited Audio2Frames adapter in the project fork.
-BeatFM intentionally remains a disabled manifest slot until its inference
-source and final checkpoint are copied into this branch.
+BeatFM has a private-source adapter, but remains unusable until the audited
+source/MERT paths and a validated checkpoint are supplied.
 """
 
 from __future__ import annotations

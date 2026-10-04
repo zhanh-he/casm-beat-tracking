@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+#PBS -N beatfm-smoke
+#PBS -P wa66
+#PBS -q gpuvolta
+#PBS -l ncpus=12,ngpus=1,mem=32GB,walltime=00:30:00
+#PBS -l storage=scratch/wa66
+#PBS -j oe
+
+set -euo pipefail
+
+root=/scratch/wa66/hm6416/beatfm_mirex_20260930
+smoke="$root/inference_smoke"
+export PYTHONPATH="$smoke/mirex2026:$root/python_deps${PYTHONPATH:+:$PYTHONPATH}"
+export BEATFM_SOURCE_DIR="$root/source/BeatFM"
+export BEATFM_MERT_DIR="$root/MERT-v1-95M"
+export PYTHONDONTWRITEBYTECODE=1
+export OMP_NUM_THREADS=4
+
+cd "$smoke"
+/scratch/wa66/hm6416/envs/muse-grpo-cu128/bin/python \
+  mirex2026/run_pipeline.py --backbone beatfm --decoder direct \
+  --manifest mirex2026/config/backbones.json \
+  --checkpoint beatfm_best_val_loss.pt --device cuda:0 \
+  smoke_audio.wav direct.txt
+/scratch/wa66/hm6416/envs/muse-grpo-cu128/bin/python - <<'PY'
+from pathlib import Path
+import numpy as np
+values = np.loadtxt(Path('direct.txt'), ndmin=1)
+if values.ndim != 1 or not len(values) or not np.all(np.isfinite(values)) or np.any(np.diff(values) <= 0):
+    raise SystemExit('invalid BeatFM beat-time output')
+print(f'BEATFM_GADI_SMOKE_OK beats={len(values)} first={values[0]:.6f}')
+PY

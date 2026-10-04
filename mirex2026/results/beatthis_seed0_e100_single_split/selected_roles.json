@@ -1,0 +1,75 @@
+{
+  "last_source": "explicit_last",
+  "role_checkpoint_provenance": {
+    "best_val": {
+      "candidate_id": "epoch_0029_8c359ed1",
+      "inference_checkpoint": "/storage/zhanh_storage/auto_structbeat_runs/beatthis_nosmc_single_seed0_e100_20260929T085029/production/checkpoints/beatthis_nosmc_single_seed0_e100-best-0029-0.4869.ckpt",
+      "inference_checkpoint_sha256": "46fb378d82261b060d1c3888cf00586aed0500def35d2e997ed7be4fca2e8405",
+      "model_state_sha256": "8c359ed10624c7992b08cf5d3fe0e5a9e6c9aa94770c88a2c983f6d18581ed56",
+      "role_source_checkpoint": "/storage/zhanh_storage/auto_structbeat_runs/beatthis_nosmc_single_seed0_e100_20260929T085029/production/checkpoints/beatthis_nosmc_single_seed0_e100-best-0029-0.4869.ckpt",
+      "role_source_checkpoint_sha256": "46fb378d82261b060d1c3888cf00586aed0500def35d2e997ed7be4fca2e8405"
+    },
+    "clean_beatles_priority": {
+      "candidate_id": "epoch_0079_5b0a6bcb",
+      "inference_checkpoint": "/storage/zhanh_storage/auto_structbeat_runs/beatthis_nosmc_single_seed0_e100_20260929T085029/production/checkpoints/beatthis_nosmc_single_seed0_e100-epoch0079.ckpt",
+      "inference_checkpoint_sha256": "8b69ca0b11ce09ff4a66cc2cd25868cb277d44e4f973a13d5e867a139e7014b5",
+      "model_state_sha256": "5b0a6bcb863560a8c36c136822add08ff3af60fd3808d73741871c8eca9695e3",
+      "role_source_checkpoint": "/storage/zhanh_storage/auto_structbeat_runs/beatthis_nosmc_single_seed0_e100_20260929T085029/production/checkpoints/beatthis_nosmc_single_seed0_e100-epoch0079.ckpt",
+      "role_source_checkpoint_sha256": "8b69ca0b11ce09ff4a66cc2cd25868cb277d44e4f973a13d5e867a139e7014b5"
+    },
+    "last": {
+      "candidate_id": "epoch_0099_ade9648f",
+      "inference_checkpoint": "/storage/zhanh_storage/auto_structbeat_runs/beatthis_nosmc_single_seed0_e100_20260929T085029/production/checkpoints/beatthis_nosmc_single_seed0_e100-epoch0099.ckpt",
+      "inference_checkpoint_sha256": "1c2956da153819bafc4dfdf3d5d4dc776bc2d3e098b13383920515a86b579540",
+      "model_state_sha256": "ade9648fc28e4d5c18af09f434eb89296ad6e18ac7bbe9146a946661ff55bfb8",
+      "role_source_checkpoint": "/storage/zhanh_storage/auto_structbeat_runs/beatthis_nosmc_single_seed0_e100_20260929T085029/production/checkpoints/last.ckpt",
+      "role_source_checkpoint_sha256": "cf0da9aae3340b81f83caa89bb179cf70161ddb197238540d99a310d4aa66c85"
+    },
+    "smc_gtzan_oracle": {
+      "candidate_id": "epoch_0099_ade9648f",
+      "inference_checkpoint": "/storage/zhanh_storage/auto_structbeat_runs/beatthis_nosmc_single_seed0_e100_20260929T085029/production/checkpoints/beatthis_nosmc_single_seed0_e100-epoch0099.ckpt",
+      "inference_checkpoint_sha256": "1c2956da153819bafc4dfdf3d5d4dc776bc2d3e098b13383920515a86b579540",
+      "model_state_sha256": "ade9648fc28e4d5c18af09f434eb89296ad6e18ac7bbe9146a946661ff55bfb8",
+      "role_source_checkpoint": "/storage/zhanh_storage/auto_structbeat_runs/beatthis_nosmc_single_seed0_e100_20260929T085029/production/checkpoints/beatthis_nosmc_single_seed0_e100-epoch0099.ckpt",
+      "role_source_checkpoint_sha256": "1c2956da153819bafc4dfdf3d5d4dc776bc2d3e098b13383920515a86b579540"
+    }
+  },
+  "role_count": 4,
+  "role_eligibility": {
+    "best_val": {
+      "eligible_if_predeclared_before_target": true,
+      "submission_eligible": false
+    },
+    "clean_beatles_priority": {
+      "eligible_if_predeclared_before_target": false,
+      "submission_eligible": true
+    },
+    "last": {
+      "eligible_if_predeclared_before_target": true,
+      "submission_eligible": false
+    },
+    "smc_gtzan_oracle": {
+      "eligible_if_predeclared_before_target": false,
+      "submission_eligible": false
+    }
+  },
+  "roles": {
+    "best_val": "epoch_0029_8c359ed1",
+    "clean_beatles_priority": "epoch_0079_5b0a6bcb",
+    "last": "epoch_0099_ade9648f",
+    "smc_gtzan_oracle": "epoch_0099_ade9648f"
+  },
+  "selection_rules": {
+    "best_val": "minimum filename-recorded validation loss among top-K candidates",
+    "clean_beatles_priority": "immutable allowed-validation choice: 60% Beatles beat + 40% Beatles downbeat; each target is 50% F + 25% CMLt + 25% AMLt",
+    "last": "explicit last; otherwise highest periodic milestone",
+    "smc_gtzan_oracle": "maximize 50% SMC beat + 25% GTZAN beat + 25% GTZAN downbeat; each target is 50% F + 25% CMLt + 25% AMLt; diagnostic only"
+  },
+  "unique_candidate_ids": [
+    "epoch_0029_8c359ed1",
+    "epoch_0079_5b0a6bcb",
+    "epoch_0099_ade9648f"
+  ],
+  "unique_checkpoint_count": 4,
+  "unique_model_state_count": 3
+}

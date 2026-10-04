@@ -22,7 +22,7 @@ class PipelineTest(unittest.TestCase):
         self.assertEqual(set(specs), {"beatthis", "mscnn", "beatfm"})
         self.assertIsNotNone(specs["beatthis"].adapter)
         self.assertEqual(specs["mscnn"].adapter, specs["beatthis"].adapter)
-        self.assertIsNone(specs["beatfm"].adapter)
+        self.assertEqual(specs["beatfm"].adapter, "mirex_pipeline.beatfm_backend:BeatFMBackend")
 
     def test_dbn_ranges(self) -> None:
         cases = [

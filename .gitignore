@@ -15,6 +15,13 @@
 build/
 dist/
 
+# Private MIREX checkpoint and dependency artifacts are packaged separately.
+/mirex2026/weights/
+/mirex2026/.private_beatthis_source/
+/mirex2026/.private_beatfm_source/
+/mirex2026/.private_mert_v1_95m/
+/mirex2026/submission-builds/
+
 # Publish curated figure archives, not the full private research workspace.
 /archive/*
 !/archive/README.md

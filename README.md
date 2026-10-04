@@ -16,11 +16,17 @@ These are **different protocols in directories, not separate development
 branches**. Our core CASM methodology was submitted to ICASSP 2027 as a
 conference paper with eight-fold backbone evaluation. MIREX is a competition
 entry applying that
-methodology to a newly retrained, no-SMC backbone; it is not a repeat
+methodology to separately trained no-SMC backbones; it is not a repeat
 submission of the conference paper. The paper and competition do not reuse
 one another's backbone checkpoints or selection records. BeatThis is an
 upstream backbone from the [Beat This repository](https://github.com/CPJKU/beat_this),
 not a neural architecture we claim to have invented.
+
+The competition's current allowed-validation evidence and private packaging
+status are in the [MIREX workspace](mirex2026/README.md) and its
+[matched-piece three-backbone table](mirex2026/results/common_allowed_137_20261004/README.md).
+These development scores are not official MIREX test results; SMC and GTZAN
+are barred from every MIREX development decision.
 
 All experiments follow the [evaluation eligibility policy](EXPERIMENT_EVALUATION_POLICY.md):
 in-sample checkpoint/evaluation overlap is never presented as held-out evidence.

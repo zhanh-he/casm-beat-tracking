@@ -1,0 +1,20 @@
+{
+  "candidate_id": "epoch_0079_5b0a6bcb",
+  "checkpoint": "/storage/zhanh_storage/auto_structbeat_runs/beatthis_nosmc_single_seed0_e100_20260929T085029/production/checkpoints/beatthis_nosmc_single_seed0_e100-epoch0079.ckpt",
+  "checkpoint_sha256": "8b69ca0b11ce09ff4a66cc2cd25868cb277d44e4f973a13d5e867a139e7014b5",
+  "frozen_before_test_diagnostics": true,
+  "model_state_sha256": "5b0a6bcb863560a8c36c136822add08ff3af60fd3808d73741871c8eca9695e3",
+  "selection_data": "allowed validation only; Beatles subset",
+  "selection_decoder": "direct/minimal",
+  "selection_formula": "0.60*beat(0.50*F+0.25*CMLt+0.25*AMLt)+0.40*downbeat(0.50*F+0.25*CMLt+0.25*AMLt)",
+  "selection_metrics": {
+    "beat_amlt": 0.905456948421348,
+    "beat_cmlt": 0.8445537992829047,
+    "beat_fmeasure": 0.9390701611962575,
+    "downbeat_amlt": 0.8079872370025278,
+    "downbeat_cmlt": 0.7772199211669962,
+    "downbeat_fmeasure": 0.9042610538540146
+  },
+  "selection_score": 0.8835955871022705,
+  "submission_eligible": true
+}

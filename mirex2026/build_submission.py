@@ -26,6 +26,10 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--mscnn-checkpoint", type=Path)
     parser.add_argument("--beatfm-checkpoint", type=Path)
+    parser.add_argument("--beatfm-source-dir", type=Path,
+                        help="Audited private BeatFM source; required with its checkpoint")
+    parser.add_argument("--beatfm-mert-dir", type=Path,
+                        help="Pinned MERT-v1-95M snapshot; required with BeatFM")
     parser.add_argument(
         "--casm-config", type=Path, default=ROOT / "config" / "casm-no-smc.json"
     )
@@ -54,7 +58,7 @@ def copy_python_package(source: Path, target: Path) -> None:
     shutil.copytree(
         source,
         target,
-        ignore=shutil.ignore_patterns("__pycache__", "*.pyc", ".DS_Store"),
+        ignore=shutil.ignore_patterns(".git", ".idea", "__pycache__", "*.pyc", ".DS_Store"),
     )
 
 
@@ -69,6 +73,8 @@ def require_hash(path: Path, expected: str | None) -> str:
 
 def main() -> None:
     args = parse_args()
+    if bool(args.beatfm_checkpoint) != bool(args.beatfm_source_dir) or bool(args.beatfm_checkpoint) != bool(args.beatfm_mert_dir):
+        raise ValueError("BeatFM checkpoint, source, and MERT snapshot must be bundled together")
     output = args.output_dir.resolve()
     if output.exists():
         raise RuntimeError(f"Refusing to replace existing output: {output}")
@@ -89,7 +95,9 @@ def main() -> None:
         "run_casm_beatthis.py",
         "requirements.txt",
         "requirements-dbn.txt",
+        "requirements-beatfm.txt",
         "SYSTEM_DESCRIPTION.md",
+        "THIRD_PARTY.md",
     ):
         shutil.copy2(ROOT / name, output / name)
     shutil.copy2(ROOT / "SUBMISSION_README.md", output / "README.md")
@@ -98,9 +106,16 @@ def main() -> None:
     shutil.copy2(checkpoint, output / "weights" / "beatthis.ckpt")
     (output / "config").mkdir()
     shutil.copy2(config, output / "config" / "casm-no-smc.json")
-    shutil.copy2(
-        ROOT / "config" / "backbones.json",
-        output / "config" / "backbones.json",
+    registry = json.loads((ROOT / "config" / "backbones.json").read_text())
+    registry["backbones"]["beatthis"]["status"] = "ready-in-bundle"
+    registry["backbones"]["mscnn"]["status"] = (
+        "ready-in-bundle" if args.mscnn_checkpoint else "checkpoint-not-in-bundle"
+    )
+    registry["backbones"]["beatfm"]["status"] = (
+        "ready-in-bundle-private-assets" if args.beatfm_checkpoint else "checkpoint-not-in-bundle"
+    )
+    (output / "config" / "backbones.json").write_text(
+        json.dumps(registry, indent=2, sort_keys=True) + "\n"
     )
 
     backbone_records = {
@@ -139,6 +154,25 @@ def main() -> None:
                 "config/backbones.json"
             ),
         }
+
+    if args.beatfm_checkpoint:
+        source_dir = args.beatfm_source_dir.resolve()
+        mert_dir = args.beatfm_mert_dir.resolve()
+        for required in ("MultilevelSemanticAggregation.py", "model.py"):
+            if not (source_dir / required).is_file():
+                raise FileNotFoundError(source_dir / required)
+        for required in ("pytorch_model.bin", "config.json", "preprocessor_config.json", "modeling_MERT.py", "configuration_MERT.py"):
+            if not (mert_dir / required).is_file():
+                raise FileNotFoundError(mert_dir / required)
+        copy_python_package(source_dir, output / "third_party" / "beatfm_source")
+        shutil.copytree(
+            mert_dir,
+            output / "third_party" / "mert_v1_95m",
+            ignore=shutil.ignore_patterns(".cache", "__pycache__", "*.pyc", ".DS_Store"),
+        )
+        (output / "backbone-retrain").mkdir()
+        shutil.copy2(ROOT / "backbone-retrain" / "train_beatfm.py",
+                     output / "backbone-retrain" / "train_beatfm.py")
 
     copy_python_package(
         args.beat_this_root.resolve() / "beat_this",

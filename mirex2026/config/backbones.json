@@ -9,25 +9,25 @@
   },
   "backbones": {
     "beatthis": {
-      "status": "adapter-ready-checkpoint-pending",
+      "status": "selected-checkpoint-private",
       "adapter": "mirex_pipeline.beatthis_backend:BeatThisBackend",
       "checkpoint": "weights/beatthis.ckpt",
       "fps": 50.0,
-      "description": "Primary MIREX backbone; no-SMC full-data checkpoint is selected by the frozen experiment protocol."
+      "description": "Primary no-SMC, GTZAN-held-out backbone; seed 2 was selected on allowed validation and retrained on all allowed development pieces."
     },
     "mscnn": {
-      "status": "adapter-ready-training-in-progress",
+      "status": "selected-checkpoint-private",
       "adapter": "mirex_pipeline.beatthis_backend:BeatThisBackend",
       "checkpoint": "weights/mscnn.ckpt",
       "fps": 50.0,
-      "description": "Secondary lightweight competition backbone; the shared Audio2Frames loader dispatches architecture=multiscale_cnn and the final seed-0 checkpoint is pending."
+      "description": "Secondary lightweight backbone; the allowed-validation screen selected the seed-0 last epoch 1499 train-split checkpoint."
     },
     "beatfm": {
-      "status": "source-and-checkpoint-pending",
-      "adapter": null,
+      "status": "selected-verified-subset-checkpoint-private",
+      "adapter": "mirex_pipeline.beatfm_backend:BeatFMBackend",
       "checkpoint": "weights/beatfm.ckpt",
       "fps": 50.0,
-      "description": "Planned competition backbone. Its audited upstream source revision, adapter, and checkpoint must be supplied before enabling it."
+      "description": "No-SMC 911-piece Ballroom/RWC train-split candidate; epoch 15 selected on the 137-piece allowed validation panel. Expanded-data comparison and source redistribution rights remain pending."
     }
   }
 }

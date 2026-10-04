@@ -13,8 +13,10 @@ RUN apt-get update \
 WORKDIR /app
 COPY requirements.txt /app/requirements.txt
 COPY requirements-dbn.txt /app/requirements-dbn.txt
+COPY requirements-beatfm.txt /app/requirements-beatfm.txt
 RUN python -m pip install --upgrade pip \
     && python -m pip install -r /app/requirements.txt \
+    && python -m pip install -r /app/requirements-beatfm.txt \
     && python -m pip install 'Cython==0.29.37' \
     && python -m pip install --no-build-isolation -r /app/requirements-dbn.txt
 

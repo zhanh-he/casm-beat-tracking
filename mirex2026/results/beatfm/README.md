@@ -61,7 +61,10 @@ comparison to the 4,339-piece BeatThis pool or an exact reproduction of the
 BeatFM paper. The separate 1,684-piece run (Kaya `69061`) completed after
 25 epochs with early stopping. Its dependency-linked common-panel score job
 `69066` failed before scoring due to a file-staging error; corrected retry
-`70943` is pending/running. The 911-piece
+`70943` was cancelled on 2026-10-05 at the user's request to stop BeatFM
+experiments. It ran for zero seconds. No BeatFM job remains queued on Kaya or
+Gadi, and no BeatFM inference process was found on lab5090. Existing weights,
+logs, and earlier validation results were retained. The 911-piece
 checkpoint has not yet been retrained on all 911 allowed pieces. CASM was
 calibrated using an allowed validation pool that includes these recordings,
 so the decoder comparison is development evidence rather than an unbiased
@@ -91,5 +94,5 @@ private submission candidate. The expanded snapshot SHA-256 is
 `560c0f4b3ed9e6860919beed700b77beac9fd58424bcf35b3f508955c41610b1`;
 its [full early-check summary](expanded_interim_epoch2_common137_20261004/summary.csv)
 and [provenance](expanded_interim_epoch2_common137_20261004/provenance.json)
-are retained for audit. The final five-checkpoint evaluation will run only
-after training finishes.
+are retained for audit. The final five-checkpoint evaluation is cancelled,
+not pending.

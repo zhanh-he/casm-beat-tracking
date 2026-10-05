@@ -8,6 +8,9 @@ The [BeatFM five-checkpoint score](beatfm/README.md) selects epoch 15 on
 reports all three backbones × four decoders on those same 137 IDs. None is an
 official MIREX test score. The primary BeatThis full-allowed-data retrain has
 separate weights; its former validation pieces are no longer held out.
+The [requested GTZAN/SMC matrix](MODEL_DECODER_MATRIX_20261005.md) shows
+verified historical values and explicit missing-result cells for BeatThis,
+MSCNN, TCN, BeatFM, and SpecTNT; it must not be used for MIREX development.
 
 The [MIREX 2026 task rule](https://music-ir.org/mirex/wiki/2026:Audio_Beat_Tracking)
 prohibits SMC and GTZAN for **any development purpose**, including model
@@ -31,7 +34,8 @@ and `69065` failed before scoring; queued duplicate `69069` was cancelled
 after the 5090 result was validated. An expanded 1,684-piece audio-matched
 training run completed as job `69061` (25 epochs). Its dependency evaluation
 job `69066` failed before scoring due to a staging-path error; corrected
-retry `70943` is pending/running. This is not an
+retry `70943` was cancelled before running on 2026-10-05 at the user's
+request to stop all BeatFM experiments. This is not an
 equal-data BeatThis reproduction. Full-pool
 BeatFM training still lacks the remaining original audio. The one-epoch
 engineering pilot is not a scoring checkpoint.

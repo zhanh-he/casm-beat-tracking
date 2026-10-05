@@ -55,7 +55,7 @@ is a runnable candidate bundle, not an uploaded MIREX entry.
   (SHA-256 `6cb647407caf367e1e3e66d13061a4459899f26e1ae0001e5c519cac95ab30b1`)
   and one-WAV Direct smoke-tested on lab5090. No full-allowed retrain yet.
 
-## BeatFM — reduced-data candidates; expanded scoring and rights pending
+## BeatFM — experiments stopped 2026-10-05; artifacts retained
 
 - [x] User-supplied source archive SHA-256 and private Kaya/Gadi copies
   recorded. The archive's embedded Git metadata has no resolvable commit.
@@ -107,7 +107,8 @@ is a runnable candidate bundle, not an uploaded MIREX entry.
   validation panel** used for the 911-piece candidate. Dependency job `69066`
   failed before scoring because the backend's architecture file was staged
   at the wrong path; no metric came from that job. The file was hash-checked
-  and staged at the expected path, and retry job `70943` was submitted.
+  and staged at the expected path, but retry job `70943` was cancelled at the
+  user's request before it ran. No further BeatFM evaluation is queued.
   The expanded-only 253-piece panel is a separate follow-up, not
   interchangeable with the common panel.
 - [ ] Original audio mapped for all 4,339 allowed pieces; the BeatThis data
@@ -130,9 +131,10 @@ is a runnable candidate bundle, not an uploaded MIREX entry.
   This is a **private selected 911-piece candidate**, not the final official
   entry while expanded-data evidence and source rights remain open.
 
-BeatFM is runnable with the selected 911-piece train-split checkpoint and
-audited private source/MERT files, but expanded-data scoring,
-full-allowed-subset retraining, and distribution rights remain open. The
+BeatFM is runnable with the selected 774-piece train-split checkpoint and
+audited private source/MERT files, but all BeatFM experiments are stopped;
+expanded-data scoring, full-allowed-subset retraining, and distribution rights
+remain open. The
 bundle builder includes the source,
 MERT snapshot, architecture module, and pinned dependency only when BeatFM is
 explicitly supplied; missing assets fail closed.

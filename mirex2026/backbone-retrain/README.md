@@ -43,9 +43,10 @@ standalone public 7F decoder is a separate paper/release configuration.
   911-piece candidate's five-checkpoint
   allowed-validation screen selected epoch 15; see the
   [score table](../results/beatfm/README.md). The 1,684-piece run still
-  requires its own metric screen (retry `70943` after `69066` failed before
-  scoring due to a staging-path error), and both require reduced-data
-  disclosure.
+  has no completed final metric screen: `69066` failed before scoring due to
+  a staging-path error, and retry `70943` was cancelled on 2026-10-05 at the
+  user's request to stop BeatFM experiments. Existing weights and logs were
+  retained. Both runs require reduced-data disclosure.
 - Verified RWC 2.0 and Ballroom original-audio mapping is documented in the
   [audit](BEATFM_SOURCE_AUDIT.md). [`rwc2_audio_map.py`](rwc2_audio_map.py)
   checks CD/track metadata, WAV duration, and every beat timestamp;

@@ -1,0 +1,15 @@
+{
+  "architecture": "tcn",
+  "candidate_id": "milestone-119",
+  "checkpoint": "/mmfs1/data/scratch/ems011/zhe/auto_structbeat_runs/mirex_no_smc_20260929/tcn_single/checkpoints/milestone-119.ckpt",
+  "checkpoint_sha256": "4b55dd02e63560bbc06b6800f48cf3c1eeac21b4af003a9f82f4b86fdb395b4f",
+  "created_utc": "2026-10-05T03:34:25.462582+00:00",
+  "frozen_before_test_diagnostics": true,
+  "inference_candidate_id": "milestone-119",
+  "model_state_sha256": "7727633bbaca92d83df18a879f6ad2b0fb9f4c229031170e45566223fdfcd1cd",
+  "selection_data": "allowed validation only; Beatles subset",
+  "selection_decoder": "direct/minimal",
+  "selection_formula": "0.60*beat(0.50*F+0.25*CMLt+0.25*AMLt)+0.40*downbeat(0.50*F+0.25*CMLt+0.25*AMLt)",
+  "selection_score": 0.7780014831937334,
+  "submission_eligible": true
+}

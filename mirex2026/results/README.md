@@ -3,6 +3,9 @@
 Current development evidence is the
 [BeatThis seed-2 allowed-validation decoder panel](beatthis_seed2_allowed_panel_20261004/README.md)
 and the [MSCNN four-checkpoint allowed-validation screen](mscnn_seed0_allowed_screen_20261004/README.md).
+The [TCN nine-state allowed-validation screen](tcn_seed0_allowed_20261005/README.md)
+has now selected its seed-0 epoch-119 state; full-allowed-data retraining is
+queued separately.
 The [BeatFM five-checkpoint score](beatfm/README.md) selects epoch 15 on
 137 allowed Ballroom/RWC recordings. An [exact matched-piece matrix](common_allowed_137_20261004/README.md)
 reports all three backbones × four decoders on those same 137 IDs. None is an

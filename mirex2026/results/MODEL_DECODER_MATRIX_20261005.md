@@ -18,7 +18,7 @@ matrix, **not** a set of official MIREX test results or a submission selector.
 |  |  | DBN 55–215 / DBN 30–300 | — / — | — / — |
 | MSCNN, **not trained** | 4,339; same log-Mel; full-retrain plan only | Direct / CASM | — / — | — / — |
 |  |  | DBN 55–215 / DBN 30–300 | — / — | — / — |
-| TCN seed-0 e119 / best-loss candidate, selection running | 3,783; BeatThis log-Mel; 556 allowed validation | Direct / CASM | — / — | — / — |
+| TCN seed-0 e119, selected on allowed validation | 3,783; BeatThis log-Mel; 556 allowed validation | Direct / CASM | — / — | — / — |
 |  |  | DBN 55–215 / DBN 30–300 | — / — | — / — |
 | TCN, **not trained** | 4,339; same log-Mel; full-retrain plan only | Direct / CASM | — / — | — / — |
 |  |  | DBN 55–215 / DBN 30–300 | — / — | — / — |
@@ -45,9 +45,13 @@ training, validation, model selection, parameter tuning, or other development.
 Therefore neither the historical diagnostic row nor any future organizer test
 scores can select MIREX checkpoints/decoders. TCN's old paused screen job
 `39247`, which would have promoted SMC/GTZAN diagnostic roles, was cancelled.
-The replacement Kaya job `71534` reads only 556 allowed validation pieces,
-freezes one checkpoint, and compares the four decoders on that pool. Its
-dependent Kaya job `71653` then retrains the same seed for the chosen number
+The replacement Kaya job `71534` completed successfully. It read only 556
+allowed validation pieces and selected `milestone-119` (SHA-256
+`4b55dd02e63560bbc06b6800f48cf3c1eeac21b4af003a9f82f4b86fdb395b4f`)
+from nine distinct checkpoint states before comparing the four decoders on
+the same panel. The [audited allowed-validation result](tcn_seed0_allowed_20261005/README.md)
+is **not** a GTZAN/SMC table entry. Its dependent Kaya job `71653` then
+retrains the same seed for the chosen number
 of epochs on all 4,339 allowed pieces using `--no-val`; any validation metric
 printed during that final run overlaps training and is ineligible as an
 independent score. BeatFM retry `70943` was cancelled before running;

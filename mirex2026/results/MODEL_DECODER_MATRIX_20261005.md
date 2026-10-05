@@ -35,8 +35,9 @@ for the frozen duration on the complete allowed pool. TCN split selection used
 only allowed validation; the final checkpoint SHA-256 is
 `3fb04add5b37ea0f624ce63b60cb6e5e90725892363015e7d8f4f284e3833e98`.
 The 4,339-piece MSCNN row remains blank until the seed-0, 1,500-epoch
-full-allowed retrain running as lab5090 PID `3434304` with Kaya V100 job
-`74883` as backup completes and its checkpoint is frozen. TCN follow-up work is paused; SpecTNT is only a reserved
+full-allowed retrain running as Kaya V100 job `74883` completes and its
+checkpoint is frozen. The slower lab5090 race was stopped without a
+checkpoint. TCN follow-up work is paused; SpecTNT is only a reserved
 table slot and has no implementation or running job.
 The exact source CSVs and 5090 per-piece results are retained in
 [`target_table_20261005/`](target_table_20261005/).

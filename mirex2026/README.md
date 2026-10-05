@@ -28,7 +28,7 @@ at 50 Hz. The shared decoder layer then applies the requested postprocessor.
 | Backbone | Status | MIREX role |
 |---|---|---|
 | BeatThis | three-seed expanded search, full-allowed retrain, and four-decoder one-WAV smoke complete | primary submission |
-| MSCNN | seed-0 epoch 1499 selected on allowed validation; 1,500-epoch full-allowed retrain running on lab5090 with Kaya backup and an SMC/GTZAN exclusion gate | highest-priority remaining retrain |
+| MSCNN | seed-0 epoch 1499 selected on allowed validation; 1,500-epoch full-allowed retrain running on Kaya with an SMC/GTZAN exclusion gate | highest-priority remaining retrain |
 | BeatFM | 911-piece epoch-15 checkpoint selected; experiments stopped and artifacts retained | reduced-data fallback only |
 
 ## Checkpoint selection and frozen diagnostics

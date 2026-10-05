@@ -73,9 +73,10 @@ standalone public 7F decoder is a separate paper/release configuration.
   the selected seed-0, 1,500-epoch MSCNN recipe and merge the 3,783 training
   plus 556 allowed-validation pieces with `--no-val`. Both launchers hard-fail
   unless the effective loader contains exactly 4,339 pieces and zero SMC or
-  GTZAN training items. Kaya V100 job `74883` and lab5090 PID `3434304`
-  started on 2026-10-05 in separate output directories. The delayed Kaya
-  MI210 job `74765` was cancelled before it ran. Dependent Kaya job `75204`
+  GTZAN training items. Kaya V100 job `74883` is the primary run. A lab5090
+  race was stopped after 82 minutes without completing its first epoch; no
+  checkpoint was produced and its log was retained. The delayed Kaya MI210
+  job `74765` was cancelled before it ran. Dependent Kaya job `75204`
   resumes the V100 `last.ckpt` if its 12-hour queue segment expires.
 
 Never evaluate a checkpoint on pieces used for its training. The gate and

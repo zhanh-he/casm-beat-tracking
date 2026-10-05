@@ -57,9 +57,10 @@ is a runnable candidate bundle, not an uploaded MIREX entry.
 - [ ] Full-allowed retrain in progress: the frozen seed-0, 1,500-epoch recipe
   uses `--no-val` to merge 3,783 training and 556 allowed-validation pieces.
   A launch-time loader audit requires exactly 4,339 effective pieces and zero
-  SMC/GTZAN training items. Lab5090 PID `3434304` is the priority run and Kaya
-  V100 job `74883` is the live backup. The delayed MI210 job `74765` was
-  cancelled before it ran. Kaya continuation job `75204` depends on `74883`
+  SMC/GTZAN training items. Kaya V100 job `74883` is the live primary run.
+  The lab5090 race was stopped without a checkpoint after 82 minutes because
+  it had not completed its first epoch; its log is retained. The delayed MI210
+  job `74765` was cancelled before it ran. Kaya continuation job `75204` depends on `74883`
   and resumes `last.ckpt` only if the 12-hour V100 segment does not finish;
   it exits immediately if `TRAINING_COMPLETE` already exists. TCN follow-up
   work is paused and SpecTNT has no job.

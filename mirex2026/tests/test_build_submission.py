@@ -56,6 +56,11 @@ class BuildSubmissionTest(unittest.TestCase):
                              "ready-in-bundle-private-assets")
             self.assertEqual(registry["backbones"]["mscnn"]["status"],
                              "checkpoint-not-in-bundle")
+            manifest = json.loads((output / "MANIFEST.json").read_text())
+            self.assertIn("--task beat", manifest["mirex_commands"]["beat"])
+            self.assertIn(
+                "--task downbeat", manifest["mirex_commands"]["downbeat"]
+            )
 
     def test_beatfm_requires_source_and_mert_together(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

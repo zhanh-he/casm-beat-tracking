@@ -1,4 +1,4 @@
-# CASM systems for MIREX 2026 Audio Beat Tracking
+# CASM systems for MIREX 2026 Audio Beat Tracking and Downbeat Estimation
 
 ## Scope
 
@@ -10,7 +10,8 @@ This repository, not from a new architecture proposed here.
 
 The competition package shares one audio-to-activation contract across three
 planned neural frontends: BeatThis, MSCNN, and BeatFM. Each frontend returns
-50 Hz beat and downbeat logits. The user can then choose Direct peak picking,
+50 Hz beat and downbeat logits. Separate `--task beat` and `--task downbeat`
+entries select which event stream is written. The user can then choose Direct peak picking,
 the joint madmom DBN, or Confidence-Adaptive Semi-Markov (CASM) decoding.
 
 BeatThis is the primary current system. MSCNN is retained as a lightweight

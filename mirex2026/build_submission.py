@@ -210,6 +210,10 @@ def main() -> None:
         "default_mirex_command": (
             "./run.sh --backbone beatthis --decoder casm %input %output"
         ),
+        "mirex_commands": {
+            "beat": "./run.sh --task beat --backbone beatthis --decoder casm %input %output",
+            "downbeat": "./run.sh --task downbeat --backbone beatthis --decoder casm %input %output",
+        },
         "backbones": backbone_records,
         "casm_config_sha256": config_sha256,
         "files": files,

@@ -1,4 +1,4 @@
-# CASM MIREX 2026 Audio Beat Tracking system
+# CASM MIREX 2026 Audio Beat Tracking and Downbeat Estimation systems
 
 This is a competition inference bundle, not a resubmission of our ICASSP
 paper. That paper presents the CASM postprocessing methodology; this bundle
@@ -21,7 +21,18 @@ PYTHON=.venv/bin/python ./run.sh --backbone beatthis --decoder dbn %input %outpu
 PYTHON=.venv/bin/python ./run.sh --backbone beatthis --decoder dbn --dbn-wide %input %output
 ```
 
-Each output contains one beat time in seconds per line. DBN defaults to
+Those commands are the Audio Beat Tracking entry (`--task beat` is the
+default). The corresponding Audio Downbeat Estimation commands add
+`--task downbeat`, for example:
+
+```text
+PYTHON=.venv/bin/python ./run.sh --task downbeat --backbone beatthis --decoder casm %input %output
+PYTHON=.venv/bin/python ./run.sh --task downbeat --backbone beatthis --decoder direct %input %output
+PYTHON=.venv/bin/python ./run.sh --task downbeat --backbone beatthis --decoder dbn %input %output
+PYTHON=.venv/bin/python ./run.sh --task downbeat --backbone beatthis --decoder dbn --dbn-wide %input %output
+```
+
+Each output contains one selected event time in seconds per line. DBN defaults to
 55–215 BPM; `--dbn-wide` selects the exploratory 30–300 BPM range. CASM uses
 the frozen no-SMC competition configuration at 30–300 BPM. To run an MSCNN
 or BeatFM variant when its checkpoint is included, replace `beatthis` with

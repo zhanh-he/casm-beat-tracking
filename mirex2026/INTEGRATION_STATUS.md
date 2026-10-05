@@ -53,7 +53,13 @@ is a runnable candidate bundle, not an uploaded MIREX entry.
   `39261` failure is historical. See the [audited table](results/mscnn_seed0_allowed_screen_20261004/README.md).
 - [x] Chosen train-split checkpoint copied privately to `weights/mscnn.ckpt`
   (SHA-256 `6cb647407caf367e1e3e66d13061a4459899f26e1ae0001e5c519cac95ab30b1`)
-  and one-WAV Direct smoke-tested on lab5090. No full-allowed retrain yet.
+  and one-WAV Direct smoke-tested on lab5090.
+- [ ] Full-allowed retrain in progress: the frozen seed-0, 1,500-epoch recipe
+  uses `--no-val` to merge 3,783 training and 556 allowed-validation pieces.
+  A launch-time loader audit requires exactly 4,339 effective pieces and zero
+  SMC/GTZAN training items. Kaya V100 job `74883` is the priority run; MI210
+  job `74765` is an isolated backup and will be cancelled once the V100 run is
+  confirmed running. TCN follow-up work is paused and SpecTNT has no job.
 
 ## BeatFM — experiments stopped 2026-10-05; artifacts retained
 

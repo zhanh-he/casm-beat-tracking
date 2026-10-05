@@ -28,8 +28,8 @@ at 50 Hz. The shared decoder layer then applies the requested postprocessor.
 | Backbone | Status | MIREX role |
 |---|---|---|
 | BeatThis | three-seed expanded search, full-allowed retrain, and four-decoder one-WAV smoke complete | primary submission |
-| MSCNN | four-candidate seed-0 allowed-validation screen complete; last epoch 1499 chosen and smoke-tested | lightweight secondary, train-split weight |
-| BeatFM | 911-piece epoch-15 checkpoint selected on 137 allowed Ballroom/RWC pieces; 1,684-piece expansion running | additional train-split candidate, with reduced-data disclosure and private-source rights check |
+| MSCNN | seed-0 epoch 1499 selected on allowed validation; 1,500-epoch full-allowed retrain submitted with an SMC/GTZAN exclusion gate | highest-priority remaining retrain |
+| BeatFM | 911-piece epoch-15 checkpoint selected; experiments stopped and artifacts retained | reduced-data fallback only |
 
 The BeatThis fork's audited `Audio2Frames` loader reads checkpoint architecture
 metadata and supports both BeatThis and MSCNN. BeatFM has a separate
@@ -116,9 +116,11 @@ the development links in this file are not placed into the standalone archive.
 - Clean selection is frozen on allowed validation data. The [2026 rules](https://music-ir.org/mirex/wiki/2026:Audio_Beat_Tracking)
   prohibit SMC and GTZAN for any development purpose; earlier target-set
   screens are historical artifacts, not a permitted MIREX diagnostic loop.
-- After seed/epoch selection, the primary BeatThis was retrained on all allowed
-  training and validation pieces with the fixed recipe. MSCNN and BeatFM
-  candidates remain train/validation split models until separately retrained.
+- After seed/epoch selection, BeatThis was retrained on all allowed training
+  and validation pieces with the fixed recipe. The equivalent MSCNN full-data
+  retrain is now running; the packaged MSCNN weight remains the disclosed
+  train-split checkpoint until that retrain completes and passes smoke tests.
+  BeatFM remains a stopped, reduced-data train-split experiment.
 - The final README submitted to MIREX will contain only the command lines that
   we actually want the organizers to execute; examples above are capability
   documentation, not a request to evaluate every Cartesian-product variant.

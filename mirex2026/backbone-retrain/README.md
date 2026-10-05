@@ -24,8 +24,9 @@ standalone public 7F decoder is a separate paper/release configuration.
   upstream-derived seed-0, 100-epoch no-SMC baseline command, including
   provenance hashes and milestone checkpoints. It expects a prepared data
   view and lab environment; it is not the frozen winning final-retrain recipe.
-- BeatThis is the primary candidate; MSCNN is a lower-priority secondary
-  adapter. The [BeatFM source audit and raw-audio gate](BEATFM_SOURCE_AUDIT.md)
+- BeatThis is the primary candidate. MSCNN is now the highest-priority
+  remaining retrain; TCN work is paused and SpecTNT remains unimplemented.
+  The [BeatFM source audit and raw-audio gate](BEATFM_SOURCE_AUDIT.md)
   records the supplied archive, code/paper discrepancies, exact no-SMC split,
   and the separately sourced original audio.
 - [`beatfm_manifest.py`](beatfm_manifest.py) will write the complete original-
@@ -66,6 +67,13 @@ standalone public 7F decoder is a separate paper/release configuration.
   its **different, selected epoch-15 weight** has an allowed-validation score
   but awaits final package smoke testing and expanded-data comparison.
   No script or README here asserts that MIREX has received a submission.
+- [`run_mscnn_full_allowed_seed0.sbatch`](run_mscnn_full_allowed_seed0.sbatch)
+  and its [CUDA race launcher](run_mscnn_full_allowed_seed0_cuda.sbatch) freeze
+  the selected seed-0, 1,500-epoch MSCNN recipe and merge the 3,783 training
+  plus 556 allowed-validation pieces with `--no-val`. Both launchers hard-fail
+  unless the effective loader contains exactly 4,339 pieces and zero SMC or
+  GTZAN training items. Kaya jobs `74765` (MI210 backup) and `74883` (V100)
+  were submitted on 2026-10-05; their output directories are separate.
 
 Never evaluate a checkpoint on pieces used for its training. The gate and
 corrected diagnostic are documented in [`../scripts/`](../scripts/) and

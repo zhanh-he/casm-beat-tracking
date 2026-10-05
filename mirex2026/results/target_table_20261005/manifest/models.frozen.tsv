@@ -1,0 +1,4 @@
+model_id	checkpoint	smc_training_status
+mscnn_split_seed0_e1499	/storage/zhanh_storage/auto_structbeat_runs/mscnn_mirex_allowed_screen_20261004/checkpoints/mirex_no_smc_mscnn_lite_single-epoch1499.ckpt	excluded
+tcn_split_seed0_e119	/storage/zhanh_storage/auto_structbeat_runs/target_table_20261005/checkpoints/tcn_split_seed0_e119.ckpt	excluded
+tcn_full_seed0_e120	/storage/zhanh_storage/auto_structbeat_runs/target_table_20261005/checkpoints/tcn_full_seed0_e120.ckpt	excluded

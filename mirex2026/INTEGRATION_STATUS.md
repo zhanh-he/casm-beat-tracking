@@ -59,7 +59,10 @@ is a runnable candidate bundle, not an uploaded MIREX entry.
   A launch-time loader audit requires exactly 4,339 effective pieces and zero
   SMC/GTZAN training items. Lab5090 PID `3434304` is the priority run and Kaya
   V100 job `74883` is the live backup. The delayed MI210 job `74765` was
-  cancelled before it ran. TCN follow-up work is paused and SpecTNT has no job.
+  cancelled before it ran. Kaya continuation job `75204` depends on `74883`
+  and resumes `last.ckpt` only if the 12-hour V100 segment does not finish;
+  it exits immediately if `TRAINING_COMPLETE` already exists. TCN follow-up
+  work is paused and SpecTNT has no job.
 
 ## BeatFM — experiments stopped 2026-10-05; artifacts retained
 

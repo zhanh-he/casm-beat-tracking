@@ -75,7 +75,8 @@ standalone public 7F decoder is a separate paper/release configuration.
   unless the effective loader contains exactly 4,339 pieces and zero SMC or
   GTZAN training items. Kaya V100 job `74883` and lab5090 PID `3434304`
   started on 2026-10-05 in separate output directories. The delayed Kaya
-  MI210 job `74765` was cancelled before it ran.
+  MI210 job `74765` was cancelled before it ran. Dependent Kaya job `75204`
+  resumes the V100 `last.ckpt` if its 12-hour queue segment expires.
 
 Never evaluate a checkpoint on pieces used for its training. The gate and
 corrected diagnostic are documented in [`../scripts/`](../scripts/) and

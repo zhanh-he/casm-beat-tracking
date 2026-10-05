@@ -55,7 +55,7 @@ is a runnable candidate bundle, not an uploaded MIREX entry.
   (SHA-256 `6cb647407caf367e1e3e66d13061a4459899f26e1ae0001e5c519cac95ab30b1`)
   and one-WAV Direct smoke-tested on lab5090. No full-allowed retrain yet.
 
-## BeatFM — 911-piece candidate selected; expanded training and rights pending
+## BeatFM — reduced-data candidates; expanded scoring and rights pending
 
 - [x] User-supplied source archive SHA-256 and private Kaya/Gadi copies
   recorded. The archive's embedded Git metadata has no resolvable commit.
@@ -100,13 +100,16 @@ is a runnable candidate bundle, not an uploaded MIREX entry.
 - [x] A separately identified 1,684-piece original-audio subset was mapped
   (1,431 train / 253 val; manifest SHA-256
   `92e1ef0c4a02dc7d52b671966dcc7bc333e9bb55e66a609688a674ae282aeef`)
-  and Kaya job `69061` running. Groove annotations extending beyond audio
-  are clipped by the trainer and require disclosure in its result table.
-- [x] Kaya job `69066` is dependency-linked to successful completion of
-  `69061`; it will score five expanded checkpoints on the **same 137-piece
-  Ballroom/RWC validation panel** used for the 911-piece candidate. The
-  expanded-only 253-piece panel is a separate follow-up, not interchangeable
-  with the common panel.
+  and Kaya job `69061` completed successfully in 25 epochs (early stop).
+  Groove annotations extending beyond audio are clipped by the trainer and
+  require disclosure in its result table.
+- [ ] Score the expanded checkpoints on the **same 137-piece Ballroom/RWC
+  validation panel** used for the 911-piece candidate. Dependency job `69066`
+  failed before scoring because the backend's architecture file was staged
+  at the wrong path; no metric came from that job. The file was hash-checked
+  and staged at the expected path, and retry job `70943` was submitted.
+  The expanded-only 253-piece panel is a separate follow-up, not
+  interchangeable with the common panel.
 - [ ] Original audio mapped for all 4,339 allowed pieces; the BeatThis data
   view only contains spectrogram caches, so full-data reproduction remains
   blocked.
@@ -128,7 +131,7 @@ is a runnable candidate bundle, not an uploaded MIREX entry.
   entry while expanded-data evidence and source rights remain open.
 
 BeatFM is runnable with the selected 911-piece train-split checkpoint and
-audited private source/MERT files, but expanded-data comparison,
+audited private source/MERT files, but expanded-data scoring,
 full-allowed-subset retraining, and distribution rights remain open. The
 bundle builder includes the source,
 MERT snapshot, architecture module, and pinned dependency only when BeatFM is

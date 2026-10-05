@@ -39,10 +39,13 @@ standalone public 7F decoder is a separate paper/release configuration.
   fixed-epoch all-allowed-data mode. It
   rejects unmarked partial manifests by default. The 911-piece verified
   subset completed as Kaya job `45647`; the 1,684-piece expanded subset is
-  running as job `69061`. The 911-piece candidate's five-checkpoint
+  a separately completed Kaya job `69061` (25 epochs, early stop). The
+  911-piece candidate's five-checkpoint
   allowed-validation screen selected epoch 15; see the
   [score table](../results/beatfm/README.md). The 1,684-piece run still
-  requires its own metric screen, and both require reduced-data disclosure.
+  requires its own metric screen (retry `70943` after `69066` failed before
+  scoring due to a staging-path error), and both require reduced-data
+  disclosure.
 - Verified RWC 2.0 and Ballroom original-audio mapping is documented in the
   [audit](BEATFM_SOURCE_AUDIT.md). [`rwc2_audio_map.py`](rwc2_audio_map.py)
   checks CD/track metadata, WAV duration, and every beat timestamp;

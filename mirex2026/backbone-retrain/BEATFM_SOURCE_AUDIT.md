@@ -1,8 +1,8 @@
 # BeatFM source audit and MIREX data gate
 
-Status: **source inspected; the 911-piece verified-subset run completed and
-passed independent inference smoke tests; its beat-tracking validation score
-and checkpoint choice are pending. A separate 1,684-piece run is training.**
+Status: **source inspected; the 911-piece verified-subset run, checkpoint
+choice, and private inference checks are complete. A separate 1,684-piece
+run completed training, but its final five-checkpoint score is pending.**
 
 The user-supplied private archive is `~/Downloads/BeatFM.zip`, SHA-256
 `4fbf554a78f2f353d1461f2267fa45f43b6cf864fc423f146ae46d301018858a`.
@@ -37,6 +37,25 @@ Kaya (`/group/ems011/zhe/beatfm_mirex_20260930`) and Gadi
   branch fusion, whereas the paper describes four dilations and multiplicative
   fusion. We will label any run by the actual source architecture and recipe,
   not present it as an exact paper reproduction.
+
+## Paper protocol versus our current BeatFM runs
+
+The paper trains on Beatles, RWC Popular, and Harmonix, and uses eight-fold
+training/testing on Ballroom, Hainsworth, and SMC; GTZAN is test-only. MIREX
+2026 forbids **all** SMC and GTZAN development use, so an exact paper-protocol
+replication is not a valid MIREX entry. Our 911-piece run used Ballroom 685
+and all four RWC collections 226 (774 train / 137 validation). The 1,684-piece
+run added Hainsworth 222, Candombe 35, Groove 336, and GuitarSet 180
+(1,431 train / 253 validation). Neither run includes Beatles or Harmonix
+waveforms; both are far short of the 4,339-piece no-SMC/GTZAN allowed pool.
+The latter number is a BeatThis-derived MIREX split, **not** the paper's
+training-set size. The paper-style 15-second clips/5-second overlap,
+effective batch 16, Adam 3e-4, and 20-epoch patience were used with the
+supplied source architecture, but that source itself differs from the paper
+as detailed above. These are reduced-data, adapted BeatFM-source/MERT runs,
+not full-data or exact-paper BeatFM reproduction; do not compare their
+validation metrics to the paper's held-out GTZAN or eight-fold scores as if
+the protocols were matched.
 
 The 5090 synthetic-waveform inference smoke test instantiated the MERT95M
 source model with pinned MERT revision
@@ -179,8 +198,13 @@ Further allowed-data acquisition (all separate from the frozen 911-piece run):
 Thus **1,684** allowed pieces now have source-audio ID and duration mappings
 (Ballroom 685, RWC 226, Hainsworth 222, Candombe 35, Groove 336,
 GuitarSet 180): 1,431 train and 253 allowed validation. The Groove annotation
-caveat remains. The separate Kaya run `69061` is in progress; no completed
-1,684-piece BeatFM training result is claimed.
+caveat remains. The separate Kaya run `69061` completed 25 epochs with early
+stopping; this is a completed reduced-data training run, not a paper or
+full-allowed-data reproduction. Its dependency evaluation job `69066` failed
+before scoring because `train_beatfm.py` was staged at a path inconsistent
+with the inference backend. The hash-checked file was staged at the expected
+path and retry job `70943` was submitted; no final 1,684-piece metric or
+checkpoint selection is claimed yet.
 
 The [LabROSA chord-recognition source page](https://www.ee.columbia.edu/~dpwe/LabROSA/projects/chords/)
 also provides a 2009 Beatles archive: 180 mono MP3s at 32 kbps/16 kHz, not

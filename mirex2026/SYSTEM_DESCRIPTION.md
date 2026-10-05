@@ -57,7 +57,9 @@ as full-allowed-data retrains.
   checkpoint SHA-256
   `44a1a33f6c3d08180bea2f0619c16a39a756644f101d0cd5d1691f7abd8ba764`.
   It is a reduced-data candidate, not a full-allowed-data retrain. The
-  expanded 1,684-piece training and common-panel screen remain open.
+  expanded 1,684-piece training finished, but its common-panel checkpoint
+  screen remains open after a pre-scoring staging failure; retry `70943` was
+  submitted.
 - Freeze the final organizer command lines, BeatFM redistribution decision,
   training compute, and inference-time declaration after candidate selection.
 

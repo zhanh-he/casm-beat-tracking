@@ -22,6 +22,11 @@ export BEATFM_MERT_DIR=/group/ems011/zhe/beatfm_mirex_20260930/MERT-v1-95M
 export PYTHONDONTWRITEBYTECODE=1
 export OMP_NUM_THREADS=4
 
+# Fail before allocating scoring output if the packaged backend cannot import
+# its architecture module. The first evaluation attempt (job 69066) stopped
+# here before scoring because this path was not staged on Kaya.
+test -f "$protocol/backbone-retrain/train_beatfm.py"
+
 /group/ems011/zhe/envs/auto-structbeat/bin/python "$protocol/evaluate_beatfm_allowed.py" \
   --manifest "$data/expanded_verified_1684.tsv" \
   --subset expanded-1684 \
@@ -34,4 +39,4 @@ export OMP_NUM_THREADS=4
   --checkpoint epoch_0010="$run/epoch_0010.pt" \
   --checkpoint epoch_0015="$run/epoch_0015.pt" \
   --checkpoint epoch_0020="$run/epoch_0020.pt" \
-  --output-dir /scratch/ems011/zhe/beatfm_mirex_20260930/runs/expanded_common_eval_seed0_v1
+  --output-dir /scratch/ems011/zhe/beatfm_mirex_20260930/runs/expanded_common_eval_seed0_retry1

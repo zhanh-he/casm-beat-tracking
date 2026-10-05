@@ -58,8 +58,10 @@ The CSV of all 2,740 piece/decoder/candidate rows has SHA-256
 
 This is a **reduced-data, train-split candidate**. It is not an equal-data
 comparison to the 4,339-piece BeatThis pool or an exact reproduction of the
-BeatFM paper. The separate 1,684-piece run (Kaya `69061`) remains in training;
-its dependency-linked common-panel score job is `69066`. The 911-piece
+BeatFM paper. The separate 1,684-piece run (Kaya `69061`) completed after
+25 epochs with early stopping. Its dependency-linked common-panel score job
+`69066` failed before scoring due to a file-staging error; corrected retry
+`70943` is pending/running. The 911-piece
 checkpoint has not yet been retrained on all 911 allowed pieces. CASM was
 calibrated using an allowed validation pool that includes these recordings,
 so the decoder comparison is development evidence rather than an unbiased

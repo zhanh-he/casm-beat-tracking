@@ -29,8 +29,9 @@ The 911-piece Ballroom/RWC BeatFM candidate finished training on Kaya job
 `45647` and was scored on lab5090 (inference only). Kaya launchers `69059`
 and `69065` failed before scoring; queued duplicate `69069` was cancelled
 after the 5090 result was validated. An expanded 1,684-piece audio-matched
-candidate is running as job `69061`, with common-panel
-evaluation job `69066` dependency-linked to its completion. This is not an
+training run completed as job `69061` (25 epochs). Its dependency evaluation
+job `69066` failed before scoring due to a staging-path error; corrected
+retry `70943` is pending/running. This is not an
 equal-data BeatThis reproduction. Full-pool
 BeatFM training still lacks the remaining original audio. The one-epoch
 engineering pilot is not a scoring checkpoint.

@@ -57,9 +57,9 @@ is a runnable candidate bundle, not an uploaded MIREX entry.
 - [ ] Full-allowed retrain in progress: the frozen seed-0, 1,500-epoch recipe
   uses `--no-val` to merge 3,783 training and 556 allowed-validation pieces.
   A launch-time loader audit requires exactly 4,339 effective pieces and zero
-  SMC/GTZAN training items. Kaya V100 job `74883` is the priority run; MI210
-  job `74765` is an isolated backup and will be cancelled once the V100 run is
-  confirmed running. TCN follow-up work is paused and SpecTNT has no job.
+  SMC/GTZAN training items. Lab5090 PID `3434304` is the priority run and Kaya
+  V100 job `74883` is the live backup. The delayed MI210 job `74765` was
+  cancelled before it ran. TCN follow-up work is paused and SpecTNT has no job.
 
 ## BeatFM — experiments stopped 2026-10-05; artifacts retained
 

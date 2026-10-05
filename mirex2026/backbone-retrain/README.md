@@ -67,13 +67,15 @@ standalone public 7F decoder is a separate paper/release configuration.
   its **different, selected epoch-15 weight** has an allowed-validation score
   but awaits final package smoke testing and expanded-data comparison.
   No script or README here asserts that MIREX has received a submission.
-- [`run_mscnn_full_allowed_seed0.sbatch`](run_mscnn_full_allowed_seed0.sbatch)
-  and its [CUDA race launcher](run_mscnn_full_allowed_seed0_cuda.sbatch) freeze
+- [`run_mscnn_full_allowed_seed0.sbatch`](run_mscnn_full_allowed_seed0.sbatch),
+  its [Kaya CUDA launcher](run_mscnn_full_allowed_seed0_cuda.sbatch), and the
+  [lab RTX 5090 launcher](run_mscnn_full_allowed_seed0_lab5090.sh) freeze
   the selected seed-0, 1,500-epoch MSCNN recipe and merge the 3,783 training
   plus 556 allowed-validation pieces with `--no-val`. Both launchers hard-fail
   unless the effective loader contains exactly 4,339 pieces and zero SMC or
-  GTZAN training items. Kaya jobs `74765` (MI210 backup) and `74883` (V100)
-  were submitted on 2026-10-05; their output directories are separate.
+  GTZAN training items. Kaya V100 job `74883` and lab5090 PID `3434304`
+  started on 2026-10-05 in separate output directories. The delayed Kaya
+  MI210 job `74765` was cancelled before it ran.
 
 Never evaluate a checkpoint on pieces used for its training. The gate and
 corrected diagnostic are documented in [`../scripts/`](../scripts/) and

@@ -1,8 +1,8 @@
 {
   "source_figure_generator": "archive/01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction",
-  "source_figure_sha256": "32adf0c75e55337cd01b4023b919e8623be37264b8673401809e0dee9331ff24",
-  "case_data_sha256": "4b658b6be325c908ebf5c2469006ca0e76a46d99838767a7dda186a0e7380cd8",
-  "visualization_sha256": "9a8048dfb8b3c9833a746950e11358996a2c62162837b4a6ae040ee5d1caf9c9",
+  "source_figure_sha256": "2db7fa896f7cd1a620b521def7a8d342f1fafa437d7057f1c6dee4f492b3b0ea",
+  "case_data_sha256": "76e8d50e1f4b76dbdedf1ee8e6a83c883ec11fb75a1232fa7ef190c47b59d48e",
+  "visualization_sha256": "5c5fec03138272b4dbf8bb5851b64ea0e856b3f60ec678733479df2008242258",
   "case_count": 8,
   "audio_source": "http://smc.inescporto.pt/data/SMC_MIREX.zip",
   "audio_download_mirror": "https://bit.ly/33SlutJ",

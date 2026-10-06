@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render the corrected Figure 2b from the audited corrected traces."""
+"""Render Figure 2b with the original content and only DBN corrected."""
 
 from __future__ import annotations
 
@@ -26,15 +26,10 @@ CASES = (
 )
 
 
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--data-dir", type=Path, required=True)
-    parser.add_argument("--manifest", type=Path, required=True)
-    parser.add_argument("--output", type=Path, required=True)
-    return parser.parse_args()
-
-
-def selected_trace(trace: dict[str, np.ndarray], events: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+def selected_trace(
+    trace: dict[str, np.ndarray], events: np.ndarray
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Recover the original Figure 2b CASM values at final CASM events."""
     candidate_times = np.asarray(trace["candidates"], dtype=float) / float(trace["fps"])
     if not len(candidate_times) or not len(events):
         empty = np.empty(0, dtype=float)
@@ -45,6 +40,14 @@ def selected_trace(trace: dict[str, np.ndarray], events: np.ndarray) -> tuple[np
         np.asarray(trace["periods"], dtype=float)[indices],
         np.asarray(trace["confidence"], dtype=float)[indices],
     )
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--data-dir", type=Path, required=True)
+    parser.add_argument("--manifest", type=Path, required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    return parser.parse_args()
 
 
 def within(values: np.ndarray, start: float, end: float) -> np.ndarray:
@@ -82,7 +85,7 @@ def main() -> None:
             "ytick.labelsize": 8.0,
             "legend.fontsize": 7.3,
             "figure.dpi": 180,
-            "savefig.dpi": 300,
+            "savefig.dpi": 320,
             "pdf.fonttype": 42,
             "ps.fonttype": 42,
         }
@@ -91,7 +94,7 @@ def main() -> None:
     fig, axes = plt.subplots(
         3,
         2,
-        figsize=(10.1, 5.0),
+        figsize=(7.15, 5.0),
         gridspec_kw={"height_ratios": [1.62, 0.98, 0.88]},
     )
     fig.subplots_adjust(left=0.095, right=0.92, top=0.92, bottom=0.20, wspace=0.25, hspace=0.23)
@@ -112,7 +115,7 @@ def main() -> None:
         scatter_events(ax, trace["direct_beat"], -0.165, GREY, "|", start, end, size=42)
         scatter_events(ax, trace["casm_beat"], -0.275, BLUE, "o", start, end, hollow=True, size=25)
         scatter_events(ax, trace["dbn_beat_corrected"], -0.385, RED, "^", start, end, hollow=True, size=27)
-        scatter_events(ax, trace["plpdp_beat_corrected"], -0.495, OLIVE, "x", start, end, size=27)
+        scatter_events(ax, trace["plpdp_beat"], -0.495, OLIVE, "x", start, end, size=27)
         ax.set_xlim(start, end)
         ax.set_ylim(-0.54, 1.03)
         ax.set_yticks([0.0, 0.5, 1.0])
@@ -194,7 +197,7 @@ def main() -> None:
         Line2D([], [], color=RED, marker="^", markerfacecolor="white", linestyle="None", markersize=5, markeredgewidth=1.2),
         Line2D([], [], color=OLIVE, marker="x", linestyle="None", markersize=6, markeredgewidth=1.3),
     ]
-    labels = ["Reference", "Direct", "CASM", "DBN (beat-only, 30–300 BPM)", "PLPDP (released)"]
+    labels = ["Reference", "Direct", "CASM", "DBN (30–300 BPM)", "PLPDP"]
     fig.legend(
         handles,
         labels,
@@ -208,13 +211,13 @@ def main() -> None:
     fig.text(
         0.012,
         0.025,
-        "Post-hoc mechanism examples, not aggregate performance estimates. Direct and CASM are unchanged; "
-        "DBN is the beat-only processor and PLPDP uses its released beat-only configuration.",
+        "Post-hoc mechanism candidates, not performance estimates. Window F1 is used only to audit visible events; "
+        "all CASM events remain on retained activation maxima.",
         fontsize=6.4,
         color=GREY,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(args.output, bbox_inches="tight", facecolor="white")
+    fig.savefig(args.output, bbox_inches="tight", facecolor="white", dpi=320)
     plt.close(fig)
     print(args.output)
 

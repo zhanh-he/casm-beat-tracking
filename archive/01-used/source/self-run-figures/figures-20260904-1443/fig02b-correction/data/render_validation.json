@@ -1,0 +1,64 @@
+{
+  "cases": {
+    "SMC_001": {
+      "cleared_pixel_strip": [
+        272,
+        463,
+        1059,
+        493
+      ],
+      "corrected_dbn_event_count": 10,
+      "fit_rmse_pixels": 0.2624213778460395,
+      "old_dbn_event_count": 29,
+      "permitted_pixel_strip": [
+        264,
+        463,
+        1059,
+        493
+      ],
+      "time_to_pixel_intercept": -745.4990389879946,
+      "time_to_pixel_slope": 65.6447178752718,
+      "window_seconds": [
+        15.5,
+        27.5
+      ]
+    },
+    "SMC_032": {
+      "cleared_pixel_strip": [
+        1257,
+        463,
+        2044,
+        493
+      ],
+      "corrected_dbn_event_count": 12,
+      "fit_rmse_pixels": 0.14415534686548476,
+      "old_dbn_event_count": 24,
+      "permitted_pixel_strip": [
+        1257,
+        463,
+        2044,
+        493
+      ],
+      "time_to_pixel_intercept": 780.7402914379544,
+      "time_to_pixel_slope": 65.6718794961335,
+      "window_seconds": [
+        7.25,
+        19.25
+      ]
+    }
+  },
+  "changed_pixel_count": 17925,
+  "changed_pixels_outside_dbn_strips": 0,
+  "dbn_color_rgb": [
+    205,
+    92,
+    92
+  ],
+  "output_figure": "fig02b-correct-exact.png",
+  "output_figure_sha256": "2db7fa896f7cd1a620b521def7a8d342f1fafa437d7057f1c6dee4f492b3b0ea",
+  "policy": "Only pixels inside the two detected DBN marker strips may change.",
+  "source_figure": "fig02b-wrong.png",
+  "source_figure_sha256": "f0604b3843cefdf1ee9eb32b2d56f437dc71b36e79a26153dd867d58699b86a7",
+  "status": "COMPLETE",
+  "unchanged_pixel_count": 4574019
+}

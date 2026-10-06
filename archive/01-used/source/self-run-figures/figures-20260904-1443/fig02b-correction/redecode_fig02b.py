@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Re-decode the two Figure 2b traces with beat-only reference baselines.
+"""Re-decode only the DBN row in the two Figure 2b traces.
 
 Run this script in the frozen ``auto-structbeat`` environment whose
 ``PYTHONPATH`` contains the archived ``structbeat`` checkout and its vendored
@@ -17,7 +17,7 @@ from pathlib import Path
 
 import numpy as np
 
-from structbeat.decoders import PLPDPDecoder, SequentialDBNDecoder
+from structbeat.decoders import SequentialDBNDecoder
 from structbeat.evaluation import beat_metrics
 
 
@@ -39,6 +39,16 @@ def sha256(path: Path) -> str:
     with path.open("rb") as handle:
         for block in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(block)
+    return digest.hexdigest()
+
+
+def array_sha256(values: np.ndarray) -> str:
+    """Hash an array's exact dtype, shape, and C-order bytes."""
+    array = np.ascontiguousarray(values)
+    digest = hashlib.sha256()
+    digest.update(array.dtype.str.encode("ascii"))
+    digest.update(json.dumps(array.shape).encode("ascii"))
+    digest.update(array.tobytes(order="C"))
     return digest.hexdigest()
 
 
@@ -80,9 +90,12 @@ def main() -> None:
     args.output_dir.mkdir(parents=True, exist_ok=True)
     audit: dict[str, object] = {
         "status": "COMPLETE",
-        "purpose": "Correct Figure 2b DBN/PLPDP visualization traces.",
+        "purpose": "Correct only the Figure 2b DBN visualization traces.",
         "shared_input": "Frozen Beat This OOF beat probability at 50 fps.",
-        "direct_and_casm_policy": "Copied byte-for-byte from the original trace arrays.",
+        "unchanged_policy": (
+            "Beat activation, reference, Direct, CASM, PLPDP, candidates, periods, "
+            "and confidence are copied byte-for-byte from the original trace arrays."
+        ),
         "dbn": {
             "implementation": "madmom.features.beats.DBNBeatTrackingProcessor via SequentialDBNDecoder",
             "input": "beat probability only",
@@ -97,27 +110,13 @@ def main() -> None:
             "note": "The old panel used the joint beat/downbeat DBN on beat-only SMC material.",
         },
         "plpdp": {
-            "implementation": "SunnyCYC/plpdp4beat released PLPDP",
-            "repository": "https://github.com/SunnyCYC/plpdp4beat",
-            "commit": "30df4300849c843a7533e995113f4d26cd1e7d12f",
-            "input": "beat probability only, linearly resampled from 50 to 100 fps",
-            "min_bpm": 30,
-            "max_bpm": 300,
-            "combine_downbeats": False,
-            "note": "These are the released tempo limits; no per-track retuning is applied.",
+            "policy": "Preserved byte-for-byte from the original Figure 2b trace.",
+            "note": "PLPDP is not re-decoded in this correction.",
         },
         "pieces": {},
     }
 
     dbn = SequentialDBNDecoder(fps=50.0, min_bpm=30.0, max_bpm=300.0)
-    plpdp = PLPDPDecoder(
-        fps=50.0,
-        target_fps=100,
-        min_bpm=30,
-        max_bpm=300,
-        combine_downbeats=False,
-    )
-
     for trace_path in args.trace:
         with np.load(trace_path, allow_pickle=False) as archive:
             trace = {key: archive[key] for key in archive.files}
@@ -130,16 +129,13 @@ def main() -> None:
         unused_downbeat_logits = np.full_like(beat_logits, -18.0)
 
         dbn_beats, _ = dbn.decode(beat_logits, unused_downbeat_logits)
-        plpdp_beats, _ = plpdp.decode(beat_logits, unused_downbeat_logits)
         dbn_beats = np.asarray(dbn_beats, dtype=float)
-        plpdp_beats = np.asarray(plpdp_beats, dtype=float)
 
         output_path = args.output_dir / f"{Path(piece).parts[1]}_corrected.npz"
         np.savez_compressed(
             output_path,
             **trace,
             dbn_beat_corrected=dbn_beats,
-            plpdp_beat_corrected=plpdp_beats,
         )
 
         start, end = WINDOWS[piece]
@@ -149,13 +145,26 @@ def main() -> None:
             "direct": np.asarray(trace["direct_beat"], dtype=float),
             "casm": np.asarray(trace["casm_beat"], dtype=float),
             "dbn": dbn_beats,
-            "plpdp": plpdp_beats,
+            "plpdp": np.asarray(trace["plpdp_beat"], dtype=float),
         }
+        unchanged_keys = (
+            "beat_prob",
+            "truth_beat",
+            "direct_beat",
+            "casm_beat",
+            "plpdp_beat",
+            "candidates",
+            "periods",
+            "confidence",
+        )
         audit["pieces"][piece] = {
             "source_trace": trace_path.name,
             "source_trace_sha256": sha256(trace_path),
             "corrected_trace": output_path.name,
             "corrected_trace_sha256": sha256(output_path),
+            "unchanged_array_sha256": {
+                key: array_sha256(np.asarray(trace[key])) for key in unchanged_keys
+            },
             "window_seconds": [start, end],
             "track_metrics": {
                 name: metric_record(reference, events)

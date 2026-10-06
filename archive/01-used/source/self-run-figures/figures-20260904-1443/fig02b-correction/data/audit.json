@@ -12,11 +12,10 @@
     "threshold": 0.0,
     "transition_lambda": 100.0
   },
-  "direct_and_casm_policy": "Copied byte-for-byte from the original trace arrays.",
   "pieces": {
     "smc/smc_001/track.npy": {
       "corrected_trace": "smc_001_corrected.npz",
-      "corrected_trace_sha256": "0a9cd09542f2a40a0f4d0e7bd83b8b359b849e675021a3b22508ffe50b3eac3d",
+      "corrected_trace_sha256": "217a2f369e5ed2d83cbe3adec54089f3593acfd71e2c4d33b792e57827c80c4a",
       "source_trace": "bt_smc_oof__smc__smc_001.npz",
       "source_trace_sha256": "5d48e0f17d76f84cff413bad7ce9d9fff73dbfd3559eb842dcc03f8ef674cfed",
       "track_metrics": {
@@ -41,21 +40,31 @@
         "plpdp": {
           "amlt": 0.0,
           "cmlt": 0.0,
-          "event_count": 94,
-          "fmeasure": 0.3893805309734514
+          "event_count": 95,
+          "fmeasure": 0.38596491228070184
         }
+      },
+      "unchanged_array_sha256": {
+        "beat_prob": "b0575a83488d60f4a2c1c51bfd9d47da9727d9d3a6e1d3bfa6af038c282fc339",
+        "candidates": "d5a64a7a8c1028c7376b32b69cd5d57d878768e516a5741bea2829a7ee03b12e",
+        "casm_beat": "e040fe238b50a672c6832aa048e8d5f567197f044cd5373a30013c03f7d6e9d8",
+        "confidence": "d288f3bb1a81b8f936493f0a28fa70c57a5c619c1b3be7001b3d441eba2fccc7",
+        "direct_beat": "011e40fa9b885522aa3a03bfe7fe2bb296065d888d8e36ba4b6f09898504bb56",
+        "periods": "32db4f83672d170d8c5870636b64ef638048b5d5133a169c9ee5c415aa05852f",
+        "plpdp_beat": "2308c16be85c54cbf5839d6c1bbf2c9fd7e6928440ca5e53df57cf15f754152a",
+        "truth_beat": "85934a3706f8e8d8a4f75dda7aa2ca92c88f99fe9d58b81d8f757b39b44ca5d3"
       },
       "window_event_count": {
         "casm": 10,
         "dbn": 10,
         "direct": 12,
-        "plpdp": 29
+        "plpdp": 28
       },
       "window_f1": {
         "casm": 0.8,
         "dbn": 0.8,
         "direct": 0.7272727272727273,
-        "plpdp": 0.41025641025641024
+        "plpdp": 0.42105263157894735
       },
       "window_seconds": [
         15.5,
@@ -64,7 +73,7 @@
     },
     "smc/smc_032/track.npy": {
       "corrected_trace": "smc_032_corrected.npz",
-      "corrected_trace_sha256": "a8b2d36f2d0e61b1ff4512357c5a070b6e888b31de9cf7f6d53a17cb7e3439e9",
+      "corrected_trace_sha256": "9087c17718457dd9a64a61a1a1f58f6527a2e3137faa813d372fcf3517eaba45",
       "source_trace": "bt_smc_oof__smc__smc_032.npz",
       "source_trace_sha256": "1a57f9aafe1ad341267d219c3deaa14c72b843e81ccce998453eae78cbebbae7",
       "track_metrics": {
@@ -87,11 +96,21 @@
           "fmeasure": 0.6117647058823529
         },
         "plpdp": {
-          "amlt": 0.5740740740740741,
-          "cmlt": 0.5740740740740741,
+          "amlt": 0.5370370370370371,
+          "cmlt": 0.5370370370370371,
           "event_count": 51,
           "fmeasure": 0.6470588235294118
         }
+      },
+      "unchanged_array_sha256": {
+        "beat_prob": "3a51332dd2f173fce67981b053c1a5ebf87676dee32110b71cb7bc544d12ea5a",
+        "candidates": "f775800475ae446c8210d31749c1e626cd83c877dedf336892e828121b9f148f",
+        "casm_beat": "0bfcfaf7ebbc9bb86d966c9cbaead2ad96cee3718ee07e2a30688df3c78747cc",
+        "confidence": "9859aed7b64c92ce5467b2c0a1dc09f1f23b403f2608cbf4d107498ff624788f",
+        "direct_beat": "162724e0aebf14529f15ce1b588935c6b621974ff64b09d9047cba52211f55c5",
+        "periods": "a3907a5a363939a7d195d92e1aae6869d88ef80f73bfc3c1dfa7e5db1adcb57e",
+        "plpdp_beat": "7cf463b8e95ffce26a0e74472faaa2f7c1731a0fc0890f6172cd4632cac0a51d",
+        "truth_beat": "ff17265b0853c7fb313467bfdce91c2802f6c78864ef82d381716d44fc753947"
       },
       "window_event_count": {
         "casm": 17,
@@ -112,16 +131,11 @@
     }
   },
   "plpdp": {
-    "combine_downbeats": false,
-    "commit": "30df4300849c843a7533e995113f4d26cd1e7d12f",
-    "implementation": "SunnyCYC/plpdp4beat released PLPDP",
-    "input": "beat probability only, linearly resampled from 50 to 100 fps",
-    "max_bpm": 300,
-    "min_bpm": 30,
-    "note": "These are the released tempo limits; no per-track retuning is applied.",
-    "repository": "https://github.com/SunnyCYC/plpdp4beat"
+    "note": "PLPDP is not re-decoded in this correction.",
+    "policy": "Preserved byte-for-byte from the original Figure 2b trace."
   },
-  "purpose": "Correct Figure 2b DBN/PLPDP visualization traces.",
+  "purpose": "Correct only the Figure 2b DBN visualization traces.",
   "shared_input": "Frozen Beat This OOF beat probability at 50 fps.",
-  "status": "COMPLETE"
+  "status": "COMPLETE",
+  "unchanged_policy": "Beat activation, reference, Direct, CASM, PLPDP, candidates, periods, and confidence are copied byte-for-byte from the original trace arrays."
 }

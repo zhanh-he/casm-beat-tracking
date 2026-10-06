@@ -49,6 +49,10 @@ def archived_files() -> list[Path]:
 def source_for(relative: str, old: str, rejected: str, current: str) -> tuple[str, str]:
     if relative.startswith("01-used/figures/"):
         return current, "experiments/figures/" + relative.split("/", 2)[2]
+    if relative.startswith(
+        "01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/"
+    ):
+        return current, "archive/" + relative
     if relative == "01-used/source/run_dbn_calibration_scale.py":
         return current, "experiments/dbn/run_dbn_calibration_scale.py"
     previews = {
@@ -70,7 +74,7 @@ def source_for(relative: str, old: str, rejected: str, current: str) -> tuple[st
 def refresh() -> None:
     old = git("rev-parse", "fe0b148^")
     rejected = git("rev-parse", "fe0b148")
-    current = git("rev-parse", "d1c3341")
+    current = git("rev-parse", "HEAD")
     entries = []
     for path in archived_files():
         relative = path.relative_to(ROOT).as_posix()

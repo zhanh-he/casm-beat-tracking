@@ -47,7 +47,7 @@ CASE_SPECS = {
     },
 }
 
-CACHE_VERSION = "20261006-4"
+CACHE_VERSION = "20261006-5"
 
 
 def parse_args() -> argparse.Namespace:
@@ -136,13 +136,12 @@ def build_case(
         raise ValueError(f"CASM analysis arrays disagree for {piece}")
 
     dbn_audit = audit["dbn"]
-    plpdp_audit = audit["plpdp"]
     decoders = {
         "direct": decoder_record(trace["direct_beat"], metrics["direct"], duration, f"{piece}: Direct"),
         "casm": decoder_record(trace["casm_beat"], metrics["casm"], duration, f"{piece}: CASM"),
         "dbn": decoder_record(trace["dbn_beat_corrected"], metrics["dbn"], duration, f"{piece}: DBN"),
         "plpdp": decoder_record(
-            trace["plpdp_beat_corrected"], metrics["plpdp"], duration, f"{piece}: PLPDP"
+            trace["plpdp_beat"], metrics["plpdp"], duration, f"{piece}: PLPDP"
         ),
     }
 
@@ -205,16 +204,8 @@ def build_case(
                 "correction_note": dbn_audit["note"],
             },
             "plpdp_configuration": {
-                "implementation": plpdp_audit["implementation"],
-                "source": plpdp_audit["repository"],
-                "commit": plpdp_audit["commit"],
-                "input": plpdp_audit["input"],
-                "min_bpm": plpdp_audit["min_bpm"],
-                "max_bpm": plpdp_audit["max_bpm"],
-                "input_fps": fps,
-                "algorithm_fps": 100,
-                "combine_downbeats": plpdp_audit["combine_downbeats"],
-                "correction_note": plpdp_audit["note"],
+                "label": "original Figure 2b PLPDP output",
+                "correction_note": audit["plpdp"]["note"],
             },
             "recommended_window_start": spec["window_start"],
         },

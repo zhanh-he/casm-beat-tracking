@@ -1,34 +1,37 @@
 # Figure 2b correction receipt
 
 This directory reproduces the corrected SMC 001/032 mechanism panel and the
-two corresponding online-demo records.
+two corresponding online-demo records. The correction changes only DBN.
 
 ## What was wrong
 
 The superseded panel used the joint beat/downbeat
 `DBNDownBeatTrackingProcessor` output for beat-only SMC material. Its dense DBN
 path was therefore not a valid illustration of the standard beat-tracking DBN.
-The Direct and CASM arrays were not affected.
+The Direct, CASM, and PLPDP arrays were not affected.
 
-## What was replayed
+## What changed
 
 - `redecode_fig02b.py` reads the exact frozen 50-fps Beat This out-of-fold beat
   probabilities already used by Direct and CASM.
 - DBN is replayed with the beat-only `DBNBeatTrackingProcessor` through the
   archived `SequentialDBNDecoder`, using the matched 30–300 BPM range and its
   documented settings in `data/audit.json`.
-- PLPDP is replayed from the released `SunnyCYC/plpdp4beat` code at commit
-  `30df4300849c843a7533e995113f4d26cd1e7d12f`, with its released 30–300 BPM
-  limits and beat probability only. No per-track tuning is applied.
-- `plot_fig02b_corrected.py` renders `fig02b-correct.png` from the audited
-  corrected traces.
+- PLPDP is copied byte-for-byte from the original Figure 2b trace; it is not
+  replayed or otherwise modified.
+- `patch_fig02b_dbn_only.py` is the authoritative renderer for
+  `fig02b-correct.png`: it retains the original PNG and replaces only the two
+  DBN marker strips. `data/render_validation.json` verifies that the number of
+  changed pixels outside those strips is zero.
+- `plot_fig02b_corrected.py` is an independent source-level renderer for
+  inspecting the same arrays; it is not used to replace the pixel-preserving
+  paper PNG.
 - `build_online_demo_cases.py` adds SMC 001/032 to either an `online-demo/` or
   `docs/` site tree and refreshes its embedded payload and integrity manifest.
 
-The released PLPDP path remains dense on SMC 001. This is not a plotting error:
-the decoder follows a faster competing subdivision in that track. Restricting
-the tempo ceiling per track would improve the picture but would be post-hoc
-tuning, so the corrected figure deliberately does not do that.
+The PLPDP path remains exactly as it appeared in the original Figure 2b. The
+CASM candidate times, local periods, margins, and adaptive weights are likewise
+the original arrays and plotting semantics.
 
 ## Reproduction
 
@@ -41,11 +44,14 @@ python redecode_fig02b.py \
   --trace ../data/fig02_candidate_search_7f/traces/bt_smc_oof__smc__smc_032.npz \
   --output-dir data
 
-python plot_fig02b_corrected.py \
-  --data-dir data \
-  --manifest ../data/fig02_candidate_search_7f/manifest.json \
-  --output ../../../../figures/fig02b-correct.png
+python patch_fig02b_dbn_only.py \
+  --source-figure ../../../../figures/fig02b-wrong.png \
+  --trace-dir ../data/fig02_candidate_search_7f/traces \
+  --corrected-dir data \
+  --output ../../../../figures/fig02b-correct.png \
+  --receipt data/render_validation.json
 ```
 
 The checked-in `data/audit.json` contains full-track and displayed-window
 metrics plus SHA-256 hashes for both source and corrected trace archives.
+`data/render_validation.json` is the separate pixel-level receipt.

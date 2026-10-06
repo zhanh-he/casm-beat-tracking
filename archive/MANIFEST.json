@@ -1,82 +1,26 @@
 {
   "files": [
     {
-      "bytes": 349992,
+      "bytes": 355030,
       "path": "01-used/figures/fig02b-correct.png",
-      "sha256": "32adf0c75e55337cd01b4023b919e8623be37264b8673401809e0dee9331ff24",
-      "source_commit": "0d1c7fe4a0d24fdb800fb6f6268f70c5a22c23dc",
-      "source_git_blob": "3f9a1a6fb3a413683efa9bd0078238b229226783",
+      "sha256": "2db7fa896f7cd1a620b521def7a8d342f1fafa437d7057f1c6dee4f492b3b0ea",
+      "source_commit": "cbf36c8ed66a9b9b0720446abd5c8d61098feb9a",
+      "source_git_blob": "5d123a9d6726a98bff0c02aaf5fc66008073405f",
       "source_path": "experiments/figures/fig02b-correct.png"
     },
     {
       "bytes": 398333,
       "path": "01-used/figures/fig02b-wrong.png",
       "sha256": "f0604b3843cefdf1ee9eb32b2d56f437dc71b36e79a26153dd867d58699b86a7",
-      "source_commit": "0d1c7fe4a0d24fdb800fb6f6268f70c5a22c23dc",
+      "source_commit": "cbf36c8ed66a9b9b0720446abd5c8d61098feb9a",
       "source_git_blob": "8d060f56ae4e5864b7c35cea096566418926915b",
       "source_path": "experiments/figures/fig02b-wrong.png"
-    },
-    {
-      "bytes": 2254,
-      "path": "01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/README.md",
-      "sha256": "24b9013bac467874e512ffe6842baee39425cb30d54beeda7891fdddf39c2804",
-      "source_commit": "0d1c7fe4a0d24fdb800fb6f6268f70c5a22c23dc",
-      "source_git_blob": "a6cac276dff9657e677b9d7a46231b1bcd02e0a9",
-      "source_path": "archive/01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/README.md"
-    },
-    {
-      "bytes": 11272,
-      "path": "01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/build_online_demo_cases.py",
-      "sha256": "01d3715bea688c49e870785c5e424d24744b6d9a4b36802b628b26133f141ab6",
-      "source_commit": "0d1c7fe4a0d24fdb800fb6f6268f70c5a22c23dc",
-      "source_git_blob": "83db87d45d6f78c9cf2c3b23899434a272413a6e",
-      "source_path": "archive/01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/build_online_demo_cases.py"
-    },
-    {
-      "bytes": 3821,
-      "path": "01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/data/audit.json",
-      "sha256": "1d19e54edf3d6cdd6b8eea3727ab0be1114dd65ad91d4b5fc05ee76ce2332892",
-      "source_commit": "0d1c7fe4a0d24fdb800fb6f6268f70c5a22c23dc",
-      "source_git_blob": "995537ab5b033e0c0f899f432c6365b5cd5d4c36",
-      "source_path": "archive/01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/data/audit.json"
-    },
-    {
-      "bytes": 19706,
-      "path": "01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/data/smc_001_corrected.npz",
-      "sha256": "0a9cd09542f2a40a0f4d0e7bd83b8b359b849e675021a3b22508ffe50b3eac3d",
-      "source_commit": "0d1c7fe4a0d24fdb800fb6f6268f70c5a22c23dc",
-      "source_git_blob": "1255f5f63483450ca2495a3911342aa5a5255e9f",
-      "source_path": "archive/01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/data/smc_001_corrected.npz"
-    },
-    {
-      "bytes": 20127,
-      "path": "01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/data/smc_032_corrected.npz",
-      "sha256": "a8b2d36f2d0e61b1ff4512357c5a070b6e888b31de9cf7f6d53a17cb7e3439e9",
-      "source_commit": "0d1c7fe4a0d24fdb800fb6f6268f70c5a22c23dc",
-      "source_git_blob": "6711bffd259b1162c451f741e1bef9bc8e67cc3d",
-      "source_path": "archive/01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/data/smc_032_corrected.npz"
-    },
-    {
-      "bytes": 8938,
-      "path": "01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/plot_fig02b_corrected.py",
-      "sha256": "1850605aa33cd91414c574dbf32e266536cb0a44e5bd046dcf7e11890fc425d3",
-      "source_commit": "0d1c7fe4a0d24fdb800fb6f6268f70c5a22c23dc",
-      "source_git_blob": "e94d79ca46801c5aede78b7ff58741a2b8ece839",
-      "source_path": "archive/01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/plot_fig02b_corrected.py"
-    },
-    {
-      "bytes": 6524,
-      "path": "01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/redecode_fig02b.py",
-      "sha256": "732e839199e6f355052ca9424b81a18c277f5b3d5888d6b1801adc2766ed6e63",
-      "source_commit": "0d1c7fe4a0d24fdb800fb6f6268f70c5a22c23dc",
-      "source_git_blob": "49fae16197c41bf302eb0c97d83d0968557649d0",
-      "source_path": "archive/01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/redecode_fig02b.py"
     },
     {
       "bytes": 277921,
       "path": "01-used/figures/fig05_calibration_scale.png",
       "sha256": "b117ccbb956e0e7c193b2587ab1a8b8c5e021233e843a546332b0a49353da77b",
-      "source_commit": "d1c334151012b87e6d7047cf0dcac370ced9a031",
+      "source_commit": "cbf36c8ed66a9b9b0720446abd5c8d61098feb9a",
       "source_git_blob": "8fa7b89a0f98764327450b75d9cc72e7f5703f87",
       "source_path": "experiments/figures/fig05_calibration_scale.png"
     },
@@ -84,7 +28,7 @@
       "bytes": 38041,
       "path": "01-used/figures/fig05b_dbn_calibration_scale.pdf",
       "sha256": "eab38df101651cdfecc46475616bab75c3e58f09e8dd19b94d4928d949ed42fc",
-      "source_commit": "d1c334151012b87e6d7047cf0dcac370ced9a031",
+      "source_commit": "cbf36c8ed66a9b9b0720446abd5c8d61098feb9a",
       "source_git_blob": "a47f0c48f9193281a0efc8fecbc982e13f81e77c",
       "source_path": "experiments/figures/fig05b_dbn_calibration_scale.pdf"
     },
@@ -92,7 +36,7 @@
       "bytes": 28134,
       "path": "01-used/source/run_dbn_calibration_scale.py",
       "sha256": "b15802dc56d6d292689bd56a8a28f0ca11643dea08adb05948c30a8e66212ae3",
-      "source_commit": "d1c334151012b87e6d7047cf0dcac370ced9a031",
+      "source_commit": "cbf36c8ed66a9b9b0720446abd5c8d61098feb9a",
       "source_git_blob": "d00c4ca95f46b8ef096bc213728faf9e58e2f70c",
       "source_path": "experiments/dbn/run_dbn_calibration_scale.py"
     },
@@ -431,6 +375,78 @@
       "source_commit": "8f2abdb0c39f0aa9e0243a686f7f0446ae745bba",
       "source_git_blob": "b3e1ee8af6b78055832fd23b40ef2772b220124f",
       "source_path": "self-run-figures/figures-20260904-1443/data/fig02_candidate_search_7f/traces/bt_smc_oof__smc__smc_287.npz"
+    },
+    {
+      "bytes": 2584,
+      "path": "01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/README.md",
+      "sha256": "ba93549c387f8382fe3c890c87833721d0f23a5bd5ecae6ba6cfa1116df569dc",
+      "source_commit": "cbf36c8ed66a9b9b0720446abd5c8d61098feb9a",
+      "source_git_blob": "a260a9bba6564d2a4f2ec8b00120a64359fac18b",
+      "source_path": "archive/01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/README.md"
+    },
+    {
+      "bytes": 10833,
+      "path": "01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/build_online_demo_cases.py",
+      "sha256": "36d0cd4fc9778a056cc5e0f59e0b9e887f768ecce8710013be2cef379f7c469e",
+      "source_commit": "cbf36c8ed66a9b9b0720446abd5c8d61098feb9a",
+      "source_git_blob": "afdbe12322adf5c9ba93dc07112217df62c28bf2",
+      "source_path": "archive/01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/build_online_demo_cases.py"
+    },
+    {
+      "bytes": 5146,
+      "path": "01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/data/audit.json",
+      "sha256": "861f83c5d9ad2a80f359521accdfa8be698b15a30505782426bcbc9532d6712a",
+      "source_commit": "cbf36c8ed66a9b9b0720446abd5c8d61098feb9a",
+      "source_git_blob": "5da4e93b8307578af1b517db913714ac55706732",
+      "source_path": "archive/01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/data/audit.json"
+    },
+    {
+      "bytes": 1538,
+      "path": "01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/data/render_validation.json",
+      "sha256": "f2d75ea70726268728410a569ef69c569532378b21785995afe85121e0307740",
+      "source_commit": "cbf36c8ed66a9b9b0720446abd5c8d61098feb9a",
+      "source_git_blob": "6c21a703b6f766554ac35f9dd3a017269505cca0",
+      "source_path": "archive/01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/data/render_validation.json"
+    },
+    {
+      "bytes": 19112,
+      "path": "01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/data/smc_001_corrected.npz",
+      "sha256": "217a2f369e5ed2d83cbe3adec54089f3593acfd71e2c4d33b792e57827c80c4a",
+      "source_commit": "cbf36c8ed66a9b9b0720446abd5c8d61098feb9a",
+      "source_git_blob": "93515c88342fbbe841415f25bd8345f0f2baf0e6",
+      "source_path": "archive/01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/data/smc_001_corrected.npz"
+    },
+    {
+      "bytes": 19689,
+      "path": "01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/data/smc_032_corrected.npz",
+      "sha256": "9087c17718457dd9a64a61a1a1f58f6527a2e3137faa813d372fcf3517eaba45",
+      "source_commit": "cbf36c8ed66a9b9b0720446abd5c8d61098feb9a",
+      "source_git_blob": "36e4150d90ceb3ad7106a6a51218fd7ea98ca001",
+      "source_path": "archive/01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/data/smc_032_corrected.npz"
+    },
+    {
+      "bytes": 7883,
+      "path": "01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/patch_fig02b_dbn_only.py",
+      "sha256": "6b47e5e5be13b1e12ca4eeac181d38c2880978659c16411f8ff221791f306eb8",
+      "source_commit": "cbf36c8ed66a9b9b0720446abd5c8d61098feb9a",
+      "source_git_blob": "957baf8b1d2b4dc97aa7f9f8c48a5b22e09d6402",
+      "source_path": "archive/01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/patch_fig02b_dbn_only.py"
+    },
+    {
+      "bytes": 8976,
+      "path": "01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/plot_fig02b_corrected.py",
+      "sha256": "9d62d26144b36a3f3498977d3b1d4d513b508f20c063013b0e0b4c02fccb9753",
+      "source_commit": "cbf36c8ed66a9b9b0720446abd5c8d61098feb9a",
+      "source_git_blob": "96d943b1b572e75435de36268ca919b8fa446906",
+      "source_path": "archive/01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/plot_fig02b_corrected.py"
+    },
+    {
+      "bytes": 6745,
+      "path": "01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/redecode_fig02b.py",
+      "sha256": "1af45bed334305bbb0141dedaa9780d1c18a9d8fb1974b2930ee31a0c93d57d7",
+      "source_commit": "cbf36c8ed66a9b9b0720446abd5c8d61098feb9a",
+      "source_git_blob": "bb662a1f10b3ff1476cd57e2870587cb71692da6",
+      "source_path": "archive/01-used/source/self-run-figures/figures-20260904-1443/fig02b-correction/redecode_fig02b.py"
     },
     {
       "bytes": 12979,

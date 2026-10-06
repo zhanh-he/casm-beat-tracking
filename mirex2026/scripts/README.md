@@ -38,6 +38,12 @@ piece inventories and checkpoint hashes across Direct/CASM/both DBN decoders;
 it selects by the predeclared Direct beat composite only. Neither selector
 reads SMC or GTZAN results.
 
+`build_decoder_delta_table.py` only reformats the frozen historical CSVs for
+the main README. It verifies their SHA-256 hashes and exact
+model × dataset × decoder grain, then reports signed percentage-point changes
+from each checkpoint's Direct baseline. It does not run new target-set
+inference or make any MIREX selection.
+
 The corrected seed-0 baseline and its limits are in
 [`../results/BASELINE_DIAGNOSTIC.md`](../results/BASELINE_DIAGNOSTIC.md).
 

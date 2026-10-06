@@ -14,6 +14,9 @@ separate weights; its former validation pieces are no longer held out.
 The [requested GTZAN/SMC matrix](MODEL_DECODER_MATRIX_20261005.md) shows
 verified historical values and explicit missing-result cells for BeatThis,
 MSCNN, TCN, BeatFM, and SpecTNT; it must not be used for MIREX development.
+The former main-README [nine-metric absolute table](absolute-score-table/README.md)
+is preserved verbatim; the main README now shows Direct absolute scores and
+CASM/DBN percentage-point differences relative to Direct.
 
 The [MIREX 2026 task rule](https://music-ir.org/mirex/wiki/2026:Audio_Beat_Tracking)
 prohibits SMC and GTZAN for **any development purpose**, including model

@@ -46,34 +46,34 @@ seed selection, epoch selection, and decoder selection. The table below is a
 post-freeze diagnostic record, **not** MIREX model-selection evidence and not
 an official MIREX result.
 
-Values are piece-macro percentages. The nine metric columns make both planned
-submissions explicit: GTZAN beat F/CMLt/AMLt, GTZAN downbeat F/CMLt/AMLt, and
-SMC beat F/CMLt/AMLt. SMC has no downbeat column because the retained SMC
-annotations are beat-only. Within a row, each slash separates the two decoders
-listed in `Postprocessing`; bold marks the best of the four decoders for that
-fixed checkpoint and metric. `—` means not yet measured, never zero. GTZAN
-contains 993 valid pieces and SMC contains 217.
+Values are piece-macro percentages. For each fixed model weight, Direct gives the absolute baseline; CASM and both DBN settings give signed **percentage-point changes (Δ)** from that Direct result. Each metric cell reads **F / CMLt / AMLt**. Positive is better, and bold marks the best of the four decoders for each metric. `—` means unmeasured, not zero. GTZAN has 993 valid pieces; SMC has 217 beat-only pieces. The [original nine-column absolute-score table](results/absolute-score-table/README.md) is preserved separately.
 
-| Model weight | Training data | Postprocessing | GTZ beat F | GTZ beat CMLt | GTZ beat AMLt | GTZ downbeat F | GTZ downbeat CMLt | GTZ downbeat AMLt | SMC beat F | SMC beat CMLt | SMC beat AMLt |
-|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| BeatThis seed-2 e119 | 3,783 log-Mel; 556 allowed validation | Direct / CASM | 88.96 / **89.00** | 79.64 / 79.86 | 89.66 / 90.07 | **78.05** / 77.75 | 66.52 / 70.98 | 79.79 / 84.86 | 57.75 / **57.99** | 41.74 / 43.34 | 52.30 / 54.68 |
-|  |  | DBN 55–215 / DBN 30–300 | 88.36 / 88.50 | **80.98** / 80.49 | 91.61 / **92.23** | 76.99 / 77.39 | 72.55 / **72.61** | 88.20 / **88.56** | 54.59 / 54.66 | 42.27 / **43.38** | 58.25 / **58.43** |
-| BeatThis seed-2 e120, full retrain | 4,339 log-Mel; no held-out validation | Direct / CASM | 88.78 / 88.83 | 79.04 / 79.30 | 89.61 / 90.11 | 77.76 / 77.74 | 66.95 / 71.52 | 80.31 / 84.40 | **59.21** / 58.97 | 43.73 / 44.41 | 55.50 / 57.11 |
-|  |  | DBN 55–215 / DBN 30–300 | 88.33 / **88.94** | 80.59 / **80.71** | 91.48 / **92.51** | 77.12 / **77.84** | 72.77 / **73.31** | 87.60 / **88.12** | 56.31 / 56.53 | 43.90 / **44.96** | **61.22** / 60.51 |
-| MSCNN seed-0 e1499 | 3,783 log-Mel; 556 allowed validation | Direct / CASM | 85.94 / **86.30** | 72.18 / 73.33 | 78.95 / 80.42 | 69.59 / 71.66 | 50.77 / 61.17 | 61.63 / 72.43 | 54.81 / **55.72** | 34.81 / **39.27** | 41.57 / 46.94 |
-|  |  | DBN 55–215 / DBN 30–300 | 85.52 / 84.54 | **76.90** / 74.80 | **86.74** / 85.88 | **72.09** / 71.25 | **68.78** / 67.25 | **84.92** / 84.31 | 50.46 / 46.91 | 39.11 / 32.89 | **53.45** / 49.79 |
-| MSCNN seed-0 e1500, full retrain incomplete | 4,339 log-Mel; no held-out validation | Direct / CASM | — / — | — / — | — / — | — / — | — / — | — / — | — / — | — / — | — / — |
-|  |  | DBN 55–215 / DBN 30–300 | — / — | — / — | — / — | — / — | — / — | — / — | — / — | — / — | — / — |
-| TCN seed-0 e119 | 3,783 log-Mel; 556 allowed validation | Direct / CASM | 86.54 / **86.81** | 72.81 / **73.82** | 80.54 / 81.76 | 61.23 / 65.92 | 21.29 / 51.74 | 59.29 / 70.96 | 51.54 / **51.85** | 27.76 / **30.06** | 33.43 / 37.93 |
-|  |  | DBN 55–215 / DBN 30–300 | 84.52 / 83.87 | 73.23 / 71.67 | **86.54** / 86.32 | **66.58** / 65.87 | **59.77** / 58.95 | 82.16 / **82.41** | 42.09 / 36.72 | 22.19 / 15.81 | **39.71** / 36.70 |
-| TCN seed-0 e120, full retrain | 4,339 log-Mel; no held-out validation | Direct / CASM | 86.66 / **86.99** | 73.20 / **74.31** | 80.85 / 82.19 | 62.05 / **67.32** | 24.25 / 53.98 | 59.89 / 71.41 | 51.41 / **51.78** | 27.94 / **30.24** | 33.81 / 37.93 |
-|  |  | DBN 55–215 / DBN 30–300 | 84.11 / 83.78 | 72.49 / 71.43 | 86.16 / **86.41** | 67.24 / 66.49 | **60.32** / 58.97 | **81.96** / 81.67 | 41.25 / 37.59 | 21.16 / 15.51 | 37.64 / **38.05** |
-| BeatFM e15, stopped | 911 mapped WAVs: 774 train + 137 validation | Direct / CASM | — / — | — / — | — / — | — / — | — / — | — / — | — / — | — / — | — / — |
-|  |  | DBN 55–215 / DBN 30–300 | — / — | — / — | — / — | — / — | — / — | — / — | — / — | — / — | — / — |
-| BeatFM expanded, stopped | 1,684 mapped WAVs: 1,431 train + 253 validation | Direct / CASM | — / — | — / — | — / — | — / — | — / — | — / — | — / — | — / — | — / — |
-|  |  | DBN 55–215 / DBN 30–300 | — / — | — / — | — / — | — / — | — / — | — / — | — / — | — / — | — / — |
-| SpecTNT placeholder | not implemented | Direct / CASM | — / — | — / — | — / — | — / — | — / — | — / — | — / — | — / — | — / — |
-|  |  | DBN 55–215 / DBN 30–300 | — / — | — / — | — / — | — / — | — / — | — / — | — / — | — / — | — / — |
+| Model weight | Training data | Decoder | GTZAN beat F / CMLt / AMLt | GTZAN downbeat F / CMLt / AMLt | SMC beat F / CMLt / AMLt |
+|---|---|---|---:|---:|---:|
+| BeatThis seed-2 e119 | 3,783 log-Mel; 556 allowed validation | Direct (absolute) | 88.96 / 79.64 / 89.66 | **78.05** / 66.52 / 79.79 | 57.75 / 41.74 / 52.30 |
+|  |  | CASM Δ | **+0.04** / +0.22 / +0.41 | -0.30 / +4.46 / +5.07 | **+0.24** / +1.60 / +2.38 |
+|  |  | DBN 55–215 Δ | -0.60 / **+1.34** / +1.95 | -1.06 / +6.03 / +8.41 | -3.16 / +0.53 / +5.95 |
+|  |  | DBN 30–300 Δ | -0.46 / +0.85 / **+2.57** | -0.66 / **+6.09** / **+8.77** | -3.09 / **+1.64** / **+6.13** |
+| BeatThis seed-2 e120, full retrain | 4,339 log-Mel; no held-out validation | Direct (absolute) | 88.78 / 79.04 / 89.61 | 77.76 / 66.95 / 80.31 | **59.21** / 43.73 / 55.50 |
+|  |  | CASM Δ | +0.05 / +0.26 / +0.50 | -0.02 / +4.57 / +4.09 | -0.24 / +0.68 / +1.61 |
+|  |  | DBN 55–215 Δ | -0.45 / +1.55 / +1.87 | -0.64 / +5.82 / +7.29 | -2.90 / +0.17 / **+5.72** |
+|  |  | DBN 30–300 Δ | **+0.16** / **+1.67** / **+2.90** | **+0.08** / **+6.36** / **+7.81** | -2.68 / **+1.23** / +5.01 |
+| MSCNN seed-0 e1499 | 3,783 log-Mel; 556 allowed validation | Direct (absolute) | 85.94 / 72.18 / 78.95 | 69.59 / 50.77 / 61.63 | 54.81 / 34.81 / 41.57 |
+|  |  | CASM Δ | **+0.36** / +1.15 / +1.47 | +2.07 / +10.40 / +10.80 | **+0.91** / **+4.46** / +5.37 |
+|  |  | DBN 55–215 Δ | -0.42 / **+4.72** / **+7.79** | **+2.50** / **+18.01** / **+23.29** | -4.35 / +4.30 / **+11.88** |
+|  |  | DBN 30–300 Δ | -1.40 / +2.62 / +6.93 | +1.66 / +16.48 / +22.68 | -7.90 / -1.92 / +8.22 |
+| TCN seed-0 e119 | 3,783 log-Mel; 556 allowed validation | Direct (absolute) | 86.54 / 72.81 / 80.54 | 61.23 / 21.29 / 59.29 | 51.54 / 27.76 / 33.43 |
+|  |  | CASM Δ | **+0.27** / **+1.01** / +1.22 | +4.69 / +30.45 / +11.67 | **+0.31** / **+2.30** / +4.50 |
+|  |  | DBN 55–215 Δ | -2.02 / +0.42 / **+6.00** | **+5.35** / **+38.48** / +22.87 | -9.45 / -5.57 / **+6.28** |
+|  |  | DBN 30–300 Δ | -2.67 / -1.14 / +5.78 | +4.64 / +37.66 / **+23.12** | -14.82 / -11.95 / +3.27 |
+| TCN seed-0 e120, full retrain | 4,339 log-Mel; no held-out validation | Direct (absolute) | 86.66 / 73.20 / 80.85 | 62.05 / 24.25 / 59.89 | 51.41 / 27.94 / 33.81 |
+|  |  | CASM Δ | **+0.33** / **+1.11** / +1.34 | **+5.27** / +29.73 / +11.52 | **+0.37** / **+2.30** / +4.12 |
+|  |  | DBN 55–215 Δ | -2.55 / -0.71 / +5.31 | +5.19 / **+36.07** / **+22.07** | -10.16 / -6.78 / +3.83 |
+|  |  | DBN 30–300 Δ | -2.88 / -1.77 / **+5.56** | +4.44 / +34.72 / +21.78 | -13.82 / -12.43 / **+4.24** |
+| MSCNN seed-0 e1500, full retrain incomplete | 4,339 log-Mel; no held-out validation | — | — | — | — |
+| BeatFM e15, stopped | 911 mapped WAVs: 774 train + 137 validation | — | — | — | — |
+| BeatFM expanded, stopped | 1,684 mapped WAVs: 1,431 train + 253 validation | — | — | — | — |
+| SpecTNT placeholder | not implemented | — | — | — | — |
 
 The source table, checkpoint hashes, and per-piece artifacts are retained in
 [`results/MODEL_DECODER_MATRIX_20261005.md`](results/MODEL_DECODER_MATRIX_20261005.md)

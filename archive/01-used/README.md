@@ -7,7 +7,8 @@ paths.
 
 | Figure | Archived output | Canonical output |
 |---|---|---|
-| Figure 2b | [PNG](figures/fig02b.png) | [`experiments/figures/fig02b.png`](../../experiments/figures/fig02b.png) |
+| Figure 2b, corrected | [PNG](figures/fig02b-correct.png) | [`experiments/figures/fig02b-correct.png`](../../experiments/figures/fig02b-correct.png) |
+| Figure 2b, superseded | [PNG](figures/fig02b-wrong.png) | [`experiments/figures/fig02b-wrong.png`](../../experiments/figures/fig02b-wrong.png) |
 | Figure 5, CASM | [PNG](figures/fig05_calibration_scale.png) | [`experiments/figures/fig05_calibration_scale.png`](../../experiments/figures/fig05_calibration_scale.png) |
 | Figure 5b, DBN | [PDF](figures/fig05b_dbn_calibration_scale.pdf) | [`experiments/figures/fig05b_dbn_calibration_scale.pdf`](../../experiments/figures/fig05b_dbn_calibration_scale.pdf) |
 
@@ -18,3 +19,11 @@ also copied there. These are source snapshots, not a claim that every old
 upstream training or cache dependency is bundled. For current numerical
 evidence, use the validated files under `experiments/`, not historical
 results embedded in a plotting script.
+
+The original Figure 2b is retained with the explicit `-wrong` suffix for
+auditability. It used a joint beat/downbeat DBN on SMC, although SMC supplies
+beat-only ground truth. The corrected panel replays a beat-only DBN over the
+same frozen Beat This activation and also replays the released PLPDP decoder.
+Direct and CASM event arrays are unchanged. The complete correction receipt,
+data, plotting code, and online-demo builder are in
+[`source/self-run-figures/figures-20260904-1443/fig02b-correction/`](source/self-run-figures/figures-20260904-1443/fig02b-correction/).

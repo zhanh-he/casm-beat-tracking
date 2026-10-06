@@ -7,7 +7,8 @@
 This is the public GitHub Pages demo. It can be opened directly without
 cloning the repository or starting a local server.
 
-The site presents finalized SMC 117/221 examples and four selected GTZAN cases.
+The site presents finalized SMC 001/032/117/221 examples and four selected
+GTZAN cases.
 
 The page presents a public-view D3 visualization and synchronized Web Audio
 audition for GroundTruth, Direct, DBN, PLPDP, and CASM. The offline reproduction
@@ -21,8 +22,8 @@ fixed, so the public interface only exposes the controls needed for comparison.
 Each case includes its complete 30- or 40-second performance. GroundTruth and
 every decoder overlay their events on exactly the same recording. SMC uses one
 uniform beat click because it has no downbeat annotations; GTZAN retains beat
-and downbeat click accents. The figure opens on the selected 18-second analysis
-window, and the slider can audition every valid interval in each case.
+and downbeat click accents. The figure opens on a selected 12- or 18-second
+analysis window, and the slider can audition every valid interval in each case.
 
 The published clips and their provenance are documented in
 [`audio/ATTRIBUTION.md`](audio/ATTRIBUTION.md).

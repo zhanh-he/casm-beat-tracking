@@ -327,7 +327,8 @@ function mountInlineAuditionControls() {
   const documentInside = figureDocument();
   if (!documentInside || documentInside.querySelector("#audition-toolbar")) return;
   const table = documentInside.querySelector("#decoder-contrast-real-v2 table");
-  if (!table) return;
+  const tableBody = table?.tBodies[0];
+  if (!table || !tableBody) return;
 
   const style = documentInside.createElement("style");
   style.textContent = `
@@ -386,9 +387,6 @@ function mountInlineAuditionControls() {
     renderSourceButtons();
     void playSelection();
   });
-  const observer = new MutationObserver(() => renderSourceButtons());
-  observer.observe(table.tBodies[0], { childList: true });
-
   const stop = documentInside.createElement("button");
   stop.id = "audition-stop";
   stop.type = "button";
@@ -489,7 +487,7 @@ function bindFigureControls() {
 
 async function initialize() {
   try {
-    const response = await fetch("data/cases.json?v=20260907-1");
+    const response = await fetch("data/cases.json?v=20261006-4");
     if (!response.ok) throw new Error(`Case data returned ${response.status}.`);
     cases = await response.json();
     void loadBundledAudio();

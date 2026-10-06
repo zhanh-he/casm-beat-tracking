@@ -19,7 +19,8 @@ secondary comparison. BeatFM's provided source ZIP, preprocessing, private
 MERT revision, and checkpoint loader are audited. A 911-piece Ballroom/RWC
 no-SMC subset completed training, and its epoch-15 train-split weight was
 selected using 137 allowed validation pieces. A 1,684-piece expanded subset
-is in training and may supersede it after its own matched-panel screen. The
+finished training, but its matched-panel screen was stopped by project
+decision. The
 BeatFM source ZIP has no resolvable Git commit or redistribution license, so
 no bundle containing it may be externally distributed without a rights check.
 These reduced-data runs cannot be portrayed as equal-data BeatThis comparisons
@@ -59,8 +60,8 @@ as full-allowed-data retrains.
   `44a1a33f6c3d08180bea2f0619c16a39a756644f101d0cd5d1691f7abd8ba764`.
   It is a reduced-data candidate, not a full-allowed-data retrain. The
   expanded 1,684-piece training finished, but its common-panel checkpoint
-  screen remains open after a pre-scoring staging failure; retry `70943` was
-  submitted.
+  screen was cancelled after a pre-scoring staging failure; retry `70943`
+  never ran.
 - Freeze the final organizer command lines, BeatFM redistribution decision,
   training compute, and inference-time declaration after candidate selection.
 

@@ -41,6 +41,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--expected-mscnn-checkpoint-sha256")
     parser.add_argument("--expected-beatfm-checkpoint-sha256")
     parser.add_argument("--expected-casm-config-sha256")
+    parser.add_argument(
+        "--mirex-task", choices=("beat", "downbeat", "both"), default="both",
+        help="limit the packaged README to one task's organizer commands",
+    )
     return parser.parse_args()
 
 
@@ -100,7 +104,21 @@ def main() -> None:
         "THIRD_PARTY.md",
     ):
         shutil.copy2(ROOT / name, output / name)
-    shutil.copy2(ROOT / "SUBMISSION_README.md", output / "README.md")
+    if args.mirex_task == "both":
+        shutil.copy2(ROOT / "SUBMISSION_README.md", output / "README.md")
+    else:
+        substitutions = {
+            "@TASK_TITLE@": (
+                "Audio Beat Tracking" if args.mirex_task == "beat"
+                else "Audio Downbeat Estimation"
+            ),
+            "@TASK@": args.mirex_task,
+            "@EVENT@": "beat" if args.mirex_task == "beat" else "downbeat",
+        }
+        readme = (ROOT / "SUBMISSION_TASK_README.md").read_text()
+        for token, value in substitutions.items():
+            readme = readme.replace(token, value)
+        (output / "README.md").write_text(readme)
     copy_python_package(ROOT / "mirex_pipeline", output / "mirex_pipeline")
     (output / "weights").mkdir()
     shutil.copy2(checkpoint, output / "weights" / "beatthis.ckpt")
@@ -204,16 +222,20 @@ def main() -> None:
             "bytes": path.stat().st_size,
             "sha256": sha256_file(path),
         }
+    task_commands = {
+        "beat": "./run.sh --task beat --backbone beatthis --decoder casm %input %output",
+        "downbeat": "./run.sh --task downbeat --backbone beatthis --decoder casm %input %output",
+    }
+    if args.mirex_task != "both":
+        task_commands = {args.mirex_task: task_commands[args.mirex_task]}
     manifest = {
         "schema_version": 1,
         "system": "CASM MIREX 2026 multi-backbone inference matrix",
-        "default_mirex_command": (
-            "./run.sh --backbone beatthis --decoder casm %input %output"
-        ),
-        "mirex_commands": {
-            "beat": "./run.sh --task beat --backbone beatthis --decoder casm %input %output",
-            "downbeat": "./run.sh --task downbeat --backbone beatthis --decoder casm %input %output",
-        },
+        "mirex_task": args.mirex_task,
+        "default_mirex_command": task_commands[
+            args.mirex_task if args.mirex_task != "both" else "beat"
+        ],
+        "mirex_commands": task_commands,
         "backbones": backbone_records,
         "casm_config_sha256": config_sha256,
         "files": files,

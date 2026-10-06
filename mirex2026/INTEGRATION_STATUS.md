@@ -4,7 +4,23 @@ This file is the handoff boundary between running experiments and the final
 submission bundle. A model is enabled in `config/backbones.json` only after
 all required fields below are frozen and its one-WAV smoke test passes.
 
-As a fallback while BeatFM expanded-data comparison and source redistribution
+The task-specific private candidates are
+`submission-builds/casm-mirex2026-beat-beatthis-mscnn-20261006.tar.gz`
+(SHA-256 `df031739087ab8b6f3906144b3536735bd2cf4c992cd92d5ca264beef6efd0c3`)
+and `submission-builds/casm-mirex2026-downbeat-beatthis-mscnn-20261006.tar.gz`
+(SHA-256 `e5a002ddc4760c6a46d2ec303c66becec2b7cad90748c3d65ce26a23e6b53fc5`).
+Each README has exactly four organizer command lines for its own task, with
+no cross-task command. The internal dual-task smoke bundle is
+`submission-builds/casm-mirex2026-dual-task-beatthis-mscnn-20261006.tar.gz`
+(SHA-256 `589959ff446470135408c5848a1b54e62d584a5be74aa4bb79096b2c184c9d67`).
+All 48 manifest-listed files passed hash verification. The archive was
+hash-checked after transfer to lab5090 and its extracted Linux runtime passed
+an allowed-WAV smoke: BeatThis+CASM returned 44 beats and 15 downbeats;
+MSCNN+Direct returned 15 downbeats. It still contains the disclosed MSCNN
+train-split weight, not the ongoing full retrain. It has **not** been uploaded
+to MIREX.
+
+As an earlier fallback while BeatFM expanded-data comparison and source redistribution
 rights remain open,
 `submission-builds/casm-mirex2026-beatthis-mscnn-fallback-v2-20261004.tar.gz`
 contains the selected BeatThis and MSCNN checkpoints but **no BeatFM source,
@@ -54,16 +70,21 @@ is a runnable candidate bundle, not an uploaded MIREX entry.
 - [x] Chosen train-split checkpoint copied privately to `weights/mscnn.ckpt`
   (SHA-256 `6cb647407caf367e1e3e66d13061a4459899f26e1ae0001e5c519cac95ab30b1`)
   and one-WAV Direct smoke-tested on lab5090.
-- [ ] Full-allowed retrain in progress: the frozen seed-0, 1,500-epoch recipe
+- [ ] Full-allowed retrain incomplete: the frozen seed-0, 1,500-epoch recipe
   uses `--no-val` to merge 3,783 training and 556 allowed-validation pieces.
   A launch-time loader audit requires exactly 4,339 effective pieces and zero
-  SMC/GTZAN training items. Kaya V100 job `74883` is the live primary run.
-  The lab5090 race was stopped without a checkpoint after 82 minutes because
-  it had not completed its first epoch; its log is retained. The delayed MI210
-  job `74765` was cancelled before it ran. Kaya continuation job `75204` depends on `74883`
-  and resumes `last.ckpt` only if the 12-hour V100 segment does not finish;
-  it exits immediately if `TRAINING_COMPLETE` already exists. TCN follow-up
-  work is paused and SpecTNT has no job.
+  SMC/GTZAN training items. Kaya V100 job `74883` timed out after saving the
+  zero-based epoch-899 checkpoint (SHA-256
+  `48d1bfb1f55b87424c5999683169df733df1b762d88eec143e67c22b6a94fb8c`).
+  Job `75204` failed while Lightning/PyTorch 2.6 attempted restricted loading
+  of that trusted checkpoint, not during model training. The checkpoint was
+  independently loaded with full optimizer/scheduler state (step 128700), and
+  the corrected 10-hour continuation is Kaya job `77798`, running from epoch
+  900 at this update. It disables the upstream trainer's automatic GTZAN test phase.
+  The stopped lab5090 race retained interim epoch-99 and epoch-199
+  checkpoints; neither is the selected full retrain. The delayed MI210 job
+  `74765` was cancelled before it ran. TCN follow-up work is paused and
+  SpecTNT has no job.
 
 ## BeatFM — experiments stopped 2026-10-05; artifacts retained
 

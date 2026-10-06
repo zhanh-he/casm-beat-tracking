@@ -28,7 +28,7 @@ at 50 Hz. The shared decoder layer then applies the requested postprocessor.
 | Backbone | Status | MIREX role |
 |---|---|---|
 | BeatThis | three-seed expanded search, full-allowed retrain, and four-decoder one-WAV smoke complete | primary submission |
-| MSCNN | seed-0 epoch 1499 selected on allowed validation; 1,500-epoch full-allowed retrain running on Kaya with an SMC/GTZAN exclusion gate | highest-priority remaining retrain |
+| MSCNN | seed-0 epoch 1499 selected on allowed validation; full-allowed retrain resumed from epoch 899 on Kaya job `77798` | highest-priority remaining retrain; current bundle still uses split weight |
 | BeatFM | 911-piece epoch-15 checkpoint selected; experiments stopped and artifacts retained | reduced-data fallback only |
 
 ## Checkpoint selection and frozen diagnostics
@@ -62,7 +62,7 @@ contains 993 valid pieces and SMC contains 217.
 |  |  | DBN 55–215 / DBN 30–300 | 88.33 / **88.94** | 80.59 / **80.71** | 91.48 / **92.51** | 77.12 / **77.84** | 72.77 / **73.31** | 87.60 / **88.12** | 56.31 / 56.53 | 43.90 / **44.96** | **61.22** / 60.51 |
 | MSCNN seed-0 e1499 | 3,783 log-Mel; 556 allowed validation | Direct / CASM | 85.94 / **86.30** | 72.18 / 73.33 | 78.95 / 80.42 | 69.59 / 71.66 | 50.77 / 61.17 | 61.63 / 72.43 | 54.81 / **55.72** | 34.81 / **39.27** | 41.57 / 46.94 |
 |  |  | DBN 55–215 / DBN 30–300 | 85.52 / 84.54 | **76.90** / 74.80 | **86.74** / 85.88 | **72.09** / 71.25 | **68.78** / 67.25 | **84.92** / 84.31 | 50.46 / 46.91 | 39.11 / 32.89 | **53.45** / 49.79 |
-| MSCNN seed-0 e1500, full retrain running | 4,339 log-Mel; no held-out validation | Direct / CASM | — / — | — / — | — / — | — / — | — / — | — / — | — / — | — / — | — / — |
+| MSCNN seed-0 e1500, full retrain incomplete | 4,339 log-Mel; no held-out validation | Direct / CASM | — / — | — / — | — / — | — / — | — / — | — / — | — / — | — / — | — / — |
 |  |  | DBN 55–215 / DBN 30–300 | — / — | — / — | — / — | — / — | — / — | — / — | — / — | — / — | — / — |
 | TCN seed-0 e119 | 3,783 log-Mel; 556 allowed validation | Direct / CASM | 86.54 / **86.81** | 72.81 / **73.82** | 80.54 / 81.76 | 61.23 / 65.92 | 21.29 / 51.74 | 59.29 / 70.96 | 51.54 / **51.85** | 27.76 / **30.06** | 33.43 / 37.93 |
 |  |  | DBN 55–215 / DBN 30–300 | 84.52 / 83.87 | 73.23 / 71.67 | **86.54** / 86.32 | **66.58** / 65.87 | **59.77** / 58.95 | 82.16 / **82.41** | 42.09 / 36.72 | 22.19 / 15.81 | **39.71** / 36.70 |
@@ -80,6 +80,8 @@ The source table, checkpoint hashes, and per-piece artifacts are retained in
 and [`results/target_table_20261005/`](results/target_table_20261005/). The
 upstream BeatThis `final0` checkpoint is deliberately absent because it was
 trained on SMC folds and therefore cannot be evaluated on full SMC here.
+The [2026-10-06 recovery inventory](results/EXPERIMENT_RECOVERY_20261006.md)
+records live job states, verified hashes, and which missing cells remain blank.
 
 The BeatThis fork's audited `Audio2Frames` loader reads checkpoint architecture
 metadata and supports both BeatThis and MSCNN. BeatFM has a separate
@@ -150,10 +152,14 @@ docker run --rm --gpus all \
 The private final archive is built with `build_submission.py`. It copies only
 supplied checkpoints, vendors the audited BeatThis and CASM sources, includes
 BeatFM/MERT only when explicitly supplied, and records SHA-256 hashes in
-`MANIFEST.json`. Check [third-party rights](THIRD_PARTY.md) before any external
-distribution. Its concise
-[`SUBMISSION_README.md`](SUBMISSION_README.md) is copied as the bundle README;
-the development links in this file are not placed into the standalone archive.
+`MANIFEST.json`. For an actual task submission, use `--mirex-task beat` or
+`--mirex-task downbeat`: each generates a README with only that task's
+organizer command lines from [`SUBMISSION_TASK_README.md`](SUBMISSION_TASK_README.md).
+The generic dual-task README is for internal smoke tests only, because MIREX
+automatically evaluates every README line containing both input and output
+placeholders. Current task-specific archive names and hashes are in
+[`INTEGRATION_STATUS.md`](INTEGRATION_STATUS.md). Check
+[third-party rights](THIRD_PARTY.md) before any external distribution.
 
 ## Experiment and submission policy
 
@@ -170,7 +176,7 @@ the development links in this file are not placed into the standalone archive.
   screens are historical artifacts, not a permitted MIREX diagnostic loop.
 - After seed/epoch selection, BeatThis was retrained on all allowed training
   and validation pieces with the fixed recipe. The equivalent MSCNN full-data
-  retrain is now running; the packaged MSCNN weight remains the disclosed
+  retrain resumed from epoch 899; the packaged MSCNN weight remains the disclosed
   train-split checkpoint until that retrain completes and passes smoke tests.
   BeatFM remains a stopped, reduced-data train-split experiment.
 - The final README submitted to MIREX will contain only the command lines that

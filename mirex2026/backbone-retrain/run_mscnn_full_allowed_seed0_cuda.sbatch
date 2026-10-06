@@ -4,10 +4,10 @@
 #SBATCH --partition=ondemand-gpu
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=8
-#SBATCH --mem=48G
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=32G
 #SBATCH --gres=gpu:1
-#SBATCH --time=12:00:00
+#SBATCH --time=10:00:00
 #SBATCH --output=/group/ems011/zhe/auto_structbeat_results/slurm/mscnn-full-cuda-%j.out
 #SBATCH --error=/group/ems011/zhe/auto_structbeat_results/slurm/mscnn-full-cuda-%j.err
 
@@ -21,6 +21,7 @@ DATA_VIEW="${DATA_ROOT}/views/no_smc_20260929/data"
 OUTPUT_DIR="${RUN_ROOT}/mirex_no_smc_20261005/mscnn_full_allowed_seed0_e1500_cuda"
 CHECKPOINT_DIR="${OUTPUT_DIR}/checkpoints"
 export PYTHONPATH="${PROJECT_ROOT}:${BEAT_THIS_ROOT}${PYTHONPATH:+:${PYTHONPATH}}"
+export BEAT_THIS_ROOT
 
 require_path "${ENV_PREFIX}/ENVIRONMENT_READY" "validated CUDA environment"
 require_path "${DATA_ROOT}/state/DATA_READY" "verified Beat This data marker"
@@ -71,8 +72,16 @@ else
   fi
 fi
 
+# Lightning/PyTorch 2.6 defaults to restricted checkpoint loading. This
+# checkpoint was written by our own preceding segment in CHECKPOINT_DIR and
+# must restore optimizer, scheduler, and RNG state to continue epoch 900.
+if [[ ${#resume_args[@]} -gt 0 ]]; then
+  export TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=1
+  sha256sum "${resume_args[1]}"
+fi
+
 cd "${BEAT_THIS_ROOT}"
-"${PYTHON}" launch_scripts/train.py \
+"${PYTHON}" "${MYGROUP}/auto_structbeat/kaya/train_mscnn_without_target_test.py" \
   --name mirex_no_smc_mscnn_full_allowed_seed0 \
   --architecture multiscale_cnn \
   --data-dir "${DATA_VIEW}" \

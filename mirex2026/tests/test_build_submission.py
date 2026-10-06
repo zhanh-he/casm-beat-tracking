@@ -61,6 +61,24 @@ class BuildSubmissionTest(unittest.TestCase):
             self.assertIn(
                 "--task downbeat", manifest["mirex_commands"]["downbeat"]
             )
+            downbeat_output = base / "downbeat_bundle"
+            downbeat_command = command.copy()
+            downbeat_command[downbeat_command.index(str(output))] = str(downbeat_output)
+            downbeat_command.extend(("--mirex-task", "downbeat"))
+            subprocess.run(
+                downbeat_command, check=True, capture_output=True, text=True
+            )
+            downbeat_readme = (downbeat_output / "README.md").read_text()
+            organizer_lines = [
+                line for line in downbeat_readme.splitlines()
+                if "%input" in line and "%output" in line
+            ]
+            self.assertEqual(len(organizer_lines), 4)
+            self.assertTrue(all("--task downbeat" in line for line in organizer_lines))
+            downbeat_manifest = json.loads(
+                (downbeat_output / "MANIFEST.json").read_text()
+            )
+            self.assertEqual(set(downbeat_manifest["mirex_commands"]), {"downbeat"})
 
     def test_beatfm_requires_source_and_mert_together(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

@@ -363,6 +363,16 @@ function mountInlineAuditionControls() {
 .audition-status-prefix[data-state="playing"] { color: #4173c8; }
 .audition-status-prefix[data-state="error"] { color: #d85555; }
 @media (max-width: 520px) { .audition-heading { align-items: flex-start; flex-direction: column; gap: 3px; } .audition-transport { grid-template-columns: minmax(80px, 1fr) 132px; } .audition-time { font-size: 11px; } }
+@media (min-width: 901px) {
+  #audition-toolbar { margin: 0 0 5px; padding: 3px 0 7px; }
+  .audition-heading { margin-bottom: 5px; }
+  .audition-heading strong { font-size: 12px; }
+  .audition-window { font-size: 11px; }
+  .audition-stop { width: 30px; min-height: 30px; flex-basis: 30px; }
+  .audition-transport { grid-template-columns: minmax(90px, 1fr) 115px; gap: 7px; margin-top: 6px; }
+  .audition-time, .audition-status { font-size: 11px; }
+  .audition-status-row { margin-top: 5px; }
+}
 `;
   documentInside.head.append(style);
 
@@ -477,7 +487,8 @@ function bindFigureControls() {
     syncFromFigure(false);
   });
   const resizeFrame = () => {
-    const height = Math.max(980, documentInside.documentElement.scrollHeight + 6);
+    const desktopLayout = documentInside.documentElement.clientWidth > 900;
+    const height = Math.max(desktopLayout ? 780 : 980, documentInside.documentElement.scrollHeight + 6);
     ui.frame.style.height = `${height}px`;
   };
   resizeFrame();

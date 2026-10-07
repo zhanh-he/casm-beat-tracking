@@ -73,12 +73,26 @@ body { padding: 2px 0 12px; }
       contain: inline-size;
     }
     #decoder-contrast-real-v2 * { box-sizing: border-box; }
+    #decoder-contrast-real-v2 .demo-grid {
+      display: grid;
+      grid-template-columns: minmax(430px, .82fr) minmax(0, 1.18fr);
+      gap: 20px;
+      align-items: start;
+      min-width: 0;
+    }
+    #decoder-contrast-real-v2 .control-pane {
+      min-width: 0;
+      padding: 13px 12px 11px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: #fbfcfd;
+    }
     #decoder-contrast-real-v2 .figure-head {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(230px, 330px);
-      gap: 18px;
+      grid-template-columns: minmax(0, 1fr) minmax(138px, 170px);
+      gap: 12px;
       align-items: end;
-      padding: 0 6px 12px;
+      padding: 0 0 9px;
       min-width: 0;
     }
     #decoder-contrast-real-v2 h2 {
@@ -236,7 +250,7 @@ body { padding: 2px 0 12px; }
     #decoder-contrast-real-v2 svg {
       display: block;
       width: 100%;
-      height: 920px;
+      height: 760px;
       overflow: visible;
     }
     #decoder-contrast-real-v2 .axis text,
@@ -281,6 +295,31 @@ body { padding: 2px 0 12px; }
       border: 1px solid var(--border);
       box-shadow: 0 4px 14px color-mix(in srgb, var(--foreground) 16%, transparent);
     }
+    @media (min-width: 901px) {
+      #decoder-contrast-real-v2 h2 { font-size: 19px; }
+      #decoder-contrast-real-v2 .subtitle { font-size: 12px; line-height: 1.35; }
+      #decoder-contrast-real-v2 .form-label { font-size: 12px; }
+      #decoder-contrast-real-v2 .form-select { min-height: 36px; margin-top: 3px; padding-top: 4px; padding-bottom: 4px; }
+      #decoder-contrast-real-v2 .case-summary { padding: 7px 0; font-size: 12.5px; line-height: 1.38; }
+      #decoder-contrast-real-v2 .metric-table { margin-bottom: 4px; font-size: 12.5px; }
+      #decoder-contrast-real-v2 .metric-table th,
+      #decoder-contrast-real-v2 .metric-table td { padding: 6px 5px; }
+      #decoder-contrast-real-v2 .method-label { gap: 5px; }
+      #decoder-contrast-real-v2 .method-swatch { width: 14px; height: 2px; }
+      #decoder-contrast-real-v2 .table-play { width: 30px; height: 28px; }
+      #decoder-contrast-real-v2 .legend { gap: 4px 10px; padding: 6px 0 2px; font-size: 11.5px; line-height: 1.35; }
+      #decoder-contrast-real-v2 .legend-item { gap: 4px; }
+      #decoder-contrast-real-v2 .legend-activation { width: 17px; }
+      #decoder-contrast-real-v2 .window-control { gap: 3px 8px; padding: 7px 0 0; }
+      #decoder-contrast-real-v2 .control-hint,
+      #decoder-contrast-real-v2 .window-readout { font-size: 11px; }
+    }
+    @media (max-width: 900px) {
+      #decoder-contrast-real-v2 .demo-grid { grid-template-columns: 1fr; }
+      #decoder-contrast-real-v2 .control-pane { padding: 8px 4px 12px; border: 0; background: transparent; }
+      #decoder-contrast-real-v2 .figure-head { grid-template-columns: minmax(0, 1fr) minmax(230px, 330px); gap: 18px; padding: 0 6px 12px; }
+      #decoder-contrast-real-v2 svg { height: 920px; }
+    }
     @media (max-width: 620px) {
       #decoder-contrast-real-v2 .figure-head { grid-template-columns: 1fr; align-items: start; }
       #decoder-contrast-real-v2 .legend-item { white-space: normal; }
@@ -288,45 +327,49 @@ body { padding: 2px 0 12px; }
     }
   </style>
 
-  <div class="figure-head">
-    <div>
-      <h2>Beat decoding results on the same activations</h2>
-      <p class="subtitle text-small"></p>
+  <div class="demo-grid">
+    <section class="control-pane" aria-label="Demo controls and decoder metrics">
+      <div class="figure-head">
+        <div>
+          <h2>Beat decoding results on the same activations</h2>
+          <p class="subtitle text-small"></p>
+        </div>
+        <label class="case-field form-label" for="decoder-contrast-case-v2">
+          <span class="case-field__heading"><strong>Track Selection</strong></span>
+          <select id="decoder-contrast-case-v2" class="form-select"></select>
+        </label>
+      </div>
+      <p class="case-summary text-small" aria-live="polite"></p>
+
+      <div class="table-responsive">
+        <table class="table table-sm metric-table">
+          <thead><tr><th>Decoder</th><th class="text-end">F1</th><th class="text-end">CMLt</th><th class="text-end">AMLt</th><th class="text-end">Events</th><th class="play-column" hidden>Play audio</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="legend text-small" aria-label="Event and interval legend">
+        <span class="legend-item"><i class="legend-activation"></i>beat activation</span>
+        <span class="legend-item"><i class="legend-diamond hollow"></i>GroundTruth beat</span>
+        <span class="legend-item"><i class="legend-diamond"></i>GroundTruth downbeat</span>
+        <span class="legend-item"><i class="legend-guide"></i>GroundTruth alignment guide</span>
+        <span class="legend-item"><i class="legend-tick"></i>matched prediction</span>
+        <span class="legend-item"><i class="legend-symbol">×</i>false-positive prediction</span>
+      </div>
+
+      <div class="window-control">
+        <label class="form-label" for="decoder-window-start">Listening window <span class="control-hint">Drag to choose a time interval.</span></label>
+        <input id="decoder-window-start" class="form-range" type="range" step="0.01" aria-label="Visible window start">
+        <span class="window-readout text-small tabular-nums"></span>
+      </div>
+    </section>
+    <div class="chart-wrap">
+      <svg role="img" aria-labelledby="decoder-contrast-title-v2 decoder-contrast-desc-v2">
+        <title id="decoder-contrast-title-v2">Beat decoder paths on a shared activation</title>
+        <desc id="decoder-contrast-desc-v2">Held-out Beat This activation, GroundTruth beats and downbeats, Direct, fixed Semi-Markov, DBN, PLPDP, and CASM beat paths, followed by six separated interval panels.</desc>
+      </svg>
+      <div class="tooltip text-small" role="tooltip"></div>
     </div>
-    <label class="case-field form-label" for="decoder-contrast-case-v2">
-      <span class="case-field__heading"><strong>Track Selection</strong></span>
-      <select id="decoder-contrast-case-v2" class="form-select"></select>
-    </label>
-  </div>
-  <p class="case-summary text-small" aria-live="polite"></p>
-
-  <div class="table-responsive">
-    <table class="table table-sm metric-table">
-      <thead><tr><th>Decoder</th><th class="text-end">F1</th><th class="text-end">CMLt</th><th class="text-end">AMLt</th><th class="text-end">Events</th><th class="play-column" hidden>Play audio</th></tr></thead>
-      <tbody></tbody>
-    </table>
-  </div>
-
-  <div class="legend text-small" aria-label="Event and interval legend">
-    <span class="legend-item"><i class="legend-activation"></i>beat activation</span>
-    <span class="legend-item"><i class="legend-diamond hollow"></i>GroundTruth beat</span>
-    <span class="legend-item"><i class="legend-diamond"></i>GroundTruth downbeat</span>
-    <span class="legend-item"><i class="legend-guide"></i>GroundTruth alignment guide</span>
-    <span class="legend-item"><i class="legend-tick"></i>matched prediction</span>
-    <span class="legend-item"><i class="legend-symbol">×</i>false-positive prediction</span>
-  </div>
-
-  <div class="window-control">
-    <label class="form-label" for="decoder-window-start">Listening window <span class="control-hint">Drag to choose a time interval.</span></label>
-    <input id="decoder-window-start" class="form-range" type="range" step="0.01" aria-label="Visible window start">
-    <span class="window-readout text-small tabular-nums"></span>
-  </div>
-  <div class="chart-wrap">
-    <svg role="img" aria-labelledby="decoder-contrast-title-v2 decoder-contrast-desc-v2">
-      <title id="decoder-contrast-title-v2">Beat decoder paths on a shared activation</title>
-      <desc id="decoder-contrast-desc-v2">Held-out Beat This activation, GroundTruth beats and downbeats, Direct, fixed Semi-Markov, DBN, PLPDP, and CASM beat paths, followed by six separated interval panels.</desc>
-    </svg>
-    <div class="tooltip text-small" role="tooltip"></div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
@@ -515,7 +558,7 @@ body { padding: 2px 0 12px; }
         svg.append('g').attr('class', 'ibi-grid').attr('transform', `translate(${margin.left},0)`).call(d3.axisLeft(yPanel).ticks(3).tickSize(-plotWidth).tickFormat(''));
         svg.append('g').attr('class', 'axis').attr('transform', `translate(${margin.left},0)`).call(d3.axisLeft(yPanel).ticks(2));
         const panelLabel = (compact ? panel.short : panel.label).replace(/ IBI$/, '');
-        const panelLabelX = margin.left - 18;
+    const panelLabelX = margin.left - (compact ? 26 : 42);
         const panelLabelY = (panel.top + panel.bottom) / 2 - 3;
         const panelLabelText = svg.append('text').attr('class', 'lane-label').attr('x', panelLabelX).attr('y', panelLabelY).attr('text-anchor', 'end')
           .style('fill', panel.id === 'direct' ? colors.direct : panel.id === 'fixed' ? colors.fixed : panel.id === 'dbn' ? colors.dbn : panel.id === 'plpdp' ? colors.plpdp : panel.id === 'casm' ? colors.casm : colors.foreground);

@@ -349,23 +349,6 @@ progress::-moz-progress-bar { background: var(--activation); }
   background: #fff;
 }
 
-.protocol-band {
-  padding: 28px 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  background: var(--soft);
-}
-
-.protocol-copy {
-  margin: 0;
-  color: var(--muted);
-  font-size: 15px;
-  line-height: 1.58;
-}
-
-.protocol-copy strong { color: var(--foreground); }
-.protocol-copy + .protocol-copy { margin-top: 12px; }
-
 footer { padding: 22px 0 34px; }
 
 .footer-inner {

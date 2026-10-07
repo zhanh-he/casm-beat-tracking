@@ -165,6 +165,14 @@ body { padding: 2px 0 12px; }
     }
     #decoder-contrast-real-v2 .window-control label { grid-column: 1 / -1; }
     #decoder-contrast-real-v2 .window-control input { width: 100%; }
+    #decoder-contrast-real-v2 .protocol-note {
+      margin: 9px 7px 0;
+      color: var(--muted-foreground);
+      font-size: 15px;
+      line-height: 1.45;
+    }
+    #decoder-contrast-real-v2 .protocol-note + .protocol-note { margin-top: 6px; }
+    #decoder-contrast-real-v2 .protocol-note strong { color: var(--foreground); }
     #decoder-contrast-real-v2 .table-play {
       width: 34px; height: 32px; border: 1px solid var(--border); border-radius: 4px;
       color: var(--foreground); background: #fff; cursor: pointer; font: inherit;
@@ -301,7 +309,7 @@ body { padding: 2px 0 12px; }
       #decoder-contrast-real-v2 .form-label { font-size: 12px; }
       #decoder-contrast-real-v2 .form-select { min-height: 36px; margin-top: 3px; padding-top: 4px; padding-bottom: 4px; }
       #decoder-contrast-real-v2 .case-summary { padding: 7px 0; font-size: 12.5px; line-height: 1.38; }
-      #decoder-contrast-real-v2 .metric-table { margin-bottom: 4px; font-size: 12.5px; }
+      #decoder-contrast-real-v2 .metric-table { margin-bottom: 4px; font-size: 13px; }
       #decoder-contrast-real-v2 .metric-table th,
       #decoder-contrast-real-v2 .metric-table td { padding: 6px 5px; }
       #decoder-contrast-real-v2 .method-label { gap: 5px; }
@@ -313,6 +321,7 @@ body { padding: 2px 0 12px; }
       #decoder-contrast-real-v2 .window-control { gap: 3px 8px; padding: 7px 0 0; }
       #decoder-contrast-real-v2 .control-hint,
       #decoder-contrast-real-v2 .window-readout { font-size: 11px; }
+      #decoder-contrast-real-v2 .protocol-note { margin-right: 0; margin-left: 0; font-size: 12px; }
     }
     @media (max-width: 900px) {
       #decoder-contrast-real-v2 .demo-grid { grid-template-columns: 1fr; }
@@ -362,6 +371,8 @@ body { padding: 2px 0 12px; }
         <input id="decoder-window-start" class="form-range" type="range" step="0.01" aria-label="Visible window start">
         <span class="window-readout text-small tabular-nums"></span>
       </div>
+      <p class="protocol-note"><strong>What you are hearing:</strong> Each case includes its complete 30- or 40-second performance. Every option overlays its events on exactly the same recording. SMC has no downbeat annotations, so all four SMC examples use one uniform beat click; GTZAN retains distinct beat and downbeat clicks. Selected for illustration, not aggregate evaluation. Decoder configurations are recorded with each case; for SMC 001/032, only DBN is corrected to its beat-only processor and all other displayed outputs are preserved.</p>
+      <p class="protocol-note"><strong>Mean absolute error (MAE)</strong> between the decoded and reference <strong>inter-beat interval (IBI) curves</strong> shows how closely each decoder follows changes in the reference beat spacing. Measured in seconds (<strong>lower is better</strong>).</p>
     </section>
     <div class="chart-wrap">
       <svg role="img" aria-labelledby="decoder-contrast-title-v2 decoder-contrast-desc-v2">
@@ -498,7 +509,7 @@ body { padding: 2px 0 12px; }
       const activationBottom = 150;
       const groundTruthY = 180;
       const laneStart = 212;
-      const laneGap = 29;
+      const laneGap = 24;
       const laneBottom = laneStart + laneGap * (methods.length - 1);
       const intervalAreaTop = laneBottom + 39;
       const intervalBottom = height - margin.bottom;

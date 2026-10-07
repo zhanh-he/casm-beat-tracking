@@ -4,7 +4,12 @@ weights/*
 !weights/tcn_mirex.ckpt
 !weights/README.md
 !weights/manifest.json
-third_party/
+third_party/*
+!third_party/plpdp4beat/
+third_party/plpdp4beat/*
+!third_party/plpdp4beat/__init__.py
+!third_party/plpdp4beat/modules.py
+!third_party/plpdp4beat/LICENSE
 vendor/
 MANIFEST.json
 !weights/manifest.json

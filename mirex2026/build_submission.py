@@ -90,6 +90,12 @@ def main() -> None:
         raise RuntimeError(f"Refusing to replace existing output: {output}")
     checkpoint = args.beatthis_checkpoint.resolve()
     config = args.casm_config.resolve()
+    casm_package = args.casm_root.resolve() / "src" / "casm_beat_tracking"
+    for required in ("__init__.py", "config.py", "decoder.py"):
+        if not (casm_package / required).is_file():
+            raise FileNotFoundError(
+                f"CASM source is incomplete; expected {casm_package / required}"
+            )
     checkpoint_sha256 = require_hash(
         checkpoint, args.expected_checkpoint_sha256
     )
@@ -105,6 +111,7 @@ def main() -> None:
         "run_casm_beatthis.py",
         "requirements.txt",
         "requirements-dbn.txt",
+        "requirements-plpdp.txt",
         "requirements-beatfm.txt",
         "SYSTEM_DESCRIPTION.md",
         "THIRD_PARTY.md",
@@ -137,6 +144,11 @@ def main() -> None:
             readme = readme.replace(token, value)
         (output / "README.md").write_text(readme)
     copy_python_package(ROOT / "mirex_pipeline", output / "mirex_pipeline")
+    if args.tcn_checkpoint:
+        copy_python_package(
+            ROOT / "third_party" / "plpdp4beat",
+            output / "third_party" / "plpdp4beat",
+        )
     (output / "weights").mkdir()
     shutil.copy2(checkpoint, output / "weights" / "beatthis_mirex.ckpt")
     (output / "config").mkdir()
@@ -246,7 +258,6 @@ def main() -> None:
             output / "third_party" / "beat_this" / "LICENSE",
         )
 
-    casm_package = args.casm_root.resolve() / "src" / "casm_beat_tracking"
     copy_python_package(
         casm_package,
         output / "vendor" / "casm" / "src" / "casm_beat_tracking",
@@ -272,7 +283,7 @@ def main() -> None:
             organizer_commands[task] = [
                 f"./run.sh --task {task} --backbone {backbone} --decoder {decoder} %input %output"
                 for backbone in ("beatthis", "mscnn", "tcn")
-                for decoder in ("casm", "dbn55_215", "dbn30_300")
+                for decoder in ("casm", "dbn55_215", "dbn30_300", "plpdp")
             ]
     if args.mirex_task != "both":
         task_commands = {args.mirex_task: task_commands[args.mirex_task]}

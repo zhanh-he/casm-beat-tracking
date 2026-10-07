@@ -17,6 +17,7 @@ class DecoderDeltaTableTest(unittest.TestCase):
         self.assertIn(table, (ROOT / "README.md").read_text())
         self.assertEqual(table.count("| Direct (absolute) |"), 5)
         self.assertEqual(table.count("| CASM Δ |"), 5)
+        self.assertEqual(table.count("| PLPDP Δ |"), 5)
 
     def test_representative_percentage_point_differences(self) -> None:
         rows = load_rows()

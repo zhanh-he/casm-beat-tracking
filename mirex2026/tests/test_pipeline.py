@@ -12,7 +12,7 @@ import numpy as np
 from mirex_pipeline.backbones import load_specs
 from mirex_pipeline.cli import _write_events, build_parser, main, resolved_dbn_bpm
 from mirex_pipeline.contracts import FrameActivations
-from mirex_pipeline.decoders import DirectDecoder
+from mirex_pipeline.decoders import DirectDecoder, PLPDPDecoder, make_decoder
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -50,6 +50,20 @@ class PipelineTest(unittest.TestCase):
             parser.parse_args(["--task", "downbeat", "in.wav", "out.txt"]).task,
             "downbeat",
         )
+
+    def test_released_default_plpdp_is_selectable(self) -> None:
+        parser = build_parser()
+        self.assertEqual(
+            parser.parse_args(["--decoder", "plpdp", "in.wav", "out.txt"]).decoder,
+            "plpdp",
+        )
+        decoder = make_decoder(
+            "plpdp", casm_config=ROOT / "config" / "casm-no-smc.json",
+            dbn_bpm=(55.0, 215.0),
+        )
+        self.assertIsInstance(decoder, PLPDPDecoder)
+        self.assertEqual((decoder.fps, decoder.target_fps), (50.0, 100))
+        self.assertEqual((decoder.min_bpm, decoder.max_bpm), (30, 300))
 
     def test_event_writer_supports_downbeat_output(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

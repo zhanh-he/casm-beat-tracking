@@ -127,6 +127,52 @@ class CASMEventDecoder:
         )
 
 
+@dataclass(slots=True)
+class PLPDPDecoder:
+    """Released PLPDP defaults, adapted from 50-fps logits to its 100-fps input.
+
+    Mirrors the audited ICASSP baseline: combine beat/downbeat probabilities,
+    interpolate to 100 fps, use the upstream 30-300 BPM PLPDP implementation,
+    and snap direct downbeat peaks onto the selected beat grid.
+    """
+
+    fps: float = 50.0
+    target_fps: int = 100
+    min_bpm: int = 30
+    max_bpm: int = 300
+
+    def decode(self, activations: FrameActivations) -> tuple[FloatArray, FloatArray]:
+        try:
+            from third_party.plpdp4beat import modules
+        except ImportError as exc:
+            raise RuntimeError(
+                "PLPDP needs its bundled reference code and libfmp; run install.sh."
+            ) from exc
+        beat = np.maximum(
+            expit(activations.beat_logits), expit(activations.downbeat_logits)
+        )
+        source_times = np.arange(len(beat)) / self.fps
+        target_length = int(round(len(beat) * self.target_fps / self.fps))
+        target_times = np.arange(target_length) / self.target_fps
+        activation = np.interp(target_times, source_times, beat)
+        try:
+            beats = np.asarray(
+                modules.acti2Est(
+                    activation, "PLPDP", min_bpm=self.min_bpm,
+                    max_bpm=self.max_bpm, fps=self.target_fps,
+                ),
+                dtype=np.float64,
+            )
+        except (UnboundLocalError, ValueError):
+            beats, _ = DirectDecoder().decode(activations)
+        raw_downbeats = _deduplicate(_local_maxima(activations.downbeat_logits))
+        if not len(beats) or not len(raw_downbeats):
+            downbeats = np.empty(0, dtype=np.float64)
+        else:
+            downbeats = _snap_downbeats(beats, raw_downbeats / self.fps)
+        return beats, downbeats
+
+
 def make_decoder(
     name: str,
     *,
@@ -139,4 +185,6 @@ def make_decoder(
         return DBNDecoder(*dbn_bpm)
     if name == "casm":
         return CASMEventDecoder(casm_config)
+    if name == "plpdp":
+        return PLPDPDecoder()
     raise ValueError(f"unsupported decoder: {name}")

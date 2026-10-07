@@ -26,7 +26,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("output", nargs="?", type=Path, help="event-time text file")
     parser.add_argument("--backbone", default="beatthis")
     parser.add_argument(
-        "--decoder", choices=("direct", "dbn", "dbn55_215", "dbn30_300", "casm"), default="casm"
+        "--decoder", choices=("direct", "dbn", "dbn55_215", "dbn30_300", "casm", "plpdp"), default="casm"
     )
     parser.add_argument(
         "--task",

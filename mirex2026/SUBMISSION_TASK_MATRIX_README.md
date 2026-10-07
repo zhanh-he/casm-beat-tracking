@@ -1,8 +1,8 @@
 # CASM MIREX 2026 — @TASK_TITLE@
 
 This archive is a self-contained inference entry for **@TASK_TITLE@**. It
-contains three frozen no-SMC backbones (BeatThis, MSCNN, TCN) and three
-selectable postprocessors (CASM, DBN 55–215 BPM, DBN 30–300 BPM). This is a
+contains three frozen no-SMC backbones (BeatThis, MSCNN, TCN) and four
+selectable postprocessors (CASM, DBN 55–215 BPM, DBN 30–300 BPM, PLPDP). This is a
 MIREX competition entry applying the CASM postprocessor; it is not a repeat
 submission of the ICASSP 2027 methodology paper. BeatThis architecture and
 log-Mel preprocessing come from the CPJKU Beat This project.
@@ -23,27 +23,32 @@ access, service, or API key is required at inference time.
 
 Run each desired line from the extracted archive directory. Every line is a
 separate model/decoder variant; the organizer replaces the two placeholders
-with full input and output paths. These nine lines are the **@TASK_TITLE@ task
+with full input and output paths. These twelve lines are the **@TASK_TITLE@ task
 only**—use the separately labelled archive for the other task.
 
 ```text
 ./run.sh --task @TASK@ --backbone beatthis --decoder casm %input %output
 ./run.sh --task @TASK@ --backbone beatthis --decoder dbn55_215 %input %output
 ./run.sh --task @TASK@ --backbone beatthis --decoder dbn30_300 %input %output
+./run.sh --task @TASK@ --backbone beatthis --decoder plpdp %input %output
 ./run.sh --task @TASK@ --backbone mscnn --decoder casm %input %output
 ./run.sh --task @TASK@ --backbone mscnn --decoder dbn55_215 %input %output
 ./run.sh --task @TASK@ --backbone mscnn --decoder dbn30_300 %input %output
+./run.sh --task @TASK@ --backbone mscnn --decoder plpdp %input %output
 ./run.sh --task @TASK@ --backbone tcn --decoder casm %input %output
 ./run.sh --task @TASK@ --backbone tcn --decoder dbn55_215 %input %output
 ./run.sh --task @TASK@ --backbone tcn --decoder dbn30_300 %input %output
+./run.sh --task @TASK@ --backbone tcn --decoder plpdp %input %output
 ```
 
 For a quick check after installation, run
 `./run.sh --list-backbones` and replace the two MIREX
 placeholders in any line above with a local WAV and a writable output path.
 `direct` is also supported for research comparisons but is not one of the
-nine requested evaluation variants. CASM uses one globally frozen no-SMC
-30–300 BPM configuration; DBN uses the stated BPM ranges.
+twelve requested evaluation variants. CASM uses one globally frozen no-SMC
+30–300 BPM configuration; DBN uses the stated BPM ranges. PLPDP uses its
+released 30–300 BPM defaults after interpolation from 50 to 100 fps and
+snaps downbeats to its beat grid.
 
 ## Checkpoint and data provenance
 

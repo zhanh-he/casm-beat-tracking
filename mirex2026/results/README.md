@@ -16,7 +16,10 @@ verified historical values and explicit missing-result cells for BeatThis,
 MSCNN, TCN, BeatFM, and SpecTNT; it must not be used for MIREX development.
 The former main-README [nine-metric absolute table](absolute-score-table/README.md)
 is preserved verbatim; the main README now shows Direct absolute scores and
-CASM/DBN percentage-point differences relative to Direct.
+CASM/DBN/PLPDP percentage-point differences relative to Direct. The
+[released-default PLPDP panel](plpdp_default_20261007/README.md) retains
+all 6,050 piece-level rows and the five aggregate summaries used to extend
+that table; it is a post-freeze target diagnostic, not MIREX selection evidence.
 
 The [MIREX 2026 task rule](https://music-ir.org/mirex/wiki/2026:Audio_Beat_Tracking)
 prohibits SMC and GTZAN for **any development purpose**, including model

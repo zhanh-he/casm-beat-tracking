@@ -14,7 +14,27 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class BuildSubmissionTest(unittest.TestCase):
-    def test_three_backbone_task_bundle_lists_exactly_nine_variants(self) -> None:
+    def test_rejects_incomplete_casm_source_before_creating_bundle(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary)
+            beat_this = base / "beat_this_source"
+            (beat_this / "beat_this").mkdir(parents=True)
+            checkpoint = base / "beatthis.ckpt"
+            checkpoint.write_bytes(b"fixture")
+            output = base / "bundle"
+            command = [
+                sys.executable, str(ROOT / "build_submission.py"),
+                "--beat-this-root", str(beat_this), "--casm-root", str(base),
+                "--beatthis-checkpoint", str(checkpoint),
+                "--output-dir", str(output), "--checkpoint-role", "fixture",
+                "--checkpoint-epoch", "1", "--training-run", "fixture",
+            ]
+            result = subprocess.run(command, capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("CASM source is incomplete", result.stderr)
+            self.assertFalse(output.exists())
+
+    def test_three_backbone_task_bundle_lists_exactly_twelve_variants(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             base = Path(temporary)
             beat_this = base / "beat_this_source"
@@ -23,6 +43,8 @@ class BuildSubmissionTest(unittest.TestCase):
             casm = base / "casm"
             (casm / "src" / "casm_beat_tracking").mkdir(parents=True)
             (casm / "src" / "casm_beat_tracking" / "__init__.py").write_text("")
+            (casm / "src" / "casm_beat_tracking" / "config.py").write_text("")
+            (casm / "src" / "casm_beat_tracking" / "decoder.py").write_text("")
             weights = {}
             for name in ("beatthis", "mscnn", "tcn"):
                 path = base / f"{name}.ckpt"
@@ -43,19 +65,22 @@ class BuildSubmissionTest(unittest.TestCase):
             readme = (output / "README.md").read_text()
             lines = [line for line in readme.splitlines()
                      if line.startswith("./run.sh ") and "%input" in line and "%output" in line]
-            self.assertEqual(len(lines), 9)
+            self.assertEqual(len(lines), 12)
             self.assertTrue(all("--task beat" in line for line in lines))
             self.assertEqual({line.split("--backbone ")[1].split()[0] for line in lines},
                              {"beatthis", "mscnn", "tcn"})
             self.assertEqual({line.split("--decoder ")[1].split()[0] for line in lines},
-                             {"casm", "dbn55_215", "dbn30_300"})
+                             {"casm", "dbn55_215", "dbn30_300", "plpdp"})
             manifest = json.loads((output / "MANIFEST.json").read_text())
-            self.assertEqual(len(manifest["organizer_commands"]["beat"]), 9)
+            self.assertEqual(len(manifest["organizer_commands"]["beat"]), 12)
             self.assertEqual(set(manifest["backbones"]), {"beatthis", "mscnn", "tcn"})
             self.assertTrue((output / "weights" / "beatthis_mirex.ckpt").is_file())
             self.assertTrue((output / "weights" / "mscnn_mirex.ckpt").is_file())
             self.assertTrue((output / "weights" / "tcn_mirex.ckpt").is_file())
             self.assertTrue((output / "mirex_pipeline" / "tcn_backend.py").is_file())
+            self.assertTrue((output / "third_party" / "plpdp4beat" / "modules.py").is_file())
+            self.assertTrue((output / "third_party" / "plpdp4beat" / "LICENSE").is_file())
+            self.assertTrue((output / "requirements-plpdp.txt").is_file())
             registry = json.loads((output / "config" / "backbones.json").read_text())
             self.assertEqual(set(registry["backbones"]), {"beatthis", "mscnn", "tcn"})
             self.assertIn("train-split", registry["backbones"]["beatthis"]["description"])
@@ -69,6 +94,8 @@ class BuildSubmissionTest(unittest.TestCase):
             casm = base / "casm"
             (casm / "src" / "casm_beat_tracking").mkdir(parents=True)
             (casm / "src" / "casm_beat_tracking" / "__init__.py").write_text("")
+            (casm / "src" / "casm_beat_tracking" / "config.py").write_text("")
+            (casm / "src" / "casm_beat_tracking" / "decoder.py").write_text("")
             checkpoint = base / "beatthis.ckpt"
             checkpoint.write_bytes(b"beatthis-test")
             beatfm_checkpoint = base / "beatfm.pt"

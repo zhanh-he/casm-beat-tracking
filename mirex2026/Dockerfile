@@ -14,6 +14,9 @@ WORKDIR /app
 COPY . /app
 RUN python -m pip install --upgrade pip \
     && python -m pip install -r /app/requirements.txt \
+    && if [ -d /app/third_party/plpdp4beat ]; then \
+         python -m pip install -r /app/requirements-plpdp.txt; \
+       fi \
     && if [ -d /app/third_party/beatfm_source ]; then \
          python -m pip install -r /app/requirements-beatfm.txt; \
        fi \

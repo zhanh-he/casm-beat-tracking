@@ -8,6 +8,9 @@ VENV="${MIREX_VENV:-${ROOT}/.venv}"
 "${PYTHON_BIN}" -m venv "${VENV}"
 "${VENV}/bin/python" -m pip install --upgrade pip
 "${VENV}/bin/python" -m pip install -r "${ROOT}/requirements.txt"
+if [[ -d "${ROOT}/third_party/plpdp4beat" ]]; then
+  "${VENV}/bin/python" -m pip install -r "${ROOT}/requirements-plpdp.txt"
+fi
 if [[ -d "${ROOT}/third_party/beatfm_source" ]]; then
   "${VENV}/bin/python" -m pip install -r "${ROOT}/requirements-beatfm.txt"
 fi

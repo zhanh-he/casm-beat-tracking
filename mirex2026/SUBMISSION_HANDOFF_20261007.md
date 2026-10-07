@@ -42,6 +42,32 @@ source/export hash mapping and the no-SMC/no-GTZAN protocol distinction.
   byte-for-byte equal with the original checkpoints. The slim archives have
   file-hash manifests and retain the `_mirex.ckpt` filenames throughout.
 
+## Audio-input verification against the 2026 task specifications
+
+Both official task pages specify a **single 44.1 kHz, 16-bit PCM, mono WAV**
+as input and a caller-supplied full path for an ASCII output file containing
+one event time in seconds per line. The tested WAV was confirmed as RIFF/WAVE,
+PCM_16, mono, 44,100 Hz, 1,401,848 samples (31.7879365 seconds). Inside the
+freshly installed Linux submission environment, the packaged BeatThis loader
+read that file, downsampled it with `soxr` to 22,050 Hz (700,924 samples), and
+generated a finite **1,590-frame × 128-bin log-Mel** tensor at 50 frames/s.
+The actual `Audio2Frames.signal2spect` output matched a separately invoked
+packaged `LogMelSpect` calculation with maximum absolute difference **0.0**;
+its beat and downbeat logits both had 1,590 finite frames. BeatThis and MSCNN
+share this exact loader. TCN uses the same packaged `load_audio`, `soxr`, and
+`LogMelSpect` frontend before its 128-to-74-band adapter.
+
+The 18 archived outputs from the two task-specific slim bundles were
+rechecked as ASCII numerical lines: 3 backbones × 3 postprocessors × 2 tasks;
+all 18 had strictly increasing finite timestamps in [0, 31.7879365] seconds,
+with no header or extra columns. This is an input/output contract and runtime
+smoke test, not a claim about hidden-set accuracy. The public downbeat scorer
+is still listed as TBA by the organizer.
+An additional CPU invocation supplied an absolute output path containing
+spaces and a nonexistent parent directory; the runner created the directory,
+wrote 43 beat lines, and produced a file byte-identical to the earlier
+BeatThis + CASM output.
+
 ## Submission-policy check before upload
 
 The official MIREX 2026 task pages require a packaged algorithm and a README

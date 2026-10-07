@@ -13,7 +13,7 @@
       "adapter": "mirex_pipeline.beatthis_backend:BeatThisBackend",
       "checkpoint": "weights/beatthis_mirex.ckpt",
       "fps": 50.0,
-      "description": "Primary no-SMC, GTZAN-held-out backbone; seed 2 was selected on allowed validation and retrained on all allowed development pieces."
+      "description": "Primary no-SMC, GTZAN-held-out backbone; the 2026-10-07 submission uses seed 2, zero-based epoch 119, selected on allowed validation from the 3,783-piece training split."
     },
     "mscnn": {
       "status": "selected-checkpoint-private",

@@ -1,7 +1,7 @@
 # CASM MIREX 2026 competition pipeline
 
 This directory is the MIREX-facing inference and packaging workspace within
-the single `paper-revision` branch. It is a **competition entry, not a repeat
+the `mirex_submission` branch. It is a **competition entry, not a repeat
 conference-paper submission**. Our CASM methodology was submitted to ICASSP
 2027 as a conference paper, with its experiments in [`../experiments/`](../experiments/).
 MIREX applies the method

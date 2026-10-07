@@ -16,7 +16,12 @@ build/
 dist/
 
 # Private MIREX checkpoint and dependency artifacts are packaged separately.
-/mirex2026/weights/
+/mirex2026/weights/*
+!/mirex2026/weights/beatthis_mirex.ckpt
+!/mirex2026/weights/mscnn_mirex.ckpt
+!/mirex2026/weights/tcn_mirex.ckpt
+!/mirex2026/weights/README.md
+!/mirex2026/weights/manifest.json
 /mirex2026/.private_beatthis_source/
 /mirex2026/.private_beatfm_source/
 /mirex2026/.private_mert_v1_95m/

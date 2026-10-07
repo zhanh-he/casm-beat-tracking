@@ -19,12 +19,13 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 class PipelineTest(unittest.TestCase):
-    def test_backbone_manifest_has_three_named_slots(self) -> None:
+    def test_backbone_manifest_has_four_named_slots(self) -> None:
         specs = load_specs(ROOT / "config" / "backbones.json")
-        self.assertEqual(set(specs), {"beatthis", "mscnn", "beatfm"})
+        self.assertEqual(set(specs), {"beatthis", "mscnn", "tcn", "beatfm"})
         self.assertIsNotNone(specs["beatthis"].adapter)
         self.assertEqual(specs["mscnn"].adapter, specs["beatthis"].adapter)
         self.assertEqual(specs["beatfm"].adapter, "mirex_pipeline.beatfm_backend:BeatFMBackend")
+        self.assertEqual(specs["tcn"].adapter, "mirex_pipeline.tcn_backend:TCNBackend")
 
     def test_dbn_ranges(self) -> None:
         cases = [
@@ -35,6 +36,11 @@ class PipelineTest(unittest.TestCase):
         for wide, explicit, expected in cases:
             with self.subTest(wide=wide, explicit=explicit):
                 args = argparse.Namespace(dbn_wide=wide, dbn_bpm=explicit)
+                self.assertEqual(resolved_dbn_bpm(args), expected)
+        parser = build_parser()
+        for name, expected in (("dbn55_215", (55.0, 215.0)), ("dbn30_300", (30.0, 300.0))):
+            with self.subTest(decoder=name):
+                args = parser.parse_args(["--decoder", name, "in.wav", "out.txt"])
                 self.assertEqual(resolved_dbn_bpm(args), expected)
 
     def test_task_defaults_to_beat_and_accepts_downbeat(self) -> None:

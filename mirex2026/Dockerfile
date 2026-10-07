@@ -11,16 +11,15 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-COPY requirements.txt /app/requirements.txt
-COPY requirements-dbn.txt /app/requirements-dbn.txt
-COPY requirements-beatfm.txt /app/requirements-beatfm.txt
+COPY . /app
 RUN python -m pip install --upgrade pip \
     && python -m pip install -r /app/requirements.txt \
-    && python -m pip install -r /app/requirements-beatfm.txt \
+    && if [ -d /app/third_party/beatfm_source ]; then \
+         python -m pip install -r /app/requirements-beatfm.txt; \
+       fi \
     && python -m pip install 'Cython==0.29.37' \
     && python -m pip install --no-build-isolation -r /app/requirements-dbn.txt
 
-COPY . /app
 RUN chmod +x /app/run.sh /app/install.sh
 
 ENTRYPOINT ["/app/run.sh"]

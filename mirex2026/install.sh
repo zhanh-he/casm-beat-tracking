@@ -8,7 +8,9 @@ VENV="${MIREX_VENV:-${ROOT}/.venv}"
 "${PYTHON_BIN}" -m venv "${VENV}"
 "${VENV}/bin/python" -m pip install --upgrade pip
 "${VENV}/bin/python" -m pip install -r "${ROOT}/requirements.txt"
-"${VENV}/bin/python" -m pip install -r "${ROOT}/requirements-beatfm.txt"
+if [[ -d "${ROOT}/third_party/beatfm_source" ]]; then
+  "${VENV}/bin/python" -m pip install -r "${ROOT}/requirements-beatfm.txt"
+fi
 "${VENV}/bin/python" -m pip install 'Cython==0.29.37'
 "${VENV}/bin/python" -m pip install --no-build-isolation \
   -r "${ROOT}/requirements-dbn.txt"

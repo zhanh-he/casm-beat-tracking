@@ -11,16 +11,23 @@
     "beatthis": {
       "status": "selected-checkpoint-private",
       "adapter": "mirex_pipeline.beatthis_backend:BeatThisBackend",
-      "checkpoint": "weights/beatthis.ckpt",
+      "checkpoint": "weights/beatthis_mirex.ckpt",
       "fps": 50.0,
       "description": "Primary no-SMC, GTZAN-held-out backbone; seed 2 was selected on allowed validation and retrained on all allowed development pieces."
     },
     "mscnn": {
       "status": "selected-checkpoint-private",
       "adapter": "mirex_pipeline.beatthis_backend:BeatThisBackend",
-      "checkpoint": "weights/mscnn.ckpt",
+      "checkpoint": "weights/mscnn_mirex.ckpt",
       "fps": 50.0,
       "description": "Secondary lightweight backbone; the allowed-validation screen selected the seed-0 last epoch 1499 train-split checkpoint."
+    },
+    "tcn": {
+      "status": "selected-checkpoint-private",
+      "adapter": "mirex_pipeline.tcn_backend:TCNBackend",
+      "checkpoint": "weights/tcn_mirex.ckpt",
+      "fps": 50.0,
+      "description": "No-SMC TCN; seed 0, zero-based epoch 119 selected on allowed validation from the 3783-piece train split."
     },
     "beatfm": {
       "status": "selected-verified-subset-checkpoint-private",

@@ -25,6 +25,7 @@ def parse_args() -> argparse.Namespace:
         required=True,
     )
     parser.add_argument("--mscnn-checkpoint", type=Path)
+    parser.add_argument("--tcn-checkpoint", type=Path)
     parser.add_argument("--beatfm-checkpoint", type=Path)
     parser.add_argument("--beatfm-source-dir", type=Path,
                         help="Audited private BeatFM source; required with its checkpoint")
@@ -39,8 +40,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--training-run", required=True)
     parser.add_argument("--expected-checkpoint-sha256")
     parser.add_argument("--expected-mscnn-checkpoint-sha256")
+    parser.add_argument("--expected-tcn-checkpoint-sha256")
     parser.add_argument("--expected-beatfm-checkpoint-sha256")
     parser.add_argument("--expected-casm-config-sha256")
+    parser.add_argument("--mscnn-checkpoint-epoch", type=int)
+    parser.add_argument("--tcn-checkpoint-epoch", type=int)
     parser.add_argument(
         "--mirex-task", choices=("beat", "downbeat", "both"), default="both",
         help="limit the packaged README to one task's organizer commands",
@@ -79,6 +83,8 @@ def main() -> None:
     args = parse_args()
     if bool(args.beatfm_checkpoint) != bool(args.beatfm_source_dir) or bool(args.beatfm_checkpoint) != bool(args.beatfm_mert_dir):
         raise ValueError("BeatFM checkpoint, source, and MERT snapshot must be bundled together")
+    if args.tcn_checkpoint and args.beatfm_checkpoint:
+        raise ValueError("three-backbone matrix excludes BeatFM assets")
     output = args.output_dir.resolve()
     if output.exists():
         raise RuntimeError(f"Refusing to replace existing output: {output}")
@@ -104,6 +110,13 @@ def main() -> None:
         "THIRD_PARTY.md",
     ):
         shutil.copy2(ROOT / name, output / name)
+    if args.tcn_checkpoint:
+        shutil.copy2(ROOT / "SYSTEM_DESCRIPTION_MATRIX.md", output / "SYSTEM_DESCRIPTION.md")
+        shutil.copy2(ROOT / "THIRD_PARTY_MATRIX.md", output / "THIRD_PARTY.md")
+    if args.tcn_checkpoint and not args.mscnn_checkpoint:
+        raise ValueError("three-backbone matrix requires an MSCNN checkpoint")
+    if args.tcn_checkpoint and args.mirex_task == "both":
+        raise ValueError("three-backbone MIREX entries must be packaged separately by task")
     if args.mirex_task == "both":
         shutil.copy2(ROOT / "SUBMISSION_README.md", output / "README.md")
     else:
@@ -115,13 +128,17 @@ def main() -> None:
             "@TASK@": args.mirex_task,
             "@EVENT@": "beat" if args.mirex_task == "beat" else "downbeat",
         }
-        readme = (ROOT / "SUBMISSION_TASK_README.md").read_text()
+        template = (
+            "SUBMISSION_TASK_MATRIX_README.md" if args.tcn_checkpoint
+            else "SUBMISSION_TASK_README.md"
+        )
+        readme = (ROOT / template).read_text()
         for token, value in substitutions.items():
             readme = readme.replace(token, value)
         (output / "README.md").write_text(readme)
     copy_python_package(ROOT / "mirex_pipeline", output / "mirex_pipeline")
     (output / "weights").mkdir()
-    shutil.copy2(checkpoint, output / "weights" / "beatthis.ckpt")
+    shutil.copy2(checkpoint, output / "weights" / "beatthis_mirex.ckpt")
     (output / "config").mkdir()
     shutil.copy2(config, output / "config" / "casm-no-smc.json")
     registry = json.loads((ROOT / "config" / "backbones.json").read_text())
@@ -129,16 +146,26 @@ def main() -> None:
     registry["backbones"]["mscnn"]["status"] = (
         "ready-in-bundle" if args.mscnn_checkpoint else "checkpoint-not-in-bundle"
     )
-    registry["backbones"]["beatfm"]["status"] = (
-        "ready-in-bundle-private-assets" if args.beatfm_checkpoint else "checkpoint-not-in-bundle"
+    registry["backbones"]["tcn"]["status"] = (
+        "ready-in-bundle" if args.tcn_checkpoint else "checkpoint-not-in-bundle"
     )
+    if args.tcn_checkpoint:
+        registry["backbones"]["beatthis"]["description"] = (
+            "No-SMC BeatThis train-split weight; seed 2, zero-based epoch 119 "
+            "selected using allowed validation."
+        )
+        registry["backbones"].pop("beatfm")
+    else:
+        registry["backbones"]["beatfm"]["status"] = (
+            "ready-in-bundle-private-assets" if args.beatfm_checkpoint else "checkpoint-not-in-bundle"
+        )
     (output / "config" / "backbones.json").write_text(
         json.dumps(registry, indent=2, sort_keys=True) + "\n"
     )
 
     backbone_records = {
         "beatthis": {
-            "checkpoint": "weights/beatthis.ckpt",
+            "checkpoint": "weights/beatthis_mirex.ckpt",
             "role": args.checkpoint_role,
             "epoch": args.checkpoint_epoch,
             "training_run": args.training_run,
@@ -156,17 +183,30 @@ def main() -> None:
             args.beatfm_checkpoint,
             args.expected_beatfm_checkpoint_sha256,
         ),
+        (
+            "tcn",
+            args.tcn_checkpoint,
+            args.expected_tcn_checkpoint_sha256,
+        ),
     )
     for name, source, expected in optional_checkpoints:
         if source is None:
             continue
         source = source.resolve()
         digest = require_hash(source, expected)
-        relative = f"weights/{name}.ckpt"
+        relative = (
+            f"weights/{name}_mirex.ckpt" if name in {"mscnn", "tcn"}
+            else f"weights/{name}.ckpt"
+        )
         shutil.copy2(source, output / relative)
         backbone_records[name] = {
             "checkpoint": relative,
             "sha256": digest,
+            "epoch": (
+                args.tcn_checkpoint_epoch if name == "tcn"
+                else args.mscnn_checkpoint_epoch if name == "mscnn"
+                else None
+            ),
             "status": (
                 "checkpoint-copied; adapter status is authoritative in "
                 "config/backbones.json"
@@ -226,6 +266,14 @@ def main() -> None:
         "beat": "./run.sh --task beat --backbone beatthis --decoder casm %input %output",
         "downbeat": "./run.sh --task downbeat --backbone beatthis --decoder casm %input %output",
     }
+    organizer_commands = {}
+    if args.tcn_checkpoint:
+        for task in ("beat", "downbeat"):
+            organizer_commands[task] = [
+                f"./run.sh --task {task} --backbone {backbone} --decoder {decoder} %input %output"
+                for backbone in ("beatthis", "mscnn", "tcn")
+                for decoder in ("casm", "dbn55_215", "dbn30_300")
+            ]
     if args.mirex_task != "both":
         task_commands = {args.mirex_task: task_commands[args.mirex_task]}
     manifest = {
@@ -236,6 +284,7 @@ def main() -> None:
             args.mirex_task if args.mirex_task != "both" else "beat"
         ],
         "mirex_commands": task_commands,
+        "organizer_commands": organizer_commands,
         "backbones": backbone_records,
         "casm_config_sha256": config_sha256,
         "files": files,

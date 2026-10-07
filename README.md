@@ -137,6 +137,7 @@ python casm/benchmarks/benchmark_decoder.py --api processor --minutes 30 --repea
 - [Experiments](experiments/README.md): cached-activation evaluation contract and eight-fold command.
 - [Checkpoint plan](casm/weights/README.md): publication and recovery status.
 - [Checkpoint manifest](casm/weights/manifest.json): recoverable sizes and SHA-256 hashes.
+- [MIREX 2026 inference weights](mirex2026/weights/README.md): three FP32, trainer-stripped `_mirex.ckpt` files trained under the no-SMC/no-GTZAN competition protocol.
 - [Locked result source](experiments/tables/source/locked-7f/): compact source bundle used by the public table validator.
 
 The experiments use [Beat This](https://github.com/CPJKU/beat_this) data organization, annotations, preprocessing, and backbone outputs. CASM does not redistribute audio.

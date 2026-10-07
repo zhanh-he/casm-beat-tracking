@@ -26,7 +26,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("output", nargs="?", type=Path, help="event-time text file")
     parser.add_argument("--backbone", default="beatthis")
     parser.add_argument(
-        "--decoder", choices=("direct", "dbn", "casm"), default="casm"
+        "--decoder", choices=("direct", "dbn", "dbn55_215", "dbn30_300", "casm"), default="casm"
     )
     parser.add_argument(
         "--task",
@@ -60,6 +60,14 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def resolved_dbn_bpm(args: argparse.Namespace) -> tuple[float, float]:
+    if getattr(args, "decoder", "dbn") == "dbn55_215":
+        if args.dbn_wide or args.dbn_bpm is not None:
+            raise ValueError("dbn55_215 does not accept DBN range overrides")
+        return 55.0, 215.0
+    if getattr(args, "decoder", "dbn") == "dbn30_300":
+        if args.dbn_wide or args.dbn_bpm is not None:
+            raise ValueError("dbn30_300 does not accept DBN range overrides")
+        return 30.0, 300.0
     if args.dbn_wide and args.dbn_bpm is not None:
         raise ValueError("use either --dbn-wide or --dbn-bpm, not both")
     values = (30.0, 300.0) if args.dbn_wide else args.dbn_bpm
@@ -115,7 +123,7 @@ def main(argv: list[str] | None = None) -> None:
     )
     activations = backbone.predict(args.input)
     decoder = make_decoder(
-        args.decoder,
+        "dbn" if args.decoder.startswith("dbn") else args.decoder,
         casm_config=args.casm_config,
         dbn_bpm=resolved_dbn_bpm(args),
     )

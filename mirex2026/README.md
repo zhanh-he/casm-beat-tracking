@@ -9,6 +9,11 @@ to competition backbones retrained without SMC or GTZAN in development.
 After allowed-validation selection was frozen, the primary BeatThis model was
 retrained on all allowed data. Secondary models retain their explicitly
 declared data coverage. The two protocols do not share backbone checkpoints.
+The separate 2026-10-07 three-backbone submission candidates deliberately
+package the **allowed-validation-selected split weights** for BeatThis,
+MSCNN, and TCN, not BeatThis's later full-data retrain.
+The repository tracks their [lossless, trainer-stripped `_mirex.ckpt` exports](weights/README.md)
+directly; the original Lightning training checkpoints remain private.
 
 ## Layout
 
@@ -27,9 +32,10 @@ at 50 Hz. The shared decoder layer then applies the requested postprocessor.
 
 | Backbone | Status | MIREX role |
 |---|---|---|
-| BeatThis | three-seed expanded search, full-allowed retrain, and four-decoder one-WAV smoke complete | primary submission |
-| MSCNN | seed-0 epoch 1499 selected on allowed validation; full-allowed retrain resumed from epoch 899 on Kaya job `77798` | highest-priority remaining retrain; current bundle still uses split weight |
-| BeatFM | 911-piece epoch-15 checkpoint selected; experiments stopped and artifacts retained | reduced-data fallback only |
+| BeatThis | three-seed expanded search and separate full-allowed retrain complete | primary; 2026-10-07 bundle uses split weight |
+| MSCNN | seed-0 epoch 1499 selected on allowed validation | 2026-10-07 bundle uses split weight |
+| TCN | seed-0 epoch 119 selected on allowed validation; 18-way Linux runtime smoke complete | 2026-10-07 bundle uses split weight |
+| BeatFM | 911-piece epoch-15 checkpoint selected; experiments stopped and artifacts retained | not in three-backbone bundle |
 
 ## Checkpoint selection and frozen diagnostics
 
@@ -157,9 +163,17 @@ BeatFM/MERT only when explicitly supplied, and records SHA-256 hashes in
 organizer command lines from [`SUBMISSION_TASK_README.md`](SUBMISSION_TASK_README.md).
 The generic dual-task README is for internal smoke tests only, because MIREX
 automatically evaluates every README line containing both input and output
-placeholders. Current task-specific archive names and hashes are in
-[`INTEGRATION_STATUS.md`](INTEGRATION_STATUS.md). Check
+placeholders. Current task-specific archive names, hashes, and technical QA
+are in [`SUBMISSION_HANDOFF_20261007.md`](SUBMISSION_HANDOFF_20261007.md). Check
 [third-party rights](THIRD_PARTY.md) before any external distribution.
+
+The 2026-10-07 three-backbone package uses
+[`SUBMISSION_TASK_MATRIX_README.md`](SUBMISSION_TASK_MATRIX_README.md), with
+exactly nine organizer lines per task: BeatThis/MSCNN/TCN ×
+CASM/DBN55–215/DBN30–300. Its BeatThis checkpoint is the split seed-2
+epoch-119 weight, not the later 4,339-piece full retrain. The smaller
+task-specific archives and their verified hashes are listed in the
+[submission handoff](SUBMISSION_HANDOFF_20261007.md).
 
 ## Experiment and submission policy
 
@@ -174,11 +188,11 @@ placeholders. Current task-specific archive names and hashes are in
 - Clean selection is frozen on allowed validation data. The [2026 rules](https://music-ir.org/mirex/wiki/2026:Audio_Beat_Tracking)
   prohibit SMC and GTZAN for any development purpose; earlier target-set
   screens are historical artifacts, not a permitted MIREX diagnostic loop.
-- After seed/epoch selection, BeatThis was retrained on all allowed training
-  and validation pieces with the fixed recipe. The equivalent MSCNN full-data
-  retrain resumed from epoch 899; the packaged MSCNN weight remains the disclosed
-  train-split checkpoint until that retrain completes and passes smoke tests.
-  BeatFM remains a stopped, reduced-data train-split experiment.
+- After seed/epoch selection, BeatThis was separately retrained on all allowed
+  training and validation pieces with the fixed recipe. That different weight
+  is **not** in the 2026-10-07 three-backbone split-weight bundle. MSCNN and
+  TCN in that bundle are also disclosed train-split weights. BeatFM remains a
+  stopped, reduced-data experiment and is not included.
 - The final README submitted to MIREX will contain only the command lines that
   we actually want the organizers to execute; examples above are capability
   documentation, not a request to evaluate every Cartesian-product variant.

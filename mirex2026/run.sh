@@ -7,4 +7,11 @@ if [[ -d "${ROOT}/third_party/beatfm_source" && -d "${ROOT}/third_party/mert_v1_
   export BEATFM_SOURCE_DIR="${BEATFM_SOURCE_DIR:-${ROOT}/third_party/beatfm_source}"
   export BEATFM_MERT_DIR="${BEATFM_MERT_DIR:-${ROOT}/third_party/mert_v1_95m}"
 fi
-exec "${PYTHON:-python3}" "${ROOT}/run_pipeline.py" "$@"
+if [[ -n "${PYTHON:-}" ]]; then
+  PYTHON_BIN="${PYTHON}"
+elif [[ -x "${ROOT}/.venv/bin/python" ]]; then
+  PYTHON_BIN="${ROOT}/.venv/bin/python"
+else
+  PYTHON_BIN="python3"
+fi
+exec "${PYTHON_BIN}" "${ROOT}/run_pipeline.py" "$@"

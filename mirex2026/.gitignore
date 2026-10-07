@@ -1,7 +1,13 @@
-weights/
+weights/*
+!weights/beatthis_mirex.ckpt
+!weights/mscnn_mirex.ckpt
+!weights/tcn_mirex.ckpt
+!weights/README.md
+!weights/manifest.json
 third_party/
 vendor/
 MANIFEST.json
+!weights/manifest.json
 *.tar.gz
 __pycache__/
 *.pyc

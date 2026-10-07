@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "description": "Original-precision, trainer-stripped MIREX 2026 allowed-validation-selected inference weights",
+  "training_data": "3783 BeatThis log-Mel pieces; SMC and GTZAN excluded",
+  "validation_data": "556 allowed pieces; 27 Beatles pieces used for seed/epoch selection",
+  "organizer_split_note": "The 3783/556 split is our choice, not a MIREX-prescribed split",
+  "checkpoints": {
+    "beatthis": {
+      "file": "beatthis_mirex.ckpt",
+      "bytes": 81065904,
+      "sha256": "3bcd54a331076fcc406c68d155a43d0ed3770808d175f87372ced9bd9ca1cd6e",
+      "source_sha256": "cd8a8c93b11c189daab497076261730bc8a059fa2b8d2b9c07b012c2d9c4bd4d",
+      "seed": 2,
+      "zero_based_epoch": 119
+    },
+    "mscnn": {
+      "file": "mscnn_mirex.ckpt",
+      "bytes": 5164753,
+      "sha256": "b097cf28de56884129fff16a5e3353ab06c939ecc3aed4c5b9c03d97b73d7f3d",
+      "source_sha256": "6cb647407caf367e1e3e66d13061a4459899f26e1ae0001e5c519cac95ab30b1",
+      "seed": 0,
+      "zero_based_epoch": 1499
+    },
+    "tcn": {
+      "file": "tcn_mirex.ckpt",
+      "bytes": 295309,
+      "sha256": "151779e89ad3ba3b8a221ee7f166746cbb95a8aef78fa570eea75c85bd2c5bfe",
+      "source_sha256": "4b55dd02e63560bbc06b6800f48cf3c1eeac21b4af003a9f82f4b86fdb395b4f",
+      "seed": 0,
+      "zero_based_epoch": 119
+    }
+  }
+}

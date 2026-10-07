@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Listen to reference and decoded beat paths while inspecting the frozen CASM decoder visualization.">
+  <title>CASM Beat Tracking Demo</title>
+  <link rel="stylesheet" href="styles.css?v=20261007-2">
+  <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script defer src="app.js?v=20261007-2"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <div>
+        <p class="eyebrow">Beat and downbeat structured post-processing</p>
+        <h1>CASM Beat Tracking Demo</h1>
+        <p class="submission-note"><strong>Update:</strong> We are preparing MIREX 2026 beat and downbeat entries with CASM on separately trained BeatThis, MSCNN, and TCN backbones. This listening demo presents paper examples, not official MIREX test results. See the <a href="https://github.com/zhanh-he/casm-beat-tracking/tree/main/mirex2026" target="_blank" rel="noreferrer">public inference guide</a>.</p>
+      </div>
+      <a class="github-link" href="https://github.com/zhanh-he/casm-beat-tracking" target="_blank" rel="noreferrer">
+        <i data-lucide="github" aria-hidden="true"></i>
+        <span>Open-source code</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <audio id="musicPlayer" preload="metadata" playsinline hidden></audio>
+
+    <section class="figure-section" aria-label="Beat decoding results">
+      <div class="content-width">
+        <iframe id="figureFrame" src="visualization.html?v=20261007-2" title="Interactive decoder contrast visualization"></iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="content-width footer-inner">
+      <p>CASM real-case visualization · <a href="https://github.com/CPJKU/beat_this">Beat This</a> frozen activations · Audio: <a href="https://doi.org/10.1109/TASL.2012.2205244">SMC</a> and <a href="http://marsyas.info/downloads/datasets.html">GTZAN</a></p>
+      <p>Inspired by the <a href="https://sunnycyc.github.io/plpdp4beat-demo/">PLPDP listening demo</a>.</p>
+    </div>
+  </footer>
+</body>
+</html>

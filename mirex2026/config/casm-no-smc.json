@@ -1,0 +1,135 @@
+{
+  "source_config_sha256": "400a215e6a00c6d2d3aaece7235fcf2e0259d50eb54c30a507e7f1e5069c77a7",
+  "cache_piece_count": 556,
+  "cache_piece_filename_panel_sha256": "6213e3b06623463d5d286a5776c832c55c856f527cbc99822278f83a6e7e6af8",
+  "calibration_data": "no-SMC official single-split allowed validation only",
+  "checkpoint_candidate_id": "epoch_0079_5b0a6bcb",
+  "checkpoint_sha256": "8b69ca0b11ce09ff4a66cc2cd25868cb277d44e4f973a13d5e867a139e7014b5",
+  "decoder": "asm",
+  "parameters": {
+    "bar_reward": 0.0,
+    "downbeat_agreement_threshold": 0.6,
+    "downbeat_mode": "meter",
+    "downbeat_temperature": 8.0,
+    "duration_sigma": 0.15,
+    "duration_weight": 8.0,
+    "fallback_maximal_ratio": 1.8,
+    "fallback_minimal_ratio": 0.9,
+    "max_bpm": 300.0,
+    "meter_change_penalty": 3.0,
+    "meters": [
+      3,
+      4
+    ],
+    "min_bpm": 30.0,
+    "uncertain_sigma": 0.4
+  },
+  "f_drop_limit": 0.001,
+  "full_grid": {
+    "beat_config_count": 108,
+    "meter_config_count": 120
+  },
+  "minimal_selected_by_search": false,
+  "model_state_sha256": "5b0a6bcb863560a8c36c136822add08ff3af60fd3808d73741871c8eca9695e3",
+  "name": "casm_no_smc",
+  "search_protocol": "BeatThis no-SMC official single-split allowed validation; clean checkpoint frozen before calibration",
+  "search_script": "/storage/zhanh_storage/auto_structbeat_runs/beatthis_nosmc_single_seed0_e100_20260929T085029/evaluation/code/search_mdm_casm.py",
+  "search_script_sha256": "4ba710b31a450839b1f946f3abe750c4a11bfaf377391235e85654fdb597bac9",
+  "search_selected_decoder": "asm",
+  "search_selected_decoder_parameters": {
+    "bar_reward": 0.0,
+    "downbeat_agreement_threshold": 0.6,
+    "downbeat_mode": "meter",
+    "downbeat_temperature": 8.0,
+    "duration_sigma": 0.15,
+    "duration_weight": 8.0,
+    "fallback_maximal_ratio": 1.8,
+    "fallback_minimal_ratio": 0.9,
+    "meter_change_penalty": 3.0,
+    "meters": [
+      3,
+      4
+    ],
+    "uncertain_sigma": 0.4
+  },
+  "selection": {
+    "best_beat": {
+      "beat_amlt": 0.8965896955676769,
+      "beat_cmlt": 0.8523937213641437,
+      "beat_fmeasure": 0.9263520461901953,
+      "beat_objective": 0.8917784877073386,
+      "downbeat_amlt": 0.7946910025587474,
+      "downbeat_cmlt": 0.7225771214291641,
+      "downbeat_fmeasure": 0.8502575036457822,
+      "downbeat_objective": 0.7891752092112312,
+      "joint_objective": 0.8404768484592848,
+      "parameters": "{\"downbeat_mode\":\"snap\",\"duration_sigma\":0.15,\"duration_weight\":8.0,\"fallback_maximal_ratio\":1.8,\"fallback_minimal_ratio\":0.9,\"uncertain_sigma\":0.4}"
+    },
+    "best_meter": {
+      "beat_amlt": 0.8965896955676769,
+      "beat_cmlt": 0.8523937213641437,
+      "beat_fmeasure": 0.9263520461901953,
+      "beat_objective": 0.8917784877073386,
+      "downbeat_amlt": 0.847441200959296,
+      "downbeat_cmlt": 0.7612208482682337,
+      "downbeat_fmeasure": 0.8511433829695721,
+      "downbeat_objective": 0.8199351440657004,
+      "joint_objective": 0.8558568158865195,
+      "parameters": "{\"bar_reward\":0.0,\"downbeat_agreement_threshold\":0.6,\"downbeat_mode\":\"meter\",\"downbeat_temperature\":8.0,\"duration_sigma\":0.15,\"duration_weight\":8.0,\"fallback_maximal_ratio\":1.8,\"fallback_minimal_ratio\":0.9,\"meter_change_penalty\":3.0,\"meters\":[3,4],\"uncertain_sigma\":0.4}"
+    },
+    "decoder": "asm",
+    "decoder_parameters": {
+      "bar_reward": 0.0,
+      "downbeat_agreement_threshold": 0.6,
+      "downbeat_mode": "meter",
+      "downbeat_temperature": 8.0,
+      "duration_sigma": 0.15,
+      "duration_weight": 8.0,
+      "fallback_maximal_ratio": 1.8,
+      "fallback_minimal_ratio": 0.9,
+      "meter_change_penalty": 3.0,
+      "meters": [
+        3,
+        4
+      ],
+      "uncertain_sigma": 0.4
+    },
+    "f_drop_limit": 0.001,
+    "minimal": {
+      "beat_amlt": 0.8882335466992196,
+      "beat_cmlt": 0.8456292494073752,
+      "beat_fmeasure": 0.9249192340531577,
+      "beat_objective": 0.8862606767199175,
+      "downbeat_amlt": 0.792438914637128,
+      "downbeat_cmlt": 0.7207057831734058,
+      "downbeat_fmeasure": 0.8495373003542459,
+      "downbeat_objective": 0.7875606660549265,
+      "joint_objective": 0.8369106713874219,
+      "parameters": "{}"
+    },
+    "minimal_beats_selected_search": false,
+    "minimal_downbeats_selected_search": false,
+    "minimal_selected": false,
+    "piece_count": 556,
+    "protocol": "BeatThis no-SMC official single-split allowed validation; clean checkpoint frozen before calibration",
+    "selected_decoder": "asm",
+    "selected_decoder_parameters": {
+      "bar_reward": 0.0,
+      "downbeat_agreement_threshold": 0.6,
+      "downbeat_mode": "meter",
+      "downbeat_temperature": 8.0,
+      "duration_sigma": 0.15,
+      "duration_weight": 8.0,
+      "fallback_maximal_ratio": 1.8,
+      "fallback_minimal_ratio": 0.9,
+      "meter_change_penalty": 3.0,
+      "meters": [
+        3,
+        4
+      ],
+      "uncertain_sigma": 0.4
+    }
+  },
+  "submission_eligible": true,
+  "target_diagnostics_seen_before_freeze": false
+}

@@ -1,0 +1,29 @@
+.DS_Store
+.venv/
+.pytest_cache/
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+
+# Release assets are downloaded separately; keep only the small TCN example.
+/mirex2026/weights/*
+!/mirex2026/weights/tcn-mirex.ckpt
+!/mirex2026/weights/README.md
+/mirex2026/submission-builds/
+/mirex2026/.private_*/
+/mirex2026/backbone-retrain/
+/mirex2026/experiments/
+/mirex2026/scripts/
+/mirex2026/tests/
+/mirex2026/results/
+
+# Research workspaces are preserved on mirex_submission, not public main.
+/archive/
+/experiments/figures/fig02b-wrong.png
+/self-run-figures/
+/gpt-figures/
+/Paper/
+/src/
+/tests/

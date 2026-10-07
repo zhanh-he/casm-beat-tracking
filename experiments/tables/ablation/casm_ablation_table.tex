@@ -1,0 +1,55 @@
+\begin{table}[!h]
+\centering
+\caption{Ablation of CASM on BeatThis activations. Each row changes one design choice described in the subsection of Sec.~\ref{sec:method}. Values are changes from the direct peak-picking in percentage points.}
+\label{tab:casm_ablation}
+\begingroup
+\fontsize{9pt}{9pt}\selectfont
+\setlength{\tabcolsep}{0.5pt}
+\renewcommand{\arraystretch}{0.92}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{l|c|rrr|rrr}
+\toprule
+\multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Variant}}}
+& \multirow{2}{*}{\textbf{Sec.}}
+& \multicolumn{3}{c|}{\textbf{GTZAN (Beat)}}
+& \multicolumn{3}{c}{\textbf{SMC (Beat)}} \\
+\cmidrule(lr){3-5}
+\cmidrule(l){6-8}
+&
+& F1 & CMLt & AMLt
+& F1 & CMLt & AMLt \\
+\midrule
+\textbf{CASM (full)}
+& --
+& \heatposbest{0.3} & \heatposbest{0.8} & \heatposbest{1.2}
+& \heatposbest{0.3} & \heatposbest{2.4} & \heatposbest{3.6} \\
+\midrule
+55--215-BPM support
+& \hyperref[sec:path]{2.2}
+& \heatpos{0.1} & \heatpos{0.5} & \heatpos{0.6}
+& \heatpos{0.1} & \heatpos{0.4} & \heatpos{2.0} \\
+Fixed stiffness (no margin)
+& \hyperref[sec:margin]{2.3}
+& \heatneg{0.3} & \heatneg{0.8} & \heatneg{0.8}
+& \heatpos{0.1} & \heatpos{0.7} & \heatpos{0.9} \\
+Margin on weight only
+& \hyperref[sec:cost]{2.4}
+& \heatneg{0.1} & \heatneg{0.2} & \heatneg{0.2}
+& \heatneg{0.5} & \heatpos{0.9} & \heatpos{2.1} \\
+Margin on tolerance only
+& \hyperref[sec:cost]{2.4}
+& \heatneg{0.3} & \heatneg{0.6} & \heatneg{0.6}
+& \heatneg{0.5} & \heatpos{0.9} & \heatpos{2.2} \\
+Single-endpoint context
+& \hyperref[sec:cost]{2.4}
+& \heatpos{0.1} & \heatpos{0.3} & \heatpos{0.4}
+& \heatpos{0.2} & \heatpos{2.2} & \heatpos{2.6} \\
+No count safeguard
+& \hyperref[sec:safeguard]{2.5}
+& \heatneg{0.1} & \heatpos{0.4} & \heatpos{0.5}
+& \heatneg{0.3} & \heatpos{2.5} & \heatpos{2.7} \\
+\bottomrule
+\end{tabular}%
+}
+\endgroup
+\end{table}

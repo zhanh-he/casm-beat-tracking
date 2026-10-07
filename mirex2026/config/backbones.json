@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "activation_contract": {
+    "fps": 50.0,
+    "outputs": ["beat_logits", "downbeat_logits"]
+  },
+  "backbones": {
+    "beatthis-icassp": {
+      "status": "download-icassp-release",
+      "adapter": "mirex_pipeline.beatthis_backend:BeatThisBackend",
+      "checkpoint": "weights/beatthis-icassp.ckpt",
+      "fps": 50.0,
+      "description": "Beat This upstream fold-0 checkpoint; train folds 1–7, test fold 0. Not the full eight-fold result."
+    },
+    "beatthis-mirex": {
+      "status": "download-mirex-release",
+      "adapter": "mirex_pipeline.beatthis_backend:BeatThisBackend",
+      "checkpoint": "weights/beatthis-mirex.ckpt",
+      "fps": 50.0,
+      "description": "No-SMC/no-GTZAN allowed-validation-selected MIREX checkpoint."
+    },
+    "mscnn-icassp": {
+      "status": "download-icassp-release",
+      "adapter": "mirex_pipeline.beatthis_backend:BeatThisBackend",
+      "checkpoint": "weights/mscnn-icassp.ckpt",
+      "fps": 50.0,
+      "description": "ICASSP protocol fold-0 checkpoint; train folds 1–7, test fold 0. Not the full eight-fold result."
+    },
+    "mscnn-mirex": {
+      "status": "download-mirex-release",
+      "adapter": "mirex_pipeline.beatthis_backend:BeatThisBackend",
+      "checkpoint": "weights/mscnn-mirex.ckpt",
+      "fps": 50.0,
+      "description": "No-SMC/no-GTZAN allowed-validation-selected MIREX checkpoint."
+    },
+    "tcn-icassp": {
+      "status": "download-icassp-release",
+      "adapter": "mirex_pipeline.tcn_backend:TCNBackend",
+      "checkpoint": "weights/tcn-icassp.ckpt",
+      "fps": 50.0,
+      "description": "ICASSP protocol fold-0 checkpoint; train folds 1–7, test fold 0. Not the full eight-fold result."
+    },
+    "tcn-mirex": {
+      "status": "included-small-example",
+      "adapter": "mirex_pipeline.tcn_backend:TCNBackend",
+      "checkpoint": "weights/tcn-mirex.ckpt",
+      "fps": 50.0,
+      "description": "No-SMC/no-GTZAN allowed-validation-selected MIREX checkpoint; included in Git for a minimal smoke test."
+    }
+  }
+}

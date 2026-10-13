@@ -1,37 +1,29 @@
-**/local_audio/
-**/__pycache__/
 .DS_Store
-~$*
-*.aux
-*.bbl
-*.blg
-*.fdb_latexmk
-*.fls
-*.log
-*.out
-*.synctex.gz
-*.egg-info/
+.venv/
 .pytest_cache/
+__pycache__/
+*.pyc
+*.egg-info/
 build/
 dist/
 
-# Private MIREX checkpoint and dependency artifacts are packaged separately.
+# Release assets are downloaded separately; keep only the small TCN example.
 /mirex2026/weights/*
-!/mirex2026/weights/beatthis_mirex.ckpt
-!/mirex2026/weights/mscnn_mirex.ckpt
-!/mirex2026/weights/tcn_mirex.ckpt
+!/mirex2026/weights/tcn-mirex.ckpt
 !/mirex2026/weights/README.md
-!/mirex2026/weights/manifest.json
-/mirex2026/.private_beatthis_source/
-/mirex2026/.private_beatfm_source/
-/mirex2026/.private_mert_v1_95m/
 /mirex2026/submission-builds/
+/mirex2026/.private_*/
+/mirex2026/backbone-retrain/
+/mirex2026/experiments/
+/mirex2026/scripts/
+/mirex2026/tests/
+/mirex2026/results/
 
-# Publish curated figure archives, not the full private research workspace.
-/archive/*
-!/archive/README.md
-!/archive/.gitattributes
-!/archive/MANIFEST.json
-!/archive/verify_archive.py
-!/archive/01-used/
-!/archive/02-unused/
+# Research workspaces are preserved on mirex_submission, not public main.
+/archive/
+/experiments/figures/fig02b-wrong.png
+/self-run-figures/
+/gpt-figures/
+/Paper/
+/src/
+/tests/

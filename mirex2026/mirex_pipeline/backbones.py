@@ -1,9 +1,4 @@
-"""Manifest-driven audio frontend registry.
-
-BeatThis and MSCNN share the audited Audio2Frames adapter in the project fork.
-BeatFM has a private-source adapter, but remains unusable until the audited
-source/MERT paths and a validated checkpoint are supplied.
-"""
+"""Manifest-driven audio frontend registry for public inference weights."""
 
 from __future__ import annotations
 
@@ -85,7 +80,8 @@ def load_backbone(
     if not checkpoint.is_file():
         raise FileNotFoundError(
             f"checkpoint for {name!r} is missing: {checkpoint}. "
-            "Build the final bundle or pass --checkpoint."
+            "Download the matching checkpoint ZIP from the GitHub Release "
+            "and extract it into mirex2026/weights/ (see the README)."
         )
     adapter_class = _load_class(spec.adapter)
     return adapter_class(checkpoint=checkpoint, device=device, fps=spec.fps)

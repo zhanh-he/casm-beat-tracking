@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""MIREX 2026 single-file inference entry point."""
+"""Single-file ICASSP/MIREX inference entry point."""
 
 from mirex_pipeline.cli import main
 

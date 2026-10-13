@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "activation_contract": {
+    "fps": 50.0,
+    "outputs": [
+      "beat_logits",
+      "downbeat_logits"
+    ]
+  },
+  "backbones": {
+    "beatthis": {
+      "status": "selected-checkpoint-private",
+      "adapter": "mirex_pipeline.beatthis_backend:BeatThisBackend",
+      "checkpoint": "weights/beatthis_mirex.ckpt",
+      "fps": 50.0,
+      "description": "Primary no-SMC, GTZAN-held-out backbone; the 2026-10-07 submission uses seed 2, zero-based epoch 119, selected on allowed validation from the 3,783-piece training split."
+    },
+    "mscnn": {
+      "status": "selected-checkpoint-private",
+      "adapter": "mirex_pipeline.beatthis_backend:BeatThisBackend",
+      "checkpoint": "weights/mscnn_mirex.ckpt",
+      "fps": 50.0,
+      "description": "Secondary lightweight backbone; the allowed-validation screen selected the seed-0 last epoch 1499 train-split checkpoint."
+    },
+    "tcn": {
+      "status": "selected-checkpoint-private",
+      "adapter": "mirex_pipeline.tcn_backend:TCNBackend",
+      "checkpoint": "weights/tcn_mirex.ckpt",
+      "fps": 50.0,
+      "description": "No-SMC TCN; seed 0, zero-based epoch 119 selected on allowed validation from the 3783-piece train split."
+    },
+    "beatfm": {
+      "status": "selected-verified-subset-checkpoint-private",
+      "adapter": "mirex_pipeline.beatfm_backend:BeatFMBackend",
+      "checkpoint": "weights/beatfm.ckpt",
+      "fps": 50.0,
+      "description": "No-SMC 911-piece Ballroom/RWC train-split candidate; epoch 15 selected on the 137-piece allowed validation panel. Expanded-data comparison and source redistribution rights remain pending."
+    }
+  }
+}

@@ -1,27 +1,27 @@
-# CASM figure archive
+# Backup archive
 
-This public archive preserves our figure outputs and selected plotting
-materials. It is deliberately split so that the figures currently selected
-for the paper appear first:
+The `backup` branch shares its active files with `main`. Only this directory
+is extra; public inference, tests, paper results, and the online demo use the
+files outside it.
 
-1. [`01-used/`](01-used/) — exact copies of the three current paper-facing
-   figures in [`../experiments/figures/`](../experiments/figures/), plus
-   historical plotting code and relevant small inputs.
-2. [`02-unused/`](02-unused/) — earlier self-rendered outputs, candidate
-   galleries, old manuscript illustrations, and their available source
-   materials. These are **not** current paper results.
+[`mirex-submission/`](mirex-submission/) preserves the complete tracked tree
+of the former `mirex_submission` branch at
+`04ea2db` (including its existing figure archive, submission weights,
+training scripts, experiment results, and handoff notes). Its original Git
+history is also retained by this branch's merge commit. Historical documents
+and configurations in the snapshot describe that submission, not the current
+public interface.
 
-Every archived binary/source file has a SHA-256 and original Git-object
-reference in [`MANIFEST.json`](MANIFEST.json). Run
-`python archive/verify_archive.py` from the repository root to check that
-all archived files are present and unchanged. Git history is retained, so
-the original paths can also be inspected.
+Make shared maintenance changes outside `archive/`, verify them on `backup`,
+and cherry-pick those commits onto `main`. Keep archive-only commits on
+`backup`. To check synchronization:
 
-The old full research workspace is **not** stored here. Raw audio, third-party
-reading PDFs, model checkpoints, virtual environments, and large experiment
-caches are excluded. Some historic plotting bundles therefore cannot be
-fully rerun from this curated archive alone; their README files describe the
-available inputs and missing dependencies. The old Figure 3 ablation
-visualization includes an in-sample TCN–SMC panel and is archived only under
-`02-unused/` with an explicit invalid-evaluation warning. Do not use it as
-benchmark evidence.
+```sh
+git diff main backup -- . ':!archive'
+```
+
+To run the original figure archive checker against its preserved snapshot:
+
+```sh
+python archive/mirex-submission/archive/verify_archive.py
+```

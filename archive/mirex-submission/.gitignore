@@ -1,0 +1,37 @@
+**/local_audio/
+**/__pycache__/
+.DS_Store
+~$*
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+
+# Private MIREX checkpoint and dependency artifacts are packaged separately.
+/mirex2026/weights/*
+!/mirex2026/weights/beatthis_mirex.ckpt
+!/mirex2026/weights/mscnn_mirex.ckpt
+!/mirex2026/weights/tcn_mirex.ckpt
+!/mirex2026/weights/README.md
+!/mirex2026/weights/manifest.json
+/mirex2026/.private_beatthis_source/
+/mirex2026/.private_beatfm_source/
+/mirex2026/.private_mert_v1_95m/
+/mirex2026/submission-builds/
+
+# Publish curated figure archives, not the full private research workspace.
+/archive/*
+!/archive/README.md
+!/archive/.gitattributes
+!/archive/MANIFEST.json
+!/archive/verify_archive.py
+!/archive/01-used/
+!/archive/02-unused/

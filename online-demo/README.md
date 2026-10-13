@@ -31,8 +31,9 @@ The published clips and their provenance are documented in
 ## Generated assets
 
 The published demo data and visualization are committed in this directory. The
-historical generator and its frozen source bundle are retained under
-`archive/figure-workspaces/`, but are not required to view or use the demo.
+historical generator and its frozen source bundle remain on the
+[`mirex_submission` research branch](https://github.com/zhanh-he/casm-beat-tracking/tree/mirex_submission/archive),
+but are not required to view or use the demo.
 
 ## Optional local preview
 

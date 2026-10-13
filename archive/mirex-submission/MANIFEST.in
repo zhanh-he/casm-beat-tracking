@@ -1,0 +1,4 @@
+include README.md
+recursive-include casm *.py *.json *.md
+recursive-include experiments *.py *.json *.csv *.md *.sbatch *.tex
+recursive-include online-demo *.html *.css *.js *.json *.md

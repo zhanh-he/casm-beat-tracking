@@ -1,4 +1,4 @@
-"""Command-line interface for the MIREX 2026 inference matrix."""
+"""Command-line interface for the public CASM backbone matrix."""
 
 from __future__ import annotations
 
@@ -15,18 +15,19 @@ from .decoders import make_decoder
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_MANIFEST = ROOT / "config" / "backbones.json"
-DEFAULT_CASM_CONFIG = ROOT / "config" / "casm-no-smc.json"
+MIREX_CASM_CONFIG = ROOT / "config" / "casm-no-smc.json"
+ICASSP_CASM_CONFIG = ROOT.parent / "casm" / "config" / "casm-7f-default.json"
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Run a MIREX backbone with Direct, DBN, or CASM decoding."
+        description="Run a BeatThis, MSCNN, or TCN backbone with Direct, DBN, or CASM decoding."
     )
     parser.add_argument("input", nargs="?", type=Path, help="single input WAV")
     parser.add_argument("output", nargs="?", type=Path, help="event-time text file")
-    parser.add_argument("--backbone", default="beatthis")
+    parser.add_argument("--backbone", default="beatthis-mirex")
     parser.add_argument(
-        "--decoder", choices=("direct", "dbn", "dbn55_215", "dbn30_300", "casm", "plpdp"), default="casm"
+        "--decoder", choices=("direct", "dbn", "dbn55_215", "dbn30_300", "casm"), default="casm"
     )
     parser.add_argument(
         "--task",
@@ -36,7 +37,10 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--checkpoint", type=Path)
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
-    parser.add_argument("--casm-config", type=Path, default=DEFAULT_CASM_CONFIG)
+    parser.add_argument(
+        "--casm-config", type=Path,
+        help="override the protocol-specific CASM default (7F for ICASSP, no-SMC for MIREX)",
+    )
     dbn_group = parser.add_mutually_exclusive_group()
     dbn_group.add_argument(
         "--dbn-bpm",
@@ -112,8 +116,11 @@ def main(argv: list[str] | None = None) -> None:
         parser.error("input and output are required unless --list-backbones is used")
     if not args.input.is_file():
         raise FileNotFoundError(args.input)
-    if args.decoder == "casm" and not args.casm_config.is_file():
-        raise FileNotFoundError(args.casm_config)
+    casm_config = args.casm_config or (
+        ICASSP_CASM_CONFIG if args.backbone.endswith("-icassp") else MIREX_CASM_CONFIG
+    )
+    if args.decoder == "casm" and not casm_config.is_file():
+        raise FileNotFoundError(casm_config)
 
     backbone = load_backbone(
         args.backbone,
@@ -124,7 +131,7 @@ def main(argv: list[str] | None = None) -> None:
     activations = backbone.predict(args.input)
     decoder = make_decoder(
         "dbn" if args.decoder.startswith("dbn") else args.decoder,
-        casm_config=args.casm_config,
+        casm_config=casm_config,
         dbn_bpm=resolved_dbn_bpm(args),
     )
     beats, downbeats = decoder.decode(activations)

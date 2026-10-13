@@ -32,7 +32,7 @@ The published clips and their provenance are documented in
 
 The published demo data and visualization are committed in this directory. The
 historical generator and its frozen source bundle remain on the
-[`mirex_submission` research branch](https://github.com/zhanh-he/casm-beat-tracking/tree/mirex_submission/archive),
+[`backup` archive](https://github.com/zhanh-he/casm-beat-tracking/tree/backup/archive/mirex-submission/archive),
 but are not required to view or use the demo.
 
 ## Optional local preview

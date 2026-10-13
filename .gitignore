@@ -19,7 +19,7 @@ dist/
 /mirex2026/tests/
 /mirex2026/results/
 
-# Research workspaces are preserved on mirex_submission, not public main.
+# Research workspaces are preserved in archive/ on the backup branch.
 /archive/
 /experiments/figures/fig02b-wrong.png
 /self-run-figures/

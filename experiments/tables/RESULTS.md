@@ -61,7 +61,7 @@ A publishable GTZAN mean ± standard deviation requires the frozen 7F decoder to
 
 This table separates verified results from recovery work. The historical
 checksum inventory is preserved on the
-[`mirex_submission` research branch](https://github.com/zhanh-he/casm-beat-tracking/blob/mirex_submission/casm/weights/manifest.json).
+[`backup` archive](https://github.com/zhanh-he/casm-beat-tracking/blob/backup/archive/mirex-submission/casm/weights/manifest.json).
 
 ## Evaluation definitions
 

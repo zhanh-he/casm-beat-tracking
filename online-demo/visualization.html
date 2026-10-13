@@ -103,7 +103,6 @@ body { padding: 2px 0 12px; }
       letter-spacing: 0;
       overflow-wrap: anywhere;
     }
-    #decoder-contrast-real-v2 .subtitle,
     #decoder-contrast-real-v2 .case-summary {
       margin: 0;
       letter-spacing: 0;
@@ -113,7 +112,6 @@ body { padding: 2px 0 12px; }
     #decoder-contrast-real-v2 .case-field select { max-width: 100%; }
     #decoder-contrast-real-v2 .case-field__heading { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
     #decoder-contrast-real-v2 .control-hint { color: var(--muted-foreground); font-size: 13px; font-weight: 550; }
-    #decoder-contrast-real-v2 .subtitle { font-size: 15px; font-weight: 550; color: var(--muted-foreground); }
     #decoder-contrast-real-v2 .case-summary {
       padding: 9px 7px;
       color: var(--foreground);
@@ -313,7 +311,6 @@ body { padding: 2px 0 12px; }
     }
     @media (min-width: 901px) {
       #decoder-contrast-real-v2 h2 { font-size: 19px; }
-      #decoder-contrast-real-v2 .subtitle { font-size: 12px; line-height: 1.35; }
       #decoder-contrast-real-v2 .form-label { font-size: 12px; }
       #decoder-contrast-real-v2 .form-select { min-height: 36px; margin-top: 3px; padding-top: 4px; padding-bottom: 4px; }
       #decoder-contrast-real-v2 .case-summary { padding: 7px 0; font-size: 12.5px; line-height: 1.38; }
@@ -349,8 +346,7 @@ body { padding: 2px 0 12px; }
     <section class="control-pane" aria-label="Demo controls and decoder metrics">
       <div class="figure-head">
         <div>
-          <h2>Beat decoding results on the same activations</h2>
-          <p class="subtitle text-small"></p>
+          <h2>Beat decoding results on the same activations (via BeatThis)</h2>
         </div>
         <label class="case-field form-label" for="decoder-contrast-case-v2">
           <span class="case-field__heading"><strong>Track Selection</strong></span>
@@ -382,7 +378,7 @@ body { padding: 2px 0 12px; }
       <div class="case-reflection">
         <p class="case-summary text-small" aria-live="polite"></p>
       </div>
-      <p class="protocol-note"><strong>Mean absolute error (MAE)</strong> between the decoded and reference <strong>inter-beat interval (IBI) curves</strong> shows how closely each decoder follows changes in the reference beat spacing. Measured in seconds (<strong>lower is better</strong>). SMC examples use a uniform beat click due to the lack of downbeat annotations in the dataset, while GTZAN examples use distinct clicks for beats and downbeats.</p>
+      <p class="protocol-note"><strong>Mean absolute error (MAE)</strong> between the decoded and reference <strong>inter-beat interval (IBI) curves</strong> shows how closely each decoder follows changes in the reference beat spacing. Measured in seconds (<strong>lower is better</strong>). Selected pieces are from the held-out test set. SMC examples use a uniform beat click due to the lack of downbeat annotations in the dataset, while GTZAN examples use distinct clicks for beats and downbeats.</p>
     </section>
     <div class="chart-wrap">
       <svg role="img" aria-labelledby="decoder-contrast-title-v2 decoder-contrast-desc-v2">
@@ -400,7 +396,6 @@ body { padding: 2px 0 12px; }
     const DEMO = true;
     const root = document.getElementById('decoder-contrast-real-v2');
     const select = root.querySelector('.form-select');
-    const subtitle = root.querySelector('.subtitle');
     const summary = root.querySelector('.case-summary');
     const tableBody = root.querySelector('tbody');
     const slider = root.querySelector('.form-range');
@@ -451,8 +446,6 @@ body { padding: 2px 0 12px; }
     function updateCase(resetWindow = false) {
       const entry = CASES[activeCase];
       const d = entry.data;
-      const trackLabel = entry.label.replace(/^SMC\s+/, 'SMC · ');
-      subtitle.textContent = `${trackLabel} · held-out test piece · via Beat This`;
       const local = d.casm_analysis.period_seconds.slice().sort((a, b) => a - b);
       const q = p => local[Math.min(local.length - 1, Math.floor(p * local.length))];
       summary.textContent = DEMO ? entry.summary : `${entry.summary} Global fixed τ = ${d.fixed_semimarkov.period_seconds.toFixed(2)} s; CASM local τ 10–90% = ${q(.1).toFixed(2)}–${q(.9).toFixed(2)} s.`;

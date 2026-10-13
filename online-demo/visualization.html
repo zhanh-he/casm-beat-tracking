@@ -556,6 +556,7 @@ body { padding: 2px 0 12px; }
       const extent = d3.extent(intervalValues);
       const pad = Math.max(.12, (extent[1] - extent[0]) * .12);
       const intervalDomain = d3.scaleLinear().domain([Math.max(0, extent[0] - pad), extent[1] + pad]).nice().domain();
+      if (CASES[activeCase].id === 'smc-001') intervalDomain[1] = 1.9;
       const panelScale = panel => d3.scaleLinear().domain(intervalDomain).range([panel.bottom - 5, panel.top + 5]);
 
       svg.attr('viewBox', `0 0 ${width} ${height}`);

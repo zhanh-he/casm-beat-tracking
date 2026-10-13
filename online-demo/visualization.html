@@ -124,6 +124,7 @@ body { padding: 2px 0 12px; }
     #decoder-contrast-real-v2 .case-reflection {
       margin: 12px 0 9px;
       padding: 5px 0;
+      background: #fff;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
     }
@@ -381,8 +382,7 @@ body { padding: 2px 0 12px; }
       <div class="case-reflection">
         <p class="case-summary text-small" aria-live="polite"></p>
       </div>
-      <p class="protocol-note">SMC examples use a uniform beat click due to the lack of downbeat annotations in the dataset, while GTZAN examples use distinct clicks for beats and downbeats.</p>
-      <p class="protocol-note"><strong>Mean absolute error (MAE)</strong> between the decoded and reference <strong>inter-beat interval (IBI) curves</strong> shows how closely each decoder follows changes in the reference beat spacing. Measured in seconds (<strong>lower is better</strong>).</p>
+      <p class="protocol-note"><strong>Mean absolute error (MAE)</strong> between the decoded and reference <strong>inter-beat interval (IBI) curves</strong> shows how closely each decoder follows changes in the reference beat spacing. Measured in seconds (<strong>lower is better</strong>). SMC examples use a uniform beat click due to the lack of downbeat annotations in the dataset, while GTZAN examples use distinct clicks for beats and downbeats.</p>
     </section>
     <div class="chart-wrap">
       <svg role="img" aria-labelledby="decoder-contrast-title-v2 decoder-contrast-desc-v2">

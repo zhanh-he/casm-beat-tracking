@@ -14,15 +14,14 @@ CASM is a semi-Markov decoder for framewise beat and downbeat activations. This 
 - Our paper introduces the method and submitted to **ICASSP2027** (regular 8-fold cross-validation).
 - We also apply it in **MIREX2026** challenge, the required setup is different (not 8-fold, retrained BeatThis/ MSCNN/ TCN). **This is not a repeat conference-paper submission** [PDF].
 
-<!-- Figure 1 uses the paper figure below. Replace the Figure 2 placeholder
-     when the MIREX system overview is ready. -->
+<!-- Editable Figure 2 source: experiments/figures/readme/mirex-system.pptx. -->
 <p align="center">
   <img src="experiments/figures/fig02b-correct.png" width="860" alt="Paper Figure 1: CASM behaviour on real BeatThis activations">
 </p>
 <p align="center"><sub>CASM performance · Paper Figure 1</sub></p>
 
 <p align="center">
-  <img src="experiments/figures/readme/mirex-system.svg" width="860" alt="Reserved space for the MIREX 2026 system overview">
+  <img src="experiments/figures/readme/mirex-system.png" width="860" alt="System overview with three backbones and six post-processor options">
 </p>
 <p align="center"><sub>MIREX 2026 · System overview</sub></p>
 ## Get started

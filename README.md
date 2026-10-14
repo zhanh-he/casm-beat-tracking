@@ -6,7 +6,7 @@
 
 [![Demo](https://img.shields.io/badge/Demo-audio_examples-4173c8)](https://zhanh-he.github.io/casm-beat-tracking/)
 [![Weights](https://img.shields.io/badge/Weights-checkpoints-c88638)](https://github.com/zhanh-he/casm-beat-tracking/releases)
-[![ICASSP paper](https://img.shields.io/badge/ICASSP_2027-full_paper-cd5c5c)](paper_icassp2027_casm.pdf)
+[![arXiv paper](https://img.shields.io/badge/arXiv-full_paper-cd5c5c)](https://arxiv.org/abs/2610.09318)
 [![MIREX abstract](https://img.shields.io/badge/MIREX_2026-challenge_abstract-708238)](mirex2026/ABSTRACT.md)
 
 </div>
@@ -27,8 +27,9 @@ CASM is a confidence-adaptive semi-Markov decoder for framewise beat and
 downbeat activations. This repository contains the small standalone CASM
 package, a WAV-to-events inference interface, the ICASSP 2027 paper results,
 and the [interactive audio demo](https://zhanh-he.github.io/casm-beat-tracking/).
-The paper introduces the method; our MIREX 2026 entries apply it in a
-competition setting and are **not a repeat conference-paper submission**.
+
+- The paper introduces the method; our MIREX 2026 entries apply it in a
+  competition setting and are **not a repeat conference-paper submission**.
 
 ## Get started
 

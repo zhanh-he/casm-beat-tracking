@@ -1,14 +1,15 @@
 # README figures
 
-The two SVGs are blank layout placeholders, not experimental results.
+The root README uses the existing paper figure for Figure 1 and keeps a blank
+placeholder for Figure 2.
 
 | Slot | Final content |
 |---|---|
-| `casm-performance.svg` | Paper Figure 1 showing CASM's performance. |
+| [`../fig02b-correct.png`](../fig02b-correct.png) | Paper Figure 1 showing CASM's behaviour. |
 | `mirex-system.svg` | Author-provided MIREX system overview / graphical abstract. |
 
-Replace each SVG with the final figure. If using PNG instead, update the two
-image paths in the repository's root `README.md`. Use a white or transparent
+Replace `mirex-system.svg` with the final Figure 2. If using PNG instead, update
+its image path in the repository's root `README.md`. Use a white or transparent
 background and a wide layout; the README displays each figure at up to 860 px.
 
 The MIREX abstract badge links to `mirex2026/ABSTRACT.md`. Add the final abstract

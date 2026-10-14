@@ -1,8 +1,6 @@
 <div align="center">
 
-# CASM
-
-**Confidence-adaptive semi-Markov decoding for beat and downbeat tracking**
+## CASM: Context-Aware Semi-Markov Post-Processor For Beat Tracking
 
 [![Demo](https://img.shields.io/badge/Demo-audio_examples-4173c8)](https://zhanh-he.github.io/casm-beat-tracking/)
 [![Weights](https://img.shields.io/badge/Weights-checkpoints-c88638)](https://github.com/zhanh-he/casm-beat-tracking/releases)
@@ -11,10 +9,15 @@
 
 </div>
 
-<!-- Replace the two placeholders with the final figures. Keep the image paths
-     below in sync with experiments/figures/readme/README.md. -->
+CASM is a semi-Markov decoder for framewise beat and downbeat activations. This repository contains the pip CASM package, a WAV-to-events interface, and the [interactive audio demo](https://zhanh-he.github.io/casm-beat-tracking/).
+
+- Our paper introduces the method and submitted to **ICASSP2027** (regular 8-fold cross-validation).
+- We also apply it in **MIREX2026** challenge, the required setup is different (not 8-fold, retrained BeatThis/ MSCNN/ TCN). **This is not a repeat conference-paper submission** [PDF].
+
+<!-- Figure 1 uses the paper figure below. Replace the Figure 2 placeholder
+     when the MIREX system overview is ready. -->
 <p align="center">
-  <img src="experiments/figures/readme/casm-performance.svg" width="860" alt="Reserved space for CASM performance, paper Figure 1">
+  <img src="experiments/figures/fig02b-correct.png" width="860" alt="Paper Figure 1: CASM behaviour on real BeatThis activations">
 </p>
 <p align="center"><sub>CASM performance · Paper Figure 1</sub></p>
 
@@ -22,15 +25,6 @@
   <img src="experiments/figures/readme/mirex-system.svg" width="860" alt="Reserved space for the MIREX 2026 system overview">
 </p>
 <p align="center"><sub>MIREX 2026 · System overview</sub></p>
-
-CASM is a confidence-adaptive semi-Markov decoder for framewise beat and
-downbeat activations. This repository contains the small standalone CASM
-package, a WAV-to-events inference interface, the ICASSP 2027 paper results,
-and the [interactive audio demo](https://zhanh-he.github.io/casm-beat-tracking/).
-
-- The paper introduces the method; our MIREX 2026 entries apply it in a
-  competition setting and are **not a repeat conference-paper submission**.
-
 ## Get started
 
 For an activation array, install the lightweight decoder and use the

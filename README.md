@@ -1,4 +1,27 @@
-# CASM: beat and downbeat tracking
+<div align="center">
+
+# CASM
+
+**Confidence-adaptive semi-Markov decoding for beat and downbeat tracking**
+
+[![Demo](https://img.shields.io/badge/Demo-audio_examples-4173c8)](https://zhanh-he.github.io/casm-beat-tracking/)
+[![Weights](https://img.shields.io/badge/Weights-checkpoints-c88638)](https://github.com/zhanh-he/casm-beat-tracking/releases)
+[![ICASSP paper](https://img.shields.io/badge/ICASSP_2027-full_paper-cd5c5c)](paper_icassp2027_casm.pdf)
+[![MIREX abstract](https://img.shields.io/badge/MIREX_2026-challenge_abstract-708238)](mirex2026/ABSTRACT.md)
+
+</div>
+
+<!-- Replace the two placeholders with the final figures. Keep the image paths
+     below in sync with experiments/figures/readme/README.md. -->
+<p align="center">
+  <img src="experiments/figures/readme/casm-performance.svg" width="860" alt="Reserved space for CASM performance, paper Figure 1">
+</p>
+<p align="center"><sub>CASM performance · Paper Figure 1</sub></p>
+
+<p align="center">
+  <img src="experiments/figures/readme/mirex-system.svg" width="860" alt="Reserved space for the MIREX 2026 system overview">
+</p>
+<p align="center"><sub>MIREX 2026 · System overview</sub></p>
 
 CASM is a confidence-adaptive semi-Markov decoder for framewise beat and
 downbeat activations. This repository contains the small standalone CASM

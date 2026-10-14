@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320" role="img" aria-labelledby="title desc">
+  <title id="title">MIREX system overview placeholder</title>
+  <desc id="desc">Reserved space for the author-provided MIREX 2026 system overview. No system diagram is shown yet.</desc>
+  <rect x="1" y="1" width="1198" height="318" rx="12" fill="#fff" stroke="#dce1e5" stroke-dasharray="7 7"/>
+  <text x="600" y="154" text-anchor="middle" fill="#747a81" font-family="Arial, Helvetica, sans-serif" font-size="23">MIREX 2026</text>
+  <text x="600" y="188" text-anchor="middle" fill="#9da3a9" font-family="Arial, Helvetica, sans-serif" font-size="16">Reserved for the system overview figure</text>
+</svg>

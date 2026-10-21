@@ -12,7 +12,7 @@
 CASM is a semi-Markov decoder for framewise beat and downbeat activations. This repository contains the pip CASM package, a WAV-to-events interface, and the [interactive audio demo](https://zhanh-he.github.io/casm-beat-tracking/).
 
 - Our paper introduces the method and submitted to **ICASSP2027** (regular 8-fold cross-validation).
-- We also apply our system in **MIREX2026** challenge, achieving top performance across most evaluation sets. Since the required train/test setup is different, the results here differ from our ICASSP paper.
+- We also apply our system in **MIREX2026 challenge, achieving top performance** across most evaluation sets. Since the required train/test setup is different, the results here differ from our ICASSP paper.
 - See our MIREX results in this [extended-abstract (pdf)](https://futuremirex.com/portal/wp-content/uploads/2026/audio-beat-tracking/CASM.pdf) and [MIREX2026 result page (web)](https://music-ir.org/mirex/wiki/2026:Audio_Beat_Tracking_Results).
 
 <!-- Editable Figure 2 source: experiments/figures/readme/mirex-system.pptx. -->

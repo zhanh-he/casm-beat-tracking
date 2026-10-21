@@ -9,7 +9,7 @@
 
 </div>
 
-CASM is a semi-Markov decoder for framewise beat and downbeat activations. This repository contains the pip CASM package, a WAV-to-events interface, and the [interactive audio demo](https://zhanh-he.github.io/casm-beat-tracking/).
+CASM is a semi-Markov decoder for framewise beat and downbeat activations. This repository contains the CASM pip installation package, WAV-to-events interface, and the [online audio demo (web)](https://zhanh-he.github.io/casm-beat-tracking/).
 
 - Our paper introduces the method and submitted to **ICASSP2027** (8-fold cross-validation, regular in beat/downbeat research field).
 - We also apply our system in **MIREX2026 challenge, achieving top performance** across most evaluation sets. Since the required train/test setup is different (not 8-fold), the results here differ from our ICASSP paper.
@@ -40,23 +40,20 @@ madmom-style processor described in [the CASM guide](casm/README.md):
 python -m pip install 'git+https://github.com/zhanh-he/casm-beat-tracking.git'
 ```
 
-For an audio file, use the [inference guide](mirex2026/README.md). It offers
-BeatThis, MSCNN, and TCN under separate ICASSP and MIREX weight protocols,
-with Direct, DBN, and CASM postprocessing. Model checkpoints are distributed
-through [GitHub Releases](https://github.com/zhanh-he/casm-beat-tracking/releases),
-not embedded in the Git history. The tiny `tcn-mirex.ckpt` is included as a
-working example; larger weights go beside it in `mirex2026/weights/` after
-download. The ICASSP package is limited to fold 0 for inspection and **does
-not reproduce the paper's complete eight-fold table**.
+## How to use
+For an input audio file, please refer to the [inference guide](mirex2026/README.md). It supports BeatThis, MSCNN, and TCN backbones under both ICASSP and MIREX weight protocols, with options for Direct peak-picking, CASM, and DBN post-processing. The full model checkpoints are distributed via [GitHub Releases](https://github.com/zhanh-he/casm-beat-tracking/releases). 
+
+- **ICASSP 8-fold protocols:** A lightweight `tcn-mirex.ckpt` is included in this repository as a working example. Downloaded larger weights should be placed in the `mirex2026/weights/` directory. We only provided fold-0 ckpts, more to request by email.
+- **MIREX challenge protocol:** Separate, fully trained model checkpoints are provided. We use a 9:1 train/validation split on the training set, while the test set is held out and evaluated by the MIREX organizers.
 
 ## What is in this repository?
 
 | Folder | Contents |
 |---|---|
-| [`casm/`](casm/) | Standalone decoder, 7F paper default, API documentation, tests. |
-| [`mirex2026/`](mirex2026/) | Public inference interface and six protocol-labelled model choices. |
-| [`experiments/`](experiments/) | Human-readable ICASSP results and selected figures. |
-| [`online-demo/`](online-demo/) | Source for the GitHub Pages listening demo. |
+| [`casm/`](casm/) | Proposed post-processor and its default setup & API documentation. |
+| [`mirex2026/`](mirex2026/) | MIREX2026 submitted system and its interface. |
+| [`experiments/`](experiments/) | ICASSP experiment results and analysis figures. |
+| [`online-demo/`](online-demo/) | Source for the online listening demo. |
 
 The BeatThis architecture and audio frontend come from
 [CPJKU/beat_this](https://github.com/CPJKU/beat_this). We do not claim the
@@ -67,3 +64,8 @@ upstream `final0` or ICASSP fold weight as a held-out SMC MIREX result.
 See the [paper PDF](paper_icassp2027_casm.pdf),
 [result table](experiments/tables/RESULTS.md), and
 [data/annotation protocol](experiments/DATA_AND_ANNOTATIONS.md) for details.
+
+## Acknowledgement and Contact
+Our work is inspired by the PLPDP post-processor “Local Temporal Expectation-based Beat Tracking for Expressive Classical Piano Music” [[GitHub]](sunnycyc.github.io/plpdp4beat-demo/). Thanks their authros' fantastic online demo presentation and well-build experiment workflow.
+
+Any question please contact: zhanh.he.uwa@gmail.com

@@ -303,7 +303,9 @@ A publishable GTZAN mean ± standard deviation requires the frozen 7F decoder to
 | MSCNN-lite | Pending cache recreation; the eight-fold activation cache was purged | Pending three-seed refresh | Three selected checkpoints protected |
 | TCN | Pending frozen-7F refresh | Pending recovery/retraining | `final0` and `final1` recovered; `final2` and fold0–fold7 missing |
 
-This table separates verified results from recovery work. See [`../../casm/weights/README.md`](../../casm/weights/README.md) for the checksum inventory.
+This table separates verified results from recovery work. The historical
+checksum inventory is preserved in the
+[`backup` archive](https://github.com/zhanh-he/casm-beat-tracking/blob/backup/archive/mirex-submission/casm/weights/manifest.json).
 
 ## Evaluation definitions
 

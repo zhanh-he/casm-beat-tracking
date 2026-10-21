@@ -21,7 +21,6 @@ dist/
 
 # Research workspaces are preserved in archive/ on the backup branch.
 /archive/
-/experiments/figures/fig02b-wrong.png
 /self-run-figures/
 /gpt-figures/
 /Paper/

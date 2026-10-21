@@ -1,8 +1,12 @@
 # Backup archive
 
-The `backup` branch shares its active files with `main`. Only this directory
-is extra; public inference, tests, paper results, and the online demo use the
-files outside it.
+This directory is retained only on `backup`. The public code, paper results,
+and online demo live outside it. Release cleanup is staged on `backup` before
+the public files are synchronized to `main`.
+
+[`figure-sources/`](figure-sources/) holds editable figure sources and earlier
+exports. The currently displayed system diagram is
+[`../experiments/figures/fig0-main.jpg`](../experiments/figures/fig0-main.jpg).
 
 [`mirex-submission/`](mirex-submission/) preserves the complete tracked tree
 of the former `mirex_submission` branch at
@@ -12,9 +16,11 @@ history is also retained by this branch's merge commit. Historical documents
 and configurations in the snapshot describe that submission, not the current
 public interface.
 
-Make shared maintenance changes outside `archive/`, verify them on `backup`,
-and cherry-pick those commits onto `main`. Keep archive-only commits on
-`backup`. To check synchronization:
+Make shared maintenance changes outside `archive/` and verify them on
+`backup`. When promoting a cleanup, synchronize only paths outside `archive/`
+to `main`; do not merge archive additions into the public branch. A commit
+that also changes the archive must not be cherry-picked wholesale. To check
+public-file synchronization:
 
 ```sh
 git diff main backup -- . ':!archive'

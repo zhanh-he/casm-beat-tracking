@@ -10,10 +10,12 @@ application of the ICASSP 2027 CASM method, not a repeat paper submission.
 
 Download `mirex-ckpts.zip` from the [checkpoint Release](https://github.com/zhanh-he/casm-beat-tracking/releases)
 and extract its checkpoint files into [`weights/`](weights/), **beside the
-included `tcn-mirex.ckpt`**. The same folder is the destination for
-`icassp-ckpts.zip` when the fold-0 set is published. Extract the ZIP contents
-directly, without an extra directory level. File identities and current
-availability are documented in [`weights/README.md`](weights/README.md).
+included `tcn-mirex.ckpt`**. Extract the ZIP contents directly, without an
+extra directory level. The current Release contains the MIREX package;
+ICASSP fold-0 checkpoints are not included in that ZIP and can be requested
+through the contact in the root README. Put any supplied ICASSP checkpoints
+in the same folder. Filenames and availability are documented in
+[`weights/README.md`](weights/README.md).
 
 The six model names are:
 

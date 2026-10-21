@@ -310,7 +310,10 @@ body { padding: 2px 0 12px; }
       box-shadow: 0 4px 14px color-mix(in srgb, var(--foreground) 16%, transparent);
     }
     @media (min-width: 901px) {
-      #decoder-contrast-real-v2 h2 { font-size: 19px; }
+      #decoder-contrast-real-v2 .figure-head { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+      #decoder-contrast-real-v2 h2 { font-size: 14px; }
+      #decoder-contrast-real-v2 .case-field { display: grid; grid-template-columns: auto minmax(138px, 170px); gap: 12px; align-items: center; justify-content: end; }
+      #decoder-contrast-real-v2 .case-field .form-select { margin-top: 0; }
       #decoder-contrast-real-v2 .form-label { font-size: 12px; }
       #decoder-contrast-real-v2 .form-select { min-height: 36px; margin-top: 3px; padding-top: 4px; padding-bottom: 4px; }
       #decoder-contrast-real-v2 .case-summary { padding: 7px 0; font-size: 12.5px; line-height: 1.38; }

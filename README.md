@@ -12,18 +12,26 @@
 CASM is a semi-Markov decoder for framewise beat and downbeat activations. This repository contains the pip CASM package, a WAV-to-events interface, and the [interactive audio demo](https://zhanh-he.github.io/casm-beat-tracking/).
 
 - Our paper introduces the method and submitted to **ICASSP2027** (regular 8-fold cross-validation).
-- We also apply it in **MIREX2026** challenge, the required setup is different (not 8-fold, retrained BeatThis/ MSCNN/ TCN). **This is not a repeat conference-paper submission** [PDF].
+- We also apply our system in **MIREX2026** challenge, achieving top performance across most evaluation sets. Since the required train/test setup is different, the results here differ from our ICASSP paper.
+- See our MIREX results in this [extended-abstract (pdf)](https://futuremirex.com/portal/wp-content/uploads/2026/audio-beat-tracking/CASM.pdf) and [MIREX2026 result page (web)](https://music-ir.org/mirex/wiki/2026:Audio_Beat_Tracking_Results).
 
 <!-- Editable Figure 2 source: experiments/figures/readme/mirex-system.pptx. -->
 <p align="center">
-  <img src="experiments/figures/fig02b-correct.png" width="860" alt="Paper Figure 1: CASM behaviour on real BeatThis activations">
+  <img src="experiments/figures/fig1-github.jpg" width="860" alt="Paper Figure 1: CASM behaviour on real BeatThis activations">
 </p>
-<p align="center"><sub>CASM performance · Paper Figure 1</sub></p>
+<p align="center"><sub> ICASSP2027 Submitted Paper Figure 1</sub></p>
+
+> [!NOTE]
+> **About Figure 1:** 
+> The under-review version used DBN's default `beats_per_bar=[3,4]` to maintain a fair comparison (resulted in left figure). However, the SMC001/032 should use `beats_per_bar=[2]` for optimal DBN performance (resulted in right figure). If been accepted, the camera-ready will update its Figure 1 to the Right-side version.
+> **Key Takeaway:** This perfectly shows a weakness of DBN post-processor. Without correct manual tuning (based on prior knowledge), DBN often shows terrible performance.
+
 
 <p align="center">
   <img src="experiments/figures/readme/mirex-system.png" width="860" alt="System overview with three backbones and six post-processor options">
 </p>
-<p align="center"><sub>MIREX 2026 · System overview</sub></p>
+<p align="center"><sub>MIREX2026 System overview</sub></p>
+
 ## Get started
 
 For an activation array, install the lightweight decoder and use the

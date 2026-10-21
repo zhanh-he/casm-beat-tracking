@@ -59,15 +59,10 @@ Download larger checkpoints from Releases into the same folder. See the
 | [`experiments/`](experiments/) | ICASSP experiment results and analysis figures. |
 | [`online-demo/`](online-demo/) | Source for the online listening demo. |
 
-The BeatThis architecture and audio frontend come from
-[CPJKU/beat_this](https://github.com/CPJKU/beat_this). We do not claim the
-backbone as our method. ICASSP evaluates the paper's eight-fold protocol;
-MIREX weights use a separate no-SMC/no-GTZAN development pool. Never use an
-upstream `final0` or ICASSP fold weight as a held-out SMC MIREX result.
 
-See the [paper on arXiv](https://arxiv.org/abs/2610.09318),
-[result table](experiments/tables/RESULTS.md), and
-[data/annotation protocol](experiments/DATA_AND_ANNOTATIONS.md) for details.
+BeatThis architecture and audio frontend come from [CPJKU/beat_this](https://github.com/CPJKU/beat_this), while the MSCNN and TCN backbones come from [our previous work](https://github.com/zhanh-he/piano-dynamic-estimation). For a fair comparison, we modified the audio frontends of MSCNN and TCN to match that of BeatThis. This unified setup allows all models to utilize the 8-fold training data splits provided by BeatThis [[Zenodo]](https://zenodo.org/records/13922116).
+
+See the [ICASSP protocol full result table](experiments/tables/RESULTS.md), and [data/annotation protocol](experiments/DATA_AND_ANNOTATIONS.md) for details. MIREX challenge uses a different data arrangement; please read our MIREX challenge abstract for further information.
 
 ## Acknowledgement and Contact
 Our work is inspired by the PLPDP post-processor “Local Temporal Expectation-based Beat Tracking for Expressive Classical Piano Music” [[GitHub]](https://sunnycyc.github.io/plpdp4beat-demo/). Thanks their authros' fantastic online demo presentation and well-build experiment workflow.

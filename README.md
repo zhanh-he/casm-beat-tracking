@@ -25,7 +25,7 @@ CASM is a semi-Markov decoder for framewise beat and downbeat activations. This 
 > The under-review version used DBN's default `beats_per_bar=[3,4]` to maintain a fair comparison (resulted in left figure). However, the SMC001/032 should use `beats_per_bar=[2]` for optimal DBN performance (resulted in right figure). If been accepted, the camera-ready will update its Figure 1 to the Right-side version.
 > **Key Takeaway:** This perfectly shows a weakness of DBN post-processor. Without correct manual tuning (based on prior knowledge), DBN often shows terrible performance.
 
-<!-- Editable Figure 2 source: experiments/figures/readme/mirex-system.pptx. -->
+<!-- Editable system diagram: experiments/figures/fig0-mirex-system/mirex-system.pptx. -->
 <p align="center">
   <img src="experiments/figures/fig1-main.jpg" width="780" alt="Paper Figure 1: CASM behaviour on real BeatThis activations"><br>
   <sub>ICASSP 2027 Submitted Paper Figure 1</sub>

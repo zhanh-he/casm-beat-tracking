@@ -16,23 +16,21 @@ CASM is a semi-Markov decoder for framewise beat and downbeat activations. This 
 - See our MIREX results in this [extended-abstract (pdf)](https://futuremirex.com/portal/wp-content/uploads/2026/audio-beat-tracking/CASM.pdf) and [MIREX2026 result page (web)](https://music-ir.org/mirex/wiki/2026:Audio_Beat_Tracking_Results).
 
 <p align="center">
-  <img src="experiments/figures/readme/mirex-system.png" width="720" alt="System overview with three backbones and six post-processor options"><br>
+  <img src="experiments/figures/readme/mirex-system.png" width="780" alt="System overview with three backbones and six post-processor options"><br>
   <sub>MIREX 2026 System overview</sub>
 </p>
 
-<br> <!-- 增加一个换行，让两张图之间留出呼吸感 -->
-
-<!-- Editable Figure 2 source: experiments/figures/readme/mirex-system.pptx. -->
-<p align="center">
-  <img src="experiments/figures/fig1-github.jpg" width="720" alt="Paper Figure 1: CASM behaviour on real BeatThis activations"><br>
-  <sub>ICASSP 2027 Submitted Paper Figure 1</sub>
-</p>
 
 > [!NOTE]
 > **About Figure 1:** 
 > The under-review version used DBN's default `beats_per_bar=[3,4]` to maintain a fair comparison (resulted in left figure). However, the SMC001/032 should use `beats_per_bar=[2]` for optimal DBN performance (resulted in right figure). If been accepted, the camera-ready will update its Figure 1 to the Right-side version.
 > **Key Takeaway:** This perfectly shows a weakness of DBN post-processor. Without correct manual tuning (based on prior knowledge), DBN often shows terrible performance.
 
+<!-- Editable Figure 2 source: experiments/figures/readme/mirex-system.pptx. -->
+<p align="center">
+  <img src="experiments/figures/fig1-github.jpg" width="780" alt="Paper Figure 1: CASM behaviour on real BeatThis activations"><br>
+  <sub>ICASSP 2027 Submitted Paper Figure 1</sub>
+</p>
 
 ## Get started
 

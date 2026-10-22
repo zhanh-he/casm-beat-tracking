@@ -58,6 +58,36 @@ a { color: inherit; }
 
 .site-heading { min-width: 0; }
 
+.project-authors {
+  margin: 10px 0 3px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.project-affiliations {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.project-authors sup,
+.project-affiliations sup { color: #137b76; margin-right: 2px; }
+.project-affiliations span { display: inline-block; }
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-self: end;
+  gap: 8px;
+}
+
+.project-notes {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 6px;
+}
+
 .eyebrow,
 .section-kicker {
   margin: 0 0 8px;
@@ -107,7 +137,6 @@ h2 {
 }
 
 .submission-note strong { color: var(--foreground); }
-.submission-note__line { display: block; }
 
 .github-link,
 .command,
@@ -143,6 +172,9 @@ h2 {
   border-color: #111418;
   background: #111418;
 }
+
+.paper-link { background: #fff; color: var(--foreground); }
+.paper-link:hover { background: var(--soft); }
 
 .github-link svg,
 .command svg,
@@ -379,7 +411,7 @@ footer { padding: 22px 0 34px; }
   }
 
   .site-header__inner { grid-template-columns: minmax(0, 1fr); }
-  .github-link { justify-self: start; }
+  .project-links { justify-self: start; }
 
   h1 { font-size: 30px; }
   .method-switch { grid-template-columns: repeat(3, minmax(0, 1fr)); }
